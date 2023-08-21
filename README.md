@@ -1,10 +1,18 @@
-# Getting Started with Create React App
+# Yamak Prompt Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Yamak Prompt: Harnessing AI's potential, this initiative utilizes GPT-3.5 to generate relevant and coherent content in response to user prompts. It showcases AI's role in enhancing creativity and productivity across various tasks.
 
-## Available Scripts
+## To run the project locally, follow the below steps:
+
+Clone the project
+
+### `git clone https://github.com/Neuvida-Technologies-Private-Limited/yamak-prompt-frontend.git`
 
 In the project directory, you can run:
+
+### `npm install`
+
+When all the dependencies are installed then ;
 
 ### `npm start`
 
@@ -39,8 +47,3 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
