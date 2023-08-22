@@ -6,10 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        regalblue: "#448BF7",
-        vividTangerine: "#FF653C",
-        internationalOrange: "#f94514",
-        activeBlue: "#246DEF",
+        primary: "#448BF7",
+        secondary: "#FF653C",
+        hoverPrimary: "#f94514",
+        hoverSecondary: "#246DEF",
       },
       fontFamily: {
         rubik: "'Rubik', serif",
