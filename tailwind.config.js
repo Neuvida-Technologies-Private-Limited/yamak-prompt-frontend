@@ -18,6 +18,11 @@ module.exports = {
         barlow: "'Barlow', sans-serif",
         raleway: "'Raleway', sans-serif",
       },
+      screens: {
+        sm: "390px",
+        md: "960px",
+        lg: "1440px",
+      },
     },
   },
   plugins: [],
