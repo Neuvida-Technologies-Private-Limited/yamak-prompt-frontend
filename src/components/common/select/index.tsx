@@ -1,13 +1,13 @@
 import React from "react";
 import { Select } from "antd";
 
-interface OptionsProps {
+interface OptionsItems {
   value: string;
   label: string;
 }
 
 interface SelectProps {
-  options: OptionsProps[];
+  options: OptionsItems[];
   className?: string;
   placeholder?: string;
 }
