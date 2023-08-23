@@ -10,10 +10,11 @@ interface ButtonProps {
   size:SizeType;
   type: "link" | "text" | "default" | "primary" | "dashed"; 
   shape:"default" | "circle" | "round" | undefined;
+  href?:string
 }
 
-const button: React.FC<ButtonProps> = ({ icon, name, className, color, size, type, shape}) => (
-  <Button className={className} icon={icon} color={color} size={size} type={type} shape={shape}  >
+const button: React.FC<ButtonProps> = ({ icon, name, className, color, size, type, shape, href}) => (
+  <Button className={className} icon={icon} color={color} size={size} type={type} shape={shape} href={href} >
     {name}
   </Button>
 );
