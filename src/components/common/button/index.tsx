@@ -6,7 +6,7 @@ interface ButtonProps {
   icon?: ReactNode;
   name?: string;
   className?: string;
-  color: string;
+  color?: string;
   size:SizeType;
   type: "link" | "text" | "default" | "primary" | "dashed"; 
   shape:"default" | "circle" | "round" | undefined;

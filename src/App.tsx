@@ -1,4 +1,4 @@
-
+import Card from "./components/helpers/card";
 
 function App() {
   return (

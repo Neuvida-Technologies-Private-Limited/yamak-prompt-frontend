@@ -23,3 +23,7 @@ export enum ButtonShape {
     CIRCLE = 'circle',
     ROUND = 'round' 
 }
+export enum CardConst {
+    CopyPrompt = "Copy Prompt",
+    Likes = "5.1M"
+}
