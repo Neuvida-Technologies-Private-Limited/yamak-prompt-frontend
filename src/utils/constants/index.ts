@@ -3,5 +3,6 @@ export enum CardConst {
     Likes = "5.1M"
 }
 export enum SidebarConst {
-    Menu = "Menu"
+    Menu = "Menu",
+    Default = "/library"
 }

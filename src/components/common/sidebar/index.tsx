@@ -62,7 +62,7 @@ const Index: React.FC = () => {
         </span>
         <div className="flex justify-between flex-col h-full">
           <Menu
-            defaultSelectedKeys={["/library"]}
+            defaultSelectedKeys={[SidebarConst.Default]}
             mode="inline"
             onClick={(item) => {
               navigate(item.key);
