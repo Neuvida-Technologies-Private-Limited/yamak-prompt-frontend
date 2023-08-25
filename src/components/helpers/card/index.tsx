@@ -19,6 +19,7 @@ const buttons = [
   { icon: <DislikeOutlined />, name: CardConst.Likes },
   { icon: <HeartOutlined /> },
   { icon: <WarningOutlined /> },
+  
 ];
 
 const index: React.FC<CardProps> = ({ heading, subHeading }) => {

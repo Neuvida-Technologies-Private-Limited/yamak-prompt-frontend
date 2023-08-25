@@ -1,9 +1,10 @@
-import Card from "./components/helpers/card";
+import {Sidebar} from "./components/common";
 
 function App() {
   return (
     <div className="">
       "Hello"
+      <Sidebar />
     </div>
   );
 }
