@@ -29,7 +29,6 @@ const select: React.FC<SelectProps> = ({
     value={value}
     placeholder={placeholder}
     className={className}
-    style={{ width: 120 }}
     onChange={handleChange}
     options={options}
   />
