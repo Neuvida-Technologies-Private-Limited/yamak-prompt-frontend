@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   AppstoreOutlined,
   GroupOutlined,
@@ -8,65 +9,74 @@ import {
   SendOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import type { MenuProps } from "antd";
+
 import { Layout, Menu } from "antd";
 //constants
 import { SidebarConst } from "../../../utils/constants";
 
-const { Sider } = Layout;
-
-type MenuItem = Required<MenuProps>["items"][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  disabled?: boolean,
-  children?: MenuItem[]
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    disabled,
-  } as MenuItem;
+interface LinkItem {
+  label: React.ReactNode;
+  key: React.Key;
+  icon?: React.ReactNode;
+  disabled?: boolean;
 }
 
-const items1: MenuItem[] = [
-  getItem(SidebarConst.Library, "1", <AppstoreOutlined />),
-  getItem(SidebarConst.Workspace, "2", <LayoutOutlined />),
-  getItem(SidebarConst.KeyManagement, "3", <KeyOutlined />),
-  getItem(SidebarConst.Deployment, "4", <SendOutlined />, true),
-  getItem(SidebarConst.Cases, "5", <GroupOutlined />, true),
+const items1: LinkItem[] = [
+  { key: "/library", label: "Library/Repository", icon: <AppstoreOutlined /> },
+  { key: "/workspace", label: "Workspace", icon: <LayoutOutlined /> },
+  { key: "/keyManagement", label: "Key Management", icon: <KeyOutlined /> },
+  {
+    key: "/deployment",
+    label: "Deployment",
+    icon: <SendOutlined />,
+    disabled: true,
+  },
+  {
+    key: "/testCases",
+    label: "Test Cases",
+    icon: <GroupOutlined />,
+    disabled: true,
+  },
 ];
-const items2: MenuItem[] = [
-  getItem(SidebarConst.Profile,"6",<UserOutlined />),
-  getItem(SidebarConst.Logout, "7", <LogoutOutlined />),
+const items2: LinkItem[] = [
+  { key: "/profile", label: "Ekta Sharma", icon: <UserOutlined /> },
+  { key: "/logout", label: "Logout", icon: <LogoutOutlined /> },
 ];
 
+const { Sider } = Layout;
+
 const Index: React.FC = () => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <Layout className="h-screen">
+    
       <Sider
         collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
+        className="h-screen border-r border-gray-300"
       >
-        <span className="flex font-poppins pl-5 font-bold text-gray-500">{SidebarConst.Menu}</span>
+        <span className="flex font-poppins pl-5 pt-4 font-bold text-gray-500">
+          {SidebarConst.Menu}
+        </span>
         <div className="flex justify-between flex-col h-full">
           <Menu
-            defaultSelectedKeys={["1"]}
+            defaultSelectedKeys={["/library"]}
             mode="inline"
+            onClick={(item) => {
+              navigate(item.key);
+            }}
             items={items1}
-            className="font-poppins "
+            className="font-raleway text-xs"
           />
-          <Menu mode="inline" className="menu2 font-poppins mb-10 " items={items2} />
+          <Menu
+            mode="inline"
+            className="menu2 font-raleway text-xs mb-14 "
+            items={items2}
+          />
         </div>
       </Sider>
-    </Layout>
   );
 };
 

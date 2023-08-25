@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="navbar">
       <Layout>
-        <Layout.Header className="nav-header bg-white flex justify-between items-center  border-b-2">
+        <Layout.Header className="nav-header bg-white flex justify-between items-center  border-b border-gray-300 sm:px-4 md:px-6">
           <div className="flex justify-between w-full items-center">
             <div className="logo flex">
               <img src="/assets/logo/logo.svg" alt="" className="" />
