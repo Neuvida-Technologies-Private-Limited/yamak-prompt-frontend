@@ -23,3 +23,13 @@
   .ant-menu-inline-collapsed > .ant-menu-item-disabled .ant-menu-item-icon{
     color: gray !important;
   }
+  .ant-input {
+    font-family: 'Poppins', serif ;
+  }
+  /* .ant-input-affix-wrapper:hover{
+    border-color: #FF653C !important;
+  }
+  .ant-input-affix-wrapper-focused {
+    border-color: #FF653C !important;
+    box-shadow: none !important;
+  } */
