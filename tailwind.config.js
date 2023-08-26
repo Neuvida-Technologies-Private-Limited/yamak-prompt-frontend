@@ -10,6 +10,7 @@ module.exports = {
         secondary: "#FF653C",
         hoverPrimary: "#f94514",
         hoverSecondary: "#246DEF",
+        bgSecondary:"#FCF8F8",
       },
       fontFamily: {
         rubik: "'Rubik', serif",
