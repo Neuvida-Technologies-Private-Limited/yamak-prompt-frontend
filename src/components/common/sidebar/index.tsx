@@ -22,29 +22,37 @@ interface LinkItem {
 }
 
 const items1: LinkItem[] = [
-  { key: Paths.Home, label: "Library/Repository", icon: <AppstoreOutlined /> },
-  { key: Paths.Workspace, label: "Workspace", icon: <LayoutOutlined /> },
+  { 
+    key: Paths.Home,
+    label: SidebarConst.Library,
+    icon: <AppstoreOutlined /> 
+  },
+  {
+    key: Paths.Workspace,
+    label: SidebarConst.Workspace,
+    icon: <LayoutOutlined />,
+  },
   {
     key: Paths.KeyManagement,
-    label: "Key Management",
+    label: SidebarConst.KeyManagement,
     icon: <KeyOutlined />,
   },
   {
     key: Paths.Deployment,
-    label: "Deployment",
+    label: SidebarConst.Deployment,
     icon: <SendOutlined />,
     disabled: true,
   },
   {
     key: Paths.TestCases,
-    label: "Test Cases",
+    label: SidebarConst.TestCases,
     icon: <GroupOutlined />,
     disabled: true,
   },
 ];
 const items2: LinkItem[] = [
-  { key: Paths.Profile, label: "Ekta Sharma", icon: <UserOutlined /> },
-  { key: "/", label: "Logout", icon: <LogoutOutlined /> },
+  { key: Paths.Profile, label: SidebarConst.Profile, icon: <UserOutlined /> },
+  { key: "/", label: SidebarConst.Logout, icon: <LogoutOutlined /> },
 ];
 
 const { Sider } = Layout;
