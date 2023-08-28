@@ -1,1 +1,2 @@
-export { default as Card } from "./card";
+export { default as LibraryCard } from './library/card';
+export { default as SpaceCard } from './workspace/card';
