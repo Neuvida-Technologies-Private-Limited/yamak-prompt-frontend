@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  AppstoreOutlined,
-  GroupOutlined,
-  KeyOutlined,
-  LayoutOutlined,
-  LogoutOutlined,
-  SendOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { FiKey, FiLayout, FiSend, FiLogOut } from 'react-icons/fi';
+import { GoStack } from 'react-icons/go';
+import { BsHddStack } from 'react-icons/bs';
+import { AiOutlineUser } from 'react-icons/ai';
 
 import { Layout, Menu } from 'antd';
 //constants
@@ -25,34 +20,34 @@ const ApplicationModules: LinkItem[] = [
   {
     key: Paths.Home,
     label: SidebarConst.Library,
-    icon: <AppstoreOutlined />,
+    icon: <GoStack />,
   },
   {
     key: Paths.Workspace,
     label: SidebarConst.Workspace,
-    icon: <LayoutOutlined />,
+    icon: <FiLayout />,
   },
   {
     key: Paths.KeyManagement,
     label: SidebarConst.KeyManagement,
-    icon: <KeyOutlined />,
+    icon: <FiKey />,
   },
   {
     key: Paths.Deployment,
     label: SidebarConst.Deployment,
-    icon: <SendOutlined />,
+    icon: <FiSend />,
     disabled: true,
   },
   {
     key: Paths.TestCases,
     label: SidebarConst.TestCases,
-    icon: <GroupOutlined />,
+    icon: <BsHddStack />,
     disabled: true,
   },
 ];
 const Profile: LinkItem[] = [
-  { key: Paths.Profile, label: SidebarConst.Profile, icon: <UserOutlined /> },
-  { key: '/', label: SidebarConst.Logout, icon: <LogoutOutlined /> },
+  { key: Paths.Profile, label: SidebarConst.Profile, icon: <AiOutlineUser /> },
+  { key: '/', label: SidebarConst.Logout, icon: <FiLogOut /> },
 ];
 
 const { Sider } = Layout;
