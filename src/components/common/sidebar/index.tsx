@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   AppstoreOutlined,
   GroupOutlined,
@@ -8,11 +8,11 @@ import {
   LogoutOutlined,
   SendOutlined,
   UserOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 
-import { Layout, Menu } from "antd";
+import { Layout, Menu } from 'antd';
 //constants
-import { Paths, SidebarConst } from "../../../utils/constants";
+import { Paths, SidebarConst } from '../../../utils/constants';
 
 interface LinkItem {
   label: React.ReactNode;
@@ -21,11 +21,11 @@ interface LinkItem {
   disabled?: boolean;
 }
 
-const items1: LinkItem[] = [
-  { 
+const ApplicationModules: LinkItem[] = [
+  {
     key: Paths.Home,
     label: SidebarConst.Library,
-    icon: <AppstoreOutlined /> 
+    icon: <AppstoreOutlined />,
   },
   {
     key: Paths.Workspace,
@@ -50,9 +50,9 @@ const items1: LinkItem[] = [
     disabled: true,
   },
 ];
-const items2: LinkItem[] = [
+const Profile: LinkItem[] = [
   { key: Paths.Profile, label: SidebarConst.Profile, icon: <UserOutlined /> },
-  { key: "/", label: SidebarConst.Logout, icon: <LogoutOutlined /> },
+  { key: '/', label: SidebarConst.Logout, icon: <LogoutOutlined /> },
 ];
 
 const { Sider } = Layout;
@@ -65,7 +65,7 @@ const Index: React.FC = () => {
     <Sider
       collapsible
       collapsed={collapsed}
-      onCollapse={(value) => setCollapsed(value)}
+      onCollapse={value => setCollapsed(value)}
       className="h-screen border-r border-gray-300"
     >
       <span className="flex font-poppins pl-5 pt-4 font-bold text-gray-500">
@@ -75,19 +75,19 @@ const Index: React.FC = () => {
         <Menu
           defaultSelectedKeys={[Paths.Home]}
           mode="inline"
-          onClick={(item) => {
+          onClick={item => {
             navigate(item.key);
           }}
-          items={items1}
+          items={ApplicationModules}
           className="font-raleway text-xs"
         />
         <Menu
           mode="inline"
           className="menu2 font-raleway text-xs mb-14"
-          onClick={(item) => {
+          onClick={item => {
             navigate(item.key);
           }}
-          items={items2}
+          items={Profile}
         />
       </div>
     </Sider>

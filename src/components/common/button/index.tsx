@@ -5,7 +5,7 @@ interface ButtonProps {
   icon?: ReactNode;
   name?: string;
   className?: string;
-  size:"small" | "middle" | "large";
+  size:"small" | "middle" | "large" | undefined;
   type: "link" | "text" | "default" | "primary" | "dashed"; 
   shape:"default" | "circle" | "round" | undefined;
   href?:string

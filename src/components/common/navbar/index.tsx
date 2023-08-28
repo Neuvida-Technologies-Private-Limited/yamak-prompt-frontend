@@ -1,48 +1,15 @@
-import React, { useState } from "react";
-import { Layout, Button, Drawer } from "antd";
-import RightMenu from "./RightMenu";
-import { MenuOutlined } from "@ant-design/icons";
+import React from 'react';
+import { Layout } from 'antd';
+import { IconPaths } from '../../../utils/constants';
 
 const Navbar: React.FC = () => {
-  const [visible, setVisible] = useState<boolean>(false);
-  const showDrawer = () => {
-    setVisible(!visible);
-  };
-
   return (
     <nav className="navbar">
       <Layout>
-        <Layout.Header className="nav-header bg-white flex justify-between items-center  border-b border-gray-300 sm:px-4 md:px-6">
-          <div className="flex justify-between w-full items-center">
-            <div className="logo flex">
-              <img src="/assets/logo/logo.svg" alt="" className="" />
-              <img src="/assets/logo/Yamakai.svg" alt="" className="" />
-            </div>
-            <div className="h-full md:flex sm:hidden">
-              <RightMenu
-                mode={"horizontal"}
-                className="gap-5 cursor-pointer border-none"
-              />
-            </div>
-          </div>
-
-          <div className="navbar-menu justify-center items-center  md:hidden sm:flex">
-            <Button
-              className="menuButton justify-center items-center"
-              type="text"
-              onClick={showDrawer}
-            >
-              <MenuOutlined />
-            </Button>
-            <Drawer
-              placement="right"
-              closable={true}
-              onClose={showDrawer}
-              visible={visible}
-              className="z-99999"
-            >
-              <RightMenu mode={"horizontal"} className="gap-5 border-none" />
-            </Drawer>
+        <Layout.Header className="nav-header bg-white flex justify-between items-center border-b border-gray-300 sm:px-4 md:px-6">
+          <div className="logo flex">
+            <img src={IconPaths.LOGO} alt="logo" className="" />
+            <img src={IconPaths.YAMAK} alt="yamak" className="" />
           </div>
         </Layout.Header>
       </Layout>
