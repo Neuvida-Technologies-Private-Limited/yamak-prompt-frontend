@@ -20,3 +20,8 @@ export enum SidebarConst {
   Profile = "Ekta Sharma",
   Logout = "Logout",
 }
+export enum IconPaths {
+   POCKET = "/assets/icons/pocket.svg",
+   DOWNLOAD = "/assets/icons/download.svg",
+   VECTOR = "/assets/icons/Vector.svg",
+}

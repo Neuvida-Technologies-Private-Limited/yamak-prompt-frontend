@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
+import {IconPaths} from "../../../utils/constants"
 
 interface RightMenuProps {
   mode: "horizontal" | "vertical" | "inline" | undefined;
@@ -7,9 +8,9 @@ interface RightMenuProps {
 }
 
 const icons = [
-    {src:"/assets/icons/pocket.svg"},
-    {src:"/assets/icons/download.svg"},
-    {src:"/assets/icons/Vector.svg"},
+    {src: IconPaths.POCKET },
+    {src: IconPaths.DOWNLOAD},
+    {src: IconPaths.VECTOR},
 ]
 
 const RightMenu: React.FC<RightMenuProps> = ({ mode, className }) => {
