@@ -1,19 +1,35 @@
 import React from 'react';
-import { Workspace } from '../../../../utils/constants';
 import { FiMoreVertical } from 'react-icons/fi';
+import { Workspace } from 'utils/constants';
 
-const index: React.FC = () => {
+interface WorkspaceCardProps {
+  heading: string;
+  createdBy: string;
+  createdOn: string;
+}
+
+const index: React.FC<WorkspaceCardProps> = ({
+  heading,
+  createdOn,
+  createdBy,
+}) => {
   return (
     <div className="font-poppins w-1/4 p-3 border-2 rounded-lg flex flex-col justify-between gap-10">
       <div className="flex items-center justify-between">
-        <h1 className="text-bold text-lg">{Workspace.Space1}</h1>
+        <h1 className="text-bold text-lg text-black">{heading}</h1>
         <div className="cursor-pointer rounded-3xl p-1 hover:bg-white transition">
           <FiMoreVertical />
         </div>
       </div>
-      <div className="flex flex-col text-xs text-gray-400 font-light">
-        <label>{Workspace.CreatedBy}</label>
-        <label>{Workspace.CreatedOn}</label>
+      <div className="flex flex-col text-xs text-gray400 font-light">
+        <div className="flex">
+          <label>{Workspace.CreatedBy}</label>
+          <p className="pl-1">{createdBy}</p>
+        </div>
+        <div className="flex">
+          <label>{Workspace.CreatedOn}</label>
+          <p className="pl-1">{createdOn}</p>
+        </div>
       </div>
     </div>
   );

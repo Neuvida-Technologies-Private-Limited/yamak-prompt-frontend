@@ -30,7 +30,6 @@ export enum TOKENS {
   USER_TYPE_TOKEN = 'user_type_token',
 }
 export enum Workspace {
-  Space1 = 'Space 1',
-  CreatedBy = 'Created by : Deepak Sharma',
-  CreatedOn = 'Created on : 12th Feb 2023',
+  CreatedBy = 'Created by :',
+  CreatedOn = 'Created on :',
 }
