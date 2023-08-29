@@ -20,8 +20,8 @@ module.exports = {
         raleway: "'Raleway', sans-serif",
       },
       screens: {
-        sm: "390px",
-        md: "960px",
+        sm: "320px",
+        md: "768px",
         lg: "1440px",
       },
     },

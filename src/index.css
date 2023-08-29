@@ -2,24 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-.ant-layout-sider-children{
-    background: white;
+.ant-layout-sider-children {
+  background: white;
 }
-.ant-layout-sider-trigger{
-    background-color: #FF653C !important;
+.ant-layout-sider-trigger {
+  background-color: #ff653c !important;
 }
-.ant-menu-light .ant-menu-item-selected{
-    background-color: #F6E6E6;
+.ant-menu-light .ant-menu-item-selected {
+  background-color: #f6e6e6;
 }
 .ant-menu-light.ant-menu-inline .ant-menu-item {
-    color: black ;
+  color: black;
 }
-.ant-menu-inline-collapsed >.ant-menu-item .ant-menu-item-icon {
-    color: black !important;
+.ant-menu-inline-collapsed > .ant-menu-item .ant-menu-item-icon {
+  color: black !important;
 }
 .ant-menu-item .ant-menu-item-disabled {
-    color: gray !important;
-  }
-  .ant-menu-inline-collapsed > .ant-menu-item-disabled .ant-menu-item-icon{
-    color: gray !important;
-  }
+  color: gray !important;
+}
+.ant-menu-inline-collapsed > .ant-menu-item-disabled .ant-menu-item-icon {
+  color: gray !important;
+}
+.ant-input {
+  font-family: 'Poppins', serif;
+}
