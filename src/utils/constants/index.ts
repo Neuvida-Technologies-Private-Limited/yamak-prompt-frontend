@@ -32,4 +32,11 @@ export enum TOKENS {
 export enum Workspace {
   CreatedBy = 'Created by :',
   CreatedOn = 'Created on :',
+  Workspaces = 'Workspaces',
+  Subhead1 = 'Welcome to our Workspace!!',
+  Subhead2 = 'Explore the area where you are spending your most time of creating prompt and enhancing them...',
+  Create = 'Create Workspace',
+  Subhead3 = 'Provide the following details to create a workspace',
+  Name = 'Workspace Name',
+  Select = 'Select Your Model Key',
 }

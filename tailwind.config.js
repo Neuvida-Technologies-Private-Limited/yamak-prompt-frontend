@@ -4,14 +4,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#448BF7',
-        secondary: '#FF653C',
+        primary: '#FF653C',
+        secondary: '#448BF7',
         hoverPrimary: '#f94514',
         hoverSecondary: '#246DEF',
         bgSecondary: '#FCF8F8',
         black: '#1D1D1D',
         gray800: '#2D313F',
+        gray500: '#D6E4EC',
         gray400: '#1d1d1d66',
+        gray100: '#FBFBFB',
       },
       fontFamily: {
         rubik: "'Rubik', serif",
