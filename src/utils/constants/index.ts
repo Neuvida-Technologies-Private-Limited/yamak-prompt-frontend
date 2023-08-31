@@ -39,4 +39,7 @@ export enum Workspace {
   Subhead3 = 'Provide the following details to create a workspace',
   Name = 'Workspace Name',
   Select = 'Select Your Model Key',
+  KeyName = 'Enter Key Name',
+  LLMProvider = 'Enter LLM Provider',
+  LLMKey = 'Enter LLM Key',
 }
