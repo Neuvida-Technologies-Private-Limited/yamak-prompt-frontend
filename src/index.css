@@ -43,3 +43,14 @@
   font-size: 20px;
   letter-spacing: -0.4px;
 }
+.ant-modal-footer {
+  display: flex !important;
+  align-items: flex-start !important;
+}
+.ant-modal-footer .ant-btn-default {
+  display: none !important;
+}
+.ant-modal .ant-modal-footer .ant-btn + .ant-btn {
+  background-color: #ff653c !important;
+  font-family: 'Poppins', serif;
+}
