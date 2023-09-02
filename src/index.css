@@ -54,3 +54,20 @@
   background-color: #ff653c !important;
   font-family: 'Poppins', serif;
 }
+
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: #1d1d1d !important;
+  font-weight: 900;
+  font-family: 'Poppins';
+  font-size: 18px;
+}
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border: 1px solid #d9d9d9 !important;
+}
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  font-family: 'Poppins' !important;
+  font-size: 14px !important;
+  padding: 24px !important;
+  border-radius: 12px !important;
+}
