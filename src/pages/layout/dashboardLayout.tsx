@@ -10,7 +10,7 @@ const dashboardLayout: React.FC = () => {
       <Navbar />
       <Layout className="h-screen" hasSider>
         <Sidebar />
-        <Content>
+        <Content className="bg-white">
           <Outlet />
         </Content>
       </Layout>

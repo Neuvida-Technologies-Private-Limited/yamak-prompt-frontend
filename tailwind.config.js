@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#FF653C',
-        secondary: '#448BF7',
+        secondary: '#0923A6',
         hoverPrimary: '#f94514',
         hoverSecondary: '#246DEF',
         bgSecondary: '#FCF8F8',
@@ -13,6 +13,7 @@ module.exports = {
         gray800: '#2D313F',
         gray500: '#D6E4EC',
         gray400: '#1d1d1d66',
+        gray200: '#f4f4f4',
         gray100: '#FBFBFB',
       },
       fontFamily: {

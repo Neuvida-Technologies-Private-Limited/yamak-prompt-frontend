@@ -26,8 +26,13 @@
 .ant-input {
   font-family: 'Poppins', serif;
 }
-.ant-btn-default:hover {
+.createWorkspace.ant-btn-default:hover {
   color: white !important;
+}
+.publishedBtn.ant-btn-default:hover {
+  color: white !important;
+  border: 2px solid #0923a6 !important;
+  background-color: #0923a6;
 }
 .ant-modal-root .ant-modal-mask {
   position: fixed;
@@ -54,6 +59,12 @@
   background-color: #ff653c !important;
   font-family: 'Poppins', serif;
 }
+.workspaceSearch .ant-input-affix-wrapper {
+  padding: 8px 18px !important;
+}
+.ant-input-search .ant-input-search-button {
+  height: 39px !important;
+}
 
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
   color: #1d1d1d !important;
@@ -70,4 +81,9 @@
   font-size: 14px !important;
   padding: 24px !important;
   border-radius: 12px !important;
+  height: 100%;
+  align-items: flex-start !important;
+}
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+  height: 100%;
 }

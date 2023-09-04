@@ -5,7 +5,7 @@ export enum CardConst {
 export enum Paths {
   Home = '/home',
   KeyManagement = '/home/keyManagement',
-  Workspace = '/home/workspace',
+  Workspace = '/home/workspaceDashboard',
   Deployment = '/home/deployment',
   TestCases = '/home/testCases',
   Profile = '/home/profile',
@@ -43,3 +43,19 @@ export enum Workspace {
   LLMProvider = 'Enter LLM Provider',
   LLMKey = 'Enter LLM Key',
 }
+export const workspaces = [
+  {
+    link: '/home/workspace1',
+    heading: 'Space 1',
+    createdBy: 'Deepak Sharma',
+    createdOn: '30 Aug 2023',
+    label: 'Workspace1',
+  },
+  {
+    link: '/home/workspace2',
+    heading: 'Space 2',
+    createdBy: 'Deepak Sharma',
+    createdOn: '2 Sept 2023',
+    label: 'Workspace2',
+  },
+];

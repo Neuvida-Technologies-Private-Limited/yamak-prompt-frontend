@@ -1,9 +1,17 @@
-import { KeyManagement, Library, Profile, Workspace } from 'pages';
+import {
+  KeyManagement,
+  Library,
+  Profile,
+  WorkspaceDashboard,
+  Workspaces,
+} from 'pages';
 import React from 'react';
+import { workspaces } from 'utils/constants';
 
 interface Route {
   path: string;
   element: React.ComponentType<any>;
+  props?: any;
 }
 
 export const routes: Route[] = [
@@ -12,8 +20,8 @@ export const routes: Route[] = [
     element: Library,
   },
   {
-    path: '/home/workspace',
-    element: Workspace,
+    path: '/home/workspaceDashboard',
+    element: WorkspaceDashboard,
   },
   {
     path: '/home/keyManagement',
@@ -24,3 +32,10 @@ export const routes: Route[] = [
     element: Profile,
   },
 ];
+
+workspaces.forEach(workspace => {
+  routes.push({
+    path: workspace.link,
+    element: Workspaces,
+  });
+});

@@ -1,8 +1,9 @@
 import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
 import React from 'react';
-import { Workspace } from 'utils/constants';
+import { Link } from 'react-router-dom';
+import { Workspace, workspaces } from 'utils/constants';
 
-const workspace: React.FC = () => {
+const WorkspaceDashboard: React.FC = () => {
   return (
     <div className="flex flex-col p-6">
       <div className="flex justify-between pb-6">
@@ -17,19 +18,18 @@ const workspace: React.FC = () => {
       </div>
       <div className="grid md:grid-cols-2 em:grid-cols-3 lg:grid-cols-4 gap-3">
         {/* Later this section with me made using map method */}
-        <WorkspaceCard
-          heading={'Space 1'}
-          createdBy={'Deepak Sharma'}
-          createdOn={'30 Aug 2023'}
-        />
-        <WorkspaceCard
-          heading={'Space 2'}
-          createdBy={'Deepak Sharma'}
-          createdOn={'30 Aug 2023'}
-        />
+        {workspaces.map(item => (
+          <Link to={item.link} key={item.link}>
+            <WorkspaceCard
+              heading={item.heading}
+              createdBy={item.createdBy}
+              createdOn={item.createdOn}
+            />
+          </Link>
+        ))}
       </div>
     </div>
   );
 };
 
-export default workspace;
+export default WorkspaceDashboard;

@@ -14,10 +14,10 @@ const index: React.FC<WorkspaceCardProps> = ({
   createdBy,
 }) => {
   return (
-    <div className="font-poppins p-3 border-2 rounded-lg flex flex-col justify-between gap-10">
+    <div className="font-poppins p-3 border-2 rounded-lg flex flex-col justify-between gap-10 hover:shadow-md transition-all duration-300 ease-in-out">
       <div className="flex items-center justify-between">
         <h1 className="text-bold text-lg text-black">{heading}</h1>
-        <div className="cursor-pointer rounded-3xl p-1 hover:bg-white transition">
+        <div className="cursor-pointer rounded-3xl p-1 hover:bg-gray200 transition">
           <FiMoreVertical />
         </div>
       </div>

@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 interface StyledInputProps {
   label: string;
   placeholder: string;
-  className: string;
+  className?: string;
 }
 
 const styledInput: React.FC<StyledInputProps> = ({

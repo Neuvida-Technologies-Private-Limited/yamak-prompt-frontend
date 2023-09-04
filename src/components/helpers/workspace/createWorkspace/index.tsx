@@ -26,7 +26,7 @@ const App: React.FC = () => {
         size={'middle'}
         shape={undefined}
         name="Create"
-        className="bg-primary text-white hover:text-white border-none font-poppins hover:bg-hoverPrimary"
+        className="createWorkspace bg-primary text-white hover:text-white border-none font-poppins hover:bg-hoverPrimary"
       />
       <Modal
         title={Workspace.Create}
