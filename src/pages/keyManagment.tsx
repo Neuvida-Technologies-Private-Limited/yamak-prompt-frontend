@@ -10,12 +10,15 @@ const keyManagment: React.FC = () => {
   const deleteManagementHandler = () => {};
 
   return (
-    <div className="p-6">
+    <div className="font-poppins p-6">
       <div className="flex sm:flex-col md:flex-row justify-between sm:items-start md:items-center mb-5 gap-3">
         <Heading children="Key management" />
         <CreateKeyManagement />
       </div>
-      <Text children={keymanagement.message} />
+      <Text
+        children={keymanagement.message}
+        className="text-sm md:text-base sm:w-full md:w-3/4 "
+      />
 
       <div className="mt-14 flex flex-col gap-y-10">
         {keymanagement.inputs.map((input, index) => (

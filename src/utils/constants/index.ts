@@ -73,6 +73,7 @@ export const keymanagement = {
 export enum KeyManagement {
   Title = 'Open AI Key',
   Ok = 'Save the Key',
+  Cancel = 'Test The connection',
   SubHead = 'Enter the key from your LLM Provider in the below boxes',
   Input1Id = 'key-management-title',
   Input1Name = 'key-management-title',

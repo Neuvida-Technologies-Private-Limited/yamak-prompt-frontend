@@ -21,7 +21,7 @@ const App = () => {
         shape={'default'}
         onClick={addKeyButtonHandler}
         name="Add key"
-        className="bg-primary text-white font-bold border-none"
+        className="bg-primary text-white hover:!text-white border-none font-poppins hover:bg-hoverPrimary"
       />
       <Modal
         title={KeyManagement.Title}
@@ -30,6 +30,7 @@ const App = () => {
         onOk={() => setShowModal(true)}
         onCancel={() => setShowModal(false)}
         okText={KeyManagement.Ok}
+        cancelText={KeyManagement.Cancel}
         className="font-poppins flex flex-start"
       >
         <div className="flex flex-col">

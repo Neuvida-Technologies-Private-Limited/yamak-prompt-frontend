@@ -7,9 +7,7 @@ interface Props {
 
 const Text: React.FC<Props> = ({ children, className }) => {
   return (
-    <p
-      className={`text-sm md:text-base text-black opacity-40 sm:w-full md:w-3/4 text-justify ${className}`}
-    >
+    <p className={`text-black opacity-40 text-justify ${className}`}>
       {children}
     </p>
   );
