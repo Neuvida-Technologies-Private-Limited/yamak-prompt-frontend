@@ -6,3 +6,4 @@ export { default as Sidebar } from './sidebar';
 export { default as Navbar } from './navbar';
 export { default as Search } from './search';
 export { default as Tag } from './tag';
+export { default as Tooltip } from './tooltip';

@@ -42,6 +42,7 @@ export enum Workspace {
   KeyName = 'Enter Key Name',
   LLMProvider = 'Enter LLM Provider',
   LLMKey = 'Enter LLM Key',
+  Parameters = 'Parameters',
 }
 export const workspaces = [
   {

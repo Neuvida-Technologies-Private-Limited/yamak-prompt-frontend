@@ -11,6 +11,7 @@ module.exports = {
         bgSecondary: '#FCF8F8',
         black: '#1D1D1D',
         gray800: '#2D313F',
+        gray600: '#AEAEAE',
         gray500: '#D6E4EC',
         gray400: '#1d1d1d66',
         gray200: '#f4f4f4',

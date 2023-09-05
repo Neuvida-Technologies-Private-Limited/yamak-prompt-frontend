@@ -34,6 +34,15 @@
   border: 2px solid #0923a6 !important;
   background-color: #0923a6;
 }
+.parameters.ant-btn-default {
+  box-shadow: 0px 2px 7px 0px #6969691c;
+  height: 40px;
+}
+.parameters.ant-btn-default:hover {
+  color: #1d1d1d !important;
+  box-shadow: 0px 2px 7px 0px #7676765c;
+  border: #f4f4f4 !important;
+}
 .ant-modal-root .ant-modal-mask {
   position: fixed;
   inset: 0;
@@ -86,4 +95,11 @@
 }
 .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
   height: 100%;
+}
+.css-14pt78w-MuiSlider-rail,
+.css-1gv0vcd-MuiSlider-track {
+  color: #d9d9d9;
+}
+.css-eg0mwd-MuiSlider-thumb {
+  color: #ff653c;
 }

@@ -1,5 +1,9 @@
 import { Button, Search } from 'components/common';
-import { WorkspaceInputs } from 'components/helpers';
+import {
+  WorkspaceInputs,
+  WorkspaceOutput,
+  WorkspaceParameters,
+} from 'components/helpers';
 import React from 'react';
 import { HiOutlineRefresh, HiPlus } from 'react-icons/hi';
 
@@ -51,14 +55,18 @@ const Workspace: React.FC<WorkspaceProps> = ({ label }) => {
             className="workspaceSearch"
           />
         </div>
-        <div className="flex"></div>
+        <div className="flex">
+          <WorkspaceParameters />
+        </div>
       </div>
       <div className="flex flex-row h-full px-8">
         <div className="w-1/5 pt-8 pr-6 border-r-2">yo</div>
         <div className="w-2/5 pt-8 px-6">
           <WorkspaceInputs />
         </div>
-        <div className="w-2/5 pt-8 pl-6"></div>
+        <div className="w-2/5 pt-8 pl-6">
+          <WorkspaceOutput />
+        </div>
       </div>
     </div>
   );
