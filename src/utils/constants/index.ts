@@ -60,3 +60,27 @@ export const workspaces = [
     label: 'Workspace2',
   },
 ];
+
+export const keymanagement = {
+  message:
+    "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
+  inputs: [
+    { name: 'Open AI', placeHolder: 'sk-*************************' },
+    { name: 'Bard', placeHolder: 'sk-*************************' },
+  ],
+};
+
+export enum KeyManagement {
+  Title = 'Open AI Key',
+  Ok = 'Save the Key',
+  SubHead = 'Enter the key from your LLM Provider in the below boxes',
+  Input1Id = 'key-management-title',
+  Input1Name = 'key-management-title',
+  Input1Placeholder = 'Enter Key Title',
+  Input2Id = 'key-management-llm-provider',
+  Input2Name = 'key-management-llm-provider',
+  Input2Placeholder = 'Select LLM Provider',
+  Input3Id = 'key-management-sk',
+  Input3Name = 'key-management-sk',
+  Input3Placeholder = 'sk-******************',
+}

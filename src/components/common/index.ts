@@ -7,3 +7,5 @@ export { default as Navbar } from './navbar';
 export { default as Search } from './search';
 export { default as Tag } from './tag';
 export { default as Tooltip } from './tooltip';
+export { default as Heading } from './heading';
+export { default as Text } from './text';

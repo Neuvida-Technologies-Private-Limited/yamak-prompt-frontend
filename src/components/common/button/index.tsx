@@ -23,7 +23,7 @@ const button: React.FC<ButtonProps> = ({
   onClick,
 }) => (
   <Button
-    className={className}
+    className={`flex items-center gap-x-0 ${className}`}
     icon={icon}
     size={size}
     type={type}

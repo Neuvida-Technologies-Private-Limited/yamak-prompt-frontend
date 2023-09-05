@@ -10,6 +10,7 @@ module.exports = {
         hoverSecondary: '#246DEF',
         bgSecondary: '#FCF8F8',
         black: '#1D1D1D',
+        white: '#ffffff',
         gray800: '#2D313F',
         gray600: '#AEAEAE',
         gray500: '#D6E4EC',

@@ -8,8 +8,12 @@ function App() {
       <Router>
         <Routes>
           <Route element={<DashboardLayout />} path="/home">
-            {routes.map(route => (
-              <Route Component={route.element} path={route.path} />
+            {routes.map((route, index) => (
+              <Route
+                key={`route-item-${index}`}
+                Component={route.element}
+                path={route.path}
+              />
             ))}
           </Route>
         </Routes>
