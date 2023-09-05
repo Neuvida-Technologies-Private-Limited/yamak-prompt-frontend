@@ -10,8 +10,8 @@ const App = () => {
   };
 
   const titleChangeHandler = () => {};
-  const LLMChangeHandler = () => {};
-  const SkChangeHandler = () => {};
+  const llmChangeHandler = () => {};
+  const skChangeHandler = () => {};
 
   return (
     <>
@@ -38,25 +38,25 @@ const App = () => {
           <form action="#" method="post">
             <div className="mt-5">
               <Input
-                id={KeyManagement.Input1Id}
-                name={KeyManagement.Input1Name}
+                id={KeyManagement.KeyTitle}
+                name={KeyManagement.KeyTitle}
                 className="p-3 w-full bg-gray100 mb-4"
-                placeholder={KeyManagement.Input1Placeholder}
+                placeholder={KeyManagement.TitlePlaceholder}
                 onChange={titleChangeHandler}
               />
               <Input
-                id={KeyManagement.Input2Id}
-                name={KeyManagement.Input2Name}
+                id={KeyManagement.LLMTitle}
+                name={KeyManagement.LLMTitle}
                 className="p-3 w-full bg-gray100 mb-4"
-                placeholder={KeyManagement.Input2Placeholder}
-                onChange={LLMChangeHandler}
+                placeholder={KeyManagement.LLMPlaceholder}
+                onChange={llmChangeHandler}
               />
               <Input
-                id={KeyManagement.Input3Id}
-                name={KeyManagement.Input3Name}
+                id={KeyManagement.SKTitle}
+                name={KeyManagement.SKTitle}
                 className="p-3 w-full bg-gray100 mb-4"
-                placeholder={KeyManagement.Input3Placeholder}
-                onChange={SkChangeHandler}
+                placeholder={KeyManagement.SKPlaceholder}
+                onChange={skChangeHandler}
               />
             </div>
           </form>

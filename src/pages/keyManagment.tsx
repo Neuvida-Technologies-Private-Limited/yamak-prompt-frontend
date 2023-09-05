@@ -3,7 +3,12 @@ import { Button, Text } from 'components/common';
 import { CreateKeyManagement } from 'components/helpers';
 import React from 'react';
 import { RiSaveLine, RiDeleteBin5Line } from 'react-icons/ri';
-import { keymanagement } from 'utils/constants';
+import { KeyManagement } from 'utils/constants';
+
+const inputs = [
+  { name: 'Open AI', placeHolder: 'sk-*************************' },
+  { name: 'Bard', placeHolder: 'sk-*************************' },
+];
 
 const keyManagment: React.FC = () => {
   const saveManagementHandler = () => {};
@@ -16,12 +21,12 @@ const keyManagment: React.FC = () => {
         <CreateKeyManagement />
       </div>
       <Text
-        children={keymanagement.message}
+        children={KeyManagement.Message}
         className="text-sm md:text-base sm:w-full md:w-3/4 "
       />
 
       <div className="mt-14 flex flex-col gap-y-10">
-        {keymanagement.inputs.map((input, index) => (
+        {inputs.map((input, index) => (
           <div
             key={`key-management-input-${index}`}
             className="w-full flex sm:flex-col md:flex-row sm:items-start md:items-center gap-4"
@@ -37,18 +42,18 @@ const keyManagment: React.FC = () => {
                 type="default"
                 shape="default"
                 onClick={saveManagementHandler}
-                className="!py-4"
+                className="font-poppins !py-4"
                 name="Save"
-                icon={<RiSaveLine size={'1.2em'} />}
+                icon={<RiSaveLine />}
               />
               <Button
                 size="small"
                 type="default"
                 shape="default"
                 onClick={deleteManagementHandler}
-                className="!py-4"
+                className="font-poppins !py-4"
                 name="Delete"
-                icon={<RiDeleteBin5Line size={'1.2em'} />}
+                icon={<RiDeleteBin5Line />}
               />
             </div>
           </div>
