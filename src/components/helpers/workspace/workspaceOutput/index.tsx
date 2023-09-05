@@ -29,7 +29,7 @@ const index: React.FC = () => {
           id={'prompt-title'}
           name={'prompt-title'}
           placeholder={'Prompt Title'}
-          className="p-3"
+          className="p-2"
           onChange={handleChange}
         />
       </div>
