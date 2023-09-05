@@ -35,7 +35,7 @@ const App: React.FC = () => {
         onOk={() => setModal1Open(false)}
         onCancel={() => setModal1Open(false)}
         okText={'Create'}
-        className="font-poppins flex flex-start"
+        className="font-poppins flex flex-start createWorkspace"
       >
         <div className="flex flex-col">
           <p className="text-gray400 pb-3">{Workspace.Subhead3}</p>

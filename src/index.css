@@ -61,7 +61,7 @@
   display: flex !important;
   align-items: flex-start !important;
 }
-.ant-modal-footer .ant-btn-default {
+.createWorkspace .ant-modal-footer .ant-btn-default {
   display: none !important;
 }
 .ant-modal .ant-modal-footer .ant-btn + .ant-btn {
