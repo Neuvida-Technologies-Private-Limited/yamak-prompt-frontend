@@ -12,7 +12,7 @@ const keyManagment: React.FC = () => {
   return (
     <div className="font-poppins p-6">
       <div className="flex sm:flex-col md:flex-row justify-between sm:items-start md:items-center mb-5 gap-3">
-        <Heading children="Key management" />
+        <Heading variant="mainHeading" children="Key management" className="" />
         <CreateKeyManagement />
       </div>
       <Text
