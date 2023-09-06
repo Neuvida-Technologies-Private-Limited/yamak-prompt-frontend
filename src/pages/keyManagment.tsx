@@ -1,7 +1,7 @@
+import React from 'react';
 import { Heading, StyledInput } from 'components/common';
 import { Button, Text } from 'components/common';
 import { CreateKeyModal } from 'components/helpers';
-import React from 'react';
 import { RiSaveLine, RiDeleteBin5Line } from 'react-icons/ri';
 import { KeyManagement } from 'utils/constants';
 

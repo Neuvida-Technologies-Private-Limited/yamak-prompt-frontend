@@ -1,5 +1,5 @@
-import { StyledInput } from 'components/common';
 import React from 'react';
+import { StyledInput } from 'components/common';
 
 const inputs = [
   {

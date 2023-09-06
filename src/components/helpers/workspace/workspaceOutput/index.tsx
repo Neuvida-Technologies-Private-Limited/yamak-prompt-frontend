@@ -1,5 +1,5 @@
-import { Button, Input, StyledInput } from 'components/common';
 import React from 'react';
+import { Button, Input, StyledInput } from 'components/common';
 import { FiBookmark } from 'react-icons/fi';
 
 const buttons = [

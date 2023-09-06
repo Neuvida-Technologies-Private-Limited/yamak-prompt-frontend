@@ -1,10 +1,10 @@
+import React from 'react';
 import { Button, Search } from 'components/common';
 import {
   WorkspaceInputs,
   WorkspaceOutput,
   WorkspaceParameters,
 } from 'components/helpers';
-import React from 'react';
 import { HiOutlineRefresh, HiPlus } from 'react-icons/hi';
 
 interface WorkspaceProps {
