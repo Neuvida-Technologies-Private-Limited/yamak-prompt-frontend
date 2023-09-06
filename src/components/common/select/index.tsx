@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Select } from 'antd';
+import { FiChevronDown } from 'react-icons/fi';
 
 interface OptionsItems {
   value: string;
@@ -30,6 +31,7 @@ const select: React.FC<SelectProps> = ({
     className={className}
     onChange={handleChange}
     options={options}
+    suffixIcon={<FiChevronDown />}
   />
 );
 

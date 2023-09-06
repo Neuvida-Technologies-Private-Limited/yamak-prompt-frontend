@@ -27,7 +27,13 @@ const Parameters: React.FC = () => {
     {
       label: 'Stop Sequences',
       input: (
-        <Input id={''} name={''} placeholder={'0'} onChange={handleChange} />
+        <Input
+          id={''}
+          name={''}
+          placeholder={'0'}
+          onChange={handleChange}
+          className="p-2 w-2/3"
+        />
       ),
       title: 'Sequences Info',
     },
@@ -49,7 +55,13 @@ const Parameters: React.FC = () => {
     {
       label: 'Logit Bias',
       input: (
-        <Input id={''} name={''} placeholder={'0'} onChange={handleChange} />
+        <Input
+          id={''}
+          name={''}
+          placeholder={'0'}
+          onChange={handleChange}
+          className="p-2 w-2/3"
+        />
       ),
       title: 'Logit Bias Info',
     },
@@ -63,7 +75,7 @@ const Parameters: React.FC = () => {
         size={'middle'}
         shape={undefined}
         name={Workspace.Parameters}
-        className="parameters text-black hover:text-black border-gray200 px-6 font-poppins"
+        className="parameters border-gray200 px-6 font-poppins"
       />
       <Modal
         title={Workspace.Parameters}
@@ -72,7 +84,7 @@ const Parameters: React.FC = () => {
         onOk={() => setModal1Open(false)}
         onCancel={() => setModal1Open(false)}
         okText={'Start the key'}
-        className="parameters font-poppins flex w-1/2"
+        className="parameters font-poppins flex !w-1/2"
       >
         <div className="flex flex-col">
           <form action="#" method="post">
