@@ -26,7 +26,13 @@ const Parameters: React.FC = () => {
     {
       label: 'Stop Sequences',
       input: (
-        <Input id={''} name={''} placeholder={'0'} onChange={handleChange} />
+        <Input
+          id={''}
+          name={''}
+          placeholder={'0'}
+          onChange={handleChange}
+          className="p-2 w-2/3"
+        />
       ),
       title: 'Sequences Info',
     },
@@ -48,7 +54,13 @@ const Parameters: React.FC = () => {
     {
       label: 'Logit Bias',
       input: (
-        <Input id={''} name={''} placeholder={'0'} onChange={handleChange} />
+        <Input
+          id={''}
+          name={''}
+          placeholder={'0'}
+          onChange={handleChange}
+          className="p-2 w-2/3"
+        />
       ),
       title: 'Logit Bias Info',
     },
@@ -62,9 +74,10 @@ const Parameters: React.FC = () => {
         size={'middle'}
         shape={undefined}
         name={Workspace.Parameters}
-        className="parameters text-black hover:text-black border-gray200 px-6 font-poppins"
+        className="parameters border-gray200 px-6 font-poppins"
       />
       <Modal
+<<<<<<< HEAD
         title={Workspace.Create}
         centered={true}
         isOpen={showModal}
@@ -72,6 +85,15 @@ const Parameters: React.FC = () => {
         cancelModalHandler={() => setShowModal(false)}
         okText={'Create'}
         className="createWorkspace"
+=======
+        title={Workspace.Parameters}
+        centered
+        open={modal1Open}
+        onOk={() => setModal1Open(false)}
+        onCancel={() => setModal1Open(false)}
+        okText={'Start the key'}
+        className="parameters font-poppins flex !w-1/2"
+>>>>>>> c247774 (Added new color scheme & updated index.css, tailwind.config files)
       >
         <div className="flex flex-col">
           <form action="#" method="post">

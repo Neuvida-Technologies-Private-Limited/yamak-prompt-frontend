@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Search } from 'components/common';
+import { Button, Search, Select } from 'components/common';
 import {
   WorkspaceInputs,
   WorkspaceOutput,
@@ -56,6 +56,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ label }) => {
           />
         </div>
         <div className="flex">
+          <Select options={[]} placeholder="Mode" className="workspace mx-6" />
           <WorkspaceParameters />
         </div>
       </div>
