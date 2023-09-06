@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Collapse, Modal } from 'antd';
+import { Collapse } from 'antd';
 import type { CollapseProps } from 'antd';
-import { Button, Input } from 'components/common';
+import { Button, Input, Modal } from 'components/common';
 import { Workspace } from 'utils/constants';
 import CollapseItem from './collapseItem';
 
 const App: React.FC = () => {
-  const [modal1Open, setModal1Open] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const items: CollapseProps['items'] = [
     {
@@ -22,7 +22,7 @@ const App: React.FC = () => {
     <>
       <Button
         type="default"
-        onClick={() => setModal1Open(true)}
+        onClick={() => setShowModal(true)}
         size={'middle'}
         shape={undefined}
         name="Create"
@@ -30,12 +30,12 @@ const App: React.FC = () => {
       />
       <Modal
         title={Workspace.Create}
-        centered
-        open={modal1Open}
-        onOk={() => setModal1Open(false)}
-        onCancel={() => setModal1Open(false)}
+        centered={true}
+        isOpen={showModal}
+        showModalHandler={() => setShowModal(true)}
+        cancelModalHandler={() => setShowModal(false)}
         okText={'Create'}
-        className="font-poppins flex flex-start createWorkspace"
+        className="createWorkspace"
       >
         <div className="flex flex-col">
           <p className="text-gray400 pb-3">{Workspace.Subhead3}</p>

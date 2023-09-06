@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import { Button, Input } from 'components/common';
-import { Modal } from 'antd';
+import { useState } from 'react';
+import { Button, Input, Modal } from 'components/common';
 import { KeyManagement } from 'utils/constants';
 
 const App = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
+
   const addKeyButtonHandler = () => {
     setShowModal(prev => !prev);
   };
-
   const titleChangeHandler = () => {};
   const llmChangeHandler = () => {};
   const skChangeHandler = () => {};
@@ -23,15 +22,15 @@ const App = () => {
         name="Add key"
         className="bg-primary text-white hover:!text-white border-none font-poppins hover:bg-hoverPrimary"
       />
+
       <Modal
         title={KeyManagement.Title}
-        centered
-        open={showModal}
-        onOk={() => setShowModal(true)}
-        onCancel={() => setShowModal(false)}
+        centered={true}
+        isOpen={showModal}
+        showModalHandler={() => setShowModal(true)}
+        cancelModalHandler={() => setShowModal(false)}
         okText={KeyManagement.Ok}
         cancelText={KeyManagement.Cancel}
-        className="font-poppins flex flex-start"
       >
         <div className="flex flex-col">
           <p className="text-gray400 pb-3">{KeyManagement.SubHead}</p>

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Modal } from 'antd';
-import { Button, Input, Tooltip } from 'components/common';
+import { Button, Input, Tooltip, Modal } from 'components/common';
 import { Workspace } from 'utils/constants';
 import { FiInfo } from 'react-icons/fi';
 import Slider from './slider';
 import { ParameterTypes } from './paraTypes';
 
 const Parameters: React.FC = () => {
-  const [modal1Open, setModal1Open] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleChange = () => {};
 
@@ -59,20 +58,20 @@ const Parameters: React.FC = () => {
     <>
       <Button
         type="default"
-        onClick={() => setModal1Open(true)}
+        onClick={() => setShowModal(true)}
         size={'middle'}
         shape={undefined}
         name={Workspace.Parameters}
         className="parameters text-black hover:text-black border-gray200 px-6 font-poppins"
       />
       <Modal
-        title={Workspace.Parameters}
-        centered
-        open={modal1Open}
-        onOk={() => setModal1Open(false)}
-        onCancel={() => setModal1Open(false)}
-        okText={'Start the key'}
-        className="parameters font-poppins flex w-1/2"
+        title={Workspace.Create}
+        centered={true}
+        isOpen={showModal}
+        showModalHandler={() => setShowModal(true)}
+        cancelModalHandler={() => setShowModal(false)}
+        okText={'Create'}
+        className="createWorkspace"
       >
         <div className="flex flex-col">
           <form action="#" method="post">

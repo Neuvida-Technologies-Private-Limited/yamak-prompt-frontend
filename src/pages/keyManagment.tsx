@@ -1,6 +1,6 @@
 import { Heading, StyledInput } from 'components/common';
 import { Button, Text } from 'components/common';
-import { CreateKeyManagement } from 'components/helpers';
+import { CreateKeyModal } from 'components/helpers';
 import React from 'react';
 import { RiSaveLine, RiDeleteBin5Line } from 'react-icons/ri';
 import { KeyManagement } from 'utils/constants';
@@ -18,7 +18,7 @@ const keyManagment: React.FC = () => {
     <div className="font-poppins p-6">
       <div className="flex sm:flex-col md:flex-row justify-between sm:items-start md:items-center mb-5 gap-3">
         <Heading variant="mainHeading" children="Key management" className="" />
-        <CreateKeyManagement />
+        <CreateKeyModal />
       </div>
       <Text
         children={KeyManagement.Message}

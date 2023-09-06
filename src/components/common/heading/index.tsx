@@ -9,11 +9,6 @@ interface Props {
 type Variant = 'mainHeading' | 'subHeading';
 
 const Heading: React.FC<Props> = ({ variant, className, children }) => {
-  // const componentMap: { [P in Variant]: React.ComponentType<any> | string } = {
-  //   mainHeading: 'h1',
-  //   subHeading: 'h2',
-  // };
-
   return variant === 'mainHeading' ? (
     <h1 className={`font-bold sm:text-xl md:text-3xl ${className}`}>
       {children}
