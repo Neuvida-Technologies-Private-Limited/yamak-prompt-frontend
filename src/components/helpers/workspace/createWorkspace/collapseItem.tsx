@@ -16,7 +16,7 @@ const collapseItem: React.FC = () => {
             <Input
               id={input.id}
               name={input.name}
-              className="p-2 w-full placeholder:text-gray400 bg-gray100 mb-4"
+              className="p-2 w-full placeholder:text-gray400 bg-gray50 mb-4"
               placeholder={input.placeholder}
               onChange={input.onChange}
             />

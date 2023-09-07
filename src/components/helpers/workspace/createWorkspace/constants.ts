@@ -30,11 +30,13 @@ export const Buttons = [
   {
     name: Workspace.Test,
     onClick: handleConnection,
-    className: 'text-black font-poppins font-bold',
+    className:
+      'text-primary font-poppins font-semibold decoration-primary underline',
   },
   {
     name: Workspace.Save,
     onClick: handleSaveKey,
-    className: 'text-secondary font-poppins font-bold',
+    className:
+      'text-secondary font-poppins font-semibold decoration-secondary underline',
   },
 ];

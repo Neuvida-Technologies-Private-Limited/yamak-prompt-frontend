@@ -36,7 +36,7 @@ const input: React.FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         required={required}
-        className={`${className} ${errorClassName} transition-all block rounded-lg text-gray800 placeholder:text-800 outline outline-2 outline-gray500 sm:text-sm sm:leading-6 focus:outline-gray600 font-poppins`}
+        className={`${className} ${errorClassName} transition-all block rounded-lg text-black placeholder:text-gray200 sm:text-sm sm:leading-6 font-poppins`}
         value={value}
         onChange={handleChange}
       />
