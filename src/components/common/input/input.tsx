@@ -36,15 +36,10 @@ const input: React.FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         required={required}
-        className={`transition-all block rounded-lg text-gray800 placeholder:text-800 outline-gray500 sm:text-sm sm:leading-6 focus:outline-gray100 font-poppins ${className} ${errorClassName} `}
+        className={`transition-all block rounded-lg text-gray800 placeholder:text-800 outline-gray50 sm:text-sm sm:leading-6 font-poppins ${className} ${errorClassName} `}
         value={value}
         onChange={handleChange}
       />
-      {/* <div>
-        <label className="font-poppins text-xs text-red-500 font-semibold transition-all translate-y-1.5">
-          {error}
-        </label>
-      </div> */}
     </>
   );
 };

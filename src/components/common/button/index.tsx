@@ -9,7 +9,7 @@ interface ButtonProps {
   type: 'link' | 'text' | 'default' | 'primary' | 'dashed';
   shape: 'default' | 'circle' | 'round' | undefined;
   href?: string;
-  onClick: () => void;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const button: React.FC<ButtonProps> = ({
