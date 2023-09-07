@@ -1,7 +1,7 @@
-export { default as LibraryCard } from './library/card';
-export { default as LibraryHeader } from './library/header';
-export { default as LibraryCardFilter } from './library/cardFilter';
-export { default as LibrarySearchArea } from './library/searchArea';
+export { default as LibraryCard } from './library/LibraryCard';
+export { default as LibraryHeader } from './library/LibraryHeader';
+export { default as LibraryCardFilter } from './library/LibraryCardFilter';
+export { default as LibrarySearchArea } from './library/LibrarySearchArea';
 export { default as WorkspaceCard } from './workspace/card';
 export { default as CreateWorkspace } from './workspace/createWorkspace';
 export { default as WorkspaceInputs } from './workspace/workspaceInputs';

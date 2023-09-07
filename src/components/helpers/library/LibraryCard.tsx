@@ -18,7 +18,7 @@ const buttons = [
   { icon: <PiWarningBold />, onclick: handleClick },
 ];
 
-const index: React.FC<CardProps> = ({ heading, subHeading }) => {
+const LibraryCard: React.FC<CardProps> = ({ heading, subHeading }) => {
   return (
     <div className="flex flex-col bg-bgSecondary w-1/3 p-5 rounded-2xl">
       <div className="font-poppins font-bold text-md pb-3">
@@ -44,4 +44,4 @@ const index: React.FC<CardProps> = ({ heading, subHeading }) => {
   );
 };
 
-export default index;
+export default LibraryCard;
