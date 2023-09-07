@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Input, Modal } from 'components/common';
 import { KeyManagement } from 'utils/constants';
 
-const App = () => {
+const CreateKeyModal = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const addKeyButtonHandler = () => {
@@ -65,4 +65,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default CreateKeyModal;
