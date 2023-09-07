@@ -36,6 +36,7 @@ module.exports = {
         gray200: '#C6C6C6',
         gray100: '#DDDDDD',
         gray50: '#F3F3F3',
+        error: '#FF5050',
       },
       fontFamily: {
         rubik: "'Rubik', serif",

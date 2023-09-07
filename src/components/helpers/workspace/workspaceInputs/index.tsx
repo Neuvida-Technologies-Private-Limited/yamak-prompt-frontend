@@ -1,28 +1,11 @@
 import React from 'react';
 import { StyledInput } from 'components/common';
-
-const inputs = [
-  {
-    label: 'System',
-    placeholder: 'You are helpful assistance',
-    className: ' w-full',
-  },
-  {
-    label: 'User',
-    placeholder: 'Classify the following {{text 1}} into one of the following',
-    className: 'pt-6 w-full',
-  },
-  {
-    label: 'Variable',
-    placeholder: 'Name          Value',
-    className: 'py-6 w-full',
-  },
-];
+import { Inputs } from './constants';
 
 const index: React.FC = () => {
   return (
     <div className="grid grid-rows-3 h-full">
-      {inputs.map(item => (
+      {Inputs.map(item => (
         <div className={item.className}>
           <StyledInput
             label={item.label}

@@ -26,7 +26,7 @@ const input: React.FC<InputProps> = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   };
-  const errorClassName = error ? 'border-red-500 focus:ring-red-500' : '';
+  const errorClassName = error ? 'border-error focus:ring-error' : '';
 
   return (
     <>
