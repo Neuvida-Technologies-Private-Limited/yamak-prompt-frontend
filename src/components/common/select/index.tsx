@@ -1,5 +1,7 @@
-import React, { ReactNode } from "react";
-import { Select } from "antd";
+import React, { ReactNode } from 'react';
+import { Select } from 'antd';
+import { FiChevronDown } from 'react-icons/fi';
+
 interface OptionsItems {
   value: string;
   label: string;
@@ -13,9 +15,7 @@ interface SelectProps {
   id?: string;
 }
 
-const handleChange = (value: string) => {
-  //   console.log(`selected ${value}`);
-};
+const handleChange = (value: string) => {};
 
 const select: React.FC<SelectProps> = ({
   options,
@@ -31,6 +31,7 @@ const select: React.FC<SelectProps> = ({
     className={className}
     onChange={handleChange}
     options={options}
+    suffixIcon={<FiChevronDown />}
   />
 );
 
