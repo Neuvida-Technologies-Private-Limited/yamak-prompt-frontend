@@ -64,13 +64,13 @@ export const workspaces = [
 export enum KeyManagement {
   Message = "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
   Title = 'Open AI Key',
-  Ok = 'Save the Key',
-  Cancel = 'Test The connection',
+  Ok = 'Save Key',
+  Cancel = 'Test connection',
   SubHead = 'Enter the key from your LLM Provider in the below boxes',
   KeyTitle = 'key-management-title',
   TitlePlaceholder = 'Enter Key Title',
   LLMTitle = 'key-management-llm-provider',
   LLMPlaceholder = 'Select LLM Provider',
   SKTitle = 'key-management-sk',
-  SKPlaceholder = 'sk-******************',
+  SKPlaceholder = 'Enter Key',
 }

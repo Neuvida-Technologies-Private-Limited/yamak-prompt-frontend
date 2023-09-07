@@ -98,14 +98,16 @@
 }
 .ant-modal-footer {
   display: flex !important;
-  align-items: flex-start !important;
+  flex-direction: row-reverse;
+  align-items: center !important;
+  justify-content: space-between;
 }
 .createWorkspace .ant-modal-footer .ant-btn-default,
 .parameters .ant-modal-footer .ant-btn-default {
   display: none !important;
 }
 .ant-modal .ant-modal-footer .ant-btn + .ant-btn {
-  background-color: #ff653c !important;
+  background-color: var(--primary-color) !important;
   font-family: 'Poppins', serif;
 }
 .workspaceSearch .ant-input-affix-wrapper {

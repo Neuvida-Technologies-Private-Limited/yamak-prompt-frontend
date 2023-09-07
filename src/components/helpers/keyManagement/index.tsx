@@ -20,7 +20,7 @@ const App = () => {
         shape={'default'}
         onClick={addKeyButtonHandler}
         name="Add key"
-        className="bg-primary text-white hover:!text-white border-none font-poppins hover:bg-hoverPrimary"
+        className="bg-primary text-white hover:!text-white border-none font-poppins py-4 hover:bg-hoverPrimary"
       />
 
       <Modal
@@ -39,21 +39,21 @@ const App = () => {
               <Input
                 id={KeyManagement.KeyTitle}
                 name={KeyManagement.KeyTitle}
-                className="p-3 w-full bg-gray100 mb-4"
+                className="p-3 w-full bg-gray50 mb-4"
                 placeholder={KeyManagement.TitlePlaceholder}
                 onChange={titleChangeHandler}
               />
               <Input
                 id={KeyManagement.LLMTitle}
                 name={KeyManagement.LLMTitle}
-                className="p-3 w-full bg-gray100 mb-4"
+                className="p-3 w-full bg-gray50 mb-4"
                 placeholder={KeyManagement.LLMPlaceholder}
                 onChange={llmChangeHandler}
               />
               <Input
                 id={KeyManagement.SKTitle}
                 name={KeyManagement.SKTitle}
-                className="p-3 w-full bg-gray100 mb-4"
+                className="p-3 w-full bg-gray50 mb-4"
                 placeholder={KeyManagement.SKPlaceholder}
                 onChange={skChangeHandler}
               />
