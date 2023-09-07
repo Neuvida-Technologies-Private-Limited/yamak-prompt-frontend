@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Select } from 'antd';
 import { FiChevronDown } from 'react-icons/fi';
+import { SizeType } from 'antd/es/config-provider/SizeContext';
 
 interface OptionsItems {
   value: string;
@@ -13,6 +14,8 @@ interface SelectProps {
   placeholder?: ReactNode;
   value?: string;
   id?: string;
+  style?: {};
+  size?: SizeType;
 }
 
 const handleChange = (value: string) => {};
@@ -23,12 +26,16 @@ const select: React.FC<SelectProps> = ({
   placeholder,
   value,
   id,
+  style,
+  size = 'middle',
 }) => (
   <Select
     id={id}
     value={value}
+    style={style}
     placeholder={placeholder}
-    className={className}
+    className={`${className}`}
+    size={size}
     onChange={handleChange}
     options={options}
     suffixIcon={<FiChevronDown />}

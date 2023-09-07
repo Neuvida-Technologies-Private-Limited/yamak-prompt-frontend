@@ -26,13 +26,7 @@ const Parameters: React.FC = () => {
     {
       label: 'Stop Sequences',
       input: (
-        <Input
-          id={''}
-          name={''}
-          placeholder={'0'}
-          onChange={handleChange}
-          className="p-2 w-2/3"
-        />
+        <Input id={''} name={''} placeholder={'0'} onChange={handleChange} />
       ),
       title: 'Sequences Info',
     },

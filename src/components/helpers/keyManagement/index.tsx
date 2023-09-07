@@ -20,7 +20,7 @@ const App = () => {
         shape={'default'}
         onClick={addKeyButtonHandler}
         name="Add key"
-        className="bg-primary text-white hover:!text-white border-none font-poppins py-4 hover:bg-hoverPrimary"
+        className="bg-primary text-white hover:!text-white border-none !py-5 !px-3 hover:bg-primary700"
       />
 
       <Modal
