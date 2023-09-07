@@ -77,23 +77,13 @@ const Parameters: React.FC = () => {
         className="parameters border-gray200 px-6 font-poppins"
       />
       <Modal
-<<<<<<< HEAD
-        title={Workspace.Create}
+        title={Workspace.Parameters}
         centered={true}
         isOpen={showModal}
         showModalHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
-        okText={'Create'}
-        className="createWorkspace"
-=======
-        title={Workspace.Parameters}
-        centered
-        open={modal1Open}
-        onOk={() => setModal1Open(false)}
-        onCancel={() => setModal1Open(false)}
-        okText={'Start the key'}
-        className="parameters font-poppins flex !w-1/2"
->>>>>>> c247774 (Added new color scheme & updated index.css, tailwind.config files)
+        okText={'Parameters'}
+        className="parameters !w-1/2"
       >
         <div className="flex flex-col">
           <form action="#" method="post">
