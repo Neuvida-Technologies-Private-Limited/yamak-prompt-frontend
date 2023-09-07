@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button, Search, Select } from 'components/common';
+import { HiOutlineRefresh, HiPlus } from 'react-icons/hi';
+import { Button, Search } from 'components/common';
 import {
   WorkspaceInputs,
   WorkspaceOutput,
   WorkspaceParameters,
 } from 'components/helpers';
-import { HiOutlineRefresh, HiPlus } from 'react-icons/hi';
+import { Workspace } from 'utils/constants';
 
 interface WorkspaceProps {
   label: string;
@@ -13,7 +14,7 @@ interface WorkspaceProps {
 
 const handleClick = () => {};
 
-const Workspace: React.FC<WorkspaceProps> = ({ label }) => {
+const workspace: React.FC<WorkspaceProps> = ({ label }) => {
   return (
     <div className="flex flex-col h-screen">
       <div className="flex justify-between items-center p-8 border-b-2">
@@ -34,7 +35,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ label }) => {
             type={'link'}
             shape={undefined}
             icon={<HiOutlineRefresh />}
-            name="Reset"
+            name={Workspace.Reset}
             onClick={handleClick}
             className="items-center flex font-poppins text-black"
           />
@@ -42,7 +43,7 @@ const Workspace: React.FC<WorkspaceProps> = ({ label }) => {
             size={undefined}
             type={'default'}
             shape={undefined}
-            name="Publish Prompt"
+            name={Workspace.Publish}
             onClick={handleClick}
             className="publishedBtn border-secondary border-2 font-bold text-secondary font-poppins transition-all ease-in-out duration-300"
           />
@@ -51,12 +52,11 @@ const Workspace: React.FC<WorkspaceProps> = ({ label }) => {
       <div className="flex px-8 py-4 border-b-2 justify-between">
         <div className="flex">
           <Search
-            placeholder={'Search Prompt Registry'}
+            placeholder={Workspace.SearchPrompt}
             className="workspaceSearch"
           />
         </div>
         <div className="flex">
-          <Select options={[]} placeholder="Mode" className="workspace mx-6" />
           <WorkspaceParameters />
         </div>
       </div>
@@ -73,4 +73,4 @@ const Workspace: React.FC<WorkspaceProps> = ({ label }) => {
   );
 };
 
-export default Workspace;
+export default workspace;

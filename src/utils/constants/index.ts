@@ -30,12 +30,13 @@ export enum TOKENS {
   USER_TYPE_TOKEN = 'user_type_token',
 }
 export enum Workspace {
+  Create = 'Create',
   CreatedBy = 'Created by :',
   CreatedOn = 'Created on :',
   Workspaces = 'Workspaces',
   Subhead1 = 'Welcome to our Workspace!!',
   Subhead2 = 'Explore the area where you are spending your most time of creating prompt and enhancing them...',
-  Create = 'Create Workspace',
+  CreateWorkspace = 'Create Workspace',
   Subhead3 = 'Provide the following details to create a workspace',
   Name = 'Workspace Name',
   Select = 'Select Your Model Key',
@@ -43,6 +44,14 @@ export enum Workspace {
   LLMProvider = 'Enter LLM Provider',
   LLMKey = 'Enter LLM Key',
   Parameters = 'Parameters',
+  Test = 'Test Connection',
+  Save = 'Save Key',
+  PromptTitle = 'Prompt Title',
+  EnterHere = 'Enter a user message here',
+  Output = 'Output',
+  Reset = 'Reset',
+  Publish = 'Publish Prompt',
+  SearchPrompt = 'Search Prompt Registry',
 }
 export const workspaces = [
   {

@@ -25,24 +25,24 @@ const App: React.FC = () => {
         onClick={() => setShowModal(true)}
         size={'middle'}
         shape={undefined}
-        name="Create"
+        name={Workspace.Create}
         className="createWorkspace bg-primary text-white hover:text-white border-none font-poppins hover:bg-hoverPrimary"
       />
       <Modal
-        title={Workspace.Create}
+        title={Workspace.CreateWorkspace}
         centered={true}
         isOpen={showModal}
         showModalHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
-        okText={'Create'}
+        okText={Workspace.Create}
         className="createWorkspace"
       >
         <div className="flex flex-col">
           <p className="text-gray400 pb-3">{Workspace.Subhead3}</p>
           <form action="#" method="post">
             <Input
-              id={'workspace name'}
-              name={'workspace name'}
+              id={Workspace.Name}
+              name={Workspace.Name}
               className="p-3 w-full bg-gray100 mb-4"
               placeholder={Workspace.Name}
               onChange={handleChange}

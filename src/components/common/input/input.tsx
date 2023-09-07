@@ -26,7 +26,7 @@ const input: React.FC<InputProps> = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   };
-  const errorClassName = error ? 'border-red-500 focus:ring-red-500' : '';
+  const errorClassName = error ? 'border-error focus:ring-error' : '';
 
   return (
     <>
@@ -41,7 +41,7 @@ const input: React.FC<InputProps> = ({
         onChange={handleChange}
       />
       <div>
-        <label className="font-poppins text-xs text-red-500 font-semibold transition-all translate-y-1.5">
+        <label className="font-poppins text-xs text-error font-semibold transition-all translate-y-1.5">
           {error}
         </label>
       </div>
