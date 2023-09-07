@@ -4,19 +4,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#FF653C',
-        secondary: '#0923A6',
-        hoverPrimary: '#f94514',
-        hoverSecondary: '#246DEF',
-        bgSecondary: '#FCF8F8',
-        black: '#1D1D1D',
-        white: '#ffffff',
-        gray800: '#2D313F',
-        gray600: '#AEAEAE',
-        gray500: '#D6E4EC',
-        gray400: '#1d1d1d66',
-        gray200: '#f4f4f4',
-        gray100: '#FBFBFB',
         primary: '#4F80FB',
         primary900: '#003580',
         primary800: '#0047A6',
