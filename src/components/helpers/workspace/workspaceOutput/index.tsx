@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Input, StyledInput } from 'components/common';
 import { FiBookmark } from 'react-icons/fi';
+import { Button, Input, StyledInput } from 'components/common';
+import { Workspace } from 'utils/constants';
 
 const buttons = [
   {
@@ -26,17 +27,17 @@ const index: React.FC = () => {
     <div className="flex flex-col h-full">
       <div className="flex">
         <Input
-          id={'prompt-title'}
-          name={'prompt-title'}
-          placeholder={'Prompt Title'}
+          id={Workspace.PromptTitle}
+          name={Workspace.PromptTitle}
+          placeholder={Workspace.PromptTitle}
           className="p-2"
           onChange={handleChange}
         />
       </div>
       <div className="flex pt-6 h-full">
         <StyledInput
-          label={'Output'}
-          placeholder={'Enter a user message here'}
+          label={Workspace.Output}
+          placeholder={Workspace.EnterHere}
           className="w-full"
         />
       </div>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { CardConst } from 'utils/constants';
 import { FiCopy, FiHeart } from 'react-icons/fi';
 import { BiLike, BiDislike } from 'react-icons/bi';
 import { PiWarningBold } from 'react-icons/pi';
+import { CardConst } from 'utils/constants';
 import { Button } from 'components/common';
 
 interface CardProps {

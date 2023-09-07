@@ -1,70 +1,69 @@
 import React, { useState } from 'react';
-import { Button, Input, Tooltip, Modal } from 'components/common';
-import { Workspace } from 'utils/constants';
 import { FiInfo } from 'react-icons/fi';
-import Slider from './slider';
-import { ParameterTypes } from './paraTypes';
+import { Button, Input, Tooltip, Modal, Slider } from 'components/common';
+import { Workspace } from 'utils/constants';
+import { Types } from './types';
+
+const handleChange = () => {};
+
+const sliderChange = (value: number) => {};
+
+const parameters: Types[] = [
+  {
+    label: 'Temperature',
+    input: <Slider onValueChange={sliderChange} />,
+    title: 'Temperature Info',
+  },
+  {
+    label: 'Maximum Length',
+    input: <Slider onValueChange={sliderChange} />,
+    title: 'Max Length Info',
+  },
+  {
+    label: 'Stop Sequences',
+    input: (
+      <Input
+        id={''}
+        name={''}
+        placeholder={'0'}
+        onChange={handleChange}
+        className="p-2 w-2/3"
+      />
+    ),
+    title: 'Sequences Info',
+  },
+  {
+    label: 'Top P',
+    input: <Slider onValueChange={sliderChange} />,
+    title: 'Top Info',
+  },
+  {
+    label: 'Frequency Penalty',
+    input: <Slider onValueChange={sliderChange} />,
+    title: 'Frequency Penalty Info',
+  },
+  {
+    label: 'Presence Penalty',
+    input: <Slider onValueChange={sliderChange} />,
+    title: 'Presence Penalty Info',
+  },
+  {
+    label: 'Logit Bias',
+    input: (
+      <Input
+        id={''}
+        name={''}
+        placeholder={'0'}
+        onChange={handleChange}
+        className="p-2 w-2/3"
+      />
+    ),
+    title: 'Logit Bias Info',
+  },
+];
 
 const Parameters: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
-
-  const handleChange = () => {};
-
-  const sliderChange = (value: number) => {};
-
-  const parameters: ParameterTypes[] = [
-    {
-      label: 'Temperature',
-      input: <Slider onValueChange={sliderChange} />,
-      title: 'Temperature Info',
-    },
-    {
-      label: 'Meximum Length',
-      input: <Slider onValueChange={sliderChange} />,
-      title: 'Max Length Info',
-    },
-    {
-      label: 'Stop Sequences',
-      input: (
-        <Input
-          id={''}
-          name={''}
-          placeholder={'0'}
-          onChange={handleChange}
-          className="p-2 w-2/3"
-        />
-      ),
-      title: 'Sequences Info',
-    },
-    {
-      label: 'Top P',
-      input: <Slider onValueChange={sliderChange} />,
-      title: 'Top Info',
-    },
-    {
-      label: 'Frequency Penalty',
-      input: <Slider onValueChange={sliderChange} />,
-      title: 'Frequency Penalty Info',
-    },
-    {
-      label: 'Presence Penalty',
-      input: <Slider onValueChange={sliderChange} />,
-      title: 'Presence Penalty Info',
-    },
-    {
-      label: 'Logit Bias',
-      input: (
-        <Input
-          id={''}
-          name={''}
-          placeholder={'0'}
-          onChange={handleChange}
-          className="p-2 w-2/3"
-        />
-      ),
-      title: 'Logit Bias Info',
-    },
-  ];
 
   return (
     <>
@@ -82,7 +81,7 @@ const Parameters: React.FC = () => {
         isOpen={showModal}
         showModalHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
-        okText={'Parameters'}
+        okText={Workspace.Parameters}
         className="parameters !w-1/2"
       >
         <div className="flex flex-col">

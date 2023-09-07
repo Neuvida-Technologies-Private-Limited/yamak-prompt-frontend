@@ -1,6 +1,6 @@
 import React from 'react';
-import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
 import { Link } from 'react-router-dom';
+import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
 import { Workspace, workspaces } from 'utils/constants';
 
 const WorkspaceDashboard: React.FC = () => {
