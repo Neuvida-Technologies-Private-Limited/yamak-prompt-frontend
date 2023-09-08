@@ -8,6 +8,8 @@ import { Button, Text } from 'components/common';
 interface CardProps {
   heading: string;
   subHeading: string;
+  buttonName: string;
+  description: string;
 }
 const handleClick = () => {};
 const buttons = [
@@ -18,7 +20,12 @@ const buttons = [
   { icon: <PiWarningBold />, onclick: handleClick },
 ];
 
-const LibraryCard: React.FC<CardProps> = ({ heading, subHeading }) => {
+const LibraryCard: React.FC<CardProps> = ({
+  heading,
+  subHeading,
+  buttonName,
+  description,
+}) => {
   const importPromptHandler = () => {};
 
   return (
@@ -31,15 +38,15 @@ const LibraryCard: React.FC<CardProps> = ({ heading, subHeading }) => {
           shape="default"
           onClick={importPromptHandler}
           className="!text-xs whitespace-nowrap bg-gray50 text-primary800 font-bold !p-2 !py-4 !rounded-xl border-0"
-          name="Import Prompt"
+          name={buttonName}
         />
       </div>
       <h3 className="bg-red50 text-gray800 inline-block self-start mb-4 p-1 px-2 rounded-lg text-xs">
         {subHeading}
       </h3>
       <Text
-        children="Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline"
-        className="text-xs text-black opacity-100 font-medium mb-4"
+        children={description}
+        className="text-xs text-black !opacity-100 font-medium mb-4"
       />
       <div className="flex flex-wrap justify-start gap-2">
         {buttons.map((button, index) => (

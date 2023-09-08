@@ -9,6 +9,8 @@ const LibraryCardsGrid = () => {
           key={`library-card-item-${index}`}
           heading="Human Written | 100% Unique | SEO Optimized Article"
           subHeading="SEO/Writing"
+          buttonName="Import Prompt"
+          description="Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline"
         />
       ))}
     </div>
