@@ -19,7 +19,7 @@ const LibrarySearchArea = () => {
           { value: 'generate-ai', label: 'Generate AI' },
         ]}
         placeholder="Select Topic"
-        style={{ width: 130 }}
+        className="sm:w-full md:w-auto"
       />
     </div>
   );
