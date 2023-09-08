@@ -14,7 +14,7 @@ const buttons = [
     onclick: () => handleClick,
     name: 'Bookmark',
     className:
-      'flex items-center bg-gray200 text-gray600 font-poppins border-2 border-gray200 h-10 px-4 rounded-lg',
+      'flex items-center bg-gray100 text-gray500 font-poppins border-2 border-none h-10 px-4 rounded-lg',
     icon: <FiBookmark />,
   },
 ];
@@ -41,18 +41,23 @@ const index: React.FC = () => {
           className="w-full"
         />
       </div>
-      <div className="flex py-6 ">
-        {buttons.map(btn => (
-          <Button
-            size={undefined}
-            type={'default'}
-            shape={undefined}
-            onClick={btn.onclick}
-            icon={btn.icon}
-            name={btn.name}
-            className={btn.className}
-          />
-        ))}
+      <div className="flex py-6 justify-between items-center">
+        <div className="flex">
+          {buttons.map(btn => (
+            <Button
+              size={undefined}
+              type={'default'}
+              shape={undefined}
+              onClick={btn.onclick}
+              icon={btn.icon}
+              name={btn.name}
+              className={btn.className}
+            />
+          ))}
+        </div>
+        <div className="font-poppins text-xs text-primary700 p-2 border-2 border-black rounded-2xl">
+          {Workspace.CharacterLimit}
+        </div>
       </div>
     </div>
   );

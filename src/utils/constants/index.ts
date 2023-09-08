@@ -11,7 +11,7 @@ export enum Paths {
   Profile = '/home/profile',
 }
 export enum SidebarConst {
-  Menu = 'Menu',
+  General = 'General',
   Library = 'Library/Repository',
   Workspace = 'Workspace',
   KeyManagement = 'Key Management',
@@ -31,12 +31,12 @@ export enum TOKENS {
 }
 export enum Workspace {
   Create = 'Create',
-  CreatedBy = 'Created by :',
-  CreatedOn = 'Created on :',
   Workspaces = 'Workspaces',
   Subhead1 = 'Welcome to our Workspace!!',
   Subhead2 = 'Explore the area where you are spending your most time of creating prompt and enhancing them...',
   CreateWorkspace = 'Create Workspace',
+  NoWorkspace = 'Haven’t Created any Workspace Yet!!',
+  NoWorkspaceDesc = 'A workspace easily allows you to create prompt and enhance them',
   Subhead3 = 'Provide the following details to create a workspace',
   Name = 'Workspace Name',
   Select = 'Select Your Model Key',
@@ -51,22 +51,21 @@ export enum Workspace {
   Output = 'Output',
   Reset = 'Reset',
   Publish = 'Publish Prompt',
-  SearchPrompt = 'Search Prompt Registry',
+  SearchPrompt = 'Search Prompt Library',
+  CharacterLimit = 'Your limit is 300 character',
+  Marketing = 'Marketing Prompt Room',
+  History = 'History',
+  Prompt = 'Prompt 1',
+  Date = '1 day ago',
+  Time = '6.23 pm',
 }
 export const workspaces = [
   {
     link: '/home/workspace1',
-    heading: 'Space 1',
+    heading: 'Marketing Prompt Room',
     createdBy: 'Deepak Sharma',
-    createdOn: '30 Aug 2023',
+    createdOn: '12th February',
     label: 'Workspace1',
-  },
-  {
-    link: '/home/workspace2',
-    heading: 'Space 2',
-    createdBy: 'Deepak Sharma',
-    createdOn: '2 Sept 2023',
-    label: 'Workspace2',
   },
 ];
 

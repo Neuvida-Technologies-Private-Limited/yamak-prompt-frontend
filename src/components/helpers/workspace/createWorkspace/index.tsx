@@ -5,7 +5,11 @@ import { Button, Input, Modal } from 'components/common';
 import { Workspace } from 'utils/constants';
 import CollapseItem from './collapseItem';
 
-const App: React.FC = () => {
+interface CreateWorkspaceProps {
+  btnName: string;
+}
+
+const App: React.FC<CreateWorkspaceProps> = ({ btnName }) => {
   const [showModal, setShowModal] = useState(false);
 
   const items: CollapseProps['items'] = [
@@ -25,7 +29,7 @@ const App: React.FC = () => {
         onClick={() => setShowModal(true)}
         size={'middle'}
         shape={undefined}
-        name={Workspace.Create}
+        name={btnName}
         className="createWorkspace bg-primary text-white hover:text-white border-none font-poppins hover:bg-hoverPrimary"
       />
       <Modal

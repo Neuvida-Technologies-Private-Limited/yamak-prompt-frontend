@@ -63,8 +63,8 @@ const Index: React.FC = () => {
       onCollapse={value => setCollapsed(value)}
       className="h-screen border-r border-gray-300"
     >
-      <span className="flex font-poppins pl-5 pt-4 font-bold text-gray-500">
-        {SidebarConst.Menu}
+      <span className="flex font-poppins pl-5 pt-4 font-bold text-gray600">
+        {SidebarConst.General}
       </span>
       <div className="flex justify-between flex-col h-full">
         <Menu

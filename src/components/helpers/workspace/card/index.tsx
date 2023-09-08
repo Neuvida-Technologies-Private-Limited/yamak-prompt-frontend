@@ -1,6 +1,5 @@
 import React from 'react';
-import { FiMoreVertical } from 'react-icons/fi';
-import { Workspace } from 'utils/constants';
+import { BsThreeDots } from 'react-icons/bs';
 
 interface WorkspaceCardProps {
   heading: string;
@@ -14,21 +13,20 @@ const index: React.FC<WorkspaceCardProps> = ({
   createdBy,
 }) => {
   return (
-    <div className="font-poppins p-3 border-2 rounded-lg flex flex-col justify-between gap-10 hover:shadow-md transition-all duration-300 ease-in-out">
-      <div className="flex items-center justify-between">
-        <h1 className="text-bold text-lg text-black">{heading}</h1>
-        <div className="cursor-pointer rounded-3xl p-1 hover:bg-gray200 transition">
-          <FiMoreVertical />
+    <div className="font-poppins p-4 bg-white rounded-lg flex flex-col justify-between gap-6 hover:shadow-md transition-all duration-300 ease-in-out">
+      <div className="flex justify-between h-full py-2">
+        <div className="flex h-full">
+          <div className="w-1.5 bg-secondary rounded-xl h-12" />
+          <div className="flex flex-col h-full px-2">
+            <h1 className="text-bold text-lg text-black">{heading}</h1>
+            <h3 className="text-gray500 font-light">{createdOn}</h3>
+          </div>
         </div>
+        <BsThreeDots />
       </div>
-      <div className="flex flex-col text-xs text-gray400 font-light">
+      <div className="flex flex-col text-xs text-gray900 font-light">
         <div className="flex">
-          <label>{Workspace.CreatedBy}</label>
           <p className="pl-1">{createdBy}</p>
-        </div>
-        <div className="flex">
-          <label>{Workspace.CreatedOn}</label>
-          <p className="pl-1">{createdOn}</p>
         </div>
       </div>
     </div>

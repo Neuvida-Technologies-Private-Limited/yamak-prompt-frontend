@@ -93,10 +93,10 @@
   font-family: 'Poppins', serif;
 }
 .workspaceSearch .ant-input-affix-wrapper {
-  padding: 8px 18px !important;
+  padding: 6px 18px !important;
 }
 .ant-input-search .ant-input-search-button {
-  height: 39px !important;
+  height: 35.5px !important;
 }
 .workspace.ant-collapse > .ant-collapse-item > .ant-collapse-header {
   color: var(--gray-200) !important;
