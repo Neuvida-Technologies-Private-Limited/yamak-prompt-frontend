@@ -1,4 +1,6 @@
 import { Input, Select } from 'components/common';
+import { Library } from 'utils/enums';
+import { LibrarySelectOptions } from 'utils/contants';
 
 const LibrarySearchArea = () => {
   const searchLibraryHandler = (data: string) => {};
@@ -6,19 +8,15 @@ const LibrarySearchArea = () => {
   return (
     <div className="flex sm:flex-col md:flex-row justify-between items-start px-6 pt-4 sm:pb-4 md:pb-2">
       <Input
-        id={'search-library'}
-        name={'search-library'}
+        id={Library.SearchLibrary}
+        name={Library.SearchLibrary}
         className="p-2 px-3 sm:w-full md:w-2/4 bg-gray50 mb-4"
-        placeholder={'Search Library'}
+        placeholder={Library.SearchLibrary}
         onChange={searchLibraryHandler}
       />
       <Select
-        options={[
-          { value: 'copywriting', label: 'Copywriting' },
-          { value: 'devops', label: 'Devops' },
-          { value: 'generate-ai', label: 'Generate AI' },
-        ]}
-        placeholder="Select Topic"
+        options={LibrarySelectOptions}
+        placeholder={Library.SelectTopicPlaceholder}
         className="sm:w-full md:w-auto"
       />
     </div>

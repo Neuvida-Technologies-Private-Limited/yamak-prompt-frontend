@@ -67,3 +67,22 @@ export enum KeyManagement {
   SKTitle = 'key-management-sk',
   SKPlaceholder = 'Enter Key',
 }
+
+export enum Library {
+  Heading = 'Library/Repository',
+  SubHeading = 'Browse and Choose from our Prompt Library',
+  AddPromptButton = 'Add Prompt',
+  ModalHeading = 'Add New Prompt',
+  OkText = 'Add Prompt',
+  SubHead = 'Fill in the details of your prompt',
+  NewPromptTitle = 'new-prompt-title',
+  TitlePlaceholder = 'Enter prompt title',
+  WritePromptTitle = 'write-prompt-text',
+  WritePromptPlaceholder = 'Write prompt (20 Characters)',
+  SelectTopicPlaceholder = 'Select Topic',
+  SearchLibrary = 'Search Library',
+  CardHeading = 'Human Written | 100% Unique | SEO Optimized Article',
+  CardSubHeading = 'SEO/Writing',
+  CardButtonName = 'Import Prompt',
+  CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
+}

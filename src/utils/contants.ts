@@ -14,3 +14,9 @@ export const workspaces = [
     label: 'Workspace2',
   },
 ];
+
+export const LibrarySelectOptions = [
+  { value: 'copywriting', label: 'Copywriting' },
+  { value: 'devops', label: 'Devops' },
+  { value: 'generate-ai', label: 'Generate AI' },
+];

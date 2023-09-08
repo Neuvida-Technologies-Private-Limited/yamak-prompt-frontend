@@ -1,5 +1,6 @@
 import { Heading, Text } from 'components/common';
 import AddNewPrompt from './AddNewPrompt';
+import { Library } from 'utils/enums';
 
 const LibraryHeadingArea = () => {
   return (
@@ -7,13 +8,10 @@ const LibraryHeadingArea = () => {
       <div>
         <Heading
           variant="mainHeading"
-          children={'Library/Repository'}
+          children={Library.Heading}
           className="mb-2"
         />
-        <Text
-          children="Browse and Choose from our Prompt Library"
-          className="text-sm md:text-base"
-        />
+        <Text children={Library.SubHeading} className="text-sm md:text-base" />
       </div>
       <AddNewPrompt />
     </div>

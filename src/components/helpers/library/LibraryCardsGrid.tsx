@@ -1,4 +1,5 @@
 import LibraryCard from './LibraryCard';
+import { Library } from 'utils/enums';
 
 const LibraryCardsGrid = () => {
   return (
@@ -6,10 +7,10 @@ const LibraryCardsGrid = () => {
       {Array.from(Array(10)).map((_, index) => (
         <LibraryCard
           key={`library-card-item-${index}`}
-          heading="Human Written | 100% Unique | SEO Optimized Article"
-          subHeading="SEO/Writing"
-          buttonName="Import Prompt"
-          description="Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline"
+          heading={Library.CardHeading}
+          subHeading={Library.CardSubHeading}
+          buttonName={Library.CardButtonName}
+          description={Library.CardDescription}
         />
       ))}
     </div>

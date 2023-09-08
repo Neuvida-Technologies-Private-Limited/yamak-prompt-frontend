@@ -4,6 +4,8 @@ import { Input } from 'antd';
 const { TextArea } = Input;
 
 interface TextAreaProps {
+  id: string;
+  name: string;
   rows: number;
   placeholder: string;
   maxLength: number;
@@ -12,6 +14,8 @@ interface TextAreaProps {
 }
 
 const index: React.FC<TextAreaProps> = ({
+  id,
+  name,
   rows,
   placeholder,
   maxLength,
@@ -20,6 +24,8 @@ const index: React.FC<TextAreaProps> = ({
 }) => {
   return (
     <TextArea
+      id={id}
+      name={name}
       rows={rows}
       placeholder={placeholder}
       maxLength={maxLength}

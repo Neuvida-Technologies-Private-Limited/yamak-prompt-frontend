@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Button, Input, Modal, Select, TextArea } from 'components/common';
+import { Library } from 'utils/enums';
+import { LibrarySelectOptions } from 'utils/contants';
 
 const AddNewPrompt = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -18,45 +20,41 @@ const AddNewPrompt = () => {
         shape="default"
         onClick={addPromptHandler}
         className="bg-primary text-white hover:!text-white border-none !py-5 !px-3 hover:bg-primary700"
-        name="Add Prompt"
+        name={Library.AddPromptButton}
       />
 
       <Modal
-        title={'Add Prompt'}
+        title={Library.ModalHeading}
         centered={true}
         isOpen={showModal}
         showModalHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
-        okText={'Add Prompt'}
+        okText={Library.OkText}
         className="library"
       >
         <div className="flex flex-col">
-          <p className="text-gray400 pb-3">
-            {'Fill in the details of your prompt'}
-          </p>
+          <p className="text-gray400 pb-3">{Library.SubHead}</p>
           <form action="#" method="post">
             <div className="mt-5">
               <Input
-                id={'new-prompt-title'}
-                name={'new-prompt-title'}
+                id={Library.NewPromptTitle}
+                name={Library.NewPromptTitle}
                 className="p-3 w-full bg-gray50 mb-4"
-                placeholder={'Enter prompt title'}
+                placeholder={Library.TitlePlaceholder}
                 onChange={titleChangeHandler}
               />
               <TextArea
                 rows={6}
-                placeholder="Write prompt (20 Characters)"
+                id={Library.WritePromptTitle}
+                name={Library.WritePromptTitle}
+                placeholder={Library.WritePromptPlaceholder}
                 maxLength={20}
                 onChange={writePromptHandler}
                 className="p-3 w-full bg-gray50 mb-4"
               />
               <Select
-                options={[
-                  { value: 'copywriting', label: 'Copywriting' },
-                  { value: 'devops', label: 'Devops' },
-                  { value: 'generate-ai', label: 'Generate AI' },
-                ]}
-                placeholder="Select Topic"
+                options={LibrarySelectOptions}
+                placeholder={Library.SelectTopicPlaceholder}
                 style={{}}
                 size="large"
                 className="library w-full mb-4"
