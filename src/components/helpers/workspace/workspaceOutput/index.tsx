@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiBookmark } from 'react-icons/fi';
 import { Button, Input, StyledInput } from 'components/common';
-import { Workspace } from 'utils/constants';
+import { Workspace } from 'utils/enums';
 
 const buttons = [
   {

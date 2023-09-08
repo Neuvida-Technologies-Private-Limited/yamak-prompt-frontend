@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
 import { Button, Input, Tooltip, Modal, Slider } from 'components/common';
-import { Workspace } from 'utils/constants';
+import { Workspace } from 'utils/enums';
 import { Types } from './types';
 
 const handleChange = () => {};

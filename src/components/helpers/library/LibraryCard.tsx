@@ -2,7 +2,7 @@ import React from 'react';
 import { FiCopy, FiHeart } from 'react-icons/fi';
 import { BiLike, BiDislike } from 'react-icons/bi';
 import { PiWarningBold } from 'react-icons/pi';
-import { CardConst } from 'utils/constants';
+import { CardConst } from 'utils/enums';
 import { Button, Text } from 'components/common';
 
 interface CardProps {

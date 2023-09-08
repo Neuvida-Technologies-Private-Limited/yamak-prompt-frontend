@@ -7,7 +7,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 
 import { Layout, Menu } from 'antd';
 //constants
-import { Paths, SidebarConst } from '../../../utils/constants';
+import { Paths, SidebarConst } from '../../../utils/enums';
 
 interface LinkItem {
   label: React.ReactNode;

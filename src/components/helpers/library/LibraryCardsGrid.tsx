@@ -1,4 +1,3 @@
-import React from 'react';
 import LibraryCard from './LibraryCard';
 
 const LibraryCardsGrid = () => {
