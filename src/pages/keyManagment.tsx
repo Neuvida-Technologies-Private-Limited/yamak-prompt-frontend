@@ -3,7 +3,7 @@ import { RiSaveLine, RiDeleteBin5Line } from 'react-icons/ri';
 import { Heading, StyledInput } from 'components/common';
 import { Button, Text } from 'components/common';
 import { CreateKeyModal } from 'components/helpers';
-import { KeyManagement } from 'utils/enums';
+import { KeyManagement } from 'utils/contants';
 
 const inputs = [
   { name: 'Open AI', placeHolder: 'sk-*************************' },

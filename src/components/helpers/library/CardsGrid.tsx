@@ -1,5 +1,5 @@
-import LibraryCard from './LibraryCard';
-import { Library } from 'utils/enums';
+import LibraryCard from './Card';
+import { Library } from 'utils/contants';
 
 const LibraryCardsGrid = () => {
   return (

@@ -40,6 +40,11 @@ const input: React.FC<InputProps> = ({
         value={value}
         onChange={handleChange}
       />
+      <div>
+        <label className="font-poppins text-xs text-error font-semibold transition-all translate-y-1.5">
+          {error}
+        </label>
+      </div>
     </>
   );
 };

@@ -6,7 +6,7 @@ import {
   WorkspaceOutput,
   WorkspaceParameters,
 } from 'components/helpers';
-import { Workspace } from 'utils/enums';
+import { Workspace } from 'utils/contants';
 
 interface WorkspaceProps {
   label: string;

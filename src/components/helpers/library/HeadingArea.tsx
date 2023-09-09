@@ -1,6 +1,6 @@
 import { Heading, Text } from 'components/common';
 import AddNewPrompt from './AddNewPrompt';
-import { Library } from 'utils/enums';
+import { Library } from 'utils/contants';
 
 const LibraryHeadingArea = () => {
   return (

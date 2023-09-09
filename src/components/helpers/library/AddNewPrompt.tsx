@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Input, Modal, Select, TextArea } from 'components/common';
-import { Library } from 'utils/enums';
+import { Library } from 'utils/contants';
 import { LibrarySelectOptions } from 'utils/contants';
 
 const AddNewPrompt = () => {

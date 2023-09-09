@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Collapse } from 'antd';
 import type { CollapseProps } from 'antd';
 import { Button, Input, Modal } from 'components/common';
-import { Workspace } from 'utils/enums';
+import { Workspace } from 'utils/contants';
 import CollapseItem from './collapseItem';
 
 const App: React.FC = () => {

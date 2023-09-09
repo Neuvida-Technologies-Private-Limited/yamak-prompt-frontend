@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { IconPaths } from 'utils/enums';
+import { IconPaths } from 'utils/contants';
 
 const Navbar: React.FC = () => {
   return (
