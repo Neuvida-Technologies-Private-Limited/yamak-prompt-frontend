@@ -1,6 +1,7 @@
 export { default as Button } from './button';
 export { default as Heading } from './heading';
 export { default as Input } from './input/input';
+export { default as TextArea } from './textarea/index';
 export { default as Modal } from './modal';
 export { default as Navbar } from './navbar';
 export { default as StyledInput } from './input/styledInput';

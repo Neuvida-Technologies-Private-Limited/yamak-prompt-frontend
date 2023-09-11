@@ -1,15 +1,15 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Button } from 'antd';
 
 interface ButtonProps {
-  icon?: ReactNode;
+  icon?: React.ReactNode;
   name?: string;
   className?: string;
   size: 'small' | 'middle' | 'large' | undefined;
   type: 'link' | 'text' | 'default' | 'primary' | 'dashed';
   shape: 'default' | 'circle' | 'round' | undefined;
   href?: string;
-  onClick: () => void;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const button: React.FC<ButtonProps> = ({
@@ -23,7 +23,7 @@ const button: React.FC<ButtonProps> = ({
   onClick,
 }) => (
   <Button
-    className={`flex items-center gap-x-0 ${className}`}
+    className={`flex items-center gap-x-0 font-poppins ${className}`}
     icon={icon}
     size={size}
     type={type}

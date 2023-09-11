@@ -1,6 +1,8 @@
 export enum CardConst {
   CopyPrompt = 'Copy Prompt',
   Likes = '5.1M',
+  All = 'All',
+  Favourite = 'Favourite',
 }
 export enum Paths {
   Home = '/home',
@@ -59,6 +61,41 @@ export enum Workspace {
   Date = '1 day ago',
   Time = '6.23 pm',
 }
+
+export enum KeyManagement {
+  Message = "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
+  ADD_KEY_BUTTON = 'Add Key',
+  TITLE = 'Open AI Key',
+  OK = 'Save Key',
+  CANCEL = 'Test connection',
+  SUB_HEAD = 'Enter the key from your LLM Provider in the below boxes',
+  KEY_TITLE = 'key-management-title',
+  TITLE_PLACEHOLDER = 'Enter Key Title',
+  LLM_TITLE = 'key-management-llm-provider',
+  LLM_PLACEHOLDER = 'Select LLM Provider',
+  SK_TITLE = 'key-management-sk',
+  SK_PLACEHOLDER = 'Enter Key',
+}
+
+export enum Library {
+  Heading = 'Library/Repository',
+  SubHeading = 'Browse and Choose from our Prompt Library',
+  AddPromptButton = 'Add Prompt',
+  ModalHeading = 'Add New Prompt',
+  OkText = 'Add Prompt',
+  SubHead = 'Fill in the details of your prompt',
+  NewPromptTitle = 'new-prompt-title',
+  TitlePlaceholder = 'Enter prompt title',
+  WritePromptTitle = 'write-prompt-text',
+  WritePromptPlaceholder = 'Write prompt (20 Characters)',
+  SelectTopicPlaceholder = 'Select Topic',
+  SearchLibrary = 'Search Library',
+  CardHeading = 'Human Written | 100% Unique | SEO Optimized Article',
+  CardSubHeading = 'SEO/Writing',
+  CardButtonName = 'Import Prompt',
+  CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
+}
+
 export const workspaces = [
   {
     link: '/home/workspace1',
@@ -69,16 +106,8 @@ export const workspaces = [
   },
 ];
 
-export enum KeyManagement {
-  Message = "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
-  Title = 'Open AI Key',
-  Ok = 'Save the Key',
-  Cancel = 'Test The connection',
-  SubHead = 'Enter the key from your LLM Provider in the below boxes',
-  KeyTitle = 'key-management-title',
-  TitlePlaceholder = 'Enter Key Title',
-  LLMTitle = 'key-management-llm-provider',
-  LLMPlaceholder = 'Select LLM Provider',
-  SKTitle = 'key-management-sk',
-  SKPlaceholder = 'sk-******************',
-}
+export const LibrarySelectOptions = [
+  { value: 'copywriting', label: 'Copywriting' },
+  { value: 'devops', label: 'Devops' },
+  { value: 'generate-ai', label: 'Generate AI' },
+];

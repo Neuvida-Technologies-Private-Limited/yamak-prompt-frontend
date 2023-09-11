@@ -24,7 +24,6 @@ module.exports = {
         secondary200: '#88D5C0',
         secondary100: '#B8E7D9',
         secondary50: '#B8E7D9',
-        black: '#1d1d1d',
         gray900: '#393939',
         gray800: '#4B4B4B',
         gray700: '#5E5E5E',
@@ -36,7 +35,10 @@ module.exports = {
         gray100: '#DDDDDD',
         gray50: '#F3F3F3',
         gray10: '#F1F3F5',
+        red50: '#FCE8FF',
         error: '#FF5050',
+        black: '#1d1d1d',
+        white: '#ffffff',
       },
       fontFamily: {
         rubik: "'Rubik', serif",

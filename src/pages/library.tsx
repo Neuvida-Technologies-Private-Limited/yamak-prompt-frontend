@@ -1,9 +1,10 @@
-import React from "react";
+import { LibraryCardsGrid, LibraryHeader } from 'components/helpers';
 
-const library: React.FC = () => {
+const library = () => {
   return (
-    <div>
-      Library
+    <div className="font-poppins">
+      <LibraryHeader />
+      <LibraryCardsGrid />
     </div>
   );
 };
