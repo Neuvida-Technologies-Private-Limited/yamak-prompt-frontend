@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Button, Input, Modal, Select, TextArea } from 'components/common';
-import { Library } from 'utils/contants';
-import { LibrarySelectOptions } from 'utils/contants';
+import { LibrarySelectOptions, Library } from 'utils/constants';
 
 const AddNewPrompt = () => {
   const [showModal, setShowModal] = useState<boolean>(false);

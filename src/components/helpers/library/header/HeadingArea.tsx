@@ -1,10 +1,10 @@
 import { Heading, Text } from 'components/common';
-import AddNewPrompt from './AddNewPrompt';
-import { Library } from 'utils/contants';
+import AddNewPrompt from '../addPrompt';
+import { Library } from 'utils/constants';
 
-const LibraryHeadingArea = () => {
+const HeadingArea = () => {
   return (
-    <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between  gap-4 border-b-2 border-primary50 py-6 px-6">
+    <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between gap-4 border-b-2 border-primary50 py-6 px-6">
       <div>
         <Heading
           variant="mainHeading"
@@ -18,4 +18,4 @@ const LibraryHeadingArea = () => {
   );
 };
 
-export default LibraryHeadingArea;
+export default HeadingArea;

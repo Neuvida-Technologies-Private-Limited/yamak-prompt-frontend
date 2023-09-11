@@ -1,8 +1,7 @@
 import { Input, Select } from 'components/common';
-import { Library } from 'utils/contants';
-import { LibrarySelectOptions } from 'utils/contants';
+import { LibrarySelectOptions, Library } from 'utils/constants';
 
-const LibrarySearchArea = () => {
+const SearchArea = () => {
   const searchLibraryHandler = (data: string) => {};
 
   return (
@@ -13,6 +12,7 @@ const LibrarySearchArea = () => {
         className="p-2 px-3 sm:w-full md:w-2/4 bg-gray50 mb-4"
         placeholder={Library.SearchLibrary}
         onChange={searchLibraryHandler}
+        type="search"
       />
       <Select
         options={LibrarySelectOptions}
@@ -23,4 +23,4 @@ const LibrarySearchArea = () => {
   );
 };
 
-export default LibrarySearchArea;
+export default SearchArea;

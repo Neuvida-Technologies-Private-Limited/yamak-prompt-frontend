@@ -1,5 +1,5 @@
-import LibraryCard from './Card';
-import { Library } from 'utils/contants';
+import LibraryCard from './card';
+import { Library } from 'utils/constants';
 
 const LibraryCardsGrid = () => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiMoreVertical } from 'react-icons/fi';
-import { Workspace } from 'utils/contants';
+import { Workspace } from 'utils/constants';
 
 interface WorkspaceCardProps {
   heading: string;

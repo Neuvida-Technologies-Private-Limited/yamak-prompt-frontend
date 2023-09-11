@@ -1,6 +1,8 @@
 export enum CardConst {
   CopyPrompt = 'Copy Prompt',
   Likes = '5.1M',
+  All = 'All',
+  Favourite = 'Favourite',
 }
 export enum Paths {
   Home = '/home',

@@ -1,4 +1,4 @@
-import { Workspace } from 'utils/contants';
+import { Workspace } from 'utils/constants';
 
 const handleChange = () => {};
 

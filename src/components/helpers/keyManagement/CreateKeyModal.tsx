@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Input, Modal } from 'components/common';
-import { KeyManagement } from 'utils/contants';
+import { KeyManagement } from 'utils/constants';
 
 const CreateKeyModal = () => {
   const [showModal, setShowModal] = useState<boolean>(false);

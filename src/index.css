@@ -95,7 +95,7 @@
   font-family: 'Poppins', serif;
 }
 .ant-modal .ant-modal-footer .ant-btn {
-  height: 40px !important;
+  height: 2.5rem !important;
 }
 .ant-modal .ant-modal-footer .ant-btn-primary,
 .ant-modal .ant-modal-footer .ant-btn-default {

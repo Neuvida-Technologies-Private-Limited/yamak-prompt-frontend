@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { GetStorage } from '../../cache';
-import { TOKENS } from 'utils/contants';
+import { TOKENS } from 'utils/constants';
 
 // Axios client for protected APIs
 const axiosClientProtected = axios.create({

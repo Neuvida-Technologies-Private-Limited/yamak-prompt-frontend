@@ -1,6 +1,7 @@
-import { Button } from 'components/common';
 import { useState } from 'react';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
+import { Button } from 'components/common';
+import { CardConst } from 'utils/constants';
 
 const LibraryCardFilter = () => {
   const [isAllSelected, setIsAllSelected] = useState(true);
@@ -20,7 +21,7 @@ const LibraryCardFilter = () => {
           className={`${
             isAllSelected && 'bg-white'
           } rounded-2xl font-bold !py-4 !px-3 border-0`}
-          name="All"
+          name={CardConst.All}
           icon={<HiMenu />}
         />
         <Button
@@ -31,7 +32,7 @@ const LibraryCardFilter = () => {
           className={`${
             !isAllSelected && 'bg-white'
           } font-bold rounded-2xl !py-4 !px-3 border-0`}
-          name="Favorites"
+          name={CardConst.Favourite}
           icon={<HiOutlineHeart />}
         />
       </div>

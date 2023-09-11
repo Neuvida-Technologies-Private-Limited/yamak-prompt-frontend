@@ -6,7 +6,7 @@ import {
   Workspaces,
 } from 'pages';
 import React from 'react';
-import { workspaces } from 'utils/contants';
+import { workspaces } from 'utils/constants';
 
 interface Route {
   path: string;
