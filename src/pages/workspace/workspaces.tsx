@@ -1,6 +1,6 @@
 import React from 'react';
-import { HiOutlineRefresh, HiPlus } from 'react-icons/hi';
-import { Button, Search } from 'components/common';
+import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
+import { Button, Search, Tabs } from 'components/common';
 import {
   WorkspaceHistory,
   WorkspaceInputs,
@@ -8,6 +8,7 @@ import {
   WorkspaceParameters,
 } from 'components/helpers';
 import { Workspace } from 'utils/constants';
+import { BsCheck2Circle } from 'react-icons/bs';
 
 interface WorkspaceProps {
   label: string;
@@ -52,9 +53,16 @@ const workspace: React.FC<WorkspaceProps> = ({ label }) => {
           />
         </div>
       </div>
-      <div className="flex px-8 py-4 border-b-4 border-gray50 justify-between">
-        <div className="flex"></div>
+      <div className="flex px-8 py-2 border-b-4 border-gray50 justify-between">
         <div className="flex">
+          <Tabs
+            tab1={Workspace.Chat}
+            tab2={Workspace.Completion}
+            icon1={<HiOutlineChatAlt2 />}
+            icon2={<BsCheck2Circle />}
+          />
+        </div>
+        <div className="flex py-2">
           <Search
             placeholder={Workspace.SearchPrompt}
             className="workspaceSearch"

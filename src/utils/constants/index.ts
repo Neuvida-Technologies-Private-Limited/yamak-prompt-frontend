@@ -65,6 +65,12 @@ export enum Workspace {
   Prompt = 'Prompt 1',
   Date = '1 day ago',
   Time = '6.23 pm',
+  SearchLibrary = 'Search Library',
+  Search = 'search',
+  ShowBookmarked = 'Show Bookmarked',
+  ShowPublished = 'Show Published',
+  Chat = 'Chat',
+  Completion = 'Completion',
 }
 
 export enum KeyManagement {
