@@ -84,7 +84,13 @@ const Index: React.FC = () => {
           <img src="/assets/logo/logo.svg" alt="logo" />
         </div>
       )}
-      <span className="flex font-poppins pl-5 pt-4 font-bold text-gray600">
+      <span
+        className={
+          !collapsed
+            ? 'flex font-poppins pl-5 pt-4 font-bold text-gray600'
+            : 'flex font-poppins pl-2 pt-4 font-bold text-gray600'
+        }
+      >
         {SidebarConst.General}
       </span>
       <Menu
@@ -100,7 +106,13 @@ const Index: React.FC = () => {
             {item.label}
           </Menu.Item>
         ))}
-        <span className="flex font-poppins pl-5 pt-4 font-bold text-gray600">
+        <span
+          className={
+            !collapsed
+              ? 'flex font-poppins pl-5 pt-4 font-bold text-gray600'
+              : 'flex font-poppins pl-2 pt-4 font-bold text-gray600'
+          }
+        >
           {SidebarConst.Support}
         </span>
         {items.slice(5, 9).map(item => (
