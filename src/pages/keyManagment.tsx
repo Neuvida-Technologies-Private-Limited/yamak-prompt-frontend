@@ -16,14 +16,20 @@ const keyManagment: React.FC = () => {
 
   return (
     <div className="font-poppins p-6">
-      <div className="flex sm:flex-col md:flex-row justify-between sm:items-start md:items-center mb-5 gap-3">
-        <Heading variant="mainHeading" children="Key management" className="" />
+      <div className="flex sm:flex-col lg:flex-row justify-between items-start md:items-start mb-5 gap-3">
+        <div>
+          <Heading
+            variant="mainHeading"
+            children="Key management"
+            className="mb-2"
+          />
+          <Text
+            children={KeyManagement.Message}
+            className="text-sm md:text-base lg:w-3/4"
+          />
+        </div>
         <CreateKeyModal />
       </div>
-      <Text
-        children={KeyManagement.Message}
-        className="text-sm md:text-base sm:w-full md:w-3/4 "
-      />
 
       <div className="mt-14 flex flex-col gap-y-10">
         {inputs.map((input, index) => (
