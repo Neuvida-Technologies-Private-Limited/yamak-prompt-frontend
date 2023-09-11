@@ -7,8 +7,7 @@ import { Navbar, Sidebar } from 'components/common';
 const dashboardLayout: React.FC = () => {
   return (
     <Layout>
-      <Navbar />
-      <Layout className="h-screen" hasSider>
+      <Layout hasSider>
         <Sidebar />
         <Content className="bg-white">
           <Outlet />

@@ -11,6 +11,8 @@ export enum Paths {
   Deployment = '/home/deployment',
   TestCases = '/home/testCases',
   Profile = '/home/profile',
+  Help = '/home/help',
+  Feedback = '/home/feedback',
 }
 export enum SidebarConst {
   General = 'General',
@@ -21,6 +23,9 @@ export enum SidebarConst {
   TestCases = 'Test Cases',
   Profile = 'Ekta Sharma',
   Logout = 'Logout',
+  Help = 'Help',
+  Feedback = 'Feedback',
+  Support = 'Support',
 }
 export enum IconPaths {
   LOGO = '/assets/logo/logo.svg',

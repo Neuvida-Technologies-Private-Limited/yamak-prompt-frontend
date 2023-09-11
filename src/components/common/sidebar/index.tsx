@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiKey, FiLayout, FiSend, FiLogOut } from 'react-icons/fi';
+import {
+  FiKey,
+  FiLayout,
+  FiSend,
+  FiLogOut,
+  FiHeadphones,
+} from 'react-icons/fi';
 import { GoStack } from 'react-icons/go';
+import { MdOutlineSubject } from 'react-icons/md';
 import { BsHddStack } from 'react-icons/bs';
 import { AiOutlineUser } from 'react-icons/ai';
 
@@ -16,7 +23,7 @@ interface LinkItem {
   disabled?: boolean;
 }
 
-const ApplicationModules: LinkItem[] = [
+const items: LinkItem[] = [
   {
     key: Paths.Home,
     label: SidebarConst.Library,
@@ -44,8 +51,12 @@ const ApplicationModules: LinkItem[] = [
     icon: <BsHddStack />,
     disabled: true,
   },
-];
-const Profile: LinkItem[] = [
+  { key: Paths.Help, label: SidebarConst.Help, icon: <FiHeadphones /> },
+  {
+    key: Paths.Feedback,
+    label: SidebarConst.Feedback,
+    icon: <MdOutlineSubject />,
+  },
   { key: Paths.Profile, label: SidebarConst.Profile, icon: <AiOutlineUser /> },
   { key: '/', label: SidebarConst.Logout, icon: <FiLogOut /> },
 ];
@@ -61,30 +72,43 @@ const Index: React.FC = () => {
       collapsible
       collapsed={collapsed}
       onCollapse={value => setCollapsed(value)}
-      className="h-screen border-r border-gray-300"
+      className="h-screen border-r-4 border-gray50"
     >
+      {!collapsed ? (
+        <div className="demo-logo-vertical flex justify-center items-center p-4">
+          <img src="/assets/logo/logo.svg" alt="logo" />
+          <img src="/assets/logo/Yamakai.svg" alt="Yamakai" />
+        </div>
+      ) : (
+        <div className="demo-logo-vertical flex justify-center items-center p-4">
+          <img src="/assets/logo/logo.svg" alt="logo" />
+        </div>
+      )}
       <span className="flex font-poppins pl-5 pt-4 font-bold text-gray600">
         {SidebarConst.General}
       </span>
-      <div className="flex justify-between flex-col h-full">
-        <Menu
-          defaultSelectedKeys={[Paths.Home]}
-          mode="inline"
-          onClick={item => {
-            navigate(item.key);
-          }}
-          items={ApplicationModules}
-          className="font-raleway text-xs"
-        />
-        <Menu
-          mode="inline"
-          className="menu2 font-raleway text-xs mb-14"
-          onClick={item => {
-            navigate(item.key);
-          }}
-          items={Profile}
-        />
-      </div>
+      <Menu
+        defaultSelectedKeys={[Paths.Home]}
+        mode="inline"
+        onClick={item => {
+          navigate(item.key);
+        }}
+        className="font-raleway text-xs"
+      >
+        {items.slice(0, 5).map(item => (
+          <Menu.Item key={item.key} icon={item.icon} disabled={item.disabled}>
+            {item.label}
+          </Menu.Item>
+        ))}
+        <span className="flex font-poppins pl-5 pt-4 font-bold text-gray600">
+          {SidebarConst.Support}
+        </span>
+        {items.slice(5, 9).map(item => (
+          <Menu.Item key={item.key} icon={item.icon} disabled={item.disabled}>
+            {item.label}
+          </Menu.Item>
+        ))}
+      </Menu>
     </Sider>
   );
 };

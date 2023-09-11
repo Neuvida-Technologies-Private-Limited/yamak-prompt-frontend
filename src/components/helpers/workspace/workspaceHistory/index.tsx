@@ -1,9 +1,9 @@
 import React from 'react';
 import { IoListCircleOutline } from 'react-icons/io5';
 import { BsClock, BsCircle } from 'react-icons/bs';
-import { Timeline } from 'components/common';
 import Draft from './drafts';
 import { Workspace } from 'utils/constants';
+import { Timeline } from 'components/common';
 
 const items = [
   {

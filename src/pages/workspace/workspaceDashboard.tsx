@@ -2,15 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
 import { Workspace, workspaces } from 'utils/constants';
+import { Heading } from 'components/common';
 
 const WorkspaceDashboard: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       <div className="flex justify-between p-6">
         <div className="flex flex-col font-poppins">
-          <h1 className="text-bold text-2xl text-black">
-            {Workspace.Workspaces}
-          </h1>
+          <Heading
+            variant="mainHeading"
+            children={Workspace.Workspaces}
+            className="mb-2"
+          />
           <h4 className="text-sm text-gray400">{Workspace.Subhead1}</h4>
           <h4 className="text-sm text-gray400">{Workspace.Subhead2}</h4>
         </div>
