@@ -12,12 +12,19 @@ const WorkspaceDashboard: React.FC = () => {
           <Heading
             variant="mainHeading"
             children={Workspace.Workspaces}
-            className="mb-2"
+            className="mb-2 sm:text-center em:text-start"
           />
-          <h4 className="text-sm text-gray400">{Workspace.Subhead1}</h4>
-          <h4 className="text-sm text-gray400">{Workspace.Subhead2}</h4>
+          <h4 className="text-sm text-gray400 sm:text-center em:text-start">
+            {Workspace.Subhead1}
+          </h4>
+          <h4 className="text-sm text-gray400 sm:text-center em:text-start">
+            {Workspace.Subhead2}
+          </h4>
         </div>
-        <CreateWorkspace btnName={Workspace.Create} />
+        <CreateWorkspace
+          btnName={Workspace.Create}
+          className="sm:hidden em:block"
+        />
       </div>
       {workspaces.length > 0 ? (
         <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3">
@@ -38,11 +45,16 @@ const WorkspaceDashboard: React.FC = () => {
             alt="No Workspaces Found"
             className="pb-6"
           />
-          <div className="flex font-poppins flex-col items-center gap-1 pb-10">
+          <div className="flex font-poppins flex-col items-center gap-1 em:pb-10 sm:py-10">
             <h2 className="font-bold text-black">{Workspace.NoWorkspace}</h2>
-            <p className="text-gray700">{Workspace.NoWorkspaceDesc}</p>
+            <p className="text-gray700 px-6 text-center">
+              {Workspace.NoWorkspaceDesc}
+            </p>
           </div>
-          <CreateWorkspace btnName={Workspace.CreateWorkspace} />
+          <CreateWorkspace
+            btnName={Workspace.CreateWorkspace}
+            className="sm:w-72 em:w-56 sm:h-12 em:h-10 flex justify-center"
+          />
         </div>
       )}
     </div>

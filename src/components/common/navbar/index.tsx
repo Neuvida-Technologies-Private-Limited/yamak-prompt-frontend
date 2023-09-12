@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="navbar em:hidden sm:flex w-full">
       <Layout>
-        <Layout.Header className="nav-header bg-white w-full flex items-center border-b border-gray-300 px-6">
+        <Layout.Header className="nav-header bg-primary50 w-full flex items-center border-b border-primary50 px-6">
           <div className="logo flex items-center justify-between w-full">
             <div className="w-1/4">
               <MobileSidebar />
