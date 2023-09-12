@@ -109,8 +109,8 @@ const Index: React.FC = () => {
         <span
           className={
             !collapsed
-              ? 'flex font-poppins pl-5 pt-4 font-bold text-gray600'
-              : 'flex font-poppins pl-2 pt-4 font-bold text-gray600'
+              ? 'flex font-poppins pl-5 py-4 font-bold text-gray600'
+              : 'flex font-poppins pl-2 py-4 font-bold text-gray600'
           }
         >
           {SidebarConst.Support}
