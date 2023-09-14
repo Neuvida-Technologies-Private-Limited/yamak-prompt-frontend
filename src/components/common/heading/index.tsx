@@ -11,12 +11,12 @@ type Variant = 'mainHeading' | 'subHeading';
 const Heading: React.FC<Props> = ({ variant, className, children }) => {
   return variant === 'mainHeading' ? (
     <h1
-      className={`font-bold sm:text-2xl md:text-3xl text-gray900 ${className}`}
+      className={`font-semibold sm:text-2xl md:text-3xl text-gray900 ${className}`}
     >
       {children}
     </h1>
   ) : (
-    <h2 className={`font-bold sm:text-lg md:text-2xl ${className}`}>
+    <h2 className={`font-semibold sm:text-lg md:text-2xl ${className}`}>
       {children}
     </h2>
   );
