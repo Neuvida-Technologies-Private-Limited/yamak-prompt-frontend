@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Input, Modal } from 'components/common';
-import { KeyManagement } from 'utils/constants';
+import { KeyManagement, InputVariants } from 'utils/constants';
 
 const CreateKeyModal = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -39,23 +39,23 @@ const CreateKeyModal = () => {
               <Input
                 id={KeyManagement.KEY_TITLE}
                 name={KeyManagement.KEY_TITLE}
-                className="p-3 w-full bg-gray50 mb-4"
                 placeholder={KeyManagement.TITLE_PLACEHOLDER}
                 onChange={titleChangeHandler}
+                variant={InputVariants.Filled}
               />
               <Input
                 id={KeyManagement.LLM_TITLE}
                 name={KeyManagement.LLM_TITLE}
-                className="p-3 w-full bg-gray50 mb-4"
                 placeholder={KeyManagement.LLM_PLACEHOLDER}
                 onChange={llmChangeHandler}
+                variant={InputVariants.Filled}
               />
               <Input
                 id={KeyManagement.SK_TITLE}
                 name={KeyManagement.SK_TITLE}
-                className="p-3 w-full bg-gray50 mb-4"
                 placeholder={KeyManagement.SK_PLACEHOLDER}
                 onChange={skChangeHandler}
+                variant={InputVariants.Filled}
               />
             </div>
           </form>

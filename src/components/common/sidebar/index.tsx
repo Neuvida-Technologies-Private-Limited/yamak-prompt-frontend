@@ -50,14 +50,25 @@ const items: LinkItem[] = [
     icon: <BsHddStack />,
     disabled: true,
   },
-  { key: Paths.Help, label: SidebarConst.Help, icon: <FiHeadphones /> },
+  {
+    key: Paths.Help,
+    label: SidebarConst.Help,
+    icon: <FiHeadphones />,
+  },
   {
     key: Paths.Feedback,
     label: SidebarConst.Feedback,
     icon: <MdOutlineSubject />,
   },
-  { key: Paths.Profile, label: SidebarConst.Profile, icon: <AiOutlineUser /> },
-  { key: '/', label: SidebarConst.Logout, icon: <FiLogOut /> },
+  {
+    key: Paths.Profile,
+    label: SidebarConst.Profile,
+    icon: <AiOutlineUser />,
+  },
+  { key: '/', 
+    label: SidebarConst.Logout, 
+    icon: <FiLogOut /> 
+  },
 ];
 
 const { Sider } = Layout;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '../index';
+import { Button } from 'components/common';
 
 interface TabProps {
   tab1: string;
@@ -26,7 +26,7 @@ const Index: React.FC<TabProps> = ({ tab1, tab2, icon1, icon2, className }) => {
           onClick={filterHandler}
           className={`${
             isSelected && 'bg-white'
-          } rounded-2xl font-bold !py-4 !px-3 border-0`}
+          } rounded-2xl font-medium !py-4 !px-3 border-0`}
           name={tab1}
           icon={icon1}
         />
@@ -37,7 +37,7 @@ const Index: React.FC<TabProps> = ({ tab1, tab2, icon1, icon2, className }) => {
           onClick={filterHandler}
           className={`${
             !isSelected && 'bg-white'
-          } font-bold rounded-2xl !py-4 !px-3 border-0`}
+          } font-medium rounded-2xl !py-4 !px-3 border-0`}
           name={tab2}
           icon={icon2}
         />

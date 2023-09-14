@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Collapse } from 'antd';
 import type { CollapseProps } from 'antd';
 import { Button, Input, Modal } from 'components/common';
-import { Workspace } from 'utils/constants';
+import { Workspace, InputVariants } from 'utils/constants';
 import CollapseItem from './collapseItem';
 
 interface CreateWorkspaceProps {
@@ -48,9 +48,9 @@ const App: React.FC<CreateWorkspaceProps> = ({ btnName, className }) => {
             <Input
               id={Workspace.Name}
               name={Workspace.Name}
-              className="p-3 w-full bg-gray50 mb-4"
               placeholder={Workspace.Name}
               onChange={handleChange}
+              variant={InputVariants.Filled}
             />
             <Collapse
               expandIconPosition={'end'}

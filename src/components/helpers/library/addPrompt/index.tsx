@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Input, Modal, Select, TextArea } from 'components/common';
-import { LibrarySelectOptions, Library } from 'utils/constants';
+import { LibrarySelectOptions, Library, InputVariants } from 'utils/constants';
 
 const AddNewPrompt = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -38,9 +38,9 @@ const AddNewPrompt = () => {
               <Input
                 id={Library.NewPromptTitle}
                 name={Library.NewPromptTitle}
-                className="p-3 w-full bg-gray50 mb-4"
                 placeholder={Library.TitlePlaceholder}
                 onChange={titleChangeHandler}
+                variant={InputVariants.Filled}
               />
               <TextArea
                 rows={6}

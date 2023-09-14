@@ -35,7 +35,7 @@ export const routes: Route[] = [
 
 workspaces.forEach(workspace => {
   routes.push({
-    path: 'workspace.link',
+    path: workspace.link,
     element: Workspaces,
   });
 });

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
 import { Button, Input, Tooltip, Modal, Slider } from 'components/common';
-import { Workspace } from 'utils/constants';
+import { Workspace, InputVariants } from 'utils/constants';
 import { Types } from './types';
 
 const handleChange = () => {};
@@ -27,7 +27,8 @@ const parameters: Types[] = [
         name={''}
         placeholder={'0'}
         onChange={handleChange}
-        className="p-2 w-2/3 bg-gray50"
+        className="!w-2/3"
+        variant={InputVariants.Filled}
       />
     ),
     title: 'Sequences Info',
@@ -55,7 +56,8 @@ const parameters: Types[] = [
         name={''}
         placeholder={'0'}
         onChange={handleChange}
-        className="p-2 w-2/3 bg-gray50"
+        className="!w-2/3"
+        variant={InputVariants.Filled}
       />
     ),
     title: 'Logit Bias Info',

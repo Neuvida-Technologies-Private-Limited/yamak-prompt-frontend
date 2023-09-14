@@ -37,7 +37,7 @@ const LibraryCard: React.FC<CardProps> = ({
           type="default"
           shape="default"
           onClick={importPromptHandler}
-          className="!text-xs whitespace-nowrap bg-gray50 text-primary800 font-bold !p-2 !py-4 !rounded-xl border-0"
+          className="!text-xs whitespace-nowrap bg-gray50 text-primary600 font-bold !p-2 !py-4 !rounded-xl border-0"
           name={buttonName}
         />
       </div>

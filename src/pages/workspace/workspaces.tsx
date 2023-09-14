@@ -21,7 +21,7 @@ const workspace: React.FC<WorkspaceProps> = ({ label }) => {
     <div className="flex flex-col h-screen">
       <div className="flex justify-between items-center p-8 border-b-4 border-gray50">
         <div className="flex">
-          <h1 className="text-2xl font-poppins font-bold pr-3">
+          <h1 className="text-2xl font-poppins font-semibold pr-3">
             {Workspace.Marketing}
           </h1>
           <Button
@@ -41,7 +41,7 @@ const workspace: React.FC<WorkspaceProps> = ({ label }) => {
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
             onClick={handleClick}
-            className="items-center flex font-poppins text-primary800 font-semibold p-4 border-2 border-primary50 bg-primary50 rounded-lg"
+            className="items-center flex font-poppins text-primary800 font-medium p-4 border-2 border-primary50 bg-primary50 rounded-lg"
           />
           <Button
             size={undefined}
@@ -49,7 +49,7 @@ const workspace: React.FC<WorkspaceProps> = ({ label }) => {
             shape={undefined}
             name={Workspace.Publish}
             onClick={handleClick}
-            className="publishedBtn border-black p-4 border-2 rounded-lg font-bold text-black font-poppins transition-all ease-in-out duration-300"
+            className="publishedBtn border-black p-4 border-2 rounded-lg font-medium text-black font-poppins transition-all ease-in-out duration-300"
           />
         </div>
       </div>

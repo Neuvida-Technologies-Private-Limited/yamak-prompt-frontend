@@ -47,6 +47,16 @@ module.exports = {
         barlow: "'Barlow', sans-serif",
         raleway: "'Raleway', sans-serif",
       },
+      fontWeight: {
+        hairline: '100',
+        extralight: '200',
+        light: '300',
+        normal: '400',
+        medium: '500',
+        semibold: '600',
+        bold: '700',
+        extrabold: '800',
+      },
       screens: {
         sm: '320px',
         md: '768px',

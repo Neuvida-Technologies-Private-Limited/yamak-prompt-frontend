@@ -1,3 +1,8 @@
+export enum InputVariants {
+  Filled = 'filled',
+  Outlined = 'outlined',
+  Default = 'default',
+}
 export enum CardConst {
   CopyPrompt = 'Copy Prompt',
   Likes = '5.1M',
@@ -62,7 +67,7 @@ export enum Workspace {
   CharacterLimit = 'Your limit is 300 character',
   Marketing = 'Marketing Prompt Room',
   History = 'History',
-  Prompt = 'Prompt 1',
+  Prompt = 'Marketing Prompt 1',
   Date = '1 day ago',
   Time = '6.23 pm',
   SearchLibrary = 'Search Library',
@@ -108,13 +113,13 @@ export enum Library {
 }
 
 export const workspaces = [
-  // {
-  //   link: '/home/workspace1',
-  //   heading: 'Marketing Prompt Room',
-  //   createdBy: 'Deepak Sharma',
-  //   createdOn: '12th February',
-  //   label: 'Workspace1',
-  // },
+  {
+    link: '/home/workspace1',
+    heading: 'Marketing Prompt Room',
+    createdBy: 'Deepak Sharma',
+    createdOn: '12th February',
+    label: 'Workspace1',
+  },
 ];
 
 export const LibrarySelectOptions = [

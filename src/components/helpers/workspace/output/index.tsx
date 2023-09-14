@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiBookmark } from 'react-icons/fi';
 import { Button, Input, StyledInput } from 'components/common';
-import { Workspace } from 'utils/constants';
+import { Workspace, InputVariants } from 'utils/constants';
 
 const buttons = [
   {
@@ -30,8 +30,8 @@ const index: React.FC = () => {
           id={Workspace.PromptTitle}
           name={Workspace.PromptTitle}
           placeholder={Workspace.PromptTitle}
-          className="p-2"
           onChange={handleChange}
+          variant={InputVariants.Filled}
         />
       </div>
       <div className="flex pt-6 h-full">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Input } from 'components/common';
 import { Inputs, Buttons } from './constants';
+import { InputVariants } from 'utils/constants';
 
 const collapseItem: React.FC = () => {
   return (
@@ -16,9 +17,9 @@ const collapseItem: React.FC = () => {
             <Input
               id={input.id}
               name={input.name}
-              className="p-2 w-full placeholder:text-gray400 bg-gray50 mb-4"
               placeholder={input.placeholder}
               onChange={input.onChange}
+              variant={InputVariants.Filled}
             />
           )
         )}

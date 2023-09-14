@@ -12,5 +12,4 @@ export { default as Tag } from './tag';
 export { default as Tooltip } from './tooltip';
 export { default as Text } from './text';
 export { default as Slider } from './slider';
-export { default as Timeline } from './timeline';
 export { default as Tabs } from './tabs';
