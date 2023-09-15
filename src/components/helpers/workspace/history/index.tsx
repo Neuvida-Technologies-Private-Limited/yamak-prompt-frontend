@@ -11,7 +11,7 @@ const handleClick = () => {};
 
 const index: React.FC = () => {
   return (
-    <div className="flex flex-col pl-4 h-full">
+    <div className="flex flex-col pl-4 h-full w-full">
       <div className="flex justify-between items-center font-poppins h-1/6">
         <h1 className="font-semibold text-base">{Workspace.History}</h1>
         <IoListCircleOutline size={25} />
