@@ -6,7 +6,7 @@ import { Heading } from 'components/common';
 
 const WorkspaceDashboard: React.FC = () => {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col">
       <div className="flex justify-between p-6">
         <div className="flex flex-col font-poppins">
           <Heading
@@ -27,16 +27,24 @@ const WorkspaceDashboard: React.FC = () => {
         />
       </div>
       {workspaces.length > 0 ? (
-        <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3">
-          {workspaces.map((item: any) => (
-            <Link to={item.link} key={item.link}>
-              <WorkspaceCard
-                heading={item.heading}
-                createdBy={item.createdBy}
-                createdOn={item.createdOn}
-              />
-            </Link>
-          ))}
+        <div className="">
+          <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
+            {workspaces.map((item: any) => (
+              <Link to={item.link} key={item.link}>
+                <WorkspaceCard
+                  heading={item.heading}
+                  createdBy={item.createdBy}
+                  createdOn={item.createdOn}
+                />
+              </Link>
+            ))}
+          </div>
+          <div className="sm:flex em:hidden bottom-0 z-2 fixed items-center justify-center w-full bg-gray100 rounded-t-xl py-4">
+            <CreateWorkspace
+              btnName={Workspace.CreateWorkspace}
+              className="w-72 h-12 flex justify-center"
+            />
+          </div>
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center h-full">
