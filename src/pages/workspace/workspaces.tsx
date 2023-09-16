@@ -1,6 +1,6 @@
 import React from 'react';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
-import { Button, Input, Search, Tabs } from 'components/common';
+import { Button, Input, Tabs } from 'components/common';
 import {
   WorkspaceHistory,
   WorkspaceInputs,
