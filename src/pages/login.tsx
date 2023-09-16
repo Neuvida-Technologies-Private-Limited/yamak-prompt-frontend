@@ -1,7 +1,5 @@
-import { Button, Heading } from 'components/common';
-import { Login } from 'pages';
-import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import { Button, Heading } from 'components/common';
 import { LoginConst } from 'utils/constants';
 
 const handleClick = () => {};
