@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #4f80fb;
+  --primary-color-900: #003580;
+  --primary-color-800: #0047a6;
+  --primary-color-700: #0059c9;
+  --primary-color-600: #296ce5;
+  --primary-color-400: #7394ff;
+  --primary-color-300: #96aaff;
+  --primary-color-200: #b6c1ff;
+  --primary-color-100: #d5d9ff;
+  --primary-color-50: #f2f2ff;
+  --secondary: #57c2a8;
+  --secondary-color-900: #004433;
+  --secondary-color-800: #005a44;
+  --secondary-color-700: #007055;
+  --secondary-color-600: #008568;
+  --secondary-color-500: #13af92;
+  --secondary-color-400: #009a7c;
+  --secondary-color-200: #88d5c0;
+  --secondary-color-100: #b8e7d9;
+  --secondary-color-50: #b8e7d9;
+  --black: #1d1d1d;
+  --gray-900: #393939;
+  --gray-800: #4b4b4b;
+  --gray-700: #5e5e5e;
+  --gray-600: #727272;
+  --gray-500: #868686;
+  --gray-400: #9b9b9b;
+  --gray-300: #b0b0b0;
+  --gray-200: #c6c6c6;
+  --gray-100: #dddddd;
+  --gray-50: #f3f3f3;
+  --white: #ffffff;
+  --error-color: #ff5050;
+}
+
+@layer components {
+}
+
+/* customizing the scrollbar */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--secondary-color-100);
+  border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 4px;
+}
+
+.ant-layout .ant-layout-sider {
+  background: var(--white) !important;
+}
+.ant-layout .ant-layout-sider-trigger {
+  background-color: var(--primary-color) !important;
+}
+.ant-menu-light .ant-menu-item-selected {
+  background-color: var(--secondary);
+  color: var(--white) !important;
+}
+.ant-menu-light.ant-menu-inline .ant-menu-item {
+  color: var(--black);
+}
+.ant-menu-item .ant-menu-item-disabled {
+  color: var(--gray-300) !important;
+}
+.ant-menu-inline-collapsed > .ant-menu-item-disabled .ant-menu-item-icon {
+  color: var(--gray-300) !important;
+}
+.ant-input {
+  font-family: 'Poppins', serif;
+}
+.createWorkspace.ant-btn-default:hover {
+  color: var(--white) !important;
+}
+.ant-modal-root .ant-modal-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  backdrop-filter: blur(3px);
+}
+.ant-modal .ant-modal-title {
+  color: var(--black);
+  font-size: 36px;
+  letter-spacing: -0.4px;
+}
+.ant-modal-footer {
+  display: flex !important;
+  flex-direction: row-reverse;
+  align-items: center !important;
+  justify-content: space-between;
+}
+.createWorkspace .ant-modal-footer .ant-btn-default,
+.parameters .ant-modal-footer .ant-btn-default {
+  display: none !important;
+}
+.ant-modal .ant-modal-footer .ant-btn + .ant-btn {
+  background-color: var(--primary-color) !important;
+  font-family: 'Poppins', serif;
+}
+.ant-modal .ant-modal-footer .ant-btn {
+  height: 2.5rem !important;
+}
+.ant-modal .ant-modal-footer .ant-btn-primary,
+.ant-modal .ant-modal-footer .ant-btn-default {
+  padding: 0rem 1rem;
+}
+.workspaceSearch .ant-input-affix-wrapper {
+  padding: 6px 18px !important;
+}
+.ant-input-search .ant-input-search-button {
+  height: 35.5px !important;
+}
+.workspace.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  color: var(--gray-200) !important;
+}
+.workspace.ant-select-single {
+  font-size: 14px;
+  display: flex !important;
+  align-items: center !important;
+  width: 7rem;
+}
+.library.ant-select > .ant-select-selector {
+  background-color: var(--gray-50);
+  border: none;
+}
+.library .ant-modal-footer .ant-btn-default {
+  display: none !important;
+}
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: var(--black) !important;
+  font-weight: 900;
+  font-family: 'Poppins';
+  font-size: 18px;
+}
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border: 1px solid var(--gray-200) !important;
+}
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  font-family: 'Poppins' !important;
+  font-size: 14px !important;
+  padding: 24px !important;
+  border-radius: 12px !important;
+  height: 100%;
+  align-items: flex-start !important;
+}
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+  height: 100%;
+}
+.css-14pt78w-MuiSlider-rail {
+  color: var(--gray-300);
+}
+.css-1gv0vcd-MuiSlider-track {
+  color: var(--primary-color);
+}
+.css-eg0mwd-MuiSlider-thumb {
+  color: var(--white);
+}
