@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiBookmark, FiClock } from 'react-icons/fi';
-import { Button, Input, StyledInput, Modal } from 'components/common';
+import { Button, Input, StyledInput } from 'components/common';
 import { Workspace, InputVariants } from 'utils/constants';
 import { WorkspaceHistory } from 'components/helpers';
 

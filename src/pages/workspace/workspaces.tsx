@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
-import { Button, Input, Search, Tabs } from 'components/common';
+import { Button, Input, Tabs } from 'components/common';
 import {
   WorkspaceHistory,
   WorkspaceInputs,
@@ -17,7 +17,21 @@ interface WorkspaceProps {
 const handleClick = () => {};
 const handleChange = () => {};
 
-const workspace: React.FC<WorkspaceProps> = ({ label }) => {
+const Index: React.FC<WorkspaceProps> = ({ label }) => {
+  const [isDekstopView, setIsDesktopView] = useState(window.innerWidth >= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktopView(window.innerWidth >= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div className="flex flex-col h-screen">
       <div className="grid items-center p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1">
@@ -78,7 +92,7 @@ const workspace: React.FC<WorkspaceProps> = ({ label }) => {
         </div>
       </div>
       <div className="lg:flex lg:flex-row sm:grid md:grid-col-2 sm:grid-col-1 h-3/4 px-4 !overflow-y-scroll">
-        {window.innerWidth >= 768 ? (
+        {isDekstopView ? (
           <div className="lg:w-1/3 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
             <WorkspaceHistory />
           </div>
@@ -95,4 +109,4 @@ const workspace: React.FC<WorkspaceProps> = ({ label }) => {
   );
 };
 
-export default workspace;
+export default Index;
