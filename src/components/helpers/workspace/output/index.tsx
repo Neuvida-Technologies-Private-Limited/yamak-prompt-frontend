@@ -1,7 +1,8 @@
 import React from 'react';
-import { FiBookmark } from 'react-icons/fi';
+import { FiBookmark, FiClock } from 'react-icons/fi';
 import { Button, Input, StyledInput } from 'components/common';
 import { Workspace, InputVariants } from 'utils/constants';
+import { WorkspaceHistory } from 'components/helpers';
 
 const buttons = [
   {
@@ -14,13 +15,26 @@ const buttons = [
     onclick: () => handleClick,
     name: 'Bookmark',
     className:
-      'flex items-center bg-gray100 text-gray500 font-poppins border-2 border-none h-10 px-4 rounded-lg',
+      'md:flex items-center bg-gray100 text-gray500 font-poppins border-2 border-none h-10 px-4 rounded-lg sm:hidden',
     icon: <FiBookmark />,
+  },
+  {
+    onclick: () => handleClick,
+    className:
+      'sm:flex items-center justify-center md:bg-gray100 md:text-gray500 sm:text-primary700 md:border-none sm:border sm:border-primary700 font-poppins !p-4 text-lg rounded-md md:hidden',
+    icon: <FiBookmark />,
+  },
+  {
+    onclick: () => handleHistoryClick,
+    className:
+      'sm:flex items-center justify-center md:bg-gray100 md:text-gray500 sm:text-primary700 md:border-none sm:border sm:border-primary700 font-poppins !p-4 text-lg rounded-md md:hidden',
+    icon: <FiClock />,
   },
 ];
 
 const handleChange = () => {};
 const handleClick = () => {};
+const handleHistoryClick = () => {};
 
 const index: React.FC = () => {
   return (
@@ -41,8 +55,8 @@ const index: React.FC = () => {
           className="w-full"
         />
       </div>
-      <div className="flex py-6 justify-between items-center">
-        <div className="flex">
+      <div className="flex py-6 md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
+        <div className="flex items-center gap-4">
           {buttons.map(btn => (
             <Button
               size={undefined}

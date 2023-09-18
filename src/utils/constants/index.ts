@@ -120,6 +120,34 @@ export const workspaces = [
     createdOn: '12th February',
     label: 'Workspace1',
   },
+  {
+    link: '/home/workspace1',
+    heading: 'Marketing Prompt Room',
+    createdBy: 'Deepak Sharma',
+    createdOn: '12th February',
+    label: 'Workspace1',
+  },
+  {
+    link: '/home/workspace1',
+    heading: 'Marketing Prompt Room',
+    createdBy: 'Deepak Sharma',
+    createdOn: '12th February',
+    label: 'Workspace1',
+  },
+  {
+    link: '/home/workspace1',
+    heading: 'Marketing Prompt Room',
+    createdBy: 'Deepak Sharma',
+    createdOn: '12th February',
+    label: 'Workspace1',
+  },
+  {
+    link: '/home/workspace1',
+    heading: 'Marketing Prompt Room',
+    createdBy: 'Deepak Sharma',
+    createdOn: '12th February',
+    label: 'Workspace1',
+  },
 ];
 
 export const LibrarySelectOptions = [

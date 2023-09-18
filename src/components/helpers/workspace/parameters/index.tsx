@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiInfo } from 'react-icons/fi';
+import { FiInfo, FiSliders } from 'react-icons/fi';
 import { Button, Input, Tooltip, Modal, Slider } from 'components/common';
 import { Workspace, InputVariants } from 'utils/constants';
 import { Types } from './types';
@@ -75,7 +75,15 @@ const Parameters: React.FC = () => {
         size={'middle'}
         shape={undefined}
         name={Workspace.Parameters}
-        className="parameters border-none px-6 font-poppins hover:!text-primary800 text-primary underline"
+        className="parameters border-none px-6 font-poppins hover:!text-primary800 text-primary md:block sm:hidden"
+      />
+      <Button
+        type="default"
+        onClick={() => setShowModal(true)}
+        size={'middle'}
+        shape={undefined}
+        icon={<FiSliders />}
+        className="bg-gray50 border-none flex justify-center p-2 items-center rounded-md md:hidden sm:block"
       />
       <Modal
         title={Workspace.Parameters}
@@ -84,18 +92,18 @@ const Parameters: React.FC = () => {
         showModalHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
         okText={Workspace.Parameters}
-        className="parameters !w-1/2"
+        className="parameters em:!w-1/2 sm:!w-full"
       >
         <div className="flex flex-col">
           <form action="#" method="post">
             <div className="flex w-full flex-col">
               {parameters.map(items => (
-                <div className="flex">
-                  <div className="w-1/3 flex items-center">
+                <div className="flex sm:!flex-wrap">
+                  <div className="em:w-1/3 sm:w-full flex items-center">
                     <label className="p-3">{items.label}</label>
                     <Tooltip element={<FiInfo />} title={items.title} />
                   </div>
-                  <div className="w-2/3">{items.input}</div>
+                  <div className="em:w-2/3 sm:w-full">{items.input}</div>
                 </div>
               ))}
             </div>

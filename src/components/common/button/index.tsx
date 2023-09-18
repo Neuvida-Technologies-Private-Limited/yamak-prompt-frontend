@@ -23,7 +23,7 @@ const button: React.FC<ButtonProps> = ({
   onClick,
 }) => (
   <Button
-    className={`flex items-center gap-x-0 font-poppins ${className}`}
+    className={`flex items-center font-poppins ${className}`}
     icon={icon}
     size={size}
     type={type}

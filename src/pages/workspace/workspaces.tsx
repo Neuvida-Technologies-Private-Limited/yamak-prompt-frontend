@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
-import { Button, Search, Tabs } from 'components/common';
+import { Button, Input, Tabs } from 'components/common';
 import {
   WorkspaceHistory,
   WorkspaceInputs,
   WorkspaceOutput,
   WorkspaceParameters,
 } from 'components/helpers';
-import { Workspace } from 'utils/constants';
+import { Workspace, InputVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
 
 interface WorkspaceProps {
@@ -15,12 +15,15 @@ interface WorkspaceProps {
 }
 
 const handleClick = () => {};
+const handleChange = () => {};
 
-const workspace: React.FC<WorkspaceProps> = ({ label }) => {
+const Index: React.FC<WorkspaceProps> = ({ label }) => {
+  const isDekstopView = window.innerWidth >= 768;
+
   return (
     <div className="flex flex-col h-screen">
-      <div className="flex justify-between items-center p-8 border-b-4 border-gray50">
-        <div className="flex">
+      <div className="grid items-center p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1">
+        <div className="flex sm:justify-center md:justify-start">
           <h1 className="text-2xl font-poppins font-semibold pr-3">
             {Workspace.Marketing}
           </h1>
@@ -33,7 +36,7 @@ const workspace: React.FC<WorkspaceProps> = ({ label }) => {
             className="bg-primary hover:bg-primary900 hover:!text-white text-white flex justify-center rounded-lg border-none"
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 md:justify-end sm:justify-center">
           <Button
             size={undefined}
             type={'link'}
@@ -60,24 +63,33 @@ const workspace: React.FC<WorkspaceProps> = ({ label }) => {
             tab2={Workspace.Completion}
             icon1={<HiOutlineChatAlt2 />}
             icon2={<BsCheck2Circle />}
+            className="items-center"
           />
         </div>
-        <div className="flex py-2">
-          <Search
+        <div className="flex py-2 justify-center items-center">
+          <Input
+            id={Workspace.SearchPrompt}
+            name={Workspace.SearchPrompt}
             placeholder={Workspace.SearchPrompt}
-            className="workspaceSearch"
+            onChange={handleChange}
+            className="!mb-0 sm:hidden md:block"
+            type="search"
+            variant={InputVariants.Filled}
           />
           <WorkspaceParameters />
         </div>
       </div>
-      <div className="flex flex-row h-3/4 pr-8">
-        <div className="w-1/4 pt-4 pr-3 border-r-4 border-gray50">
-          <WorkspaceHistory />
-        </div>
-        <div className="w-2/6 pt-6 px-4">
+      <div className="lg:flex lg:flex-row sm:grid md:grid-col-2 sm:grid-col-1 h-3/4 px-4 !overflow-y-scroll">
+        {isDekstopView ? (
+          <div className="lg:w-1/3 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
+            <WorkspaceHistory />
+          </div>
+        ) : null}
+
+        <div className="lg:w-2/6 pt-6 px-4 col-span-1">
           <WorkspaceInputs />
         </div>
-        <div className="w-3/6 pt-6 pl-4">
+        <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">
           <WorkspaceOutput />
         </div>
       </div>
@@ -85,4 +97,4 @@ const workspace: React.FC<WorkspaceProps> = ({ label }) => {
   );
 };
 
-export default workspace;
+export default Index;
