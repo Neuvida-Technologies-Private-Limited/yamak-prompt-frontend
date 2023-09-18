@@ -11,7 +11,7 @@ const login = () => {
         <div className="flex flex-col items-center justify-start m-4 rounded-xl bg-primary">
           <img src="/assets/images/loginBanner.svg" alt="" className=" w-4/5" />
           <div className="flex justify-center font-poppins text-center text-gray50 sm:px-4 em:px-12 w-full">
-            {LoginConst.BannerDesc}
+            {LoginConst.Banner_Desc}
           </div>
         </div>
         <div className="flex flex-col sm:items-center md:items-start justify-center p-8 gap-4">
@@ -23,7 +23,7 @@ const login = () => {
           />
 
           <p className="font-poppins text-gray400 sm:text-center md:text-start">
-            {LoginConst.LoginDesc}
+            {LoginConst.Login_Desc}
           </p>
           <Button
             size={undefined}

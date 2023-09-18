@@ -42,10 +42,10 @@ export enum TOKENS {
   USER_TYPE_TOKEN = 'user_type_token',
 }
 export enum LoginConst {
-  BannerDesc = 'A few Clicks away from creating your Prompt Management',
+  Banner_Desc = 'A few Clicks away from creating your Prompt Management',
   SignIn = 'Sign in with Google',
   Welcome = 'Welcome Back',
-  LoginDesc = 'Enter the following Details and continue your journey to manage your prompt',
+  Login_Desc = 'Enter the following Details and continue your journey to manage your prompt',
 }
 export enum Workspace {
   Create = 'Create',
