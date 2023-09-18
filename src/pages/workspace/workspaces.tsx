@@ -18,19 +18,7 @@ const handleClick = () => {};
 const handleChange = () => {};
 
 const Index: React.FC<WorkspaceProps> = ({ label }) => {
-  const [isDekstopView, setIsDesktopView] = useState(window.innerWidth >= 768);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktopView(window.innerWidth >= 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const isDekstopView = window.innerWidth >= 768;
 
   return (
     <div className="flex flex-col h-screen">
