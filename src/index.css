@@ -119,12 +119,6 @@
 .ant-modal .ant-modal-footer .ant-btn-default {
   padding: 0rem 1rem;
 }
-.workspaceSearch .ant-input-affix-wrapper {
-  padding: 6px 18px !important;
-}
-.ant-input-search .ant-input-search-button {
-  height: 35.5px !important;
-}
 .workspace.ant-collapse > .ant-collapse-item > .ant-collapse-header {
   color: var(--gray-200) !important;
 }
@@ -141,6 +135,7 @@
 .library .ant-modal-footer .ant-btn-default {
   display: none !important;
 }
+
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
   color: var(--black) !important;
   font-weight: 900;

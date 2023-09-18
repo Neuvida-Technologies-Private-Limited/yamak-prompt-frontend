@@ -65,10 +65,7 @@ const items: LinkItem[] = [
     label: SidebarConst.Profile,
     icon: <AiOutlineUser />,
   },
-  { key: '/', 
-    label: SidebarConst.Logout, 
-    icon: <FiLogOut /> 
-  },
+  { key: '/', label: SidebarConst.Logout, icon: <FiLogOut /> },
 ];
 
 const { Sider } = Layout;
