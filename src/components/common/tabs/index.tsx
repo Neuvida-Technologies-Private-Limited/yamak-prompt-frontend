@@ -7,13 +7,22 @@ interface TabProps {
   icon1: React.ReactNode;
   icon2: React.ReactNode;
   className?: string;
+  onTabsHandler?: (t: boolean) => void;
 }
 
-const Index: React.FC<TabProps> = ({ tab1, tab2, icon1, icon2, className }) => {
+const Index: React.FC<TabProps> = ({
+  tab1,
+  tab2,
+  icon1,
+  icon2,
+  className,
+  onTabsHandler,
+}) => {
   const [isSelected, setIsSelected] = useState(true);
 
   const filterHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setIsSelected(event.currentTarget.textContent === tab1 ? true : false);
+    setIsSelected(event.currentTarget.textContent === tab1);
+    onTabsHandler?.(isSelected);
   };
 
   return (
