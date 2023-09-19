@@ -46,6 +46,7 @@ export enum LoginConst {
   SignIn = 'Sign in with Google',
   Welcome = 'Welcome Back',
   Login_Desc = 'Enter the following Details and continue your journey to manage your prompt',
+  LogIn = 'LogIn',
 }
 export enum Workspace {
   Create = 'Create',
