@@ -4,7 +4,7 @@ import { Inputs } from './constants';
 
 const handleChange = () => {};
 
-const index: React.FC = () => {
+const InputSection: React.FC = () => {
   return (
     <div className="grid h-full">
       {Inputs.map(item => (
@@ -25,4 +25,4 @@ const index: React.FC = () => {
   );
 };
 
-export default index;
+export default InputSection;

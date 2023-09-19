@@ -35,7 +35,7 @@ const handleChange = () => {};
 const handleClick = () => {};
 const handleHistoryClick = () => {};
 
-const index: React.FC = () => {
+const OutputSection: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       <div className="flex">
@@ -81,4 +81,4 @@ const index: React.FC = () => {
   );
 };
 
-export default index;
+export default OutputSection;
