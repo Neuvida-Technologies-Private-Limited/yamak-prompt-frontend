@@ -1,16 +1,24 @@
 import LibraryCard from './card';
-import { Library } from 'utils/constants';
 
-const CardsGrid = () => {
+type CardItems = {
+  id: number;
+  heading: string;
+  subHeading: string;
+  buttonName: string;
+  description: string;
+  favorite?: boolean;
+};
+
+const CardsGrid: React.FC<{ items: CardItems[] }> = ({ items }) => {
   return (
     <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 font-poppins bg-gray50">
-      {Array.from(Array(10)).map((_, index) => (
+      {items.map((item, index) => (
         <LibraryCard
           key={`library-card-item-${index}`}
-          heading={Library.CardHeading}
-          subHeading={Library.CardSubHeading}
-          buttonName={Library.CardButtonName}
-          description={Library.CardDescription}
+          heading={item.heading}
+          subHeading={item.subHeading}
+          buttonName={item.buttonName}
+          description={item.description}
         />
       ))}
     </div>
