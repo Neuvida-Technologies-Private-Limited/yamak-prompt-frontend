@@ -4,11 +4,20 @@ import SearchArea from 'components/helpers/library/header/SearchArea';
 import { Tabs } from 'components/common';
 import { CardConst } from 'utils/constants';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Library as LibraryConstants } from 'utils/constants';
 
-// Using this data to render cards only, This will come from API
-const cardItems = [
+// NOTE: Using this data to render cards only, This will come from API
+type CardItem = {
+  id: number;
+  heading: string;
+  subHeading: string;
+  buttonName: string;
+  description: string;
+  favorite?: boolean;
+};
+
+const cardItems: CardItem[] = [
   {
     id: 1,
     heading: LibraryConstants.CardHeading,
@@ -72,7 +81,20 @@ const cardItems = [
 ];
 
 const Library = () => {
-  const [items, setItems] = useState(cardItems);
+  const [items, setItems] = useState<CardItem[]>();
+  const [filteredItems, setFilteredItems] = useState<CardItem[]>(cardItems);
+
+  function favoriteHandler(isSelected: boolean) {
+    console.log(isSelected);
+    if (isSelected === false) return setFilteredItems(items!);
+    const data = items!.filter(item => item.favorite === isSelected);
+    setFilteredItems(data);
+  }
+
+  useEffect(() => {
+    // NOTE: Here we will call the API and set the items
+    setItems(cardItems);
+  }, []);
 
   return (
     <div className="font-poppins h-screen overflow-y-scroll">
@@ -84,10 +106,11 @@ const Library = () => {
           icon1={<HiMenu />}
           icon2={<HiOutlineHeart />}
           className="border-b-2 border-gray50 py-4 px-6"
+          onTabsHandler={favoriteHandler}
         />
         <SearchArea />
       </LibraryHeader>
-      <LibraryCardsGrid items={items} />
+      <LibraryCardsGrid items={filteredItems} />
     </div>
   );
 };
