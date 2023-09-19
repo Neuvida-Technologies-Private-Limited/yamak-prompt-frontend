@@ -1,18 +1,19 @@
 import React from 'react';
 import { RiSaveLine, RiDeleteBin5Line } from 'react-icons/ri';
-import { Heading, StyledInput } from 'components/common';
+import { Heading, Input, StyledInput } from 'components/common';
 import { Button, Text } from 'components/common';
 import { CreateKeyModal } from 'components/helpers';
 import { KeyManagement } from 'utils/constants';
 
 const inputs = [
-  { name: 'Open AI', placeHolder: 'sk-*************************' },
-  { name: 'Bard', placeHolder: 'sk-*************************' },
+  { id: '1', name: 'Open AI', placeHolder: 'sk-*************************' },
+  { id: '2', name: 'Bard', placeHolder: 'sk-*************************' },
 ];
 
 const keyManagment: React.FC = () => {
   const saveManagementHandler = () => {};
   const deleteManagementHandler = () => {};
+  const handleChange = () => {};
 
   return (
     <div className="font-poppins p-6">
@@ -35,13 +36,21 @@ const keyManagment: React.FC = () => {
         {inputs.map((input, index) => (
           <div
             key={`key-management-input-${index}`}
-            className="w-full flex sm:flex-col md:flex-row sm:items-start md:items-center gap-4"
+            className="w-full flex sm:flex-col md:flex-row sm:items-start md:items-center gap-4 w-full"
           >
-            <StyledInput
-              label={input.name}
-              placeholder={input.placeHolder}
-              className="sm:w-full md:w-2/4"
-            />
+            <div className="flex flex-col font-poppins rounded-lg bg-gray50 p-2 h-full md:w-2/3 sm:w-full">
+              <label className="font-medium px-2 mx-2 -mt-4 bg-white w-fit">
+                {input.name}
+              </label>
+              <Input
+                id={input.id}
+                name={input.placeHolder}
+                placeholder={input.placeHolder}
+                onChange={handleChange}
+                variant={'default'}
+                className="py-2 px-4 bg-gray50"
+              />
+            </div>
             <div className="flex gap-x-2">
               <Button
                 size="small"

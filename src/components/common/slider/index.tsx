@@ -6,7 +6,7 @@ interface SliderProps {
   onValueChange: (value: number) => void;
 }
 
-const ParameterSlider: React.FC<SliderProps> = ({ onValueChange }) => {
+const Index: React.FC<SliderProps> = ({ onValueChange }) => {
   const [value, setValue] = useState<number>(0);
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
@@ -27,4 +27,4 @@ const ParameterSlider: React.FC<SliderProps> = ({ onValueChange }) => {
   );
 };
 
-export default ParameterSlider;
+export default Index;

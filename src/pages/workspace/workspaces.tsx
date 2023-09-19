@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { Button, Input, Tabs } from 'components/common';
 import {
@@ -79,14 +79,14 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
           <WorkspaceParameters />
         </div>
       </div>
-      <div className="lg:flex lg:flex-row sm:grid md:grid-col-2 sm:grid-col-1 h-3/4 px-4 !overflow-y-scroll">
+      <div className="lg:flex lg:flex-row sm:grid md:grid-col-2 sm:grid-col-1 h-full px-4 !overflow-y-scroll">
         {isDekstopView ? (
           <div className="lg:w-1/3 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
             <WorkspaceHistory />
           </div>
         ) : null}
 
-        <div className="lg:w-2/6 pt-6 px-4 col-span-1">
+        <div className="lg:w-2/6 py-6 px-4 col-span-1">
           <WorkspaceInputs />
         </div>
         <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">

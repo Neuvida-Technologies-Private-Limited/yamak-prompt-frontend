@@ -1,16 +1,23 @@
 import React from 'react';
-import { StyledInput } from 'components/common';
+import { TextArea } from 'components/common';
 import { Inputs } from './constants';
 
-const index: React.FC = () => {
+const handleChange = () => {};
+
+const InputSection: React.FC = () => {
   return (
-    <div className="grid grid-rows-3 h-full">
+    <div className="grid h-full">
       {Inputs.map(item => (
-        <div className={item.className}>
-          <StyledInput
-            label={item.label}
+        <div className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full">
+          <label className="font-semibold pb-2">{item.label}</label>
+          <TextArea
+            id={item.id}
+            name={item.placeholder}
+            rows={10}
             placeholder={item.placeholder}
-            className="w-full"
+            maxLength={0}
+            className="!resize-none !h-full focus:border-gray50 hover:border-0"
+            onChange={handleChange}
           />
         </div>
       ))}
@@ -18,4 +25,4 @@ const index: React.FC = () => {
   );
 };
 
-export default index;
+export default InputSection;
