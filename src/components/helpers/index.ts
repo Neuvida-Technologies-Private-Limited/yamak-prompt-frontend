@@ -7,3 +7,4 @@ export { default as WorkspaceOutput } from './workspace/output';
 export { default as WorkspaceParameters } from './workspace/parameters';
 export { default as CreateKeyModal } from './keyManagement/CreateKeyModal';
 export { default as WorkspaceHistory } from './workspace/history';
+export { default as WorkspaceChat } from './workspace/chat';

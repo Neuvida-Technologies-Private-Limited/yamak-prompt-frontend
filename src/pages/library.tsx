@@ -1,7 +1,6 @@
 import { LibraryCardsGrid, LibraryHeader } from 'components/helpers';
 import HeadingArea from 'components/helpers/library/header/HeadingArea';
 import SearchArea from 'components/helpers/library/header/SearchArea';
-import { Tabs } from 'components/common';
 import { CardConst } from 'utils/constants';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
@@ -100,14 +99,6 @@ const Library = () => {
     <div className="font-poppins h-screen overflow-y-scroll">
       <LibraryHeader>
         <HeadingArea />
-        <Tabs
-          tab1={CardConst.All}
-          tab2={CardConst.Favourite}
-          icon1={<HiMenu />}
-          icon2={<HiOutlineHeart />}
-          className="border-b-2 border-gray50 py-4 px-6"
-          onTabsHandler={favoriteHandler}
-        />
         <SearchArea />
       </LibraryHeader>
       <LibraryCardsGrid items={filteredItems} />

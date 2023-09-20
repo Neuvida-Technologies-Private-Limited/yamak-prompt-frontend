@@ -1,58 +1,38 @@
-import { useState } from 'react';
-import { Button } from 'components/common';
+import React from 'react';
 
-interface TabProps {
-  tab1: string;
-  tab2: string;
-  icon1: React.ReactNode;
-  icon2: React.ReactNode;
-  className?: string;
-  onTabsHandler?: (t: boolean) => void;
+interface Tab {
+  id: string;
+  tabTitle: string;
+  content: string | React.ReactNode;
+  icon: React.ReactElement;
 }
 
-const Index: React.FC<TabProps> = ({
-  tab1,
-  tab2,
-  icon1,
-  icon2,
-  className,
-  onTabsHandler,
-}) => {
-  const [isSelected, setIsSelected] = useState(true);
-
-  const filterHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setIsSelected(event.currentTarget.textContent === tab1);
-    onTabsHandler?.(isSelected);
-  };
-
+interface TabsProps {
+  tabs: Tab[];
+  currentTab: string | null;
+  onTabClick: (tabId: string) => void;
+}
+const Tabs: React.FC<TabsProps> = ({ tabs, currentTab, onTabClick }) => {
   return (
-    <div className={`flex ${className}`}>
-      <div className="flex bg-gray50 rounded-2xl p-2">
-        <Button
-          size="small"
-          type="default"
-          shape="default"
-          onClick={filterHandler}
+    <div className="bg-gray50 rounded-2xl flex justify-center items-center h-12 px-2 font-poppins text-xs">
+      {tabs.map((tab, i) => (
+        <button
+          key={i}
+          id={tab.id}
+          disabled={currentTab === `${tab.id}`}
+          onClick={() => onTabClick(tab.id)}
           className={`${
-            isSelected && 'bg-white'
-          } rounded-2xl font-medium !py-4 !px-3 border-0`}
-          name={tab1}
-          icon={icon1}
-        />
-        <Button
-          size="small"
-          type="default"
-          shape="default"
-          onClick={filterHandler}
-          className={`${
-            !isSelected && 'bg-white'
-          } font-medium rounded-2xl !py-4 !px-3 border-0`}
-          name={tab2}
-          icon={icon2}
-        />
-      </div>
+            currentTab === `${tab.id}` && 'bg-white'
+          } rounded-md font-medium p-2 border-0 transition-all duration-300 ease-in-out hover:text-primary`}
+        >
+          <div className="flex items-center gap-2">
+            <span className="">{tab.icon}</span>
+            {tab.tabTitle}
+          </div>
+        </button>
+      ))}
     </div>
   );
 };
 
-export default Index;
+export default Tabs;
