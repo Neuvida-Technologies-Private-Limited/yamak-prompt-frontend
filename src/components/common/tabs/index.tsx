@@ -1,11 +1,5 @@
 import React from 'react';
-
-interface Tab {
-  id: string;
-  tabTitle: string;
-  content?: string | React.ReactNode;
-  icon: React.ReactElement;
-}
+import { Tab } from 'types';
 
 interface TabsProps {
   tabs: Tab[];

@@ -1,84 +1,15 @@
 import { useEffect, useState } from 'react';
-import { LibraryCardsGrid, LibraryHeader } from 'components/helpers';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
-import { Library as LibraryConstants } from 'utils/constants';
+import {
+  LibraryCardsGrid,
+  LibraryHeader,
+  HeadingArea,
+  TabsArea,
+  SearchArea,
+} from 'components/helpers';
+import { LibraryCardItems } from 'utils/constants';
 import { Tabs } from 'components/common';
-import HeadingArea from 'components/helpers/library/header/HeadingArea';
-import SearchArea from 'components/helpers/library/header/SearchArea';
-import TabsArea from 'components/helpers/library/header/TabsArea';
-
-type CardItem = {
-  id: number;
-  heading: string;
-  subHeading: string;
-  buttonName: string;
-  description: string;
-  favorite?: boolean;
-};
-
-// NOTE: Using this data to render cards only, This will come from API
-const cardItems: CardItem[] = [
-  {
-    id: 1,
-    heading: LibraryConstants.CardHeading,
-    subHeading: LibraryConstants.CardSubHeading,
-    buttonName: LibraryConstants.CardButtonName,
-    description: LibraryConstants.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 2,
-    heading: LibraryConstants.CardHeading,
-    subHeading: LibraryConstants.CardSubHeading,
-    buttonName: LibraryConstants.CardButtonName,
-    description: LibraryConstants.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 3,
-    heading: LibraryConstants.CardHeading,
-    subHeading: LibraryConstants.CardSubHeading,
-    buttonName: LibraryConstants.CardButtonName,
-    description: LibraryConstants.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 4,
-    heading: LibraryConstants.CardHeading,
-    subHeading: LibraryConstants.CardSubHeading,
-    buttonName: LibraryConstants.CardButtonName,
-    description: LibraryConstants.CardDescription,
-  },
-  {
-    id: 5,
-    heading: LibraryConstants.CardHeading,
-    subHeading: LibraryConstants.CardSubHeading,
-    buttonName: LibraryConstants.CardButtonName,
-    description: LibraryConstants.CardDescription,
-  },
-  {
-    id: 6,
-    heading: LibraryConstants.CardHeading,
-    subHeading: LibraryConstants.CardSubHeading,
-    buttonName: LibraryConstants.CardButtonName,
-    description: LibraryConstants.CardDescription,
-  },
-  {
-    id: 7,
-    heading: LibraryConstants.CardHeading,
-    subHeading: LibraryConstants.CardSubHeading,
-    buttonName: LibraryConstants.CardButtonName,
-    description: LibraryConstants.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 8,
-    heading: LibraryConstants.CardHeading,
-    subHeading: LibraryConstants.CardSubHeading,
-    buttonName: LibraryConstants.CardButtonName,
-    description: LibraryConstants.CardDescription,
-  },
-];
+import { LibraryCardItem as CardItem } from 'types';
 
 const tabs = [
   {
@@ -104,7 +35,7 @@ const Library = () => {
 
   useEffect(() => {
     // NOTE: Here we will call the API and set the items
-    setItems(cardItems);
+    setItems(LibraryCardItems);
   }, []);
 
   useEffect(() => {

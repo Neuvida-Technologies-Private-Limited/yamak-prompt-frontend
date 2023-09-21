@@ -1,14 +1,9 @@
 import React from 'react';
 import { RiSaveLine, RiDeleteBin5Line } from 'react-icons/ri';
-import { Heading, Input, StyledInput } from 'components/common';
+import { Heading, Input } from 'components/common';
 import { Button, Text } from 'components/common';
 import { CreateKeyModal } from 'components/helpers';
-import { KeyManagement } from 'utils/constants';
-
-const inputs = [
-  { id: '1', name: 'Open AI', placeHolder: 'sk-*************************' },
-  { id: '2', name: 'Bard', placeHolder: 'sk-*************************' },
-];
+import { KeyManagement, KeyManagementInputs } from 'utils/constants';
 
 const keyManagment: React.FC = () => {
   const saveManagementHandler = () => {};
@@ -33,7 +28,7 @@ const keyManagment: React.FC = () => {
       </div>
 
       <div className="mt-14 flex flex-col gap-y-10">
-        {inputs.map((input, index) => (
+        {KeyManagementInputs.map((input, index) => (
           <div
             key={`key-management-input-${index}`}
             className="w-full flex sm:flex-col md:flex-row sm:items-start md:items-center gap-4 w-full"
