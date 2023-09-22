@@ -52,7 +52,7 @@ const keyManagment: React.FC = () => {
                 type="default"
                 shape="default"
                 onClick={saveManagementHandler}
-                className="font-poppins !py-4"
+                className="font-poppins !py-4 border-2 border-black"
                 name="Save"
                 icon={<RiSaveLine />}
               />
@@ -61,7 +61,7 @@ const keyManagment: React.FC = () => {
                 type="default"
                 shape="default"
                 onClick={deleteManagementHandler}
-                className="font-poppins !py-4"
+                className="font-poppins !py-4 border-2 border-black"
                 name="Delete"
                 icon={<RiDeleteBin5Line />}
               />
