@@ -14,10 +14,10 @@ const WorkspaceDashboard: React.FC = () => {
             children={Workspace.Workspaces}
             className="mb-2 sm:text-center em:text-start"
           />
-          <h4 className="text-sm text-gray400 sm:text-center em:text-start">
+          <h4 className="text-sm md:text-base text-gray400 sm:text-center em:text-start">
             {Workspace.Subhead1}
           </h4>
-          <h4 className="text-sm text-gray400 sm:text-center em:text-start">
+          <h4 className="text-sm md:text-base text-gray400 sm:text-center em:text-start">
             {Workspace.Subhead2}
           </h4>
         </div>

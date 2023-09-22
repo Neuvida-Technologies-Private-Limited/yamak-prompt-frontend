@@ -136,6 +136,11 @@
   display: none !important;
 }
 
+.library .ant-select,
+.library .ant-select-dropdown .ant-select-item {
+  font-family: 'Poppins';
+}
+
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
   color: var(--black) !important;
   font-weight: 900;
