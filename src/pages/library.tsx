@@ -8,7 +8,7 @@ import {
   SearchArea,
 } from 'components/helpers';
 import { LibraryCardItems } from 'utils/constants';
-import { Tabs } from 'components/common';
+import { DynamicLabel, Tabs } from 'components/common';
 import { LibraryCardItem as CardItem } from 'types';
 
 const tabs = [
@@ -57,6 +57,7 @@ const Library = () => {
         </TabsArea>
         <SearchArea />
       </LibraryHeader>
+      <DynamicLabel />
       <LibraryCardsGrid items={filteredItems} />
     </div>
   );
