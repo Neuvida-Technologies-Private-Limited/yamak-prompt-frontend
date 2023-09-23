@@ -1,28 +1,96 @@
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FcGoogle } from 'react-icons/fc';
 import { Button, Heading, Input } from 'components/common';
+import { LogIn, CSRF_TOKEN } from 'middleware/api/auth-api';
 import { LoginConst } from 'utils/constants';
+import { loginState } from 'middleware/state';
+import { isUsernameValidated, isPasswordValidated } from 'utils/validations';
 
 const handleClick = () => {};
-const handleChange = () => {};
 
-const InputFields = [
-  {
-    id: '1',
-    label: 'Username',
-    name: 'username',
-    placeholder: 'Enter Username',
-    onchange: handleChange,
-  },
-  {
-    id: '2',
-    label: 'Password',
-    name: 'password',
-    placeholder: 'Enter Password',
-    onchange: handleChange,
-  },
-];
+const Login = () => {
+  const navigate = useNavigate();
+  const [state, setState] = useRecoilState(loginState);
+  // destructuring params
+  const { username, usernameError, password, passwordError } = state;
 
-const login = () => {
+  const handleUsernameChange = (username: string) => {
+    // update the email value
+    setState(old => ({
+      ...old,
+      username,
+      usernameError: isUsernameValidated(username),
+    }));
+  };
+  const handlePasswordChange = (password: string) => {
+    // update the password value
+    setState(old => ({
+      ...old,
+      password,
+      passwordError: isPasswordValidated(password),
+    }));
+  };
+  const InputFields = [
+    {
+      id: '1',
+      label: 'Username',
+      type: 'text',
+      name: 'username',
+      placeholder: 'Enter Username',
+      onchange: handleUsernameChange,
+      value: username,
+      error: usernameError,
+    },
+    {
+      id: '2',
+      label: 'Password',
+      type: 'password',
+      name: 'password',
+      placeholder: 'Enter Password',
+      onchange: handlePasswordChange,
+      value: password,
+      error: passwordError,
+    },
+  ];
+
+  const resetLoginState = useResetRecoilState(loginState);
+
+  const submitHandler = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+
+    // start the loading
+    setState(old => ({
+      ...old,
+      isLoading: true,
+      usernameError: isUsernameValidated(username),
+      passwordError: isPasswordValidated(password),
+    }));
+
+    const loginParams = {
+      username,
+      password,
+    };
+
+    try {
+      await LogIn(loginParams);
+      toast.success('logged in');
+    } catch (error: any) {
+      const errorMessage = error;
+      console.log(errorMessage);
+      toast.warn('Enter password');
+    }
+
+    // end the loading
+    setState(old => ({
+      ...old,
+      isLoading: false,
+    }));
+    resetLoginState();
+  };
+
   return (
     <div className="flex md:h-screen items-center justify-center">
       <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:w-3/5 em:w-4/5 sm:w-full m-4 md:h-2/3 border">
@@ -48,16 +116,20 @@ const login = () => {
             className="flex flex-col font-poppins border rounded-lg w-full border-gray00 p-4 h-full"
             action="#"
             method="POST"
+            onSubmit={submitHandler}
           >
             {InputFields.map(item => (
               <>
                 <label className="font-semibold pb-2">{item.label}</label>
                 <Input
                   id={item.id}
+                  type={item.type}
                   name={item.name}
                   placeholder={item.placeholder}
                   onChange={item.onchange}
+                  value={item.value}
                   variant={'filled'}
+                  error={item.error}
                 />
               </>
             ))}
@@ -65,9 +137,9 @@ const login = () => {
               type="primary"
               shape="default"
               size="large"
-              onClick={handleClick}
               className="bg-primary justify-center flex"
               name={LoginConst.LogIn}
+              htmlType="submit"
             />
           </form>
           {/* Google button  */}
@@ -82,8 +154,9 @@ const login = () => {
           /> */}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
-export default login;
+export default Login;

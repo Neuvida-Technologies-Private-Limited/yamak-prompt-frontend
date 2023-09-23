@@ -9,7 +9,8 @@ interface ButtonProps {
   type: 'link' | 'text' | 'default' | 'primary' | 'dashed';
   shape: 'default' | 'circle' | 'round' | undefined;
   href?: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  htmlType?: 'submit' | undefined;
 }
 
 const button: React.FC<ButtonProps> = ({
@@ -21,6 +22,7 @@ const button: React.FC<ButtonProps> = ({
   shape,
   href,
   onClick,
+  htmlType,
 }) => (
   <Button
     className={`flex items-center font-poppins ${className}`}
@@ -30,6 +32,7 @@ const button: React.FC<ButtonProps> = ({
     shape={shape}
     href={href}
     onClick={onClick}
+    htmlType={htmlType}
   >
     {name}
   </Button>

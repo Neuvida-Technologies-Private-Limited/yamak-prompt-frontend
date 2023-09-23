@@ -40,6 +40,7 @@ export enum TOKENS {
   ACCESS_TOKEN = 'access_token',
   REFRESH_TOKEN = 'refresh_token',
   USER_TYPE_TOKEN = 'user_type_token',
+  CSRF_TOKEN = 'csrf_token',
 }
 export enum LoginConst {
   Banner_Desc = 'A few Clicks away from creating your Prompt Management',
