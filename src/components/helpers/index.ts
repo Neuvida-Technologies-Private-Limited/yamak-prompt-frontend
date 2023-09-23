@@ -1,5 +1,8 @@
 export { default as LibraryCardsGrid } from './library/cardGrid';
 export { default as LibraryHeader } from './library/header';
+export { default as HeadingArea } from './library/header/HeadingArea';
+export { default as TabsArea } from './library/header/TabsArea';
+export { default as SearchArea } from './library/header/SearchArea';
 export { default as WorkspaceCard } from './workspace/card';
 export { default as CreateWorkspace } from './workspace/createWorkspace';
 export { default as WorkspaceInputs } from './workspace/inputs';

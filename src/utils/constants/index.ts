@@ -1,3 +1,5 @@
+import { LibraryCardItem as CardItem } from 'types';
+
 export enum InputVariants {
   Filled = 'filled',
   Outlined = 'outlined',
@@ -162,4 +164,72 @@ export const LibrarySelectOptions = [
   { value: 'copywriting', label: 'Copywriting' },
   { value: 'devops', label: 'Devops' },
   { value: 'generate-ai', label: 'Generate AI' },
+];
+
+export const LibraryCardItems: CardItem[] = [
+  {
+    id: 1,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+    favorite: true,
+  },
+  {
+    id: 2,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+    favorite: true,
+  },
+  {
+    id: 3,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+    favorite: true,
+  },
+  {
+    id: 4,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+  },
+  {
+    id: 5,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+  },
+  {
+    id: 6,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+  },
+  {
+    id: 7,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+    favorite: true,
+  },
+  {
+    id: 8,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+  },
+];
+
+export const KeyManagementInputs = [
+  { id: '1', name: 'Open AI', placeHolder: 'sk-*************************' },
+  { id: '2', name: 'Bard', placeHolder: 'sk-*************************' },
 ];
