@@ -121,6 +121,10 @@ export enum Library {
   CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
 }
 
+export enum Label {
+  NO_LABELS_MESSAGE = 'Create labels',
+}
+
 export const workspaces = [
   {
     link: '/home/workspace1',

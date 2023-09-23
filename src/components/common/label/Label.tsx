@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { Button } from '..';
 import { LabelType } from 'types';
+import { Label as LabelConst } from 'utils/constants';
 
-interface DynamicLabelProps {
+interface LabelProps {
   initialLabels?: LabelType[] | undefined;
   noLabelsMessage?: string;
   className?: string;
 }
 
-const DynamicLabel: React.FC<DynamicLabelProps> = ({
+const Label: React.FC<LabelProps> = ({
   initialLabels = [],
-  noLabelsMessage = 'Create labels',
+  noLabelsMessage = LabelConst.NO_LABELS_MESSAGE,
   className,
 }) => {
   const [labels, setLabels] = useState(initialLabels);
@@ -63,4 +64,4 @@ const DynamicLabel: React.FC<DynamicLabelProps> = ({
   );
 };
 
-export default DynamicLabel;
+export default Label;
