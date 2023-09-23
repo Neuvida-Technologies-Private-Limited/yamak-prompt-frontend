@@ -40,7 +40,7 @@ const Input: React.FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         required={required}
-        className={`${className} ${errorClassName} transition-all block rounded-lg w-full  text-black placeholder:text-gray200 bg-gray50 p-2 px-3 sm:text-sm sm:leading-6 font-poppins`}
+        className={`${className} ${errorClassName} transition-all block rounded-lg w-full focus:outline-0 none text-black placeholder:text-gray200 bg-gray50 p-2 px-3 sm:text-sm sm:leading-6 font-poppins`}
         value={value}
         onChange={handleChange}
       />
@@ -58,7 +58,7 @@ const Input: React.FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         required={required}
-        className={`${className} ${errorClassName} transition-all block rounded-lg text-black placeholder:text-gray200 border-2 border-gray400 sm:text-sm sm:leading-6 font-poppins`}
+        className={`${className} ${errorClassName} transition-all block rounded-lg text-black focus:outline-0 placeholder:text-gray200 border-2 border-gray400 sm:text-sm sm:leading-6 font-poppins`}
         value={value}
         onChange={handleChange}
       />
