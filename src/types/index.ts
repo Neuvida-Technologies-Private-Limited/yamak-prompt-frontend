@@ -13,3 +13,8 @@ export type Tab = {
   content?: string | React.ReactNode;
   icon: React.ReactElement;
 };
+
+export type LabelType = {
+  id: string | number;
+  text: string;
+};
