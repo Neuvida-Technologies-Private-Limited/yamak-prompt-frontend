@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FcGoogle } from 'react-icons/fc';
 import { Button, Heading, Input } from 'components/common';
-import { LogIn, CSRF_TOKEN } from 'middleware/api/auth-api';
+import { LogIn } from 'middleware/api/auth-api';
 import { LoginConst } from 'utils/constants';
 import { loginState } from 'middleware/state';
 import { isUsernameValidated, isPasswordValidated } from 'utils/validations';
@@ -76,11 +76,10 @@ const Login = () => {
 
     try {
       await LogIn(loginParams);
-      toast.success('logged in');
+      navigate('/home');
+      resetLoginState();
     } catch (error: any) {
-      const errorMessage = error;
-      console.log(errorMessage);
-      toast.warn('Enter password');
+      toast.warn('Invalid User');
     }
 
     // end the loading
@@ -88,7 +87,6 @@ const Login = () => {
       ...old,
       isLoading: false,
     }));
-    resetLoginState();
   };
 
   return (

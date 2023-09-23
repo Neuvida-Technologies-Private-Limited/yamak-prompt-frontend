@@ -1,6 +1,6 @@
 export const isUsernameValidated = (password: string) => {
   if (password === '') {
-    return 'Password is required!';
+    return 'Username is required!';
   } else {
     return '';
   }
