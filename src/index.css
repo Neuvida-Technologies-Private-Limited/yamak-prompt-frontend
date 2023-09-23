@@ -59,6 +59,8 @@
   border-radius: 4px;
 }
 
+/* ANT DESIGN COMPONENTS CSS */
+
 .ant-layout .ant-layout-sider {
   background: var(--white) !important;
 }
@@ -128,18 +130,21 @@
   align-items: center !important;
   width: 7rem;
 }
-.library.ant-select > .ant-select-selector {
+.filled.ant-select > .ant-select-selector {
   background-color: var(--gray-50);
   border: none;
 }
 .library .ant-modal-footer .ant-btn-default {
   display: none !important;
 }
-
-.library .ant-select,
-.library .ant-select-dropdown .ant-select-item {
+.ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder,
+.ant-select-dropdown .ant-select-item-option-content,
+.ant-select-selection-item {
   font-family: 'Poppins';
+  font-size: 14px;
 }
+
+/* Material UI COMPONENTS CSS */
 
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
   color: var(--black) !important;

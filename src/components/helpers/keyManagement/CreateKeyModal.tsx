@@ -1,6 +1,10 @@
 import { useState } from 'react';
-import { Button, Input, Modal } from 'components/common';
-import { KeyManagement, InputVariants } from 'utils/constants';
+import { Button, Input, Modal, Select } from 'components/common';
+import {
+  KeyManagement,
+  InputVariants,
+  KeyManagementSelectOptions,
+} from 'utils/constants';
 
 const CreateKeyModal = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -8,9 +12,31 @@ const CreateKeyModal = () => {
   const addKeyButtonHandler = () => {
     setShowModal(prev => !prev);
   };
+
   const titleChangeHandler = () => {};
   const llmChangeHandler = () => {};
   const skChangeHandler = () => {};
+
+  const inputFields = [
+    {
+      id: KeyManagement.KEY_TITLE,
+      name: KeyManagement.KEY_TITLE,
+      placeholder: KeyManagement.TITLE_PLACEHOLDER,
+      onChange: titleChangeHandler,
+    },
+    {
+      id: KeyManagement.KEY_DESCRIPTION,
+      name: KeyManagement.KEY_DESCRIPTION,
+      placeholder: KeyManagement.DESCRIPTION_PLACEHOLDER,
+      onChange: llmChangeHandler,
+    },
+    {
+      id: KeyManagement.SK_TITLE,
+      name: KeyManagement.SK_TITLE,
+      placeholder: KeyManagement.SK_PLACEHOLDER,
+      onChange: skChangeHandler,
+    },
+  ];
 
   return (
     <>
@@ -36,26 +62,23 @@ const CreateKeyModal = () => {
           <p className="text-gray400 pb-3">{KeyManagement.SUB_HEAD}</p>
           <form action="#" method="post">
             <div className="mt-5">
-              <Input
-                id={KeyManagement.KEY_TITLE}
-                name={KeyManagement.KEY_TITLE}
-                placeholder={KeyManagement.TITLE_PLACEHOLDER}
-                onChange={titleChangeHandler}
-                variant={InputVariants.Filled}
-              />
-              <Input
-                id={KeyManagement.LLM_TITLE}
-                name={KeyManagement.LLM_TITLE}
+              {inputFields.map((input, i) => (
+                <Input
+                  key={i}
+                  id={input.id}
+                  name={input.name}
+                  placeholder={input.placeholder}
+                  onChange={input.onChange}
+                  variant={InputVariants.Filled}
+                />
+              ))}
+            </div>
+            <div className="w-full">
+              <Select
+                options={KeyManagementSelectOptions}
                 placeholder={KeyManagement.LLM_PLACEHOLDER}
-                onChange={llmChangeHandler}
-                variant={InputVariants.Filled}
-              />
-              <Input
-                id={KeyManagement.SK_TITLE}
-                name={KeyManagement.SK_TITLE}
-                placeholder={KeyManagement.SK_PLACEHOLDER}
-                onChange={skChangeHandler}
-                variant={InputVariants.Filled}
+                className="filled w-full"
+                size="large"
               />
             </div>
           </form>

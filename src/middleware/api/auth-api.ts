@@ -28,8 +28,8 @@ export const LogIn = async (model: LoginModel) => {
     .post(authRoutes.LOGIN_ROUTE, model)
     .then(response => {
       // Extract tokens
-      const access_token = response.data.access;
-      const refresh_token = response.data.refresh;
+      const access_token = response.data.access_token;
+      const refresh_token = response.data.refresh_token;
 
       // Set token in localstorage
       SetStorage(TOKENS.ACCESS_TOKEN, access_token);

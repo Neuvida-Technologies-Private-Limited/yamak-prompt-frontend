@@ -101,6 +101,8 @@ export enum KeyManagement {
   LLM_PLACEHOLDER = 'Select LLM Provider',
   SK_TITLE = 'key-management-sk',
   SK_PLACEHOLDER = 'Enter Key',
+  DESCRIPTION_PLACEHOLDER = 'Enter Key Description',
+  KEY_DESCRIPTION = 'Key Description',
 }
 
 export enum Library {
@@ -164,6 +166,11 @@ export const LibrarySelectOptions = [
   { value: 'copywriting', label: 'Copywriting' },
   { value: 'devops', label: 'Devops' },
   { value: 'generate-ai', label: 'Generate AI' },
+];
+
+export const KeyManagementSelectOptions = [
+  { value: 'OpenAI', label: 'OpenAI' },
+  { value: 'Bard', label: 'Bard' },
 ];
 
 export const LibraryCardItems: CardItem[] = [
