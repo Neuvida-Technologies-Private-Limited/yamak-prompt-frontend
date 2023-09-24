@@ -6,7 +6,6 @@ import { CreateKeyModal } from 'components/helpers';
 import { KeyManagement, KeyManagementInputs } from 'utils/constants';
 
 const keyManagment: React.FC = () => {
-  const saveManagementHandler = () => {};
   const deleteManagementHandler = () => {};
   const handleChange = () => {};
 
@@ -47,15 +46,6 @@ const keyManagment: React.FC = () => {
               />
             </div>
             <div className="flex gap-x-2">
-              <Button
-                size="small"
-                type="default"
-                shape="default"
-                onClick={saveManagementHandler}
-                className="font-poppins !py-4 border-2 border-black"
-                name="Save"
-                icon={<RiSaveLine />}
-              />
               <Button
                 size="small"
                 type="default"

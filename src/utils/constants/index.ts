@@ -93,16 +93,15 @@ export enum KeyManagement {
   ADD_KEY_BUTTON = 'Add Key',
   TITLE = 'Open AI Key',
   OK = 'Save Key',
-  CANCEL = 'Test connection',
   SUB_HEAD = 'Enter the key from your LLM Provider in the below boxes',
-  KEY_TITLE = 'key-management-title',
+  KEY_TITLE = 'title',
   TITLE_PLACEHOLDER = 'Enter Key Title',
   LLM_TITLE = 'key-management-llm-provider',
   LLM_PLACEHOLDER = 'Select LLM Provider',
-  SK_TITLE = 'key-management-sk',
-  SK_PLACEHOLDER = 'Enter Key',
+  API_KEY = 'api_key',
+  SK_PLACEHOLDER = 'Enter API Key',
   DESCRIPTION_PLACEHOLDER = 'Enter Key Description',
-  KEY_DESCRIPTION = 'Key Description',
+  KEY_DESCRIPTION = 'description',
 }
 
 export enum Library {
@@ -170,11 +169,6 @@ export const LibrarySelectOptions = [
   { value: 'copywriting', label: 'Copywriting' },
   { value: 'devops', label: 'Devops' },
   { value: 'generate-ai', label: 'Generate AI' },
-];
-
-export const KeyManagementSelectOptions = [
-  { value: 'OpenAI', label: 'OpenAI' },
-  { value: 'Bard', label: 'Bard' },
 ];
 
 export const LibraryCardItems: CardItem[] = [

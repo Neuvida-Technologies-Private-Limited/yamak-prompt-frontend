@@ -1,42 +1,103 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button, Input, Modal, Select } from 'components/common';
-import {
-  KeyManagement,
-  InputVariants,
-  KeyManagementSelectOptions,
-} from 'utils/constants';
+import { KeyManagement, InputVariants } from 'utils/constants';
+import { CreateKey, GetLLMProviders } from 'middleware/api';
+import { keyManagementstate } from 'middleware/state';
 
-const CreateKeyModal = () => {
+interface OptionItems {
+  value: string;
+  label: string;
+}
+
+const CreateKeyModal: React.FC = () => {
+  const [state, setState] = useRecoilState(keyManagementstate);
+  // destructuring params
+  const { title, description, api_key, provider } = state;
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [options, setOptions] = useState<OptionItems[]>([]);
 
+  const handleInputChange = (fieldName: string, value: string) => {
+    setState(old => ({
+      ...old,
+      [fieldName]: value,
+    }));
+  };
+  const handleSelectChange = (value: string) => {
+    setState(old => ({
+      ...old,
+      provider: value,
+    }));
+  };
+  const resetKeyManagementState = useResetRecoilState(keyManagementstate);
   const addKeyButtonHandler = () => {
     setShowModal(prev => !prev);
+    resetKeyManagementState();
   };
-
-  const titleChangeHandler = () => {};
-  const llmChangeHandler = () => {};
-  const skChangeHandler = () => {};
 
   const inputFields = [
     {
       id: KeyManagement.KEY_TITLE,
       name: KeyManagement.KEY_TITLE,
       placeholder: KeyManagement.TITLE_PLACEHOLDER,
-      onChange: titleChangeHandler,
+      onChange: (value: string) =>
+        handleInputChange(KeyManagement.KEY_TITLE, value),
     },
     {
       id: KeyManagement.KEY_DESCRIPTION,
       name: KeyManagement.KEY_DESCRIPTION,
       placeholder: KeyManagement.DESCRIPTION_PLACEHOLDER,
-      onChange: llmChangeHandler,
+      onChange: (value: string) =>
+        handleInputChange(KeyManagement.KEY_DESCRIPTION, value),
     },
     {
-      id: KeyManagement.SK_TITLE,
-      name: KeyManagement.SK_TITLE,
+      id: KeyManagement.API_KEY,
+      name: KeyManagement.API_KEY,
       placeholder: KeyManagement.SK_PLACEHOLDER,
-      onChange: skChangeHandler,
+      onChange: (value: string) =>
+        handleInputChange(KeyManagement.API_KEY, value),
     },
   ];
+
+  //API call to get all LLM Providers
+  const getLLMProviderList = async () => {
+    try {
+      const res = await GetLLMProviders();
+      //modifying API data
+      if (Array.isArray(res)) {
+        const providerSelectOptions = res.map((item: string) => ({
+          value: item,
+          label: item,
+        }));
+        setOptions(providerSelectOptions);
+      }
+    } catch (error: any) {
+      toast.error('error in getting llm provider');
+    }
+  };
+  //API call to create Key
+  const createKey = async () => {
+    const keyManagementParams = {
+      title,
+      description,
+      api_key,
+      provider,
+    };
+    try {
+      await CreateKey(keyManagementParams);
+      toast.success('Key created successfully');
+      resetKeyManagementState();
+    } catch (error: any) {
+      const errorMessage = error.error;
+      toast.error(errorMessage);
+    }
+  };
+
+  useEffect(() => {
+    getLLMProviderList();
+  }, []);
 
   return (
     <>
@@ -53,10 +114,9 @@ const CreateKeyModal = () => {
         title={KeyManagement.TITLE}
         centered={true}
         isOpen={showModal}
-        showModalHandler={() => setShowModal(true)}
+        sumbitHandler={createKey}
         cancelModalHandler={() => setShowModal(false)}
         okText={KeyManagement.OK}
-        cancelText={KeyManagement.CANCEL}
       >
         <div className="flex flex-col">
           <p className="text-gray400 pb-3">{KeyManagement.SUB_HEAD}</p>
@@ -75,14 +135,16 @@ const CreateKeyModal = () => {
             </div>
             <div className="w-full">
               <Select
-                options={KeyManagementSelectOptions}
+                options={options}
                 placeholder={KeyManagement.LLM_PLACEHOLDER}
                 className="filled w-full"
                 size="large"
+                onChange={handleSelectChange}
               />
             </div>
           </form>
         </div>
+        <ToastContainer />
       </Modal>
     </>
   );
