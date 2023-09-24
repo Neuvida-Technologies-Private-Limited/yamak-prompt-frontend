@@ -54,9 +54,8 @@ const AddNewPrompt = () => {
               <Select
                 options={LibrarySelectOptions}
                 placeholder={Library.SelectTopicPlaceholder}
-                style={{}}
                 size="large"
-                className="library w-full mb-4"
+                className="filled w-full mb-4"
               />
             </div>
           </form>

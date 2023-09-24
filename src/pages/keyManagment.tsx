@@ -43,7 +43,7 @@ const keyManagment: React.FC = () => {
                 placeholder={input.placeHolder}
                 onChange={handleChange}
                 variant={'default'}
-                className="py-2 px-4 bg-gray50"
+                className="pt-2 px-4 bg-gray50"
               />
             </div>
             <div className="flex gap-x-2">
