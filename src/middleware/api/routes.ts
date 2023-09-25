@@ -1,4 +1,4 @@
 export enum authRoutes {
-  LOGIN_ROUTE = '/api/v1/access/login/',
-  CSRF_TOKEN_ROUTE = '/api/v1/access/csrf-token/',
+  LOGIN_ROUTE = '/access/login/',
+  CSRF_TOKEN_ROUTE = '/access/csrf-token/',
 }
