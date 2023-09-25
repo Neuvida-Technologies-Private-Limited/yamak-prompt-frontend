@@ -33,8 +33,7 @@ const collapseItem: React.FC = () => {
           }) => (
             <Button
               size={undefined}
-              type={'link'}
-              shape={undefined}
+              variant="primary"
               onClick={button.onClick}
               name={button.name}
               className={button.className}

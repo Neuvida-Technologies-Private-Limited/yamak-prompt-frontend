@@ -33,16 +33,14 @@ const index: React.FC = () => {
         <div className="flex justify-between h-1/6 pt-4">
           <Button
             size={undefined}
-            type={'default'}
-            shape={undefined}
+            variant="outlined"
             onClick={handleClick}
             name={Workspace.ShowBookmarked}
             className="border-black font-medium text-black border-2 rounded-xl"
           />
           <Button
             size={undefined}
-            type={'default'}
-            shape={undefined}
+            variant="primary"
             onClick={handleClick}
             name={Workspace.ShowPublished}
             className="border-gray200 font-medium text-gray200 border-2 rounded-xl"

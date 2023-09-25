@@ -15,13 +15,10 @@ const AddNewPrompt = () => {
     <>
       <Button
         size="small"
-        type="default"
-        shape="default"
+        variant="primary"
         onClick={addPromptHandler}
-        className="bg-primary text-white hover:!text-white border-none !py-5 !px-3 hover:bg-primary700"
         name={Library.AddPromptButton}
       />
-
       <Modal
         title={Library.ModalHeading}
         centered={true}

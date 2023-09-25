@@ -70,18 +70,16 @@ const Parameters: React.FC = () => {
   return (
     <>
       <Button
-        type="default"
         onClick={() => setShowModal(true)}
         size={'middle'}
-        shape={undefined}
+        variant="primary"
         name={Workspace.Parameters}
         className="parameters border-none px-6 font-poppins hover:!text-primary800 text-primary md:block sm:hidden"
       />
       <Button
-        type="default"
         onClick={() => setShowModal(true)}
         size={'middle'}
-        shape={undefined}
+        variant="primary"
         icon={<FiSliders />}
         className="bg-gray50 border-none flex justify-center p-2 items-center rounded-md md:hidden sm:block"
       />

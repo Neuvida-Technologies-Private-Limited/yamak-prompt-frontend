@@ -79,8 +79,7 @@ const App: React.FC = () => {
     <>
       <Button
         size={undefined}
-        type={'link'}
-        shape={undefined}
+        variant="default"
         onClick={showDrawer}
         icon={<AiOutlineMenuUnfold className="!w-6 !h-full text-black" />}
       />

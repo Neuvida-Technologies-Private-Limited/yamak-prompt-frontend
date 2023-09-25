@@ -26,12 +26,10 @@ const App: React.FC<CreateWorkspaceProps> = ({ btnName, className }) => {
   return (
     <>
       <Button
-        type="default"
         onClick={() => setShowModal(true)}
         size={'middle'}
-        shape={undefined}
         name={btnName}
-        className={`createWorkspace bg-primary text-white hover:text-white border-none font-poppins hover:bg-hoverPrimary ${className}`}
+        variant="primary"
       />
       <Modal
         title={Workspace.CreateWorkspace}
