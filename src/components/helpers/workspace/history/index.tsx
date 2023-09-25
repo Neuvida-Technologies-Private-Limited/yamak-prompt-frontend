@@ -27,7 +27,7 @@ const index: React.FC = () => {
       <div className="flex flex-col h-5/6">
         <div className="pt-2 overflow-y-scroll pr-2 h-5/6">
           {Array.from(Array(10)).map((_, index) => (
-            <Draft />
+            <Draft key={`draft-item-${index}`} />
           ))}
         </div>
         <div className="flex justify-between h-1/6 pt-4">

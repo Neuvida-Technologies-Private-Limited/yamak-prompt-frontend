@@ -95,8 +95,11 @@ const Parameters: React.FC = () => {
         <div className="flex flex-col">
           <form action="#" method="post">
             <div className="flex w-full flex-col">
-              {parameters.map(items => (
-                <div className="flex sm:!flex-wrap">
+              {parameters.map((items, index) => (
+                <div
+                  key={`parameter-item-${index}`}
+                  className="flex sm:!flex-wrap"
+                >
                   <div className="em:w-1/3 sm:w-full flex items-center">
                     <label className="p-3">{items.label}</label>
                     <Tooltip element={<FiInfo />} title={items.title} />
