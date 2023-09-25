@@ -1,9 +1,9 @@
 import React from 'react';
-import { RiSaveLine, RiDeleteBin5Line } from 'react-icons/ri';
+import { FiTrash2 } from 'react-icons/fi';
 import { Heading, Input } from 'components/common';
 import { Button, Text } from 'components/common';
 import { CreateKeyModal } from 'components/helpers';
-import { KeyManagement, KeyManagementInputs } from 'utils/constants';
+import { KeyManagement, KeyDetails } from 'utils/constants';
 
 const keyManagment: React.FC = () => {
   const deleteManagementHandler = () => {};
@@ -20,41 +20,42 @@ const keyManagment: React.FC = () => {
           />
           <Text
             children={KeyManagement.Message}
-            className="text-sm md:text-base lg:w-3/4"
+            className="text-sm md:text-base lg:w-3/4 font-normal text-gray400"
           />
         </div>
         <CreateKeyModal />
       </div>
 
       <div className="mt-14 flex flex-col gap-y-10">
-        {KeyManagementInputs.map((input, index) => (
+        {KeyDetails.map((item, index) => (
           <div
             key={`key-management-input-${index}`}
-            className="w-full flex sm:flex-col md:flex-row sm:items-start md:items-center gap-4 w-full"
+            className="w-full flex sm:flex-col md:flex-row sm:items-start md:items-end gap-4 w-full"
           >
-            <div className="flex flex-col font-poppins rounded-lg bg-gray50 p-2 h-full md:w-2/3 sm:w-full">
-              <label className="font-medium px-2 mx-2 -mt-4 bg-white w-fit">
-                {input.name}
-              </label>
-              <Input
-                id={input.id}
-                name={input.placeHolder}
-                placeholder={input.placeHolder}
-                onChange={handleChange}
-                variant={'default'}
-                className="pt-2 px-4 bg-gray50"
-              />
-            </div>
-            <div className="flex gap-x-2">
-              <Button
-                size="small"
-                type="default"
-                shape="default"
-                onClick={deleteManagementHandler}
-                className="font-poppins !py-4 border-2 border-black"
-                name="Delete"
-                icon={<RiDeleteBin5Line />}
-              />
+            <div className="flex flex-col gap-4 md:w-2/3">
+              <h2 className="text-base md:text-lg text-primary900 font-semibold">
+                {item.title}
+              </h2>
+              <p className="text-gray400 md:text-base">{item.description}</p>
+              <div className="flex sm:gap-2 md:gap-8 md:items-center sm:flex-col md:flex-row">
+                <div className="flex flex-col font-poppins rounded-lg bg-primary50 p-2 h-full md:w-2/3 sm:w-full border border-gray200">
+                  <label className="font-medium px-2 mx-2 -mt-4 bg-white w-fit rounded-md border border-gray200 text-primary900">
+                    {item.provider}
+                  </label>
+                  <label className="p-2 text-gray900 text-base">
+                    {item.api_key}
+                  </label>
+                </div>
+                <Button
+                  size="small"
+                  type="default"
+                  shape="default"
+                  onClick={deleteManagementHandler}
+                  className="font-poppins !py-5 !px-4 !text-base border-2 !rounded-lg border-black font-medium flex justify-center"
+                  name="Delete"
+                  icon={<FiTrash2 />}
+                />
+              </div>
             </div>
           </div>
         ))}

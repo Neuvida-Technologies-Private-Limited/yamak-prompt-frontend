@@ -234,7 +234,21 @@ export const LibraryCardItems: CardItem[] = [
   },
 ];
 
-export const KeyManagementInputs = [
-  { id: '1', name: 'Open AI', placeHolder: 'sk-*************************' },
-  { id: '2', name: 'Bard', placeHolder: 'sk-*************************' },
+export const KeyDetails = [
+  {
+    id: '1',
+    title: 'Key 1',
+    api_key: 'sk-*************************',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque.',
+    provider: 'OpenAI',
+  },
+  {
+    id: '2',
+    title: 'Key 2',
+    api_key: 'sk-*************************',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque.',
+    provider: 'Bard',
+  },
 ];
