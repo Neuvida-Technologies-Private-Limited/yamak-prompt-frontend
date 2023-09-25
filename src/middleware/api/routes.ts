@@ -5,4 +5,5 @@ export enum authRoutes {
 export enum keyManagementRoutes {
   LLM_PROVIDERS = '/key/llm-providers/',
   CREATE_KEY_ROUTE = '/key/create_key/',
+  KEY_LIST_ROUTE = '/key/get_key_list/',
 }

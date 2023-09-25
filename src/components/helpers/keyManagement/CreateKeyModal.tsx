@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button, Input, Modal, Select } from 'components/common';
 import { KeyManagement, InputVariants } from 'utils/constants';
 import { CreateKey, GetLLMProviders } from 'middleware/api';
-import { keyManagementstate } from 'middleware/state';
+import { createKeystate } from 'middleware/state';
 
 interface OptionItems {
   value: string;
@@ -13,8 +13,8 @@ interface OptionItems {
 }
 
 const CreateKeyModal: React.FC = () => {
-  const [state, setState] = useRecoilState(keyManagementstate);
-  const resetState = useResetRecoilState(keyManagementstate);
+  const [state, setState] = useRecoilState(createKeystate);
+  const resetState = useResetRecoilState(createKeystate);
   // destructuring params
   const { title, description, api_key, provider } = state;
   const [showModal, setShowModal] = useState<boolean>(false);

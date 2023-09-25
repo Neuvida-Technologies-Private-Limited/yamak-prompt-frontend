@@ -1,16 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
-import { Heading, Input } from 'components/common';
+import { Heading } from 'components/common';
 import { Button, Text } from 'components/common';
 import { CreateKeyModal } from 'components/helpers';
 import { KeyManagement, KeyDetails } from 'utils/constants';
+import { GetKeyList } from 'middleware/api';
+import { useRecoilState } from 'recoil';
+import { keyManagementstate } from 'middleware/state';
 
-const keyManagment: React.FC = () => {
+const KeyManagment: React.FC = () => {
+  const [state, setState] = useRecoilState(keyManagementstate);
+  const { key_details } = state;
   const deleteManagementHandler = () => {};
   const handleChange = () => {};
 
+  const getKeyList = async () => {
+    try {
+      const res = await GetKeyList();
+      setState(old => ({
+        ...old,
+        key_details: res,
+      }));
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getKeyList();
+  }, []);
+
   return (
-    <div className="font-poppins p-6">
+    <div className="font-poppins p-6 h-screen overflow-hidden">
       <div className="flex sm:flex-col lg:flex-row justify-between items-start md:items-start mb-5 gap-3">
         <div>
           <Heading
@@ -26,8 +47,8 @@ const keyManagment: React.FC = () => {
         <CreateKeyModal />
       </div>
 
-      <div className="mt-14 flex flex-col gap-y-10">
-        {KeyDetails.map((item, index) => (
+      <div className="mt-14 flex flex-col gap-y-10 overflow-y-scroll h-full">
+        {key_details.map((item, index) => (
           <div
             key={`key-management-input-${index}`}
             className="w-full flex sm:flex-col md:flex-row sm:items-start md:items-end gap-4 w-full"
@@ -64,4 +85,4 @@ const keyManagment: React.FC = () => {
   );
 };
 
-export default keyManagment;
+export default KeyManagment;

@@ -23,3 +23,13 @@ export const CreateKey = async (model: CreateKeyModal) => {
       return Promise.reject(error);
     });
 };
+export const GetKeyList = async () => {
+  try {
+    const response = await axiosClientProtected.get(
+      keyManagementRoutes.KEY_LIST_ROUTE
+    );
+    return response.data;
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
