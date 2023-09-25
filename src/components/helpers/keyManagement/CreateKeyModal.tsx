@@ -14,6 +14,7 @@ interface OptionItems {
 
 const CreateKeyModal: React.FC = () => {
   const [state, setState] = useRecoilState(keyManagementstate);
+  const resetState = useResetRecoilState(keyManagementstate);
   // destructuring params
   const { title, description, api_key, provider } = state;
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -31,10 +32,8 @@ const CreateKeyModal: React.FC = () => {
       provider: value,
     }));
   };
-  const resetKeyManagementState = useResetRecoilState(keyManagementstate);
   const addKeyButtonHandler = () => {
     setShowModal(prev => !prev);
-    resetKeyManagementState();
   };
 
   const inputFields = [
@@ -42,6 +41,7 @@ const CreateKeyModal: React.FC = () => {
       id: KeyManagement.KEY_TITLE,
       name: KeyManagement.KEY_TITLE,
       placeholder: KeyManagement.TITLE_PLACEHOLDER,
+      value: title,
       onChange: (value: string) =>
         handleInputChange(KeyManagement.KEY_TITLE, value),
     },
@@ -49,6 +49,7 @@ const CreateKeyModal: React.FC = () => {
       id: KeyManagement.KEY_DESCRIPTION,
       name: KeyManagement.KEY_DESCRIPTION,
       placeholder: KeyManagement.DESCRIPTION_PLACEHOLDER,
+      value: description,
       onChange: (value: string) =>
         handleInputChange(KeyManagement.KEY_DESCRIPTION, value),
     },
@@ -56,6 +57,7 @@ const CreateKeyModal: React.FC = () => {
       id: KeyManagement.API_KEY,
       name: KeyManagement.API_KEY,
       placeholder: KeyManagement.SK_PLACEHOLDER,
+      value: api_key,
       onChange: (value: string) =>
         handleInputChange(KeyManagement.API_KEY, value),
     },
@@ -85,10 +87,11 @@ const CreateKeyModal: React.FC = () => {
       api_key,
       provider,
     };
+
     try {
       await CreateKey(keyManagementParams);
       toast.success('Key created successfully');
-      resetKeyManagementState();
+      resetState();
     } catch (error: any) {
       const errorMessage = error.error;
       toast.error(errorMessage);
@@ -129,6 +132,7 @@ const CreateKeyModal: React.FC = () => {
                   name={input.name}
                   placeholder={input.placeholder}
                   onChange={input.onChange}
+                  value={input.value}
                   variant={InputVariants.Filled}
                 />
               ))}
@@ -144,7 +148,7 @@ const CreateKeyModal: React.FC = () => {
             </div>
           </form>
         </div>
-        <ToastContainer />
+        <ToastContainer autoClose={2000} />
       </Modal>
     </>
   );
