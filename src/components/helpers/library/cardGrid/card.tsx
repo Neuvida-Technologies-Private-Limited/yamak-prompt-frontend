@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiCopy, FiHeart } from 'react-icons/fi';
 import { BiLike, BiDislike } from 'react-icons/bi';
 import { PiWarningBold } from 'react-icons/pi';
 import { CardConst } from 'utils/constants';
-import { Button, Text } from 'components/common';
+import { Button, Modal, Tag, Text } from 'components/common';
 
 interface CardProps {
   heading: string;
@@ -26,41 +26,65 @@ const LibraryCard: React.FC<CardProps> = ({
   buttonName,
   description,
 }) => {
-  const importPromptHandler = () => {};
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const addPromptHandler: React.MouseEventHandler = () => {
+    setShowModal(prev => !prev);
+  };
+
+  const importPromptHandler = () => {
+    console.log('IMPORT PROMPT');
+  };
 
   return (
-    <div className="flex flex-col bg-white p-4 rounded-2xl shadow">
-      <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between gap-4 items-center mb-4">
-        <h2 className="text-black font-bold text-md ">{heading}</h2>
-        <Button
-          size="small"
-          variant="default"
-          onClick={importPromptHandler}
-          className="!text-xs !p-2 !py-4"
-          name={buttonName}
-        />
-      </div>
-      <h3 className="bg-red50 text-gray800 inline-block self-start mb-4 p-1 px-2 rounded-lg text-xs">
-        {subHeading}
-      </h3>
-      <Text
-        children={description}
-        className="text-xs text-black !opacity-100 font-medium mb-4"
-      />
-      <div className="flex flex-wrap justify-start gap-2">
-        {buttons.map((button, index) => (
+    <>
+      <div className="flex flex-col bg-white p-4 rounded-2xl shadow">
+        <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between gap-4 items-center mb-4">
+          <h2
+            className="text-black font-bold text-md cursor-pointer transition hover:text-primary"
+            onClick={addPromptHandler}
+          >
+            {heading}
+          </h2>
           <Button
-            key={`library-card-icon-${index}`}
-            onClick={button.onclick}
             size="small"
-            variant="outlined"
-            icon={button.icon}
-            name={button.name}
-            className="!text-xs !py-3.5"
+            variant="default"
+            onClick={importPromptHandler}
+            className="!text-xs !p-2 !py-4"
+            name={buttonName}
           />
-        ))}
+        </div>
+        <Tag color="pink" bordered={false} label={subHeading} />
+        <Text
+          children={description}
+          className="text-xs text-black !opacity-100 font-medium mb-4"
+        />
+        <div className="flex flex-wrap justify-start gap-2">
+          {buttons.map((button, index) => (
+            <Button
+              key={`library-card-icon-${index}`}
+              onClick={button.onclick}
+              size="small"
+              variant="outlined"
+              icon={button.icon}
+              name={button.name}
+              className="!text-xs !py-3.5"
+            />
+          ))}
+        </div>
       </div>
-    </div>
+      <Modal
+        title={'Human Written | 100% Percent Unique | SEO Optimized Article'}
+        centered={true}
+        isOpen={showModal}
+        showModalHandler={() => setShowModal(true)}
+        cancelModalHandler={() => setShowModal(false)}
+        okText={'Import Prompt'}
+        cancelText="TEST"
+      >
+        Some data about prompt
+      </Modal>
+    </>
   );
 };
 
