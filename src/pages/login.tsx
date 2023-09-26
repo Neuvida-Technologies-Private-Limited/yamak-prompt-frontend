@@ -110,7 +110,7 @@ const Login = () => {
             {LoginConst.Login_Desc}
           </p>
 
-          {/* <form
+          <form
             className="flex flex-col font-poppins border rounded-lg w-full border-gray00 p-4 h-full"
             action="#"
             method="POST"
@@ -139,9 +139,9 @@ const Login = () => {
               name={LoginConst.LogIn}
               htmlType="submit"
             />
-          </form> */}
+          </form>
           {/* Google button  */}
-          <Button
+          {/* <Button
             size={undefined}
             type={'default'}
             shape={undefined}
@@ -149,7 +149,7 @@ const Login = () => {
             icon={<FcGoogle />}
             name={LoginConst.SignIn}
             className="em:px-12 sm:px-4 em:h-12 sm:text-sm em:text-lg text-gray500 font-medium border-2 rounded-lg"
-          />
+          /> */}
         </div>
       </div>
       <ToastContainer />

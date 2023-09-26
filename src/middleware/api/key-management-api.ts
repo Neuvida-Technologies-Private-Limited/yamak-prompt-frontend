@@ -33,3 +33,13 @@ export const GetKeyList = async () => {
     return Promise.reject(error);
   }
 };
+export const DeleteKey = async (uuid: string) => {
+  await axiosClientProtected
+    .delete(`${keyManagementRoutes.DELETE_KEY_ROUTE}${uuid}/`)
+    .then(response => {
+      console.log('Key deleted !');
+    })
+    .catch((error: AxiosError) => {
+      return Promise.reject(error);
+    });
+};

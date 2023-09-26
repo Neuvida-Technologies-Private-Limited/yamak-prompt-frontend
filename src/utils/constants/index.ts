@@ -89,7 +89,7 @@ export enum Workspace {
 }
 
 export enum KeyManagement {
-  Message = "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
+  MESSAGE = "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
   ADD_KEY_BUTTON = 'Add Key',
   TITLE = 'Open AI Key',
   OK = 'Save Key',
@@ -102,6 +102,9 @@ export enum KeyManagement {
   SK_PLACEHOLDER = 'Enter API Key',
   DESCRIPTION_PLACEHOLDER = 'Enter Key Description',
   KEY_DESCRIPTION = 'description',
+  DELETE = 'Delete',
+  POPUP_TITLE = 'Delete the key',
+  POPUP_DESCRIPTION = 'Are you sure to delete this key?',
 }
 
 export enum Library {

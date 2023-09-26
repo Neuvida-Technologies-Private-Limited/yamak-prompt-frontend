@@ -11,8 +11,11 @@ interface OptionItems {
   value: string;
   label: string;
 }
+interface CreateKeyModalProps {
+  createKey: () => Promise<boolean>;
+}
 
-const CreateKeyModal: React.FC = () => {
+const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
   const [state, setState] = useRecoilState(createKeystate);
   const resetState = useResetRecoilState(createKeystate);
   // destructuring params
@@ -80,22 +83,13 @@ const CreateKeyModal: React.FC = () => {
     }
   };
   //API call to create Key
-  const createKey = async () => {
-    const keyManagementParams = {
-      title,
-      description,
-      api_key,
-      provider,
-    };
-
-    try {
-      await CreateKey(keyManagementParams);
-      toast.success('Key created successfully');
-      resetState();
-    } catch (error: any) {
-      const errorMessage = error.error;
-      toast.error(errorMessage);
+  const handleSubmit = async () => {
+    if (await createKey()) {
+      setShowModal(false);
+    } else {
+      toast.error('Error in creating key or token expired, Login again !');
     }
+    resetState();
   };
 
   useEffect(() => {
@@ -117,7 +111,7 @@ const CreateKeyModal: React.FC = () => {
         title={KeyManagement.TITLE}
         centered={true}
         isOpen={showModal}
-        sumbitHandler={createKey}
+        sumbitHandler={handleSubmit}
         cancelModalHandler={() => setShowModal(false)}
         okText={KeyManagement.OK}
       >
@@ -148,7 +142,6 @@ const CreateKeyModal: React.FC = () => {
             </div>
           </form>
         </div>
-        <ToastContainer autoClose={2000} />
       </Modal>
     </>
   );
