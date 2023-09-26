@@ -1,24 +1,21 @@
 import React from 'react';
+import { Typography } from 'antd';
+const { Title } = Typography;
 
 interface Props {
-  variant: Variant;
+  level: 1 | 2 | 3 | 4 | 5;
   className?: string;
   children?: React.ReactNode | any;
 }
 
-type Variant = 'mainHeading' | 'subHeading';
-
-const Heading: React.FC<Props> = ({ variant, className, children }) => {
-  return variant === 'mainHeading' ? (
-    <h1
-      className={`font-semibold sm:text-2xl md:text-3xl text-gray900 ${className}`}
+const Heading: React.FC<Props> = ({ level, className, children }) => {
+  return (
+    <Title
+      level={level}
+      className={`!font-semibold !text-gray900  ${className}`}
     >
       {children}
-    </h1>
-  ) : (
-    <h2 className={`font-semibold sm:text-lg md:text-2xl ${className}`}>
-      {children}
-    </h2>
+    </Title>
   );
 };
 
