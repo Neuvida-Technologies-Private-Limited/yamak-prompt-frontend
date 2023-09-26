@@ -1,4 +1,4 @@
-import LibraryCard from './card';
+import LibraryCard from './Card';
 
 type CardItems = {
   id: number;
