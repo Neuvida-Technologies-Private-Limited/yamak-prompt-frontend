@@ -54,10 +54,10 @@ const Label: React.FC<LabelProps> = ({
       </form>
       <Button
         size="small"
-        variant="default"
+        variant="primary"
         name={showInput ? '-' : '+'}
         onClick={() => setShowInput(prev => !prev)}
-        className="bg-primary600 text-white !py-4 !px-3 text-xs border-none"
+        className="!rounded-full !px-4"
       />
     </div>
   );

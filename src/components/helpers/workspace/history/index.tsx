@@ -36,14 +36,12 @@ const index: React.FC = () => {
             variant="outlined"
             onClick={handleClick}
             name={Workspace.ShowBookmarked}
-            className="border-black font-medium text-black border-2 rounded-xl"
           />
           <Button
             size={undefined}
             variant="primary"
             onClick={handleClick}
             name={Workspace.ShowPublished}
-            className="border-gray200 font-medium text-gray200 border-2 rounded-xl"
           />
         </div>
       </div>

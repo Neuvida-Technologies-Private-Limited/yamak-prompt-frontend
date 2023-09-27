@@ -1,5 +1,5 @@
 import React, { Ref } from 'react';
-import cn from 'classnames';
+import classNames from 'classnames';
 import { Button } from 'antd';
 
 interface ButtonProps {
@@ -25,14 +25,14 @@ const button: React.FC<ButtonProps> = ({
   htmlType,
   ref,
 }) => {
-  const rootClassName = cn(
+  const rootClassName = classNames(
     'flex items-center justify-center font-poppins text-[13px] md:text-sm lg:text-15px !py-5 !px-3',
     {
       'bg-primary text-white hover:!text-white border-none hover:bg-primary700':
         variant === 'primary',
       'bg-secondary text-white hover:!text-white border-none hover:bg-secondary400':
         variant === 'secondary',
-      '': variant === 'outlined',
+      'border-2 border-black': variant === 'outlined',
       'whitespace-nowrap bg-gray50 text-primary600 font-bold !rounded-xl border-0':
         variant === 'default',
     },
