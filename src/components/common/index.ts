@@ -1,4 +1,5 @@
 export { default as Button } from './button';
+export { default as Dropdown } from './dropdown';
 export { default as Heading } from './heading';
 export { default as Input } from './input/input';
 export { default as TextArea } from './textarea/index';

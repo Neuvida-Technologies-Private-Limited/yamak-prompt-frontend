@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
 import { Workspace, workspaces } from 'utils/constants';
 import { Heading } from 'components/common';
@@ -30,13 +29,13 @@ const WorkspaceDashboard: React.FC = () => {
         <div className="">
           <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
             {workspaces.map((item: any, index: number) => (
-              <Link to={item.link} key={`workspace-item-${index}`}>
-                <WorkspaceCard
-                  heading={item.heading}
-                  createdBy={item.createdBy}
-                  createdOn={item.createdOn}
-                />
-              </Link>
+              <WorkspaceCard
+                key={`workspace-item-${index}`}
+                heading={item.heading}
+                link={item.link}
+                createdBy={item.createdBy}
+                createdOn={item.createdOn}
+              />
             ))}
           </div>
           <div className="sm:flex em:hidden bottom-0 z-2 fixed items-center justify-center w-full bg-gray100 rounded-t-xl py-4">

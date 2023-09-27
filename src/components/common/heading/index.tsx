@@ -12,7 +12,7 @@ const Heading: React.FC<Props> = ({ level, className, children }) => {
   return (
     <Title
       level={level}
-      className={`!font-semibold !text-gray900  ${className}`}
+      className={`font-poppins !font-semibold !text-gray900  ${className}`}
     >
       {children}
     </Title>
