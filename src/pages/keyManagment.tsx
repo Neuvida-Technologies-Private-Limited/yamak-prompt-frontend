@@ -47,7 +47,7 @@ const keyManagment: React.FC = () => {
                 size="small"
                 variant="outlined"
                 onClick={saveManagementHandler}
-                className="!py-4"
+                className="!py-4 border-2 border-black"
                 name="Save"
                 icon={<RiSaveLine />}
               />
@@ -55,7 +55,7 @@ const keyManagment: React.FC = () => {
                 size="small"
                 variant="outlined"
                 onClick={deleteManagementHandler}
-                className="!py-4"
+                className="!py-4 border-2 border-black"
                 name="Delete"
                 icon={<RiDeleteBin5Line />}
               />
