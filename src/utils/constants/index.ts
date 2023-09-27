@@ -177,68 +177,7 @@ export const KeyManagementSelectOptions = [
   { value: 'Bard', label: 'Bard' },
 ];
 
-export const LibraryCardItems: CardItem[] = [
-  {
-    id: 1,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 2,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 3,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 4,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-  },
-  {
-    id: 5,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-  },
-  {
-    id: 6,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-  },
-  {
-    id: 7,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 8,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-  },
-];
+export const LibraryCardItems: CardItem[] = [];
 
 export const KeyManagementInputs = [
   { id: '1', name: 'Open AI', placeHolder: 'sk-*************************' },

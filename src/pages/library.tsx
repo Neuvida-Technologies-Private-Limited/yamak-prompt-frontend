@@ -7,9 +7,9 @@ import {
   TabsArea,
   SearchArea,
 } from 'components/helpers';
-import { LibraryCardItems } from 'utils/constants';
 import { Tabs } from 'components/common';
 import { LibraryCardItem as CardItem } from 'types';
+import { getAllPrompts } from 'middleware/api/library-api';
 
 const tabs = [
   {
@@ -34,13 +34,21 @@ const Library = () => {
   };
 
   useEffect(() => {
-    // NOTE: Here we will call the API and set the items
-    setItems(LibraryCardItems);
+    async function getPrompts() {
+      try {
+        const res = await getAllPrompts();
+        setItems(res.data.results);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getPrompts();
   }, []);
 
   useEffect(() => {
     if (activeTab === '1') return setFilteredItems(items);
-    const data = items.filter(item => item.favorite);
+    const data = items.filter(item => item.bookmarked);
     setFilteredItems(data);
   }, [activeTab, items]);
 

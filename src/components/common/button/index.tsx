@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { Ref } from 'react';
 import cn from 'classnames';
 import { Button } from 'antd';
 
 interface ButtonProps {
   icon?: React.ReactNode;
-  name?: string;
+  name?: string | number;
   className?: string;
   size: 'small' | 'middle' | 'large' | undefined;
   variant: 'primary' | 'secondary' | 'outlined' | 'default';
   href?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   htmlType?: 'submit' | undefined;
+  ref?: Ref<HTMLElement> | undefined;
 }
 
 const button: React.FC<ButtonProps> = ({
@@ -22,6 +23,7 @@ const button: React.FC<ButtonProps> = ({
   href,
   onClick,
   htmlType,
+  ref,
 }) => {
   const rootClassName = cn(
     'flex items-center justify-center font-poppins text-[13px] md:text-sm lg:text-15px !py-5 !px-3',
@@ -45,6 +47,7 @@ const button: React.FC<ButtonProps> = ({
       href={href}
       onClick={onClick}
       htmlType={htmlType}
+      ref={ref}
     >
       {name}
     </Button>

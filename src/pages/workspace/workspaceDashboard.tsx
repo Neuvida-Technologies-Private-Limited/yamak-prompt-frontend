@@ -9,7 +9,7 @@ const WorkspaceDashboard: React.FC = () => {
       <div className="flex justify-between p-6">
         <div className="flex flex-col font-poppins">
           <Heading
-            level={1}
+            level={2}
             children={Workspace.Workspaces}
             className="mb-2 sm:text-center em:text-start"
           />

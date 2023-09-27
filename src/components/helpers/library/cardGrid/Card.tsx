@@ -2,30 +2,22 @@ import React, { useState } from 'react';
 import { FiCopy, FiHeart } from 'react-icons/fi';
 import { BiLike, BiDislike } from 'react-icons/bi';
 import { PiWarningBold } from 'react-icons/pi';
-import { CardConst } from 'utils/constants';
+import { Library } from 'utils/constants';
 import { Button, Modal, Tag, Text } from 'components/common';
 import ModalContent from './ModalContent';
+import { LibraryCardItem as CardItemProps } from 'types';
 
-interface CardProps {
-  heading: string;
-  subHeading: string;
-  buttonName: string;
-  description: string;
-}
-const handleClick = () => {};
-const buttons = [
-  { icon: <FiCopy />, name: CardConst.CopyPrompt, onclick: handleClick },
-  { icon: <BiLike />, name: CardConst.Likes, onclick: handleClick },
-  { icon: <BiDislike />, name: CardConst.Likes, onclick: handleClick },
-  { icon: <FiHeart />, onclick: handleClick },
-  { icon: <PiWarningBold />, onclick: handleClick },
-];
-
-const LibraryCard: React.FC<CardProps> = ({
-  heading,
-  subHeading,
-  buttonName,
-  description,
+const LibraryCard: React.FC<CardItemProps> = ({
+  title,
+  bookmarked,
+  is_public,
+  liked_by_user,
+  likes_dislikes_count,
+  prompt_type,
+  sample_output,
+  tags,
+  user_message,
+  uuid,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -45,37 +37,76 @@ const LibraryCard: React.FC<CardProps> = ({
             className="text-black font-bold text-md cursor-pointer transition hover:text-primary"
             onClick={addPromptHandler}
           >
-            {heading}
+            {title}
           </h2>
           <Button
             size="small"
             variant="default"
             onClick={importPromptHandler}
-            className="!text-xs !p-2 !py-4"
-            name={buttonName}
+            className="!text-xs !p-2"
+            name={Library.CardButtonName}
           />
         </div>
-        <Tag color="pink" bordered={false} label={subHeading} />
-        <Text
-          children={description}
-          className="text-xs text-black !opacity-100 font-medium mb-4"
-        />
-        <div className="flex flex-wrap justify-start gap-2">
-          {buttons.map((button, index) => (
-            <Button
-              key={`library-card-icon-${index}`}
-              onClick={button.onclick}
-              size="small"
-              variant="outlined"
-              icon={button.icon}
-              name={button.name}
-              className="!text-xs !py-2 !px-2"
+        <div className="flex">
+          {tags.map((tag, i) => (
+            <Tag
+              key={`prompt-card-tag-${i}`}
+              color="pink"
+              bordered={true}
+              label={tag}
             />
           ))}
         </div>
+        <Text
+          children={user_message}
+          className="text-xs text-black !opacity-100 font-medium mb-4"
+        />
+        <div className="flex flex-wrap justify-start gap-2">
+          <Button
+            variant="outlined"
+            size="small"
+            name="Copy Prompt"
+            icon={<FiCopy />}
+            onClick={() => {}}
+            className="!text-xs !py-1 !px-2"
+          />
+          <Button
+            variant="outlined"
+            size="small"
+            name={' ' + likes_dislikes_count.likes}
+            icon={<BiLike />}
+            onClick={() => {}}
+            className="!text-xs !py-1 !px-2"
+          />
+          <Button
+            variant="outlined"
+            size="small"
+            name={' ' + likes_dislikes_count.dislikes}
+            icon={<BiDislike />}
+            onClick={() => {}}
+            className="!text-xs !py-1 !px-2"
+          />
+          <Button
+            variant="outlined"
+            size="small"
+            name=""
+            icon={<FiHeart />}
+            onClick={() => {}}
+            className="!text-xs !py-1 !px-2"
+          />
+          <Button
+            variant="outlined"
+            size="small"
+            name=""
+            icon={<PiWarningBold />}
+            onClick={() => {}}
+            className="!text-xs !py-1 !px-2"
+          />
+        </div>
       </div>
       <Modal
-        title={'Human Written | 100% Percent Unique | SEO Optimized Article'}
+        key={uuid}
+        title={title}
         centered={true}
         isOpen={showModal}
         showModalHandler={() => setShowModal(true)}
@@ -90,7 +121,7 @@ const LibraryCard: React.FC<CardProps> = ({
           />,
         ]}
       >
-        <ModalContent />
+        <ModalContent title={title} tags={tags} user_message={user_message} />
       </Modal>
     </>
   );
