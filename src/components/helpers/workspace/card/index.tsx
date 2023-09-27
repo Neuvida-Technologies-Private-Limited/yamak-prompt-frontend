@@ -31,11 +31,11 @@ const index: React.FC<WorkspaceCardProps> = ({
   return (
     <div className="font-poppins p-4 bg-white rounded-lg flex flex-col justify-between gap-6 hover:shadow-md transition-all duration-300 ease-in-out">
       <div className="flex justify-between items-start h-full py-2">
-        <div className="flex h-full">
+        <div className="flex items-center gap-1 h-full">
           <div className="w-1.5 bg-secondary rounded-xl h-12" />
           <div className="flex flex-col h-full px-2">
             <Link to={link}>
-              <h1 className="text-bold text-lg text-black hover:text-primary">
+              <h1 className="font-bold text-base md:text-lg text-black hover:text-primary">
                 {heading}
               </h1>
             </Link>
