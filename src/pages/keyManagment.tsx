@@ -49,19 +49,17 @@ const keyManagment: React.FC = () => {
             <div className="flex gap-x-2">
               <Button
                 size="small"
-                type="default"
-                shape="default"
+                variant="outlined"
                 onClick={saveManagementHandler}
-                className="font-poppins !py-4 border-2 border-black"
+                className="!py-4 border-2 border-black"
                 name="Save"
                 icon={<RiSaveLine />}
               />
               <Button
                 size="small"
-                type="default"
-                shape="default"
+                variant="outlined"
                 onClick={deleteManagementHandler}
-                className="font-poppins !py-4 border-2 border-black"
+                className="!py-4 border-2 border-black"
                 name="Delete"
                 icon={<RiDeleteBin5Line />}
               />

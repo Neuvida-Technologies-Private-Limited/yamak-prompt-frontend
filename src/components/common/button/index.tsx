@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import { Button } from 'antd';
 
 interface ButtonProps {
@@ -6,8 +7,7 @@ interface ButtonProps {
   name?: string;
   className?: string;
   size: 'small' | 'middle' | 'large' | undefined;
-  type: 'link' | 'text' | 'default' | 'primary' | 'dashed';
-  shape: 'default' | 'circle' | 'round' | undefined;
+  variant: 'primary' | 'secondary' | 'outlined' | 'default';
   href?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   htmlType?: 'submit' | undefined;
@@ -18,24 +18,37 @@ const button: React.FC<ButtonProps> = ({
   name,
   className,
   size,
-  type,
-  shape,
+  variant = 'primary',
   href,
   onClick,
   htmlType,
-}) => (
-  <Button
-    className={`flex items-center font-poppins ${className}`}
-    icon={icon}
-    size={size}
-    type={type}
-    shape={shape}
-    href={href}
-    onClick={onClick}
-    htmlType={htmlType}
-  >
-    {name}
-  </Button>
-);
+}) => {
+  const rootClassName = cn(
+    'flex items-center justify-center font-poppins text-[13px] md:text-sm lg:text-15px !py-5 !px-3',
+    {
+      'bg-primary text-white hover:!text-white border-none hover:bg-primary700':
+        variant === 'primary',
+      'bg-secondary text-white hover:!text-white border-none hover:bg-secondary400':
+        variant === 'secondary',
+      '': variant === 'outlined',
+      'whitespace-nowrap bg-gray50 text-primary600 font-bold !rounded-xl border-0':
+        variant === 'default',
+    },
+    className
+  );
+
+  return (
+    <Button
+      className={rootClassName}
+      icon={icon}
+      size={size}
+      href={href}
+      onClick={onClick}
+      htmlType={htmlType}
+    >
+      {name}
+    </Button>
+  );
+};
 
 export default button;

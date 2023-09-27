@@ -29,8 +29,8 @@ const WorkspaceDashboard: React.FC = () => {
       {workspaces.length > 0 ? (
         <div className="">
           <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
-            {workspaces.map((item: any) => (
-              <Link to={item.link} key={item.link}>
+            {workspaces.map((item: any, index: number) => (
+              <Link to={item.link} key={`workspace-item-${index}`}>
                 <WorkspaceCard
                   heading={item.heading}
                   createdBy={item.createdBy}

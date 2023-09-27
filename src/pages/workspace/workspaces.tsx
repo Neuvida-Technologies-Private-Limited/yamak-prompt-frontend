@@ -43,8 +43,7 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
           </h1>
           <Button
             size={undefined}
-            type={'default'}
-            shape={'default'}
+            variant="primary"
             icon={<HiPlus />}
             onClick={handleClick}
             className="bg-primary hover:bg-primary900 hover:!text-white text-white flex justify-center rounded-lg border-none"
@@ -53,8 +52,7 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
         <div className="flex gap-2 md:justify-end sm:justify-center">
           <Button
             size={undefined}
-            type={'link'}
-            shape={undefined}
+            variant="primary"
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
             onClick={handleClick}
@@ -62,8 +60,7 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
           />
           <Button
             size={undefined}
-            type={'default'}
-            shape={undefined}
+            variant="primary"
             name={Workspace.Publish}
             onClick={handleClick}
             className="publishedBtn border-black p-4 border-2 rounded-lg font-medium text-black font-poppins transition-all ease-in-out duration-300"

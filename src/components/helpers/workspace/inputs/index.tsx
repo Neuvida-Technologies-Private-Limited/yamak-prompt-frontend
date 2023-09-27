@@ -7,8 +7,11 @@ const handleChange = () => {};
 const InputSection: React.FC = () => {
   return (
     <div className="grid h-full">
-      {Inputs.map(item => (
-        <div className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full">
+      {Inputs.map((item, index) => (
+        <div
+          key={`input-section-item-${index}`}
+          className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full"
+        >
           <label className="font-semibold pb-2">{item.label}</label>
           <TextArea
             id={item.id}

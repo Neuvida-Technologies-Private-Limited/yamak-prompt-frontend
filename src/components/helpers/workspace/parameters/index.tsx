@@ -70,18 +70,16 @@ const Parameters: React.FC = () => {
   return (
     <>
       <Button
-        type="default"
         onClick={() => setShowModal(true)}
         size={'middle'}
-        shape={undefined}
+        variant="primary"
         name={Workspace.Parameters}
         className="parameters border-none px-6 font-poppins hover:!text-primary800 text-primary md:block sm:hidden"
       />
       <Button
-        type="default"
         onClick={() => setShowModal(true)}
         size={'middle'}
-        shape={undefined}
+        variant="primary"
         icon={<FiSliders />}
         className="bg-gray50 border-none flex justify-center p-2 items-center rounded-md md:hidden sm:block"
       />
@@ -97,8 +95,11 @@ const Parameters: React.FC = () => {
         <div className="flex flex-col">
           <form action="#" method="post">
             <div className="flex w-full flex-col">
-              {parameters.map(items => (
-                <div className="flex sm:!flex-wrap">
+              {parameters.map((items, index) => (
+                <div
+                  key={`parameter-item-${index}`}
+                  className="flex sm:!flex-wrap"
+                >
                   <div className="em:w-1/3 sm:w-full flex items-center">
                     <label className="p-3">{items.label}</label>
                     <Tooltip element={<FiInfo />} title={items.title} />

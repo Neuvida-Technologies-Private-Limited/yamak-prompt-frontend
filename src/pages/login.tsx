@@ -132,8 +132,7 @@ const Login = () => {
               </>
             ))}
             <Button
-              type="primary"
-              shape="default"
+              variant="primary"
               size="large"
               className="bg-primary justify-center flex"
               name={LoginConst.LogIn}
