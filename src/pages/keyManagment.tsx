@@ -115,7 +115,7 @@ const KeyManagment: React.FC = () => {
                     <label className="font-medium px-2 mx-2 -mt-4 bg-white w-fit rounded-md border border-gray200 text-primary900">
                       {item.provider}
                     </label>
-                    <label className="p-2 text-gray900 text-base">
+                    <label className="p-2 text-gray900 text-base overflow-hidden">
                       {item.api_key}
                     </label>
                   </div>
