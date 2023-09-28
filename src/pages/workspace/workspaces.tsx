@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { Button, Input, Tabs } from 'components/common';
-import { WorkspaceParameters, WorkspaceChat } from 'components/helpers';
+import {
+  WorkspaceParameters,
+  WorkspaceChat,
+  WorkspaceCompletion,
+} from 'components/helpers';
 import { Workspace, InputVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
 
@@ -19,7 +23,7 @@ const tabs = [
   {
     id: '2',
     tabTitle: Workspace.Completion,
-    content: 'b', //completion page will come
+    content: <WorkspaceCompletion />,
     icon: <BsCheck2Circle />,
   },
 ];

@@ -1,13 +1,13 @@
 import React from 'react';
 import { TextArea } from 'components/common';
-import { Inputs } from './constants';
+import { WorkspaceChatInputs } from 'utils/constants';
 
 const handleChange = () => {};
 
-const InputSection: React.FC = () => {
+const ChatInputs: React.FC = () => {
   return (
     <div className="grid h-full">
-      {Inputs.map((item, index) => (
+      {WorkspaceChatInputs.map((item, index) => (
         <div
           key={`input-section-item-${index}`}
           className="flex flex-col font-poppins border rounded-lg p-4 h-full"
@@ -28,4 +28,4 @@ const InputSection: React.FC = () => {
   );
 };
 
-export default InputSection;
+export default ChatInputs;

@@ -1,5 +1,5 @@
 import { Button, Input, Label } from 'components/common';
-import { Workspace } from 'utils/constants';
+import { Workspace, InputVariants } from 'utils/constants';
 
 const ChatOutput = () => {
   return (
@@ -7,11 +7,11 @@ const ChatOutput = () => {
       <div className="h-full">
         <div className="flex items-center">
           <Input
-            variant="filled"
-            id="prompt-title"
-            name="prompt title"
-            placeholder="Prompt title"
+            id={Workspace.PromptTitle}
+            name={Workspace.PromptTitle}
+            placeholder={Workspace.PromptTitle}
             onChange={() => {}}
+            variant={InputVariants.Filled}
             className="!w-1/2 !mb-0"
           />
           <Label />

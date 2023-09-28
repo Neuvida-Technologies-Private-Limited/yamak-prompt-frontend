@@ -1,20 +1,22 @@
 import React from 'react';
-import { Button, Input, TextArea } from 'components/common';
+import { Button, Input, TextArea, Label } from 'components/common';
 import { Workspace, InputVariants } from 'utils/constants';
 
-const handleChange = () => {};
-
 const OutputSection: React.FC = () => {
+  const handleChange = () => {};
+
   return (
     <div className="flex flex-col h-full">
-      <div className="flex">
+      <div className="flex items-center">
         <Input
           id={Workspace.PromptTitle}
           name={Workspace.PromptTitle}
           placeholder={Workspace.PromptTitle}
           onChange={handleChange}
           variant={InputVariants.Filled}
+          className="!w-1/2 !mb-0"
         />
+        <Label />
       </div>
       <div className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full">
         <label className="font-semibold pb-2">{Workspace.Output}</label>

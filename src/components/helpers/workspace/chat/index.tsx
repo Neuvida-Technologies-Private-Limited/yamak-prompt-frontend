@@ -1,6 +1,6 @@
 import {
   WorkspaceHistory,
-  WorkspaceInputs,
+  WorkspaceChatInputs,
   WorkspaceChatOutput,
 } from 'components/helpers';
 
@@ -16,7 +16,7 @@ const Chat = () => {
       ) : null}
 
       <div className="lg:w-2/6 py-6 px-4 col-span-1">
-        <WorkspaceInputs />
+        <WorkspaceChatInputs />
       </div>
       <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">
         <WorkspaceChatOutput />

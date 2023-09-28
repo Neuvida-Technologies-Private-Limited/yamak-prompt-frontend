@@ -30,7 +30,7 @@ const index: React.FC = () => {
             <Draft key={`draft-item-${index}`} />
           ))}
         </div>
-        <div className="flex justify-between h-1/6 pt-4">
+        <div className="flex justify-between mt-4">
           <Button
             size={undefined}
             variant="outlined"

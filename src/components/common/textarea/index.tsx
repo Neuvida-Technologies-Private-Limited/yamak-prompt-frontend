@@ -11,6 +11,7 @@ interface TextAreaProps {
   maxLength: number;
   className?: string;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
+  disabled?: boolean;
 }
 
 const index: React.FC<TextAreaProps> = ({
@@ -21,6 +22,7 @@ const index: React.FC<TextAreaProps> = ({
   maxLength,
   className,
   onChange,
+  disabled,
 }) => {
   return (
     <TextArea
@@ -31,6 +33,7 @@ const index: React.FC<TextAreaProps> = ({
       maxLength={maxLength}
       className={`border-0 ${className}`}
       onChange={onChange}
+      disabled={disabled}
     />
   );
 };

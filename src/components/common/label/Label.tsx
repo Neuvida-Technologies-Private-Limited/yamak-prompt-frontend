@@ -29,7 +29,7 @@ const Label: React.FC<LabelProps> = ({
     <div className={`flex justify-center items-center gap-2 m-4 ${className}`}>
       <div className="flex gap-2">
         {labels.length === 0 ? (
-          <p className="text-xs">{noLabelsMessage}</p>
+          <p className="text-xs font-bold text-secondary">{noLabelsMessage}</p>
         ) : (
           labels.map(label => (
             <button
