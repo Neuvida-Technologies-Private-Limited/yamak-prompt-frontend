@@ -49,7 +49,7 @@ const KeyManagment: React.FC = () => {
         key_details: res,
       }));
     } catch (error: any) {
-      console.log(error);
+      toast.error(error);
     }
   };
 
@@ -69,7 +69,7 @@ const KeyManagment: React.FC = () => {
         return false;
       }
     } catch (error) {
-      console.log(error);
+      toast.error('Key cannot be deleted, please login again !');
     }
   };
 
