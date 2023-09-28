@@ -16,9 +16,7 @@ export const GetLLMProviders = async () => {
 export const CreateKey = async (model: CreateKeyModal) => {
   await axiosClientProtected
     .post(keyManagementRoutes.CREATE_KEY_ROUTE, model)
-    .then(response => {
-      console.log(response);
-    })
+    .then(response => {})
     .catch((error: AxiosError) => {
       return Promise.reject(error);
     });
@@ -36,9 +34,7 @@ export const GetKeyList = async () => {
 export const DeleteKey = async (uuid: string) => {
   await axiosClientProtected
     .delete(`${keyManagementRoutes.DELETE_KEY_ROUTE}${uuid}/`)
-    .then(response => {
-      console.log('Key deleted !');
-    })
+    .then(response => {})
     .catch((error: AxiosError) => {
       return Promise.reject(error);
     });

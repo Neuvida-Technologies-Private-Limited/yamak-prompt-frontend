@@ -1,5 +1,4 @@
 import { AxiosError } from 'axios';
-import axiosClientProtected from 'middleware/axios/axios-client/axios-client-protected';
 import axiosClient from 'middleware/axios/axios-client/axios-client-public';
 import { LoginModel } from './types';
 import { authRoutes } from './routes';
@@ -24,9 +23,10 @@ export const CSRF_TOKEN = async () => {
 
 // login
 export const LogIn = async (model: LoginModel) => {
-  await axiosClientProtected
+  await axiosClient
     .post(authRoutes.LOGIN_ROUTE, model)
-    .then(response => {
+    .then(res => {
+      const response = res.data;
       // Extract tokens
       const access_token = response.data.access_token;
       const refresh_token = response.data.refresh_token;
