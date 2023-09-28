@@ -66,23 +66,25 @@ const parameters: Types[] = [
 
 const Parameters: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const isDesktopView = window.innerWidth >= 768;
 
   return (
     <>
-      <Button
-        onClick={() => setShowModal(true)}
-        size={'middle'}
-        variant="primary"
-        name={Workspace.Parameters}
-        className="parameters border-none px-6 font-poppins hover:!text-primary800 text-primary md:block sm:hidden"
-      />
-      <Button
-        onClick={() => setShowModal(true)}
-        size={'middle'}
-        variant="primary"
-        icon={<FiSliders />}
-        className="bg-gray50 border-none flex justify-center p-2 items-center rounded-md md:hidden sm:block"
-      />
+      {isDesktopView ? (
+        <Button
+          onClick={() => setShowModal(true)}
+          size={'middle'}
+          variant="primary"
+          name={Workspace.Parameters}
+        />
+      ) : (
+        <Button
+          onClick={() => setShowModal(true)}
+          size={'middle'}
+          variant="primary"
+          icon={<FiSliders />}
+        />
+      )}
       <Modal
         title={Workspace.Parameters}
         centered={true}

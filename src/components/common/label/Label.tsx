@@ -57,7 +57,6 @@ const Label: React.FC<LabelProps> = ({
         variant="primary"
         name={showInput ? '-' : '+'}
         onClick={() => setShowInput(prev => !prev)}
-        className="!rounded-full !px-4"
       />
     </div>
   );

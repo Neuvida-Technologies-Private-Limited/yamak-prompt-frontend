@@ -36,34 +36,33 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
 
   return (
     <div className="flex flex-col max-h-screen">
-      <div className="grid items-center h-full p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1">
-        <div className="flex sm:justify-center md:justify-start">
-          <h1 className="text-2xl font-poppins font-semibold pr-3">
+      <div className="grid items-center h-full p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1 gap-4">
+        <div className="flex sm:justify-center md:justify-start items-center">
+          <h1 className="sm:text-xl md:text-2xl font-poppins font-semibold pr-3">
             {Workspace.Marketing}
           </h1>
           <Button
-            size={undefined}
+            size="small"
             variant="primary"
             icon={<HiPlus />}
             onClick={handleClick}
-            className="bg-primary hover:bg-primary900 hover:!text-white text-white flex justify-center rounded-lg border-none"
+            className="!text-xs !py-3 !px-4 text-white"
           />
         </div>
-        <div className="flex gap-2 md:justify-end sm:justify-center">
+        <div className="flex gap-2 md:justify-end sm:justify-center items-center">
           <Button
             size={undefined}
-            variant="primary"
+            variant="default"
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
             onClick={handleClick}
-            className="items-center flex font-poppins text-primary800 font-medium p-4 border-2 border-primary50 bg-primary50 rounded-lg"
           />
           <Button
             size={undefined}
-            variant="primary"
+            variant="outlined"
             name={Workspace.Publish}
             onClick={handleClick}
-            className="publishedBtn border-black p-4 border-2 rounded-lg font-medium text-black font-poppins transition-all ease-in-out duration-300"
+            className="border-2 border-black"
           />
         </div>
       </div>
@@ -71,7 +70,7 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
         {/* Tab Switcher starts */}
         <Tabs tabs={tabs} currentTab={currentTab} onTabClick={handleTabClick} />
         {/* Tab Switcher ends */}
-        <div className="flex py-2 justify-center items-center">
+        <div className="flex py-2 gap-2 justify-center items-center">
           <Input
             id={Workspace.SearchPrompt}
             name={Workspace.SearchPrompt}

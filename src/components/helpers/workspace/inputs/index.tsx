@@ -10,7 +10,7 @@ const InputSection: React.FC = () => {
       {Inputs.map((item, index) => (
         <div
           key={`input-section-item-${index}`}
-          className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full"
+          className="flex flex-col font-poppins border rounded-lg p-4 h-full"
         >
           <label className="font-semibold pb-2">{item.label}</label>
           <TextArea

@@ -1,8 +1,7 @@
-import React from 'react';
 import {
   WorkspaceHistory,
   WorkspaceInputs,
-  WorkspaceOutput,
+  WorkspaceChatOutput,
 } from 'components/helpers';
 
 const Chat = () => {
@@ -20,7 +19,7 @@ const Chat = () => {
         <WorkspaceInputs />
       </div>
       <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">
-        <WorkspaceOutput />
+        <WorkspaceChatOutput />
       </div>
     </>
   );
