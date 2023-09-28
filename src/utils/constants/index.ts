@@ -5,6 +5,15 @@ export enum InputVariants {
   Outlined = 'outlined',
   Default = 'default',
 }
+export enum ButtonVariants {
+  PRIMARY = 'primary',
+  PRIMARY_LIGHT = 'primary-light',
+  SECONDARY = 'secondary',
+  OUTLINED = 'outlined',
+  OUTLINED_LIGHT = 'outlined-light',
+  LINK = 'link',
+  DEFAULT = 'default',
+}
 export enum CardConst {
   CopyPrompt = 'Copy Prompt',
   Likes = '5.1M',
@@ -66,8 +75,9 @@ export enum Workspace {
   LLMProvider = 'Enter LLM Provider',
   LLMKey = 'Enter LLM Key',
   Parameters = 'Parameters',
+  AddPrompt = 'Add Prompt',
   Test = 'Test Connection',
-  Save = 'Save Key',
+  AddKey = 'Add Key',
   PromptTitle = 'Prompt Title',
   EnterHere = 'Enter a user message here',
   Output = 'Output',

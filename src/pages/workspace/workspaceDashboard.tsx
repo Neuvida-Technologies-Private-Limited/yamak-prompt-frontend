@@ -51,12 +51,14 @@ const WorkspaceDashboard: React.FC = () => {
       {workspaces.length > 0 ? (
         <div className="">
           <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
-            {workspace_details.map((item: any) => (
-              <WorkspaceCard
-                heading={item.title}
-                createdBy={item.user_uuid}
-                createdOn={item.createdOn}
-              />
+            {workspaces.map((item: any) => (
+              <Link to={item.link}>
+                <WorkspaceCard
+                  heading={item.heading}
+                  createdBy={item.createdBy}
+                  createdOn={item.createdOn}
+                />
+              </Link>
             ))}
           </div>
           <div className="sm:flex em:hidden bottom-0 z-2 fixed items-center justify-center w-full bg-gray100 rounded-t-xl py-4">

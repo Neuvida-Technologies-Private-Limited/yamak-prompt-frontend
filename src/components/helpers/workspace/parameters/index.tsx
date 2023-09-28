@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FiInfo, FiSliders } from 'react-icons/fi';
 import { Button, Input, Tooltip, Modal, Slider } from 'components/common';
-import { Workspace, InputVariants } from 'utils/constants';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Types } from './types';
 
 const handleChange = () => {};
@@ -69,19 +69,22 @@ const Parameters: React.FC = () => {
 
   return (
     <>
+      {/* Button visible in tab and desktop view */}
       <Button
         onClick={() => setShowModal(true)}
         size={'middle'}
-        variant="primary"
+        variant={ButtonVariants.LINK}
+        type="text"
         name={Workspace.Parameters}
-        className="parameters border-none px-6 font-poppins hover:!text-primary800 text-primary md:block sm:hidden"
+        className="md:flex sm:hidden"
       />
+      {/* Button visible in mobile view */}
       <Button
         onClick={() => setShowModal(true)}
         size={'middle'}
-        variant="primary"
+        variant={ButtonVariants.OUTLINED_LIGHT}
         icon={<FiSliders />}
-        className="bg-gray50 border-none flex justify-center p-2 items-center rounded-md md:hidden sm:block"
+        className="sm:flex md:!hidden"
       />
       <Modal
         title={Workspace.Parameters}
@@ -89,7 +92,7 @@ const Parameters: React.FC = () => {
         isOpen={showModal}
         sumbitHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
-        okText={Workspace.Parameters}
+        okText={Workspace.AddPrompt}
         className="parameters em:!w-1/2 sm:!w-full"
       >
         <div className="flex flex-col">

@@ -1,10 +1,10 @@
-import { Workspace } from 'utils/constants';
+import { Workspace, ButtonVariants } from 'utils/constants';
 
 const handleChange = () => {};
 
 const handleConnection = () => {};
 
-const handleSaveKey = () => {};
+const handleAddKey = () => {};
 
 export const Inputs = [
   {
@@ -28,15 +28,15 @@ export const Inputs = [
 ];
 export const Buttons = [
   {
-    name: Workspace.Test,
-    onClick: handleConnection,
-    className:
-      'text-primary font-poppins font-semibold decoration-primary underline',
+    name: Workspace.AddKey,
+    onClick: handleAddKey,
+    variant: ButtonVariants.LINK,
   },
   {
-    name: Workspace.Save,
-    onClick: handleSaveKey,
+    name: Workspace.Test,
+    onClick: handleConnection,
+    variant: ButtonVariants.LINK,
     className:
-      'text-secondary font-poppins font-semibold decoration-secondary underline',
+      '!text-secondary !decoration-secondary hover:!decoration-primary',
   },
 ];

@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Button, Input, Modal, Select, TextArea } from 'components/common';
-import { LibrarySelectOptions, Library, InputVariants } from 'utils/constants';
+import {
+  LibrarySelectOptions,
+  Library,
+  InputVariants,
+  ButtonVariants,
+} from 'utils/constants';
 
 const AddNewPrompt = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -15,7 +20,7 @@ const AddNewPrompt = () => {
     <>
       <Button
         size="small"
-        variant="primary"
+        variant={ButtonVariants.PRIMARY}
         onClick={addPromptHandler}
         name={Library.AddPromptButton}
       />
