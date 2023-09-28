@@ -9,3 +9,7 @@ export enum keyManagementRoutes {
   KEY_LIST_ROUTE = '/key/get_key_list/',
   DELETE_KEY_ROUTE = `/key/`,
 }
+
+export enum workspaceRoutes {
+  GET_WORKSPACE_ROUTE = '/workspace/get-all-workspaces/',
+}
