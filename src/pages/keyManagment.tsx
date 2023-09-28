@@ -97,13 +97,13 @@ const KeyManagment: React.FC = () => {
       {key_details.length === 0 ? (
         <p className="text-gray400 text-center">No key</p>
       ) : (
-        <div className="mt-10 flex flex-col gap-y-10 overflow-y-scroll h-full">
+        <div className="mt-10 flex flex-col gap-y-10 md:overflow-y-scroll h-full">
           {key_details.map((item, index) => (
             <div
               key={`key-management-input-${index}`}
               className="w-full flex sm:flex-col md:flex-row sm:items-start md:items-end gap-4 w-full"
             >
-              <div className="flex flex-col md:w-2/3">
+              <div className="flex flex-col sm:w-full md:w-2/3">
                 <h2 className="text-base md:text-xl text-primary900 font-semibold">
                   {item.title}
                 </h2>
@@ -124,12 +124,10 @@ const KeyManagment: React.FC = () => {
                       <Button
                         key={index}
                         size="small"
-                        type="default"
-                        shape="default"
+                        variant="outlined"
                         onClick={() => {
                           handlePopupConfirmOpen(index, true);
                         }}
-                        className="font-poppins !py-5 !px-4 !text-base border-2 !rounded-lg border-black font-medium flex justify-center"
                         name={KeyManagement.DELETE}
                         icon={<FiTrash2 />}
                       />
