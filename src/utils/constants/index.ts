@@ -89,20 +89,22 @@ export enum Workspace {
 }
 
 export enum KeyManagement {
-  Message = "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
+  MESSAGE = "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
   ADD_KEY_BUTTON = 'Add Key',
   TITLE = 'Open AI Key',
   OK = 'Save Key',
-  CANCEL = 'Test connection',
   SUB_HEAD = 'Enter the key from your LLM Provider in the below boxes',
-  KEY_TITLE = 'key-management-title',
+  KEY_TITLE = 'title',
   TITLE_PLACEHOLDER = 'Enter Key Title',
   LLM_TITLE = 'key-management-llm-provider',
   LLM_PLACEHOLDER = 'Select LLM Provider',
-  SK_TITLE = 'key-management-sk',
-  SK_PLACEHOLDER = 'Enter Key',
+  API_KEY = 'api_key',
+  SK_PLACEHOLDER = 'Enter API Key',
   DESCRIPTION_PLACEHOLDER = 'Enter Key Description',
-  KEY_DESCRIPTION = 'Key Description',
+  KEY_DESCRIPTION = 'description',
+  DELETE = 'Delete',
+  POPUP_TITLE = 'Delete the key',
+  POPUP_DESCRIPTION = 'Are you sure to delete this key?',
 }
 
 export enum Library {
@@ -172,11 +174,6 @@ export const LibrarySelectOptions = [
   { value: 'generate-ai', label: 'Generate AI' },
 ];
 
-export const KeyManagementSelectOptions = [
-  { value: 'OpenAI', label: 'OpenAI' },
-  { value: 'Bard', label: 'Bard' },
-];
-
 export const LibraryCardItems: CardItem[] = [
   {
     id: 1,
@@ -240,7 +237,21 @@ export const LibraryCardItems: CardItem[] = [
   },
 ];
 
-export const KeyManagementInputs = [
-  { id: '1', name: 'Open AI', placeHolder: 'sk-*************************' },
-  { id: '2', name: 'Bard', placeHolder: 'sk-*************************' },
+export const KeyDetails = [
+  {
+    id: '1',
+    title: 'Key 1',
+    api_key: 'sk-*************************',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque.',
+    provider: 'OpenAI',
+  },
+  {
+    id: '2',
+    title: 'Key 2',
+    api_key: 'sk-*************************',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque.',
+    provider: 'Bard',
+  },
 ];

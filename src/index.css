@@ -106,8 +106,8 @@
   align-items: center !important;
   justify-content: space-between;
 }
-.createWorkspace .ant-modal-footer .ant-btn-default,
-.parameters .ant-modal-footer .ant-btn-default {
+
+.ant-modal-footer .ant-btn-default {
   display: none !important;
 }
 .ant-modal .ant-modal-footer .ant-btn + .ant-btn {
@@ -142,6 +142,13 @@
 .ant-select-selection-item {
   font-family: 'Poppins';
   font-size: 14px;
+}
+.ant-popover .ant-popover-content,
+.ant-popconfirm .ant-popconfirm-buttons button {
+  font-family: 'Poppins';
+}
+.ant-popconfirm-buttons .ant-btn-primary {
+  background: var(--primary-color) !important;
 }
 
 /* Material UI COMPONENTS CSS */

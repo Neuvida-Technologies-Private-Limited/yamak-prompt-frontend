@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
 import { Workspace, workspaces } from 'utils/constants';
 import { Heading } from 'components/common';
+import { GetWorkspaces } from 'middleware/api';
+import { workspaceState } from 'middleware/state';
 
 const WorkspaceDashboard: React.FC = () => {
+  const [state, setState] = useRecoilState(workspaceState);
+  const { workspace_details } = state;
+
+  const getKeyList = async () => {
+    try {
+      const res = await GetWorkspaces();
+      setState(old => ({
+        ...old,
+        workspace_details: res,
+      }));
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getKeyList();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-between p-6">
@@ -29,8 +51,8 @@ const WorkspaceDashboard: React.FC = () => {
       {workspaces.length > 0 ? (
         <div className="">
           <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
-            {workspaces.map((item: any, index: number) => (
-              <Link to={item.link} key={`workspace-item-${index}`}>
+            {workspaces.map((item: any) => (
+              <Link to={item.link}>
                 <WorkspaceCard
                   heading={item.heading}
                   createdBy={item.createdBy}
