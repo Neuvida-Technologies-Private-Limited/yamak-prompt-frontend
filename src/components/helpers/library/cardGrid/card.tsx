@@ -34,10 +34,9 @@ const LibraryCard: React.FC<CardProps> = ({
         <h2 className="text-black font-bold text-md ">{heading}</h2>
         <Button
           size="small"
-          type="default"
-          shape="default"
+          variant="default"
           onClick={importPromptHandler}
-          className="!text-xs whitespace-nowrap bg-gray50 text-primary600 font-bold !p-2 !py-4 !rounded-xl border-0"
+          className="!text-xs !p-2 !py-4"
           name={buttonName}
         />
       </div>
@@ -53,12 +52,11 @@ const LibraryCard: React.FC<CardProps> = ({
           <Button
             key={`library-card-icon-${index}`}
             onClick={button.onclick}
-            size={undefined}
-            type={'default'}
-            shape={undefined}
+            size="small"
+            variant="outlined"
             icon={button.icon}
             name={button.name}
-            className="flex items-center text-xs justify-center"
+            className="!text-xs !py-3.5"
           />
         ))}
       </div>

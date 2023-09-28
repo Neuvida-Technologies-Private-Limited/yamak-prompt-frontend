@@ -99,12 +99,10 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
   return (
     <>
       <Button
-        size={'middle'}
-        type={'default'}
-        shape={'default'}
+        size={'small'}
+        variant="primary"
         onClick={addKeyButtonHandler}
         name={KeyManagement.ADD_KEY_BUTTON}
-        className="bg-primary text-white hover:!text-white border-none !py-5 !px-3 hover:bg-primary700"
       />
 
       <Modal

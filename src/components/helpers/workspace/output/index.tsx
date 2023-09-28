@@ -7,12 +7,14 @@ const buttons = [
   {
     onclick: () => handleClick,
     name: 'Submit',
+    variant: 'primary',
     className:
       'createWorkspace bg-primary h-10 px-7 rounded-lg mr-2 font-medium text-white border-none font-poppins hover:bg-hoverPrimary transition-all ease-in-out duration-300',
   },
   {
     onclick: () => handleClick,
     name: 'Bookmark',
+    variant: 'default',
     className:
       'md:flex items-center bg-gray100 text-gray500 font-poppins border-2 border-none h-10 px-4 rounded-lg sm:hidden',
     icon: <FiBookmark />,
@@ -61,11 +63,11 @@ const OutputSection: React.FC = () => {
       </div>
       <div className="flex py-6 md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
         <div className="flex items-center gap-4">
-          {buttons.map(btn => (
+          {buttons.map((btn, index) => (
             <Button
+              key={`button-item-${index}`}
               size={undefined}
-              type={'default'}
-              shape={undefined}
+              variant="primary"
               onClick={btn.onclick}
               icon={btn.icon}
               name={btn.name}
