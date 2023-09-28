@@ -86,6 +86,7 @@ export enum Workspace {
   ShowPublished = 'Show Published',
   Chat = 'Chat',
   Completion = 'Completion',
+  ExploreTemplates = 'Explore Templates',
 }
 
 export enum KeyManagement {

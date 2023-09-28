@@ -1,24 +1,18 @@
 import React from 'react';
 import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
 import { Workspace, workspaces } from 'utils/constants';
-import { Heading } from 'components/common';
+import { Button, Heading, Text } from 'components/common';
 
 const WorkspaceDashboard: React.FC = () => {
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between p-6">
+      <div className="flex sm:flex-col sm:justify-between sm:items-start md:flex-row gap-4 p-6">
         <div className="flex flex-col font-poppins">
-          <Heading
-            level={2}
-            children={Workspace.Workspaces}
-            className="mb-2 sm:text-center em:text-start"
-          />
-          <h4 className="text-sm md:text-base text-gray400 sm:text-center em:text-start">
+          <Heading level={2} children={Workspace.Workspaces} className="mb-2" />
+          <Text className="text-sm md:text-base lg:w-3/4">
             {Workspace.Subhead1}
-          </h4>
-          <h4 className="text-sm md:text-base text-gray400 sm:text-center em:text-start">
-            {Workspace.Subhead2}
-          </h4>
+          </Text>
+          <Text className="text-sm md:text-base">{Workspace.Subhead2}</Text>
         </div>
         <CreateWorkspace
           btnName={Workspace.Create}
@@ -46,14 +40,16 @@ const WorkspaceDashboard: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center h-full">
+        <div className="flex flex-col justify-center items-center h-full gap-y-2 mt-10 p-6">
           <img
             src="/assets/images/workspace.svg"
             alt="No Workspaces Found"
-            className="pb-6"
+            className="pb-4"
           />
           <div className="flex font-poppins flex-col items-center gap-1 em:pb-10 sm:py-10">
-            <h2 className="font-bold text-black">{Workspace.NoWorkspace}</h2>
+            <Heading level={4} className="font-bold text-black text-center">
+              {Workspace.NoWorkspace}
+            </Heading>
             <p className="text-gray700 px-6 text-center">
               {Workspace.NoWorkspaceDesc}
             </p>
@@ -61,6 +57,13 @@ const WorkspaceDashboard: React.FC = () => {
           <CreateWorkspace
             btnName={Workspace.CreateWorkspace}
             className="sm:w-72 em:w-56 sm:h-12 em:h-10 flex justify-center"
+          />
+          <Button
+            size="small"
+            variant="simple"
+            onClick={() => {}}
+            name={Workspace.ExploreTemplates}
+            className="text-secondary underline"
           />
         </div>
       )}
