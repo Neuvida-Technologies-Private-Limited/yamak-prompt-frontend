@@ -25,7 +25,8 @@ export const CSRF_TOKEN = async () => {
 export const LogIn = async (model: LoginModel) => {
   await axiosClient
     .post(authRoutes.LOGIN_ROUTE, model)
-    .then(response => {
+    .then(res => {
+      const response = res.data;
       // Extract tokens
       const access_token = response.data.access_token;
       const refresh_token = response.data.refresh_token;
