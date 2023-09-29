@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
 import { Workspace, workspaces } from 'utils/constants';
-import { Button, Heading, Text } from 'components/common';
+import { Button, Heading } from 'components/common';
+import { GetWorkspaces } from 'middleware/api';
+import { workspaceState } from 'middleware/state';
 
 const WorkspaceDashboard: React.FC = () => {
+  const [state, setState] = useRecoilState(workspaceState);
+  const { workspace_details } = state;
+
+  const getKeyList = async () => {
+    try {
+      const res = await GetWorkspaces();
+      setState(old => ({
+        ...old,
+        workspace_details: res,
+      }));
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getKeyList();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <div className="flex sm:flex-col sm:justify-between sm:items-start md:flex-row gap-4 p-6">
         <div className="flex flex-col font-poppins">
           <Heading level={2} children={Workspace.Workspaces} className="mb-2" />
-          <Text className="text-sm md:text-base lg:w-3/4">
+          <h4 className="text-sm md:text-base lg:w-3/4">
             {Workspace.Subhead1}
-          </Text>
-          <Text className="text-sm md:text-base">{Workspace.Subhead2}</Text>
+          </h4>
+          <h4 className="text-sm md:text-base">{Workspace.Subhead2}</h4>
         </div>
         <CreateWorkspace
           btnName={Workspace.Create}
@@ -22,9 +44,8 @@ const WorkspaceDashboard: React.FC = () => {
       {workspaces.length > 0 ? (
         <div className="">
           <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
-            {workspaces.map((item: any, index: number) => (
+            {workspaces.map((item: any) => (
               <WorkspaceCard
-                key={`workspace-item-${index}`}
                 heading={item.heading}
                 link={item.link}
                 createdBy={item.createdBy}

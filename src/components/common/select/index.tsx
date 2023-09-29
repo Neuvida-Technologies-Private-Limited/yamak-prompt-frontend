@@ -16,6 +16,7 @@ interface SelectProps {
   id?: string;
   style?: {};
   size?: SizeType;
+  onChange?: (value: string) => void;
 }
 
 const handleChange = (value: string) => {};
@@ -25,6 +26,7 @@ const select: React.FC<SelectProps> = ({
   className,
   placeholder,
   value,
+  onChange,
   id,
   style,
   size = 'middle',
@@ -36,7 +38,7 @@ const select: React.FC<SelectProps> = ({
     placeholder={placeholder}
     className={`${className}`}
     size={size}
-    onChange={handleChange}
+    onChange={onChange}
     options={options}
     suffixIcon={<FiChevronDown />}
   />

@@ -23,7 +23,7 @@ const AddNewPrompt = () => {
         title={Library.ModalHeading}
         centered={true}
         isOpen={showModal}
-        showModalHandler={() => setShowModal(true)}
+        sumbitHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
         okText={Library.OkText}
         className="library"

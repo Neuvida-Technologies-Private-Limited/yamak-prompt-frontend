@@ -106,8 +106,8 @@
   align-items: center !important;
   justify-content: space-between;
 }
-.createWorkspace .ant-modal-footer .ant-btn-default,
-.parameters .ant-modal-footer .ant-btn-default {
+
+.ant-modal-footer .ant-btn-default {
   display: none !important;
 }
 .ant-modal .ant-modal-footer .ant-btn + .ant-btn {
@@ -143,9 +143,14 @@
   font-family: 'Poppins';
   font-size: 14px;
 }
-.cardPrompt .ant-modal .ant-modal-header .ant-modal-title {
-  font-size: 1rem !important;
+.ant-popover .ant-popover-content,
+.ant-popconfirm .ant-popconfirm-buttons button {
+  font-family: 'Poppins';
 }
+.ant-popconfirm-buttons .ant-btn-primary {
+  background: var(--primary-color) !important;
+}
+
 /* Material UI COMPONENTS CSS */
 
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {

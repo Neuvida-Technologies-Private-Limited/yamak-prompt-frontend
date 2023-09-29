@@ -6,11 +6,7 @@ interface Props {
 }
 
 const Text: React.FC<Props> = ({ children, className }) => {
-  return (
-    <p className={`text-black opacity-40 text-justify ${className}`}>
-      {children}
-    </p>
-  );
+  return <p className={`text-justify ${className}`}>{children}</p>;
 };
 
 export default Text;

@@ -109,7 +109,6 @@ const LibraryCard: React.FC<CardItemProps> = ({
         title={title}
         centered={true}
         isOpen={showModal}
-        showModalHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
         okText={'Import Prompt'}
         footer={[

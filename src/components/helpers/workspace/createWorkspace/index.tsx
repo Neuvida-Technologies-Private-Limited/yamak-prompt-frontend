@@ -35,7 +35,7 @@ const App: React.FC<CreateWorkspaceProps> = ({ btnName, className }) => {
         title={Workspace.CreateWorkspace}
         centered={true}
         isOpen={showModal}
-        showModalHandler={() => setShowModal(true)}
+        sumbitHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
         okText={Workspace.Create}
         className="createWorkspace"

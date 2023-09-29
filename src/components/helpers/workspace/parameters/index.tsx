@@ -89,7 +89,7 @@ const Parameters: React.FC = () => {
         title={Workspace.Parameters}
         centered={true}
         isOpen={showModal}
-        showModalHandler={() => setShowModal(true)}
+        sumbitHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
         okText={Workspace.Parameters}
         className="parameters em:!w-1/2 sm:!w-full"

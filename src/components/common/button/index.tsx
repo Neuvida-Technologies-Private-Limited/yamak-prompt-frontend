@@ -32,8 +32,8 @@ const button: React.FC<ButtonProps> = ({
         variant === 'primary',
       'bg-secondary text-white hover:!text-white border-none hover:bg-secondary400':
         variant === 'secondary',
-      '': variant === 'outlined',
-      'whitespace-nowrap bg-gray50 text-primary600 font-bold !rounded border-0':
+      'border-2 !rounded-lg border-black font-medium': variant === 'outlined',
+      'whitespace-nowrap bg-gray50 text-primary600 font-bold !rounded-xl border-0':
         variant === 'default',
       'bg-transparent border-0 shadow-none font-bold': variant === 'simple',
     },
