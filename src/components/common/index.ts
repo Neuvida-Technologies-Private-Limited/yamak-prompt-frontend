@@ -7,7 +7,7 @@ export { default as Modal } from './modal';
 export { default as MobileNavbar } from './navbar';
 export { default as StyledInput } from './input/styledInput';
 export { default as Select } from './select';
-export { default as DesktopSidebar } from './sidebar';
+export { default as DesktopSidebar } from './sidebar/Sidebar';
 export { default as Search } from './search';
 export { default as Tag } from './tag';
 export { default as Tooltip } from './tooltip';

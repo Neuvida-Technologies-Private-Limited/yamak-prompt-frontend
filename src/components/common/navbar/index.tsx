@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import { IconPaths } from 'utils/constants';
-import MobileSidebar from './mobileSidebar';
+import MobileSidebar from '../sidebar/mobileSidebar';
 
 const Navbar: React.FC = () => {
   return (
