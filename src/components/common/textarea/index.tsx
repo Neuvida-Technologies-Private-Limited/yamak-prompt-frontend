@@ -31,7 +31,7 @@ const index: React.FC<TextAreaProps> = ({
       rows={rows}
       placeholder={placeholder}
       maxLength={maxLength}
-      className={`border-0 ${className}`}
+      className={`border-0 !focus:outline-none !resize-none ${className}`}
       onChange={onChange}
       disabled={disabled}
     />

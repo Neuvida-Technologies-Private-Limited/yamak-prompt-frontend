@@ -97,6 +97,7 @@ export enum Workspace {
   Chat = 'Chat',
   Completion = 'Completion',
   ExploreTemplates = 'Explore Templates',
+  AddVariable = 'Add Variable',
 }
 
 export enum KeyManagement {
@@ -135,6 +136,7 @@ export enum Library {
   CardSubHeading = 'SEO/Writing',
   CardButtonName = 'Import Prompt',
   CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
+  ImportPrompt = 'Import Prompt',
 }
 
 export enum Label {

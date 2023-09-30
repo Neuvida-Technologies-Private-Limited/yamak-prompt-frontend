@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+
 import { FiCopy, FiHeart } from 'react-icons/fi';
 import { BiLike, BiDislike } from 'react-icons/bi';
 import { PiWarningBold } from 'react-icons/pi';
-import { Library } from 'utils/constants';
+
 import { Button, Modal, Tag, Text } from 'components/common';
 import ModalContent from './ModalContent';
 import { LibraryCardItem as CardItemProps } from 'types';
+import { ButtonVariants, Library } from 'utils/constants';
 
 const LibraryCard: React.FC<CardItemProps> = ({
   title,
@@ -25,9 +27,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
     setShowModal(prev => !prev);
   };
 
-  const importPromptHandler = () => {
-    console.log('IMPORT PROMPT FROM CARD');
-  };
+  const importPromptHandler = () => {};
 
   return (
     <>
@@ -63,44 +63,39 @@ const LibraryCard: React.FC<CardItemProps> = ({
         />
         <div className="flex flex-wrap justify-start gap-2">
           <Button
-            variant="outlined"
+            variant="outlined-light"
             size="small"
             name="Copy Prompt"
             icon={<FiCopy />}
             onClick={() => {}}
-            className="!text-xs !py-1 !px-2"
           />
           <Button
-            variant="outlined"
+            variant="outlined-light"
             size="small"
             name={' ' + likes_dislikes_count.likes}
             icon={<BiLike />}
             onClick={() => {}}
-            className="!text-xs !py-1 !px-2"
           />
           <Button
-            variant="outlined"
+            variant="outlined-light"
             size="small"
             name={' ' + likes_dislikes_count.dislikes}
             icon={<BiDislike />}
             onClick={() => {}}
-            className="!text-xs !py-1 !px-2"
           />
           <Button
-            variant="outlined"
+            variant="outlined-light"
             size="small"
             name=""
             icon={<FiHeart />}
             onClick={() => {}}
-            className="!text-xs !py-1 !px-2"
           />
           <Button
-            variant="outlined"
+            variant="outlined-light"
             size="small"
             name=""
             icon={<PiWarningBold />}
             onClick={() => {}}
-            className="!text-xs !py-1 !px-2"
           />
         </div>
       </div>
@@ -113,10 +108,10 @@ const LibraryCard: React.FC<CardItemProps> = ({
         okText={'Import Prompt'}
         footer={[
           <Button
-            variant="primary"
+            variant={ButtonVariants.PRIMARY}
             size="small"
-            name="Import Prompt"
-            onClick={() => console.log('IMPORT PROMPT FROM MODAL')}
+            name={Library.ImportPrompt}
+            onClick={() => {}}
           />,
         ]}
       >

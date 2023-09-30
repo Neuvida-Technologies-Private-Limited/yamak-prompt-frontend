@@ -1,5 +1,5 @@
-import LibraryCard from './Card';
 import { LibraryCardItem as CardItem } from 'types';
+import { LibraryCard } from 'components/helpers';
 
 const CardsGrid: React.FC<{ items: CardItem[] }> = ({ items }) => {
   return (

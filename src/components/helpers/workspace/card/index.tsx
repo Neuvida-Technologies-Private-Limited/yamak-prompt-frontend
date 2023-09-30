@@ -14,11 +14,11 @@ interface WorkspaceCardProps {
 const items: MenuProps['items'] = [
   {
     key: '1',
-    label: <button onClick={() => console.log('EDIT')}>Edit</button>,
+    label: <button onClick={() => {}}>Edit</button>,
   },
   {
     key: '2',
-    label: <button onClick={() => console.log('DELETE')}>Delete</button>,
+    label: <button onClick={() => {}}>Delete</button>,
   },
 ];
 

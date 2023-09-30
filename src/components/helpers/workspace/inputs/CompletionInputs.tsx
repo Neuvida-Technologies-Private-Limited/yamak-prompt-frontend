@@ -1,5 +1,9 @@
 import { Button, TextArea } from 'components/common';
-import { WorkspaceCompletionInputs } from 'utils/constants';
+import {
+  ButtonVariants,
+  Workspace,
+  WorkspaceCompletionInputs,
+} from 'utils/constants';
 import { HiPlus } from 'react-icons/hi';
 
 const CompletionInputs = () => {
@@ -17,17 +21,16 @@ const CompletionInputs = () => {
             rows={10}
             placeholder={item.placeholder}
             maxLength={0}
-            className="!resize-none !h-full focus:border-gray50 hover:border-0"
             onChange={() => {}}
           />
         </div>
       ))}
       <Button
         size="small"
-        name={'Add Variable'}
+        name={Workspace.AddVariable}
         icon={<HiPlus />}
         onClick={() => {}}
-        variant="outlined"
+        variant={ButtonVariants.OUTLINED}
       />
     </div>
   );

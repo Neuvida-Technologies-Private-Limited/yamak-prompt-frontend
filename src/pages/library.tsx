@@ -38,9 +38,7 @@ const Library = () => {
       try {
         const res = await getAllPrompts();
         setItems(res.data.results);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
 
     getPrompts();

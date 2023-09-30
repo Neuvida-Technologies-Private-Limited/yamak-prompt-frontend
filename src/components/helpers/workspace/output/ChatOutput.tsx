@@ -1,5 +1,5 @@
 import { Button, Input, Label } from 'components/common';
-import { Workspace, InputVariants } from 'utils/constants';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 
 const ChatOutput = () => {
   return (
@@ -22,12 +22,11 @@ const ChatOutput = () => {
               User
             </label>
             <Input
-              variant="filled"
+              variant={InputVariants.Default}
               id="user-chat"
               name="user"
-              placeholder="Enter the user message here"
+              placeholder={Workspace.EnterHere}
               onChange={() => {}}
-              className="bg-transparent border-b-2 rounded-none"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -35,12 +34,11 @@ const ChatOutput = () => {
               Assistant
             </label>
             <Input
-              variant="filled"
+              variant={InputVariants.Default}
               id="assistant-chat"
               name="assistant"
-              placeholder="Enter the user message here"
+              placeholder={Workspace.EnterHere}
               onChange={() => {}}
-              className="bg-transparent border-b-2 rounded-none"
             />
           </div>
         </div>
@@ -48,13 +46,13 @@ const ChatOutput = () => {
       <div className="flex py-6 md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
         <div className="flex items-center gap-4">
           <Button
-            variant="primary"
+            variant={ButtonVariants.PRIMARY}
             size="small"
             onClick={() => {}}
             name={'Submit'}
           />
           <Button
-            variant="default"
+            variant={ButtonVariants.DEFAULT}
             size="small"
             onClick={() => {}}
             name={'Bookmark'}

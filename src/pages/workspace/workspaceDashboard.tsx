@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
-import { Workspace, workspaces } from 'utils/constants';
+import { ButtonVariants, Workspace, workspaces } from 'utils/constants';
 import { Button, Heading } from 'components/common';
 import { GetWorkspaces } from 'middleware/api';
 import { workspaceState } from 'middleware/state';
@@ -30,7 +30,7 @@ const WorkspaceDashboard: React.FC = () => {
     <div className="flex flex-col">
       <div className="flex sm:flex-col sm:justify-between sm:items-start md:flex-row gap-4 p-6">
         <div className="flex flex-col font-poppins">
-          <Heading level={2} children={Workspace.Workspaces} className="mb-2" />
+          <Heading level={2} children={Workspace.Workspaces} />
           <h4 className="text-sm md:text-base lg:w-3/4">
             {Workspace.Subhead1}
           </h4>
@@ -63,11 +63,7 @@ const WorkspaceDashboard: React.FC = () => {
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center h-full gap-y-2 mt-10 p-6">
-          <img
-            src="/assets/images/workspace.svg"
-            alt="No Workspaces Found"
-            className="pb-4"
-          />
+          <img src="/assets/images/workspace.svg" alt="No Workspaces Found" />
           <div className="flex font-poppins flex-col items-center gap-1 em:pb-10 sm:py-10">
             <Heading level={4} className="font-bold text-black text-center">
               {Workspace.NoWorkspace}
@@ -82,7 +78,7 @@ const WorkspaceDashboard: React.FC = () => {
           />
           <Button
             size="small"
-            variant="simple"
+            variant={ButtonVariants.LINK}
             onClick={() => {}}
             name={Workspace.ExploreTemplates}
             className="text-secondary underline"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Input, TextArea, Label } from 'components/common';
-import { Workspace, InputVariants } from 'utils/constants';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 
 const OutputSection: React.FC = () => {
   const handleChange = () => {};
@@ -26,20 +26,19 @@ const OutputSection: React.FC = () => {
           rows={10}
           placeholder={Workspace.EnterHere}
           maxLength={0}
-          className="!resize-none !h-full focus:border-gray50 hover:border-0"
           onChange={handleChange}
         />
       </div>
       <div className="flex py-6 md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
         <div className="flex items-center gap-4">
           <Button
-            variant="primary"
+            variant={ButtonVariants.PRIMARY}
             size="small"
             onClick={() => {}}
             name={'Submit'}
           />
           <Button
-            variant="default"
+            variant={ButtonVariants.DEFAULT}
             size="small"
             onClick={() => {}}
             name={'Bookmark'}
