@@ -1,10 +1,10 @@
 import React from 'react';
-import cn from 'classnames';
+import classNames from 'classnames';
 import { Button } from 'antd';
 
 interface ButtonProps {
   icon?: React.ReactNode;
-  name?: string;
+  name?: string | number;
   className?: string;
   size: 'small' | 'middle' | 'large' | undefined;
   variant:
@@ -32,7 +32,7 @@ const button: React.FC<ButtonProps> = ({
   htmlType,
   type,
 }) => {
-  const rootClassName = cn(
+  const rootClassName = classNames(
     'flex items-center justify-center font-poppins text-xs md:text-sm ',
     {
       'bg-primary text-white hover:!text-white border-none hover:bg-primary700 !py-5 !px-4 !rounded-xl':
@@ -43,7 +43,7 @@ const button: React.FC<ButtonProps> = ({
         variant === 'secondary',
       'border-2 !rounded-xl border-black !py-5 font-medium':
         variant === 'outlined',
-      'border-1 border-gray200 !py-2 text-xs': variant === 'outlined-light',
+      'border-1 border-gray200 !py-2 !text-xs': variant === 'outlined-light',
       '!border-0 underline decoration-primary hover:!text-primary800 !py-5 !rounded-xl text-primary decoration-solid decoration-1 hover:!bg-primary50':
         variant === 'link',
       'whitespace-nowrap bg-gray50 text-primary600 font-bold !rounded-xl border-0 !py-4':

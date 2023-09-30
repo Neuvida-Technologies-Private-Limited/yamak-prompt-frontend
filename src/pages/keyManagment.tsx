@@ -81,11 +81,7 @@ const KeyManagment: React.FC = () => {
     <div className="font-poppins p-6 h-screen overflow-hidden">
       <div className="flex sm:flex-col lg:flex-row justify-between items-start md:items-start mb-5 gap-3">
         <div>
-          <Heading
-            variant="mainHeading"
-            children="Key management"
-            className="mb-2"
-          />
+          <Heading level={2} children="Key management" />
           <Text
             children={KeyManagement.MESSAGE}
             className="text-sm md:text-base lg:w-3/4 font-normal text-gray400"

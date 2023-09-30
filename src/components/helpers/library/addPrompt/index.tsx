@@ -34,7 +34,7 @@ const AddNewPrompt = () => {
         className="library"
       >
         <div className="flex flex-col">
-          <p className="text-gray400 pb-3">{Library.SubHead}</p>
+          <p className="text-gray400">{Library.SubHead}</p>
           <form action="#" method="post">
             <div className="mt-5">
               <Input

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Drawer, Menu, Space } from 'antd';
 // react icons
 import { AiOutlineMenuUnfold, AiOutlineUser } from 'react-icons/ai';
@@ -65,6 +65,7 @@ const items: LinkItem[] = [
 
 const App: React.FC = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -94,7 +95,7 @@ const App: React.FC = () => {
           {SidebarConst.General}
         </span>
         <Menu
-          defaultSelectedKeys={[Paths.Home]}
+          defaultSelectedKeys={[pathname]}
           mode="inline"
           onClick={item => {
             navigate(item.key);

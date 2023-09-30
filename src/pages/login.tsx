@@ -101,7 +101,7 @@ const Login = () => {
         <div className="flex flex-col sm:items-center md:items-start justify-center sm:p-4 md:p-8 gap-4 sm:order-1 md:order-2">
           <img src="/assets/logo/stealth-logo.svg" alt="" />
           <Heading
-            variant={'mainHeading'}
+            level={1}
             children={LoginConst.Welcome}
             className="font-poppins"
           />
