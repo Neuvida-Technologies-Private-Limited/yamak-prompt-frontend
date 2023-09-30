@@ -4,7 +4,7 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_PUBLIC_BASE_URL,
   headers: {
-    Accept: 'application/json',
+    Accept: '*/*',
     'Content-Type': 'application/json',
   },
 });
@@ -25,7 +25,7 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
   function (response: AxiosResponse) {
     // Do something with the response data
-    return response.data;
+    return response;
   },
   function (error: AxiosError) {
     // Do something with the response error

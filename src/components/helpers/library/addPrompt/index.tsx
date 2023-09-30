@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Button, Input, Modal, Select, TextArea } from 'components/common';
-import { LibrarySelectOptions, Library, InputVariants } from 'utils/constants';
+import {
+  LibrarySelectOptions,
+  Library,
+  InputVariants,
+  ButtonVariants,
+} from 'utils/constants';
 
 const AddNewPrompt = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -15,18 +20,15 @@ const AddNewPrompt = () => {
     <>
       <Button
         size="small"
-        type="default"
-        shape="default"
+        variant={ButtonVariants.PRIMARY}
         onClick={addPromptHandler}
-        className="bg-primary text-white hover:!text-white border-none !py-5 !px-3 hover:bg-primary700"
         name={Library.AddPromptButton}
       />
-
       <Modal
         title={Library.ModalHeading}
         centered={true}
         isOpen={showModal}
-        showModalHandler={() => setShowModal(true)}
+        sumbitHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
         okText={Library.OkText}
         className="library"
@@ -54,9 +56,8 @@ const AddNewPrompt = () => {
               <Select
                 options={LibrarySelectOptions}
                 placeholder={Library.SelectTopicPlaceholder}
-                style={{}}
                 size="large"
-                className="library w-full mb-4"
+                className="filled w-full mb-4"
               />
             </div>
           </form>

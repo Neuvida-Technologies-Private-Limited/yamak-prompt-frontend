@@ -1,7 +1,7 @@
 import React from 'react';
 import { IoListCircleOutline } from 'react-icons/io5';
 import Draft from './drafts';
-import { Workspace, InputVariants } from 'utils/constants';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Input } from 'components/common';
 
 // later these will come from API
@@ -27,25 +27,22 @@ const index: React.FC = () => {
       <div className="flex flex-col h-5/6">
         <div className="pt-2 overflow-y-scroll pr-2 h-5/6">
           {Array.from(Array(10)).map((_, index) => (
-            <Draft />
+            <Draft key={`draft-item-${index}`} />
           ))}
         </div>
         <div className="flex justify-between h-1/6 pt-4">
           <Button
             size={undefined}
-            type={'default'}
-            shape={undefined}
+            variant={ButtonVariants.OUTLINED}
             onClick={handleClick}
             name={Workspace.ShowBookmarked}
-            className="border-black font-medium text-black border-2 rounded-xl"
           />
           <Button
             size={undefined}
-            type={'default'}
-            shape={undefined}
+            variant={ButtonVariants.OUTLINED}
             onClick={handleClick}
             name={Workspace.ShowPublished}
-            className="border-gray200 font-medium text-gray200 border-2 rounded-xl"
+            className="border-gray200 text-gray200"
           />
         </div>
       </div>

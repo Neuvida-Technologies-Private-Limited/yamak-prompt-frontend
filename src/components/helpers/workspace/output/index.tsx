@@ -1,33 +1,31 @@
 import React from 'react';
 import { FiBookmark, FiClock } from 'react-icons/fi';
-import { Button, Input, StyledInput } from 'components/common';
-import { Workspace, InputVariants } from 'utils/constants';
-import { WorkspaceHistory } from 'components/helpers';
+import { Button, Input, TextArea } from 'components/common';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 
 const buttons = [
   {
     onclick: () => handleClick,
     name: 'Submit',
-    className:
-      'createWorkspace bg-primary h-10 px-7 rounded-lg mr-2 font-bold text-white border-none font-poppins hover:bg-hoverPrimary transition-all ease-in-out duration-300',
+    variant: ButtonVariants.PRIMARY,
   },
   {
     onclick: () => handleClick,
     name: 'Bookmark',
-    className:
-      'md:flex items-center bg-gray100 text-gray500 font-poppins border-2 border-none h-10 px-4 rounded-lg sm:hidden',
+    variant: ButtonVariants.PRIMARY_LIGHT,
     icon: <FiBookmark />,
+    className: 'md:!flex sm:!hidden',
   },
   {
     onclick: () => handleClick,
-    className:
-      'sm:flex items-center justify-center md:bg-gray100 md:text-gray500 sm:text-primary700 md:border-none sm:border sm:border-primary700 font-poppins !p-4 text-lg rounded-md md:hidden',
+    variant: ButtonVariants.OUTLINED_LIGHT,
+    className: 'sm:flex md:!hidden',
     icon: <FiBookmark />,
   },
   {
     onclick: () => handleHistoryClick,
-    className:
-      'sm:flex items-center justify-center md:bg-gray100 md:text-gray500 sm:text-primary700 md:border-none sm:border sm:border-primary700 font-poppins !p-4 text-lg rounded-md md:hidden',
+    variant: ButtonVariants.OUTLINED_LIGHT,
+    className: 'sm:flex md:!hidden',
     icon: <FiClock />,
   },
 ];
@@ -36,7 +34,7 @@ const handleChange = () => {};
 const handleClick = () => {};
 const handleHistoryClick = () => {};
 
-const index: React.FC = () => {
+const OutputSection: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       <div className="flex">
@@ -48,20 +46,25 @@ const index: React.FC = () => {
           variant={InputVariants.Filled}
         />
       </div>
-      <div className="flex pt-6 h-full">
-        <StyledInput
-          label={Workspace.Output}
+      <div className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full">
+        <label className="font-semibold pb-2">{Workspace.Output}</label>
+        <TextArea
+          id={Workspace.EnterHere}
+          name={Workspace.EnterHere}
+          rows={10}
           placeholder={Workspace.EnterHere}
-          className="w-full"
+          maxLength={0}
+          className="!resize-none !h-full focus:border-gray50 hover:border-0"
+          onChange={handleChange}
         />
       </div>
       <div className="flex py-6 md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
         <div className="flex items-center gap-4">
-          {buttons.map(btn => (
+          {buttons.map((btn, index) => (
             <Button
+              key={`button-item-${index}`}
               size={undefined}
-              type={'default'}
-              shape={undefined}
+              variant={btn.variant}
               onClick={btn.onclick}
               icon={btn.icon}
               name={btn.name}
@@ -77,4 +80,4 @@ const index: React.FC = () => {
   );
 };
 
-export default index;
+export default OutputSection;

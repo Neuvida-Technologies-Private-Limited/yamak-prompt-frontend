@@ -25,22 +25,15 @@ const collapseItem: React.FC = () => {
         )}
       </div>
       <div className="flex justify-between">
-        {Buttons.map(
-          (button: {
-            onClick: () => void;
-            name: string | undefined;
-            className: string | undefined;
-          }) => (
-            <Button
-              size={undefined}
-              type={'link'}
-              shape={undefined}
-              onClick={button.onClick}
-              name={button.name}
-              className={button.className}
-            />
-          )
-        )}
+        {Buttons.map(button => (
+          <Button
+            size={undefined}
+            variant={button.variant}
+            onClick={button.onClick}
+            name={button.name}
+            className={button.className}
+          />
+        ))}
       </div>
     </div>
   );

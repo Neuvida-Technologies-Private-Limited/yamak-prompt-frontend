@@ -1,72 +1,75 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { Button, Input, Tabs } from 'components/common';
-import {
-  WorkspaceHistory,
-  WorkspaceInputs,
-  WorkspaceOutput,
-  WorkspaceParameters,
-} from 'components/helpers';
-import { Workspace, InputVariants } from 'utils/constants';
+import { WorkspaceParameters, WorkspaceChat } from 'components/helpers';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
 
 interface WorkspaceProps {
   label: string;
 }
 
+const tabs = [
+  {
+    id: '1',
+    tabTitle: Workspace.Chat,
+    content: <WorkspaceChat />,
+    icon: <HiOutlineChatAlt2 />,
+  },
+  {
+    id: '2',
+    tabTitle: Workspace.Completion,
+    content: 'b', //completion page will come
+    icon: <BsCheck2Circle />,
+  },
+];
+
 const handleClick = () => {};
 const handleChange = () => {};
 
 const Index: React.FC<WorkspaceProps> = ({ label }) => {
-  const isDekstopView = window.innerWidth >= 768;
+  const [currentTab, setCurrentTab] = useState<string | null>('1');
+
+  const handleTabClick = (tabId: string) => {
+    setCurrentTab(tabId);
+  };
 
   return (
-    <div className="flex flex-col h-screen">
-      <div className="grid items-center p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1">
+    <div className="flex flex-col max-h-screen">
+      <div className="grid items-center h-full p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1">
         <div className="flex sm:justify-center md:justify-start">
           <h1 className="text-2xl font-poppins font-semibold pr-3">
             {Workspace.Marketing}
           </h1>
           <Button
             size={undefined}
-            type={'default'}
-            shape={'default'}
+            variant={ButtonVariants.PRIMARY}
             icon={<HiPlus />}
             onClick={handleClick}
-            className="bg-primary hover:bg-primary900 hover:!text-white text-white flex justify-center rounded-lg border-none"
+            className="!px-5"
           />
         </div>
-        <div className="flex gap-2 md:justify-end sm:justify-center">
+        <div className="flex gap-2 md:justify-end sm:justify-center items-center">
           <Button
             size={undefined}
-            type={'link'}
-            shape={undefined}
+            variant={ButtonVariants.PRIMARY_LIGHT}
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
             onClick={handleClick}
-            className="items-center flex font-poppins text-primary800 font-medium p-4 border-2 border-primary50 bg-primary50 rounded-lg"
           />
           <Button
             size={undefined}
-            type={'default'}
-            shape={undefined}
+            variant={ButtonVariants.OUTLINED}
             name={Workspace.Publish}
             onClick={handleClick}
-            className="publishedBtn border-black p-4 border-2 rounded-lg font-medium text-black font-poppins transition-all ease-in-out duration-300"
           />
         </div>
       </div>
-      <div className="flex px-8 py-2 border-b-4 border-gray50 justify-between">
-        <div className="flex">
-          <Tabs
-            tab1={Workspace.Chat}
-            tab2={Workspace.Completion}
-            icon1={<HiOutlineChatAlt2 />}
-            icon2={<BsCheck2Circle />}
-            className="items-center"
-          />
-        </div>
-        <div className="flex py-2 justify-center items-center">
+      <div className="flex px-8 h-full py-2 border-b-4 border-gray50 items-center justify-between">
+        {/* Tab Switcher starts */}
+        <Tabs tabs={tabs} currentTab={currentTab} onTabClick={handleTabClick} />
+        {/* Tab Switcher ends */}
+        <div className="flex py-2 justify-center items-center gap-2">
           <Input
             id={Workspace.SearchPrompt}
             name={Workspace.SearchPrompt}
@@ -79,20 +82,15 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
           <WorkspaceParameters />
         </div>
       </div>
-      <div className="lg:flex lg:flex-row sm:grid md:grid-col-2 sm:grid-col-1 h-3/4 px-4 !overflow-y-scroll">
-        {isDekstopView ? (
-          <div className="lg:w-1/3 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
-            <WorkspaceHistory />
-          </div>
-        ) : null}
 
-        <div className="lg:w-2/6 pt-6 px-4 col-span-1">
-          <WorkspaceInputs />
+      {tabs.map((tab, i) => (
+        <div
+          className="lg:flex lg:flex-row sm:grid md:grid-col-2 h-full sm:grid-col-1 px-4 !overflow-y-scroll"
+          key={i}
+        >
+          {currentTab === tab.id && <>{tab.content}</>}
         </div>
-        <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">
-          <WorkspaceOutput />
-        </div>
-      </div>
+      ))}
     </div>
   );
 };

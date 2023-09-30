@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FiInfo, FiSliders } from 'react-icons/fi';
 import { Button, Input, Tooltip, Modal, Slider } from 'components/common';
-import { Workspace, InputVariants } from 'utils/constants';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Types } from './types';
 
 const handleChange = () => {};
@@ -69,36 +69,40 @@ const Parameters: React.FC = () => {
 
   return (
     <>
+      {/* Button visible in tab and desktop view */}
       <Button
-        type="default"
         onClick={() => setShowModal(true)}
         size={'middle'}
-        shape={undefined}
+        variant={ButtonVariants.LINK}
+        type="text"
         name={Workspace.Parameters}
-        className="parameters border-none px-6 font-poppins hover:!text-primary800 text-primary md:block sm:hidden"
+        className="md:flex sm:hidden"
       />
+      {/* Button visible in mobile view */}
       <Button
-        type="default"
         onClick={() => setShowModal(true)}
         size={'middle'}
-        shape={undefined}
+        variant={ButtonVariants.OUTLINED_LIGHT}
         icon={<FiSliders />}
-        className="bg-gray50 border-none flex justify-center p-2 items-center rounded-md md:hidden sm:block"
+        className="sm:flex md:!hidden"
       />
       <Modal
         title={Workspace.Parameters}
         centered={true}
         isOpen={showModal}
-        showModalHandler={() => setShowModal(true)}
+        sumbitHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
-        okText={Workspace.Parameters}
+        okText={Workspace.AddPrompt}
         className="parameters em:!w-1/2 sm:!w-full"
       >
         <div className="flex flex-col">
           <form action="#" method="post">
             <div className="flex w-full flex-col">
-              {parameters.map(items => (
-                <div className="flex sm:!flex-wrap">
+              {parameters.map((items, index) => (
+                <div
+                  key={`parameter-item-${index}`}
+                  className="flex sm:!flex-wrap"
+                >
                   <div className="em:w-1/3 sm:w-full flex items-center">
                     <label className="p-3">{items.label}</label>
                     <Tooltip element={<FiInfo />} title={items.title} />

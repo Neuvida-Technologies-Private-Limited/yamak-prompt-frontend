@@ -5,7 +5,7 @@ interface ModalProps {
   title: string;
   centered: boolean;
   isOpen: boolean;
-  showModalHandler?: React.MouseEventHandler<HTMLButtonElement>;
+  sumbitHandler?: React.MouseEventHandler<HTMLButtonElement>;
   cancelModalHandler?: React.MouseEventHandler<HTMLButtonElement>;
   okText: string;
   cancelText?: string;
@@ -19,7 +19,7 @@ const index: React.FC<ModalProps> = ({
   isOpen,
   okText,
   cancelText,
-  showModalHandler,
+  sumbitHandler,
   cancelModalHandler,
   className,
   children,
@@ -29,7 +29,7 @@ const index: React.FC<ModalProps> = ({
       title={title}
       centered={centered}
       open={isOpen}
-      onOk={showModalHandler}
+      onOk={sumbitHandler}
       onCancel={cancelModalHandler}
       okText={okText}
       cancelText={cancelText}

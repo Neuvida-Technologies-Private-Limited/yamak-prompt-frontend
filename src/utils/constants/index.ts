@@ -1,7 +1,18 @@
+import { LibraryCardItem as CardItem } from 'types';
+
 export enum InputVariants {
   Filled = 'filled',
   Outlined = 'outlined',
   Default = 'default',
+}
+export enum ButtonVariants {
+  PRIMARY = 'primary',
+  PRIMARY_LIGHT = 'primary-light',
+  SECONDARY = 'secondary',
+  OUTLINED = 'outlined',
+  OUTLINED_LIGHT = 'outlined-light',
+  LINK = 'link',
+  DEFAULT = 'default',
 }
 export enum CardConst {
   CopyPrompt = 'Copy Prompt',
@@ -40,12 +51,14 @@ export enum TOKENS {
   ACCESS_TOKEN = 'access_token',
   REFRESH_TOKEN = 'refresh_token',
   USER_TYPE_TOKEN = 'user_type_token',
+  CSRF_TOKEN = 'csrf_token',
 }
 export enum LoginConst {
   Banner_Desc = 'A few Clicks away from creating your Prompt Management',
   SignIn = 'Sign in with Google',
   Welcome = 'Welcome Back',
   Login_Desc = 'Enter the following Details and continue your journey to manage your prompt',
+  LogIn = 'LogIn',
 }
 export enum Workspace {
   Create = 'Create',
@@ -62,8 +75,9 @@ export enum Workspace {
   LLMProvider = 'Enter LLM Provider',
   LLMKey = 'Enter LLM Key',
   Parameters = 'Parameters',
+  AddPrompt = 'Add Prompt',
   Test = 'Test Connection',
-  Save = 'Save Key',
+  AddKey = 'Add Key',
   PromptTitle = 'Prompt Title',
   EnterHere = 'Enter a user message here',
   Output = 'Output',
@@ -85,18 +99,22 @@ export enum Workspace {
 }
 
 export enum KeyManagement {
-  Message = "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
+  MESSAGE = "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
   ADD_KEY_BUTTON = 'Add Key',
   TITLE = 'Open AI Key',
   OK = 'Save Key',
-  CANCEL = 'Test connection',
   SUB_HEAD = 'Enter the key from your LLM Provider in the below boxes',
-  KEY_TITLE = 'key-management-title',
+  KEY_TITLE = 'title',
   TITLE_PLACEHOLDER = 'Enter Key Title',
   LLM_TITLE = 'key-management-llm-provider',
   LLM_PLACEHOLDER = 'Select LLM Provider',
-  SK_TITLE = 'key-management-sk',
-  SK_PLACEHOLDER = 'Enter Key',
+  API_KEY = 'api_key',
+  SK_PLACEHOLDER = 'Enter API Key',
+  DESCRIPTION_PLACEHOLDER = 'Enter Key Description',
+  KEY_DESCRIPTION = 'description',
+  DELETE = 'Delete',
+  POPUP_TITLE = 'Delete the key',
+  POPUP_DESCRIPTION = 'Are you sure to delete this key?',
 }
 
 export enum Library {
@@ -116,6 +134,10 @@ export enum Library {
   CardSubHeading = 'SEO/Writing',
   CardButtonName = 'Import Prompt',
   CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
+}
+
+export enum Label {
+  NO_LABELS_MESSAGE = 'Create labels',
 }
 
 export const workspaces = [
@@ -160,4 +182,86 @@ export const LibrarySelectOptions = [
   { value: 'copywriting', label: 'Copywriting' },
   { value: 'devops', label: 'Devops' },
   { value: 'generate-ai', label: 'Generate AI' },
+];
+
+export const LibraryCardItems: CardItem[] = [
+  {
+    id: 1,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+    favorite: true,
+  },
+  {
+    id: 2,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+    favorite: true,
+  },
+  {
+    id: 3,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+    favorite: true,
+  },
+  {
+    id: 4,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+  },
+  {
+    id: 5,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+  },
+  {
+    id: 6,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+  },
+  {
+    id: 7,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+    favorite: true,
+  },
+  {
+    id: 8,
+    heading: Library.CardHeading,
+    subHeading: Library.CardSubHeading,
+    buttonName: Library.CardButtonName,
+    description: Library.CardDescription,
+  },
+];
+
+export const KeyDetails = [
+  {
+    id: '1',
+    title: 'Key 1',
+    api_key: 'sk-*************************',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque.',
+    provider: 'OpenAI',
+  },
+  {
+    id: '2',
+    title: 'Key 2',
+    api_key: 'sk-*************************',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque.',
+    provider: 'Bard',
+  },
 ];

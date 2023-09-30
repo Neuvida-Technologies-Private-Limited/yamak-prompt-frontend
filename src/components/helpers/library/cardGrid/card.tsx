@@ -2,7 +2,7 @@ import React from 'react';
 import { FiCopy, FiHeart } from 'react-icons/fi';
 import { BiLike, BiDislike } from 'react-icons/bi';
 import { PiWarningBold } from 'react-icons/pi';
-import { CardConst } from 'utils/constants';
+import { ButtonVariants, CardConst } from 'utils/constants';
 import { Button, Text } from 'components/common';
 
 interface CardProps {
@@ -34,10 +34,8 @@ const LibraryCard: React.FC<CardProps> = ({
         <h2 className="text-black font-bold text-md ">{heading}</h2>
         <Button
           size="small"
-          type="default"
-          shape="default"
+          variant={ButtonVariants.DEFAULT}
           onClick={importPromptHandler}
-          className="!text-xs whitespace-nowrap bg-gray50 text-primary600 font-bold !p-2 !py-4 !rounded-xl border-0"
           name={buttonName}
         />
       </div>
@@ -53,12 +51,10 @@ const LibraryCard: React.FC<CardProps> = ({
           <Button
             key={`library-card-icon-${index}`}
             onClick={button.onclick}
-            size={undefined}
-            type={'default'}
-            shape={undefined}
+            size="small"
+            variant={ButtonVariants.OUTLINED_LIGHT}
             icon={button.icon}
             name={button.name}
-            className="flex items-center text-xs justify-center"
           />
         ))}
       </div>

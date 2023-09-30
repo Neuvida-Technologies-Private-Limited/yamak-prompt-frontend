@@ -59,6 +59,8 @@
   border-radius: 4px;
 }
 
+/* ANT DESIGN COMPONENTS CSS */
+
 .ant-layout .ant-layout-sider {
   background: var(--white) !important;
 }
@@ -104,8 +106,8 @@
   align-items: center !important;
   justify-content: space-between;
 }
-.createWorkspace .ant-modal-footer .ant-btn-default,
-.parameters .ant-modal-footer .ant-btn-default {
+
+.ant-modal-footer .ant-btn-default {
   display: none !important;
 }
 .ant-modal .ant-modal-footer .ant-btn + .ant-btn {
@@ -128,13 +130,28 @@
   align-items: center !important;
   width: 7rem;
 }
-.library.ant-select > .ant-select-selector {
+.filled.ant-select > .ant-select-selector {
   background-color: var(--gray-50);
   border: none;
 }
 .library .ant-modal-footer .ant-btn-default {
   display: none !important;
 }
+.ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder,
+.ant-select-dropdown .ant-select-item-option-content,
+.ant-select-selection-item {
+  font-family: 'Poppins';
+  font-size: 14px;
+}
+.ant-popover .ant-popover-content,
+.ant-popconfirm .ant-popconfirm-buttons button {
+  font-family: 'Poppins';
+}
+.ant-popconfirm-buttons .ant-btn-primary {
+  background: var(--primary-color) !important;
+}
+
+/* Material UI COMPONENTS CSS */
 
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
   color: var(--black) !important;
