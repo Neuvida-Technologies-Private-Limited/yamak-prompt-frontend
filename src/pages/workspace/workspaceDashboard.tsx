@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { useRecoilState } from 'recoil';
+
 import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
 import { Workspace, workspaces } from 'utils/constants';
 import { Heading } from 'components/common';
@@ -14,9 +16,19 @@ const WorkspaceDashboard: React.FC = () => {
   const getKeyList = async () => {
     try {
       const res = await GetWorkspaces();
+      const formattedWorkspaces = res.map(
+        (item: {
+          last_modified: moment.MomentInput;
+          timestamp: moment.MomentInput;
+        }) => ({
+          ...item,
+          last_modified: moment(item.last_modified).format('h:mm A'),
+          timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
+        })
+      );
       setState(old => ({
         ...old,
-        workspace_details: res,
+        workspace_details: formattedWorkspaces,
       }));
     } catch (error: any) {
       console.log(error);
@@ -48,17 +60,16 @@ const WorkspaceDashboard: React.FC = () => {
           className="sm:hidden em:block"
         />
       </div>
-      {workspaces.length > 0 ? (
+      {workspace_details.length > 0 ? (
         <div className="">
           <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
-            {workspaces.map((item: any) => (
-              <Link to={item.link}>
-                <WorkspaceCard
-                  heading={item.heading}
-                  createdBy={item.createdBy}
-                  createdOn={item.createdOn}
-                />
-              </Link>
+            {workspace_details.map((item: any) => (
+              <WorkspaceCard
+                heading={item.title}
+                createdBy={item.createdBy}
+                createdOn={item.timestamp}
+                last_edited={item.last_modified}
+              />
             ))}
           </div>
           <div className="sm:flex em:hidden bottom-0 z-2 fixed items-center justify-center w-full bg-gray100 rounded-t-xl py-4">

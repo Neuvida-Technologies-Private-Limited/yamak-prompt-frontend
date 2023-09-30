@@ -96,6 +96,7 @@ export enum Workspace {
   ShowPublished = 'Show Published',
   Chat = 'Chat',
   Completion = 'Completion',
+  LastEdited = 'Last Edited: ',
 }
 
 export enum KeyManagement {

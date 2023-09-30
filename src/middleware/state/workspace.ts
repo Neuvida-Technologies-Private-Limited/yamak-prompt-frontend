@@ -3,6 +3,8 @@ import { atom } from 'recoil';
 const DataType = [
   { id: '' },
   { title: '' },
+  { last_modified: '' },
+  { timestamp: '' },
   { model_key: '' },
   { user_uuid: '' },
 ];
