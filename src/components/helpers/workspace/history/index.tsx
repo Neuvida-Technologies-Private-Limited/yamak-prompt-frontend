@@ -1,7 +1,7 @@
 import React from 'react';
 import { IoListCircleOutline } from 'react-icons/io5';
 import Draft from './drafts';
-import { Workspace, InputVariants } from 'utils/constants';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Input } from 'components/common';
 
 // later these will come from API
@@ -33,15 +33,16 @@ const index: React.FC = () => {
         <div className="flex justify-between mt-4">
           <Button
             size={undefined}
-            variant="outlined"
+            variant={ButtonVariants.OUTLINED}
             onClick={handleClick}
             name={Workspace.ShowBookmarked}
           />
           <Button
             size={undefined}
-            variant="primary"
+            variant={ButtonVariants.OUTLINED}
             onClick={handleClick}
             name={Workspace.ShowPublished}
+            className="border-gray200 text-gray200"
           />
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FiInfo, FiSliders } from 'react-icons/fi';
 import { Button, Input, Tooltip, Modal, Slider } from 'components/common';
-import { Workspace, InputVariants } from 'utils/constants';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Types } from './types';
 
 const handleChange = () => {};
@@ -66,32 +66,33 @@ const parameters: Types[] = [
 
 const Parameters: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
-  const isDesktopView = window.innerWidth >= 768;
 
   return (
     <>
-      {isDesktopView ? (
-        <Button
-          onClick={() => setShowModal(true)}
-          size={'middle'}
-          variant="primary"
-          name={Workspace.Parameters}
-        />
-      ) : (
-        <Button
-          onClick={() => setShowModal(true)}
-          size={'middle'}
-          variant="primary"
-          icon={<FiSliders />}
-        />
-      )}
+      {/* Button visible in tab and desktop view */}
+      <Button
+        onClick={() => setShowModal(true)}
+        size={'middle'}
+        variant={ButtonVariants.LINK}
+        type="text"
+        name={Workspace.Parameters}
+        className="md:flex sm:hidden"
+      />
+      {/* Button visible in mobile view */}
+      <Button
+        onClick={() => setShowModal(true)}
+        size={'middle'}
+        variant={ButtonVariants.OUTLINED_LIGHT}
+        icon={<FiSliders />}
+        className="sm:flex md:!hidden"
+      />
       <Modal
         title={Workspace.Parameters}
         centered={true}
         isOpen={showModal}
         sumbitHandler={() => setShowModal(true)}
         cancelModalHandler={() => setShowModal(false)}
-        okText={Workspace.Parameters}
+        okText={Workspace.AddPrompt}
         className="parameters em:!w-1/2 sm:!w-full"
       >
         <div className="flex flex-col">

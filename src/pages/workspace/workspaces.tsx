@@ -6,7 +6,7 @@ import {
   WorkspaceChat,
   WorkspaceCompletion,
 } from 'components/helpers';
-import { Workspace, InputVariants } from 'utils/constants';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
 
 interface WorkspaceProps {
@@ -46,27 +46,26 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
             {Workspace.Marketing}
           </h1>
           <Button
-            size="small"
-            variant="primary"
+            size={undefined}
+            variant={ButtonVariants.PRIMARY}
             icon={<HiPlus />}
             onClick={handleClick}
-            className="!text-xs !py-3 !px-4 text-white"
+            className="!px-5"
           />
         </div>
         <div className="flex gap-2 md:justify-end sm:justify-center items-center">
           <Button
             size={undefined}
-            variant="default"
+            variant={ButtonVariants.PRIMARY_LIGHT}
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
             onClick={handleClick}
           />
           <Button
             size={undefined}
-            variant="outlined"
+            variant={ButtonVariants.OUTLINED}
             name={Workspace.Publish}
             onClick={handleClick}
-            className="border-2 border-black"
           />
         </div>
       </div>
@@ -74,7 +73,7 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
         {/* Tab Switcher starts */}
         <Tabs tabs={tabs} currentTab={currentTab} onTabClick={handleTabClick} />
         {/* Tab Switcher ends */}
-        <div className="flex py-2 gap-2 justify-center items-center">
+        <div className="flex py-2 justify-center items-center gap-2">
           <Input
             id={Workspace.SearchPrompt}
             name={Workspace.SearchPrompt}

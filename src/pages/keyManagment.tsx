@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 import { Heading, PopupConfirm } from 'components/common';
 import { Button, Text } from 'components/common';
 import { CreateKeyModal } from 'components/helpers';
-import { KeyManagement } from 'utils/constants';
+import { KeyManagement, ButtonVariants } from 'utils/constants';
 import { CreateKey, DeleteKey, GetKeyList } from 'middleware/api';
 import { createKeystate, keyManagementstate } from 'middleware/state';
 
@@ -120,7 +120,7 @@ const KeyManagment: React.FC = () => {
                       <Button
                         key={index}
                         size="small"
-                        variant="outlined"
+                        variant={ButtonVariants.OUTLINED}
                         onClick={() => {
                           handlePopupConfirmOpen(index, true);
                         }}

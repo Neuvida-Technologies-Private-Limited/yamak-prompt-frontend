@@ -1,4 +1,4 @@
-import React, { Ref } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { Button } from 'antd';
 
@@ -7,11 +7,18 @@ interface ButtonProps {
   name?: string | number;
   className?: string;
   size: 'small' | 'middle' | 'large' | undefined;
-  variant: 'primary' | 'secondary' | 'outlined' | 'default' | 'simple';
+  variant:
+    | 'primary'
+    | 'primary-light'
+    | 'secondary'
+    | 'outlined'
+    | 'outlined-light'
+    | 'link'
+    | 'default';
   href?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   htmlType?: 'submit' | undefined;
-  ref?: Ref<HTMLElement> | undefined;
+  type?: 'link' | 'primary' | 'text' | 'default' | undefined;
 }
 
 const button: React.FC<ButtonProps> = ({
@@ -23,32 +30,37 @@ const button: React.FC<ButtonProps> = ({
   href,
   onClick,
   htmlType,
-  ref,
+  type,
 }) => {
   const rootClassName = classNames(
-    'flex items-center justify-center font-poppins text-[13px] md:text-sm lg:text-15px !py-5 !px-3',
+    'flex items-center justify-center font-poppins text-xs md:text-sm ',
     {
-      'bg-primary text-white hover:!text-white border-none hover:bg-primary700':
+      'bg-primary text-white hover:!text-white border-none hover:bg-primary700 !py-5 !px-4 !rounded-xl':
         variant === 'primary',
-      'bg-secondary text-white hover:!text-white border-none hover:bg-secondary400':
+      'bg-primary50 text-primary800 border-none !py-5 !px-4 !rounded-xl':
+        variant === 'primary-light',
+      'bg-secondary text-white hover:!text-white border-none hover:bg-secondary400 !rounded-xl':
         variant === 'secondary',
-      'border-2 !rounded-lg border-black font-medium': variant === 'outlined',
-      'whitespace-nowrap bg-gray50 text-primary600 font-bold !rounded-xl border-0':
+      'border-2 !rounded-xl border-black !py-5 font-medium':
+        variant === 'outlined',
+      'border-1 border-gray200 !py-2 text-xs': variant === 'outlined-light',
+      '!border-0 underline decoration-primary hover:!text-primary800 !py-5 !rounded-xl text-primary decoration-solid decoration-1 hover:!bg-primary50':
+        variant === 'link',
+      'whitespace-nowrap bg-gray50 text-primary600 font-bold !rounded-xl border-0 !py-4':
         variant === 'default',
-      'bg-transparent border-0 shadow-none font-bold': variant === 'simple',
     },
     className
   );
 
   return (
     <Button
-      className={rootClassName}
+      className={`${rootClassName} ${className}`}
+      type={type}
       icon={icon}
       size={size}
       href={href}
       onClick={onClick}
       htmlType={htmlType}
-      ref={ref}
     >
       {name}
     </Button>
