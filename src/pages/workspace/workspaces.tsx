@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { Button, Input, Tabs } from 'components/common';
 import { WorkspaceParameters, WorkspaceChat } from 'components/helpers';
-import { Workspace, InputVariants } from 'utils/constants';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
 
 interface WorkspaceProps {
@@ -43,27 +43,25 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
           </h1>
           <Button
             size={undefined}
-            variant="primary"
+            variant={ButtonVariants.PRIMARY}
             icon={<HiPlus />}
             onClick={handleClick}
-            className="bg-primary hover:bg-primary900 hover:!text-white text-white flex justify-center rounded-lg border-none"
+            className="!px-5"
           />
         </div>
-        <div className="flex gap-2 md:justify-end sm:justify-center">
+        <div className="flex gap-2 md:justify-end sm:justify-center items-center">
           <Button
             size={undefined}
-            variant="primary"
+            variant={ButtonVariants.PRIMARY_LIGHT}
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
             onClick={handleClick}
-            className="items-center flex font-poppins text-primary800 font-medium p-4 border-2 border-primary50 bg-primary50 rounded-lg"
           />
           <Button
             size={undefined}
-            variant="primary"
+            variant={ButtonVariants.OUTLINED}
             name={Workspace.Publish}
             onClick={handleClick}
-            className="publishedBtn border-black p-4 border-2 rounded-lg font-medium text-black font-poppins transition-all ease-in-out duration-300"
           />
         </div>
       </div>
@@ -71,7 +69,7 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
         {/* Tab Switcher starts */}
         <Tabs tabs={tabs} currentTab={currentTab} onTabClick={handleTabClick} />
         {/* Tab Switcher ends */}
-        <div className="flex py-2 justify-center items-center">
+        <div className="flex py-2 justify-center items-center gap-2">
           <Input
             id={Workspace.SearchPrompt}
             name={Workspace.SearchPrompt}

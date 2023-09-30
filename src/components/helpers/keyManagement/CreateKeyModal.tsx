@@ -3,8 +3,8 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Input, Modal, Select } from 'components/common';
-import { KeyManagement, InputVariants } from 'utils/constants';
-import { CreateKey, GetLLMProviders } from 'middleware/api';
+import { KeyManagement, InputVariants, ButtonVariants } from 'utils/constants';
+import { GetLLMProviders } from 'middleware/api';
 import { createKeystate } from 'middleware/state';
 
 interface OptionItems {
@@ -100,7 +100,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
     <>
       <Button
         size={'small'}
-        variant="primary"
+        variant={ButtonVariants.PRIMARY}
         onClick={addKeyButtonHandler}
         name={KeyManagement.ADD_KEY_BUTTON}
       />
