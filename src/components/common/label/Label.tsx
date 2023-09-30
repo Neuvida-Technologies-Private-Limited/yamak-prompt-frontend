@@ -29,7 +29,7 @@ const Label: React.FC<LabelProps> = ({
     <div className={`flex justify-center items-center gap-2 m-4 ${className}`}>
       <div className="flex gap-2">
         {labels.length === 0 ? (
-          <p className="text-xs">{noLabelsMessage}</p>
+          <p className="text-xs font-bold text-secondary">{noLabelsMessage}</p>
         ) : (
           labels.map(label => (
             <button
@@ -54,10 +54,9 @@ const Label: React.FC<LabelProps> = ({
       </form>
       <Button
         size="small"
-        variant="default"
+        variant="primary"
         name={showInput ? '-' : '+'}
         onClick={() => setShowInput(prev => !prev)}
-        className="bg-primary600 text-white !py-4 !px-3 text-xs border-none"
       />
     </div>
   );

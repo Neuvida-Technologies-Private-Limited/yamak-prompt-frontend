@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { Button, Input, Tabs } from 'components/common';
-import { WorkspaceParameters, WorkspaceChat } from 'components/helpers';
+import {
+  WorkspaceParameters,
+  WorkspaceChat,
+  WorkspaceCompletion,
+} from 'components/helpers';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
 
@@ -19,7 +23,7 @@ const tabs = [
   {
     id: '2',
     tabTitle: Workspace.Completion,
-    content: 'b', //completion page will come
+    content: <WorkspaceCompletion />,
     icon: <BsCheck2Circle />,
   },
 ];
@@ -36,9 +40,9 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
 
   return (
     <div className="flex flex-col max-h-screen">
-      <div className="grid items-center h-full p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1">
-        <div className="flex sm:justify-center md:justify-start">
-          <h1 className="text-2xl font-poppins font-semibold pr-3">
+      <div className="grid items-center h-full p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1 gap-4">
+        <div className="flex sm:justify-center md:justify-start items-center">
+          <h1 className="sm:text-xl md:text-2xl font-poppins font-semibold pr-3">
             {Workspace.Marketing}
           </h1>
           <Button

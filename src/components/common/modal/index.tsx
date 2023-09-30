@@ -11,6 +11,7 @@ interface ModalProps {
   cancelText?: string;
   className?: string;
   children?: React.ReactNode | any;
+  footer?: React.ReactNode | any | undefined;
 }
 
 const index: React.FC<ModalProps> = ({
@@ -23,6 +24,7 @@ const index: React.FC<ModalProps> = ({
   cancelModalHandler,
   className,
   children,
+  footer,
 }) => {
   return (
     <Modal
@@ -34,6 +36,7 @@ const index: React.FC<ModalProps> = ({
       okText={okText}
       cancelText={cancelText}
       className={`font-poppins flex flex-start ${className}`}
+      footer={footer}
     >
       {children}
     </Modal>

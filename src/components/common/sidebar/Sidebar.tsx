@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   FiKey,
   FiLayout,
@@ -17,7 +17,7 @@ import { Paths, SidebarConst } from 'utils/constants';
 
 interface LinkItem {
   label: React.ReactNode;
-  key: React.Key;
+  key: string;
   icon?: React.ReactNode;
   disabled?: boolean;
 }
@@ -72,6 +72,7 @@ const { Sider } = Layout;
 
 const Index: React.FC = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -101,7 +102,7 @@ const Index: React.FC = () => {
         {SidebarConst.General}
       </span>
       <Menu
-        defaultSelectedKeys={[Paths.Home]}
+        defaultSelectedKeys={[pathname]}
         mode="inline"
         onClick={item => {
           navigate(item.key);

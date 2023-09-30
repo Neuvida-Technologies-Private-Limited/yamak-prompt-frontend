@@ -13,3 +13,7 @@ export enum keyManagementRoutes {
 export enum workspaceRoutes {
   GET_WORKSPACE_ROUTE = '/workspace/get-all-workspaces/',
 }
+
+export enum libraryRoutes {
+  GET_PROMPTS = '/prompt/get-prompt-list-private/?page=1',
+}

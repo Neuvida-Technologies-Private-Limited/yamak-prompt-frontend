@@ -96,6 +96,8 @@ export enum Workspace {
   ShowPublished = 'Show Published',
   Chat = 'Chat',
   Completion = 'Completion',
+  ExploreTemplates = 'Explore Templates',
+  AddVariable = 'Add Variable',
 }
 
 export enum KeyManagement {
@@ -134,6 +136,7 @@ export enum Library {
   CardSubHeading = 'SEO/Writing',
   CardButtonName = 'Import Prompt',
   CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
+  ImportPrompt = 'Import Prompt',
 }
 
 export enum Label {
@@ -178,74 +181,43 @@ export const workspaces = [
   },
 ];
 
+export const WorkspaceChatInputs = [
+  {
+    id: '1',
+    label: 'System',
+    placeholder: 'You are helpful assistance',
+    className: ' w-full',
+  },
+];
+
+export const WorkspaceCompletionInputs = [
+  {
+    id: '1',
+    label: 'System',
+    placeholder: 'You are helpful assistance',
+    className: ' w-full',
+  },
+  {
+    id: '2',
+    label: 'User',
+    placeholder:
+      'Classify the following {{text 1}} into one of the following: Positive sentiment Negative sentiment Neutral sentiment Text: """ {{ text 2}} """',
+    className: ' w-full',
+  },
+];
+
 export const LibrarySelectOptions = [
   { value: 'copywriting', label: 'Copywriting' },
   { value: 'devops', label: 'Devops' },
   { value: 'generate-ai', label: 'Generate AI' },
 ];
 
-export const LibraryCardItems: CardItem[] = [
-  {
-    id: 1,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 2,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 3,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 4,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-  },
-  {
-    id: 5,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-  },
-  {
-    id: 6,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-  },
-  {
-    id: 7,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-    favorite: true,
-  },
-  {
-    id: 8,
-    heading: Library.CardHeading,
-    subHeading: Library.CardSubHeading,
-    buttonName: Library.CardButtonName,
-    description: Library.CardDescription,
-  },
+export const KeyManagementSelectOptions = [
+  { value: 'OpenAI', label: 'OpenAI' },
+  { value: 'Bard', label: 'Bard' },
 ];
+
+export const LibraryCardItems: CardItem[] = [];
 
 export const KeyDetails = [
   {
