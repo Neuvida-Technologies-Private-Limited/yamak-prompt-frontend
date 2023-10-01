@@ -122,6 +122,7 @@ export enum KeyManagement {
   POPUP_TITLE = 'Delete the key',
   POPUP_DESCRIPTION = 'Are you sure to delete this key?',
   TestConnection = 'Test Connection',
+  EMPTY_SCREEN_TEXT = 'Click on the "Add New Key" button to get started',
 }
 
 export enum Library {
