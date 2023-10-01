@@ -1,11 +1,6 @@
 import { useState } from 'react';
-import { Button, Input, Modal, Select, TextArea } from 'components/common';
-import {
-  Library,
-  InputVariants,
-  ButtonVariants,
-  LibrarySelectOptions,
-} from 'utils/constants';
+import { Button, Input, Modal, TextArea } from 'components/common';
+import { Library, InputVariants, ButtonVariants } from 'utils/constants';
 
 const AddNewPrompt = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -64,11 +59,12 @@ const AddNewPrompt = () => {
                 onChange={() => {}}
                 className="p-3 w-full bg-gray50 mb-4"
               />
-              <Select
-                options={LibrarySelectOptions}
-                placeholder={Library.SelectTagPlaceholder}
-                size="large"
-                className="filled w-full mb-4"
+              <Input
+                id={Library.TagsTitle}
+                name={Library.TagsTitle}
+                placeholder={Library.TagsPlaceholder}
+                onChange={() => {}}
+                variant={InputVariants.Filled}
               />
             </div>
           </form>

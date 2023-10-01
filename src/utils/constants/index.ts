@@ -138,12 +138,21 @@ export enum Library {
   WritePromptTitle = 'write-prompt-text',
   WritePromptPlaceholder = 'Prompt sample output',
   SelectTagPlaceholder = 'Select Tag',
+  TagsTitle = 'add-tags',
+  TagsPlaceholder = 'Enter tags (comma seperated)',
   SearchLibrary = 'Search Library',
   CardHeading = 'Human Written | 100% Unique | SEO Optimized Article',
   CardSubHeading = 'SEO/Writing',
   CardButtonName = 'Import Prompt',
   CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
   ImportPrompt = 'Import Prompt',
+}
+
+export enum LibraryCard {
+  ButtonCopyPrompt = 'Copy prompt',
+  ButtonFavorite = 'Favorite',
+  ButtonDislike = 'Dislike',
+  ButtonDelete = 'Delete',
 }
 
 export enum Label {
