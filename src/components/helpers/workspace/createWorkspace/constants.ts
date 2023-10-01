@@ -30,13 +30,11 @@ export const Buttons = [
   {
     name: Workspace.AddKey,
     onClick: handleAddKey,
-    variant: ButtonVariants.LINK,
+    variant: ButtonVariants.PRIMARY_LINK,
   },
   {
     name: Workspace.Test,
     onClick: handleConnection,
-    variant: ButtonVariants.LINK,
-    className:
-      '!text-secondary !decoration-secondary hover:!decoration-primary',
+    variant: ButtonVariants.SECONDARY_LINK,
   },
 ];

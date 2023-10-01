@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { message } from 'antd';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { Button, Input, Modal, Select } from 'components/common';
 import { KeyManagement, InputVariants, ButtonVariants } from 'utils/constants';
 import { GetLLMProviders, TestConnection } from 'middleware/api';
@@ -13,7 +15,6 @@ import {
   isKeyValidated,
   isLLMProviderValidated,
 } from 'utils/validations';
-import { message } from 'antd';
 
 interface OptionItems {
   value: string;
@@ -207,9 +208,8 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
             <div className="flex justify-end w-full mt-4">
               <Button
                 size={undefined}
-                variant={ButtonVariants.LINK}
+                variant={ButtonVariants.SECONDARY_LINK}
                 name={KeyManagement.TestConnection}
-                className="!text-secondary !decoration-secondary "
                 onClick={handleKeyConnection}
               />
             </div>

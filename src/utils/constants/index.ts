@@ -11,7 +11,8 @@ export enum ButtonVariants {
   SECONDARY = 'secondary',
   OUTLINED = 'outlined',
   OUTLINED_LIGHT = 'outlined-light',
-  LINK = 'link',
+  PRIMARY_LINK = 'primary-link',
+  SECONDARY_LINK = 'secondary-link',
   DEFAULT = 'default',
 }
 export enum CardConst {

@@ -73,7 +73,7 @@ const Parameters: React.FC = () => {
       <Button
         onClick={() => setShowModal(true)}
         size={'middle'}
-        variant={ButtonVariants.LINK}
+        variant={ButtonVariants.PRIMARY_LINK}
         type="text"
         name={Workspace.Parameters}
         className="md:flex sm:hidden"
