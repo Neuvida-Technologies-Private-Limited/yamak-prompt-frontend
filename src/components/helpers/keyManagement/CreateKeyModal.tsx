@@ -13,6 +13,7 @@ import {
   isKeyValidated,
   isLLMProviderValidated,
 } from 'utils/validations';
+import { message } from 'antd';
 
 interface OptionItems {
   value: string;
@@ -110,9 +111,9 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
     };
     try {
       const res = await TestConnection(testConnectionParams);
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+      message.success(res);
+    } catch (error: any) {
+      message.error(error.error);
     }
   };
   //API call to create Key

@@ -40,12 +40,13 @@ export const DeleteKey = async (uuid: string) => {
     });
 };
 export const TestConnection = async (model: TestConnectionModal) => {
-  await axiosClientProtected
-    .post(keyManagementRoutes.TEST_CONNECTION_ROUTE, model)
-    .then(response => {
-      console.log(response);
-    })
-    .catch((error: AxiosError) => {
-      return Promise.reject(error);
-    });
+  try {
+    const response = await axiosClientProtected.post(
+      keyManagementRoutes.TEST_CONNECTION_ROUTE,
+      model
+    );
+    return response.data;
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
 };
