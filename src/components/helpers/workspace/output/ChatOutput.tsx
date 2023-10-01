@@ -16,27 +16,27 @@ const ChatOutput = () => {
           />
           <Label />
         </div>
-        <div className="flex flex-col w-full border p-4 rounded-lg h-3/4">
+        <div className="flex font-poppins flex-col w-full border p-4 rounded-lg h-3/4">
           <div className="flex flex-col gap-2">
-            <label htmlFor="user" className="font-bold">
-              User
+            <label htmlFor="user" className="font-semibold">
+              {Workspace.User}
             </label>
             <Input
               variant={InputVariants.Default}
-              id="user-chat"
-              name="user"
+              id={Workspace.User}
+              name={Workspace.User}
               placeholder={Workspace.EnterHere}
               onChange={() => {}}
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="assistant" className="font-bold">
-              Assistant
+            <label htmlFor="assistant" className="font-semibold">
+              {Workspace.Assistant}
             </label>
             <Input
               variant={InputVariants.Default}
-              id="assistant-chat"
-              name="assistant"
+              id={Workspace.Assistant}
+              name={Workspace.Assistant}
               placeholder={Workspace.EnterHere}
               onChange={() => {}}
             />
@@ -52,7 +52,7 @@ const ChatOutput = () => {
             name={'Submit'}
           />
           <Button
-            variant={ButtonVariants.DEFAULT}
+            variant={ButtonVariants.PRIMARY_LIGHT}
             size="small"
             onClick={() => {}}
             name={'Bookmark'}

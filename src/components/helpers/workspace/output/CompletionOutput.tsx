@@ -38,7 +38,7 @@ const OutputSection: React.FC = () => {
             name={'Submit'}
           />
           <Button
-            variant={ButtonVariants.DEFAULT}
+            variant={ButtonVariants.PRIMARY_LIGHT}
             size="small"
             onClick={() => {}}
             name={'Bookmark'}

@@ -96,8 +96,11 @@ export enum Workspace {
   ShowPublished = 'Show Published',
   Chat = 'Chat',
   Completion = 'Completion',
+  LastEdited = 'Last Edited: ',
   ExploreTemplates = 'Explore Templates',
   AddVariable = 'Add Variable',
+  User = 'User',
+  Assistant = 'Assistent',
 }
 
 export enum KeyManagement {
