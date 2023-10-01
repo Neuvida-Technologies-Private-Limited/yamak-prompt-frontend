@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Input, Modal, Select } from 'components/common';
 import { KeyManagement, InputVariants, ButtonVariants } from 'utils/constants';
 import { GetLLMProviders } from 'middleware/api';
 import { createKeystate } from 'middleware/state';
+import {
+  IsCreateKeyFormValidated,
+  isKeyDescriptionValidated,
+  isKeyTitleValidated,
+  isKeyValidated,
+  isLLMProviderValidated,
+} from 'utils/validations';
 
 interface OptionItems {
   value: string;
@@ -19,7 +26,16 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
   const [state, setState] = useRecoilState(createKeystate);
   const resetState = useResetRecoilState(createKeystate);
   // destructuring params
-  const { title, description, api_key, provider } = state;
+  const {
+    title,
+    description,
+    api_key,
+    provider,
+    titleError,
+    descriptionError,
+    api_keyError,
+    providerError,
+  } = state;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [options, setOptions] = useState<OptionItems[]>([]);
 
@@ -33,6 +49,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
     setState(old => ({
       ...old,
       provider: value,
+      providerError: isLLMProviderValidated(value),
     }));
   };
   const addKeyButtonHandler = () => {
@@ -47,6 +64,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       value: title,
       onChange: (value: string) =>
         handleInputChange(KeyManagement.KEY_TITLE, value),
+      error: titleError,
     },
     {
       id: KeyManagement.KEY_DESCRIPTION,
@@ -55,6 +73,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       value: description,
       onChange: (value: string) =>
         handleInputChange(KeyManagement.KEY_DESCRIPTION, value),
+      error: descriptionError,
     },
     {
       id: KeyManagement.API_KEY,
@@ -63,6 +82,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       value: api_key,
       onChange: (value: string) =>
         handleInputChange(KeyManagement.API_KEY, value),
+      error: api_keyError,
     },
   ];
 
@@ -84,12 +104,25 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
   };
   //API call to create Key
   const handleSubmit = async () => {
+    setState(old => ({
+      ...old,
+      isLoading: true,
+      titleError: isKeyTitleValidated(title),
+      descriptionError: isKeyDescriptionValidated(description),
+      api_keyError: isKeyValidated(api_key),
+      providerError: isLLMProviderValidated(provider),
+    }));
+
+    if (!IsCreateKeyFormValidated(title, description, api_key, provider)) {
+      return;
+    }
+
     if (await createKey()) {
       setShowModal(false);
+      resetState();
     } else {
       toast.error('Error in creating key or token expired, Login again !');
     }
-    resetState();
   };
 
   useEffect(() => {
@@ -110,7 +143,10 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
         centered={true}
         isOpen={showModal}
         sumbitHandler={handleSubmit}
-        cancelModalHandler={() => setShowModal(false)}
+        cancelModalHandler={() => {
+          setShowModal(false);
+          resetState();
+        }}
         okText={KeyManagement.OK}
       >
         <div className="flex flex-col">
@@ -118,24 +154,34 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
           <form action="#" method="post">
             <div className="mt-5">
               {inputFields.map((input, i) => (
-                <Input
-                  key={i}
-                  id={input.id}
-                  name={input.name}
-                  placeholder={input.placeholder}
-                  onChange={input.onChange}
-                  value={input.value}
-                  variant={InputVariants.Filled}
-                />
+                <div className="flex flex-col">
+                  <label htmlFor="" className="pl-2 font-poppins text-gray300">
+                    {input.placeholder}
+                  </label>
+                  <Input
+                    key={i}
+                    id={input.id}
+                    name={input.name}
+                    onChange={input.onChange}
+                    value={input.value}
+                    variant={InputVariants.Filled}
+                    error={input.error}
+                  />
+                </div>
               ))}
             </div>
-            <div className="w-full">
+            <div className="w-full flex flex-col">
+              <label htmlFor="" className="pl-2 font-poppins text-gray300">
+                {KeyManagement.LLM_PLACEHOLDER}
+              </label>
               <Select
                 options={options}
+                value={provider}
                 placeholder={KeyManagement.LLM_PLACEHOLDER}
                 className="filled w-full"
                 size="large"
                 onChange={handleSelectChange}
+                error={providerError}
               />
             </div>
           </form>
