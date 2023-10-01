@@ -15,6 +15,10 @@ export const createKeystate = atom({
     api_key: '',
     description: '',
     provider: '',
+    titleError: '',
+    api_keyError: '',
+    descriptionError: '',
+    providerError: '',
   },
 });
 export const keyManagementstate = atom({

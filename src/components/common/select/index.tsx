@@ -17,6 +17,7 @@ interface SelectProps {
   style?: {};
   size?: SizeType;
   onChange?: (value: string) => void;
+  error?: string;
 }
 
 const handleChange = (value: string) => {};
@@ -30,18 +31,24 @@ const select: React.FC<SelectProps> = ({
   id,
   style,
   size = 'middle',
+  error,
 }) => (
-  <Select
-    id={id}
-    value={value}
-    style={style}
-    placeholder={placeholder}
-    className={`${className}`}
-    size={size}
-    onChange={onChange}
-    options={options}
-    suffixIcon={<FiChevronDown />}
-  />
+  <div className="flex flex-col">
+    <Select
+      id={id}
+      value={value}
+      style={style}
+      placeholder={placeholder}
+      className={`${className}`}
+      size={size}
+      onChange={onChange}
+      options={options}
+      suffixIcon={<FiChevronDown />}
+    />
+    <label className="font-poppins text-xs text-error font-semibold transition-all">
+      {error}
+    </label>
+  </div>
 );
 
 export default select;

@@ -78,7 +78,7 @@ const KeyManagment: React.FC = () => {
   }, []);
 
   return (
-    <div className="font-poppins p-6 h-screen overflow-hidden">
+    <div className="font-poppins p-6 h-screen overflow-hidden overflow-y-scroll">
       <div className="flex sm:flex-col lg:flex-row justify-between items-start md:items-start mb-5 gap-3">
         <div>
           <Heading level={2} children="Key management" />
@@ -93,7 +93,7 @@ const KeyManagment: React.FC = () => {
       {key_details.length === 0 ? (
         <p className="text-gray400 text-center">No key</p>
       ) : (
-        <div className="mt-10 flex flex-col gap-y-10 md:overflow-y-scroll h-full">
+        <div className="mt-10 flex flex-col gap-y-10 h-full">
           {key_details.map((item, index) => (
             <div
               key={`key-management-input-${index}`}
