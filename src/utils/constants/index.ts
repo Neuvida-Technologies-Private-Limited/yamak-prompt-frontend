@@ -11,7 +11,8 @@ export enum ButtonVariants {
   SECONDARY = 'secondary',
   OUTLINED = 'outlined',
   OUTLINED_LIGHT = 'outlined-light',
-  LINK = 'link',
+  PRIMARY_LINK = 'primary-link',
+  SECONDARY_LINK = 'secondary-link',
   DEFAULT = 'default',
 }
 export enum CardConst {
@@ -120,6 +121,7 @@ export enum KeyManagement {
   DELETE = 'Delete',
   POPUP_TITLE = 'Delete the key',
   POPUP_DESCRIPTION = 'Are you sure to delete this key?',
+  TestConnection = 'Test Connection',
 }
 
 export enum Library {

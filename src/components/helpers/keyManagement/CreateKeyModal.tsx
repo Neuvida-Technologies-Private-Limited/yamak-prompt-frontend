@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { message } from 'antd';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { Button, Input, Modal, Select } from 'components/common';
 import { KeyManagement, InputVariants, ButtonVariants } from 'utils/constants';
-import { GetLLMProviders } from 'middleware/api';
+import { GetLLMProviders, TestConnection } from 'middleware/api';
 import { createKeystate } from 'middleware/state';
 import {
   IsCreateKeyFormValidated,
@@ -59,6 +61,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
   const inputFields = [
     {
       id: KeyManagement.KEY_TITLE,
+      type: 'text',
       name: KeyManagement.KEY_TITLE,
       placeholder: KeyManagement.TITLE_PLACEHOLDER,
       value: title,
@@ -68,6 +71,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
     },
     {
       id: KeyManagement.KEY_DESCRIPTION,
+      type: 'text',
       name: KeyManagement.KEY_DESCRIPTION,
       placeholder: KeyManagement.DESCRIPTION_PLACEHOLDER,
       value: description,
@@ -77,6 +81,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
     },
     {
       id: KeyManagement.API_KEY,
+      type: 'password',
       name: KeyManagement.API_KEY,
       placeholder: KeyManagement.SK_PLACEHOLDER,
       value: api_key,
@@ -100,6 +105,19 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       }
     } catch (error: any) {
       toast.error('error in getting llm provider');
+    }
+  };
+  //API to test key connection
+  const handleKeyConnection = async () => {
+    const testConnectionParams = {
+      api_key,
+      provider,
+    };
+    try {
+      const res = await TestConnection(testConnectionParams);
+      message.success(res);
+    } catch (error: any) {
+      message.error(error.error);
     }
   };
   //API call to create Key
@@ -148,6 +166,8 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
           resetState();
         }}
         okText={KeyManagement.OK}
+        cancelText="Cancel"
+        className="keyManagement"
       >
         <div className="flex flex-col">
           <p className="text-gray400 pb-3">{KeyManagement.SUB_HEAD}</p>
@@ -161,6 +181,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
                   <Input
                     key={i}
                     id={input.id}
+                    type={input.type}
                     name={input.name}
                     onChange={input.onChange}
                     value={input.value}
@@ -182,6 +203,14 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
                 size="large"
                 onChange={handleSelectChange}
                 error={providerError}
+              />
+            </div>
+            <div className="flex justify-end w-full mt-4">
+              <Button
+                size={undefined}
+                variant={ButtonVariants.SECONDARY_LINK}
+                name={KeyManagement.TestConnection}
+                onClick={handleKeyConnection}
               />
             </div>
           </form>

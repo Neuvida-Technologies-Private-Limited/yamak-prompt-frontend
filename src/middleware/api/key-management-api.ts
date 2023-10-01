@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import axiosClientProtected from 'middleware/axios/axios-client/axios-client-protected';
-import { CreateKeyModal } from './types';
+import { CreateKeyModal, TestConnectionModal } from './types';
 import { keyManagementRoutes } from './routes';
 
 export const GetLLMProviders = async () => {
@@ -38,4 +38,15 @@ export const DeleteKey = async (uuid: string) => {
     .catch((error: AxiosError) => {
       return Promise.reject(error);
     });
+};
+export const TestConnection = async (model: TestConnectionModal) => {
+  try {
+    const response = await axiosClientProtected.post(
+      keyManagementRoutes.TEST_CONNECTION_ROUTE,
+      model
+    );
+    return response.data;
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
 };

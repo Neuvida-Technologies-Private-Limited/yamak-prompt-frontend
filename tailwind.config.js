@@ -23,7 +23,7 @@ module.exports = {
         secondary400: '#57C2A8',
         secondary200: '#88D5C0',
         secondary100: '#B8E7D9',
-        secondary50: '#B8E7D9',
+        secondary50: '#E7F7F2',
         gray900: '#393939',
         gray800: '#4B4B4B',
         gray700: '#5E5E5E',
