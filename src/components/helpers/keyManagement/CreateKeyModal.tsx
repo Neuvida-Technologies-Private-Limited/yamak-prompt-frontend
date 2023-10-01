@@ -60,6 +60,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
   const inputFields = [
     {
       id: KeyManagement.KEY_TITLE,
+      type: 'text',
       name: KeyManagement.KEY_TITLE,
       placeholder: KeyManagement.TITLE_PLACEHOLDER,
       value: title,
@@ -69,6 +70,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
     },
     {
       id: KeyManagement.KEY_DESCRIPTION,
+      type: 'text',
       name: KeyManagement.KEY_DESCRIPTION,
       placeholder: KeyManagement.DESCRIPTION_PLACEHOLDER,
       value: description,
@@ -78,6 +80,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
     },
     {
       id: KeyManagement.API_KEY,
+      type: 'password',
       name: KeyManagement.API_KEY,
       placeholder: KeyManagement.SK_PLACEHOLDER,
       value: api_key,
@@ -177,6 +180,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
                   <Input
                     key={i}
                     id={input.id}
+                    type={input.type}
                     name={input.name}
                     onChange={input.onChange}
                     value={input.value}
