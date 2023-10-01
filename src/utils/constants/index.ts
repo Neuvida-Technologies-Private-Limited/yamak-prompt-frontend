@@ -131,15 +131,28 @@ export enum Library {
   SubHead = 'Fill in the details of your prompt',
   NewPromptTitle = 'new-prompt-title',
   TitlePlaceholder = 'Enter prompt title',
+  UserMessageTitle = 'user-message-title',
+  UserMessagePlaceholder = 'Enter user message',
+  SystemMessageTitle = 'system-message-title',
+  SystemMessagePlaceholder = 'Enter system message',
   WritePromptTitle = 'write-prompt-text',
-  WritePromptPlaceholder = 'Write prompt (20 Characters)',
-  SelectTopicPlaceholder = 'Select Topic',
+  WritePromptPlaceholder = 'Prompt sample output',
+  SelectTagPlaceholder = 'Select Tag',
+  TagsTitle = 'add-tags',
+  TagsPlaceholder = 'Enter tags (comma seperated)',
   SearchLibrary = 'Search Library',
   CardHeading = 'Human Written | 100% Unique | SEO Optimized Article',
   CardSubHeading = 'SEO/Writing',
   CardButtonName = 'Import Prompt',
   CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
   ImportPrompt = 'Import Prompt',
+}
+
+export enum LibraryCard {
+  ButtonCopyPrompt = 'Copy prompt',
+  ButtonFavorite = 'Favorite',
+  ButtonDislike = 'Dislike',
+  ButtonDelete = 'Delete',
 }
 
 export enum Label {

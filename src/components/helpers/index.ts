@@ -1,5 +1,6 @@
 export { default as LibraryCardsGrid } from './library/cardGrid';
 export { default as LibraryCard } from './library/cardGrid/Card';
+export { default as EmptyLibrary } from './library/cardGrid/EmptyContent';
 export { default as LibraryHeader } from './library/header';
 export { default as HeadingArea } from './library/header/HeadingArea';
 export { default as TabsArea } from './library/header/TabsArea';

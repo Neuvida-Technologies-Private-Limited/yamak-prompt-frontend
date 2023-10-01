@@ -1,5 +1,5 @@
-import { Input, Select } from 'components/common';
-import { LibrarySelectOptions, Library, InputVariants } from 'utils/constants';
+import { Input } from 'components/common';
+import { Library, InputVariants } from 'utils/constants';
 
 const SearchArea = () => {
   const searchLibraryHandler = (data: string) => {};
@@ -14,11 +14,6 @@ const SearchArea = () => {
         onChange={searchLibraryHandler}
         type="search"
         variant={InputVariants.Filled}
-      />
-      <Select
-        options={LibrarySelectOptions}
-        placeholder={Library.SelectTopicPlaceholder}
-        className="sm:w-full md:w-auto"
       />
     </div>
   );

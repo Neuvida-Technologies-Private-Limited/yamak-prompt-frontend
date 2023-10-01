@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 import { FiCopy, FiHeart } from 'react-icons/fi';
-import { BiLike, BiDislike } from 'react-icons/bi';
-import { PiWarningBold } from 'react-icons/pi';
+import { BiDislike } from 'react-icons/bi';
 
 import { Button, Modal, Tag, Text } from 'components/common';
 import ModalContent from './ModalContent';
 import { LibraryCardItem as CardItemProps } from 'types';
-import { ButtonVariants, Library } from 'utils/constants';
+import { ButtonVariants, Library, LibraryCard as Card } from 'utils/constants';
+import { BsTrash } from 'react-icons/bs';
 
 const LibraryCard: React.FC<CardItemProps> = ({
   title,
@@ -41,9 +41,8 @@ const LibraryCard: React.FC<CardItemProps> = ({
           </h2>
           <Button
             size="small"
-            variant="default"
+            variant={ButtonVariants.DEFAULT}
             onClick={importPromptHandler}
-            className="!text-xs !p-2"
             name={Library.CardButtonName}
           />
         </div>
@@ -63,38 +62,31 @@ const LibraryCard: React.FC<CardItemProps> = ({
         />
         <div className="flex flex-wrap justify-start gap-2">
           <Button
-            variant="outlined-light"
+            variant={ButtonVariants.OUTLINED_LIGHT}
             size="small"
-            name="Copy Prompt"
+            name={Card.ButtonCopyPrompt}
             icon={<FiCopy />}
             onClick={() => {}}
           />
           <Button
-            variant="outlined-light"
+            variant={ButtonVariants.OUTLINED_LIGHT}
             size="small"
-            name={' ' + likes_dislikes_count.likes}
-            icon={<BiLike />}
-            onClick={() => {}}
-          />
-          <Button
-            variant="outlined-light"
-            size="small"
-            name={' ' + likes_dislikes_count.dislikes}
-            icon={<BiDislike />}
-            onClick={() => {}}
-          />
-          <Button
-            variant="outlined-light"
-            size="small"
-            name=""
+            name={Card.ButtonFavorite}
             icon={<FiHeart />}
             onClick={() => {}}
           />
           <Button
-            variant="outlined-light"
+            variant={ButtonVariants.OUTLINED_LIGHT}
             size="small"
-            name=""
-            icon={<PiWarningBold />}
+            name={Card.ButtonDislike}
+            icon={<BiDislike />}
+            onClick={() => {}}
+          />
+          <Button
+            variant={ButtonVariants.OUTLINED_LIGHT}
+            size="small"
+            name={Card.ButtonDelete}
+            icon={<BsTrash />}
             onClick={() => {}}
           />
         </div>
