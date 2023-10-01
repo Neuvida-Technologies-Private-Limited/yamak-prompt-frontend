@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Input, Modal, Select } from 'components/common';
 import { KeyManagement, InputVariants, ButtonVariants } from 'utils/constants';
-import { GetLLMProviders } from 'middleware/api';
+import { GetLLMProviders, TestConnection } from 'middleware/api';
 import { createKeystate } from 'middleware/state';
 import {
   IsCreateKeyFormValidated,
@@ -102,6 +102,19 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       toast.error('error in getting llm provider');
     }
   };
+  //API to test key connection
+  const handleKeyConnection = async () => {
+    const testConnectionParams = {
+      api_key,
+      provider,
+    };
+    try {
+      const res = await TestConnection(testConnectionParams);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //API call to create Key
   const handleSubmit = async () => {
     setState(old => ({
@@ -148,6 +161,8 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
           resetState();
         }}
         okText={KeyManagement.OK}
+        cancelText="Cancel"
+        className="keyManagement"
       >
         <div className="flex flex-col">
           <p className="text-gray400 pb-3">{KeyManagement.SUB_HEAD}</p>
@@ -182,6 +197,15 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
                 size="large"
                 onChange={handleSelectChange}
                 error={providerError}
+              />
+            </div>
+            <div className="flex justify-end w-full mt-4">
+              <Button
+                size={undefined}
+                variant={ButtonVariants.LINK}
+                name={KeyManagement.TestConnection}
+                className="!text-secondary !decoration-secondary "
+                onClick={handleKeyConnection}
               />
             </div>
           </form>

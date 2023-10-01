@@ -120,6 +120,7 @@ export enum KeyManagement {
   DELETE = 'Delete',
   POPUP_TITLE = 'Delete the key',
   POPUP_DESCRIPTION = 'Are you sure to delete this key?',
+  TestConnection = 'Test Connection',
 }
 
 export enum Library {
