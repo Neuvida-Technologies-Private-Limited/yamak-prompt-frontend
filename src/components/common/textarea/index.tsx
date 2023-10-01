@@ -8,7 +8,7 @@ interface TextAreaProps {
   name: string;
   rows: number;
   placeholder: string;
-  maxLength: number;
+  maxLength?: number;
   className?: string;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
   disabled?: boolean;

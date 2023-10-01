@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Button, Input, Modal, Select, TextArea } from 'components/common';
 import {
-  LibrarySelectOptions,
   Library,
   InputVariants,
   ButtonVariants,
+  LibrarySelectOptions,
 } from 'utils/constants';
 
 const AddNewPrompt = () => {
@@ -13,8 +13,6 @@ const AddNewPrompt = () => {
   const addPromptHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);
   };
-  const titleChangeHandler = () => {};
-  const writePromptHandler = () => {};
 
   return (
     <>
@@ -41,7 +39,21 @@ const AddNewPrompt = () => {
                 id={Library.NewPromptTitle}
                 name={Library.NewPromptTitle}
                 placeholder={Library.TitlePlaceholder}
-                onChange={titleChangeHandler}
+                onChange={() => {}}
+                variant={InputVariants.Filled}
+              />
+              <Input
+                id={Library.UserMessageTitle}
+                name={Library.UserMessageTitle}
+                placeholder={Library.UserMessagePlaceholder}
+                onChange={() => {}}
+                variant={InputVariants.Filled}
+              />
+              <Input
+                id={Library.SystemMessageTitle}
+                name={Library.SystemMessageTitle}
+                placeholder={Library.SystemMessagePlaceholder}
+                onChange={() => {}}
                 variant={InputVariants.Filled}
               />
               <TextArea
@@ -49,13 +61,12 @@ const AddNewPrompt = () => {
                 id={Library.WritePromptTitle}
                 name={Library.WritePromptTitle}
                 placeholder={Library.WritePromptPlaceholder}
-                maxLength={20}
-                onChange={writePromptHandler}
+                onChange={() => {}}
                 className="p-3 w-full bg-gray50 mb-4"
               />
               <Select
                 options={LibrarySelectOptions}
-                placeholder={Library.SelectTopicPlaceholder}
+                placeholder={Library.SelectTagPlaceholder}
                 size="large"
                 className="filled w-full mb-4"
               />
