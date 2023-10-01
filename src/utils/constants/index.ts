@@ -99,6 +99,8 @@ export enum Workspace {
   LastEdited = 'Last Edited: ',
   ExploreTemplates = 'Explore Templates',
   AddVariable = 'Add Variable',
+  User = 'User',
+  Assistant = 'Assistent',
 }
 
 export enum KeyManagement {
