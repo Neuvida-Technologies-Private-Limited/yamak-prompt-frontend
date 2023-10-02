@@ -20,6 +20,10 @@ export const CreateWorkspace = async (model: CreateWorkspaceModal) => {
       model
     );
     return response.data;
+  } catch (error: any) {
+    return error;
+  }
+};
 
 export const getWorkspace = async (id: string | undefined) => {
   try {
