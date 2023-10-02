@@ -91,10 +91,9 @@ const WorkspaceDashboard: React.FC = () => {
           />
           <Button
             size="small"
-            variant={ButtonVariants.LINK}
+            variant={ButtonVariants.SECONDARY_LINK}
             onClick={() => {}}
             name={Workspace.ExploreTemplates}
-            className="text-secondary underline"
           />
         </div>
       )}

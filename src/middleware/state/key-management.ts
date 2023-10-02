@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { KeyDetailsType } from 'types';
 
 const DataType = [
   { uuid: '' },
@@ -15,11 +16,15 @@ export const createKeystate = atom({
     api_key: '',
     description: '',
     provider: '',
+    titleError: '',
+    api_keyError: '',
+    descriptionError: '',
+    providerError: '',
   },
 });
 export const keyManagementstate = atom({
   key: 'key-management-state',
   default: {
-    key_details: DataType,
+    key_details: [] as KeyDetailsType[],
   },
 });

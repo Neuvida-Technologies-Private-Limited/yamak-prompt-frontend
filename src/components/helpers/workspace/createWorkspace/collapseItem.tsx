@@ -31,7 +31,6 @@ const collapseItem: React.FC = () => {
             variant={button.variant}
             onClick={button.onClick}
             name={button.name}
-            className={button.className}
           />
         ))}
       </div>

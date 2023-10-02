@@ -8,3 +8,7 @@ export type CreateKeyModal = {
   description: string;
   provider: string;
 };
+export type TestConnectionModal = {
+  api_key: string;
+  provider: string;
+};

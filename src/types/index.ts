@@ -33,3 +33,11 @@ export type WorkspaceData = {
   timestamp: string;
   user_uuid: string;
 };
+
+export type KeyDetailsType = {
+  uuid: string;
+  title: string;
+  description: string;
+  api_key: string;
+  provider: string;
+};

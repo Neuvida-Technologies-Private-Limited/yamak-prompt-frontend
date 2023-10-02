@@ -13,7 +13,8 @@ interface ButtonProps {
     | 'secondary'
     | 'outlined'
     | 'outlined-light'
-    | 'link'
+    | 'primary-link'
+    | 'secondary-link'
     | 'default';
   href?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -45,7 +46,9 @@ const button: React.FC<ButtonProps> = ({
         variant === 'outlined',
       'border-1 border-gray200 !py-2 !text-xs': variant === 'outlined-light',
       '!border-0 underline decoration-primary hover:!text-primary800 !py-5 !rounded-xl text-primary decoration-solid decoration-1 hover:!bg-primary50':
-        variant === 'link',
+        variant === 'primary-link',
+      '!border-0 underline text-secondary decoration-secondary  hover:!text-secondary800 !py-5 !rounded-xl decoration-solid decoration-1 hover:!bg-secondary50':
+        variant === 'secondary-link',
       'whitespace-nowrap bg-gray50 text-primary600 font-bold !rounded-xl border-0 !py-4':
         variant === 'default',
     },
