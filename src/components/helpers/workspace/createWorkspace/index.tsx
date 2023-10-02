@@ -3,7 +3,12 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 import { toast } from 'react-toastify';
 
 import { Button, Input, Modal, Select } from 'components/common';
-import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
+import {
+  Workspace,
+  InputVariants,
+  ButtonVariants,
+  Paths,
+} from 'utils/constants';
 import { createWorkspaceState, keyManagementState } from 'middleware/state';
 import {
   isWorkspaceTitleValidated,
@@ -11,6 +16,7 @@ import {
   IsCreateWorkspaceFormValidated,
 } from 'utils/validations';
 import { GetKeyList } from 'middleware/api';
+import { Link } from 'react-router-dom';
 
 interface OptionItems {
   value: string;
@@ -44,7 +50,6 @@ const App: React.FC<CreateWorkspaceProps> = ({
       titleError: isWorkspaceTitleValidated(value),
     }));
   };
-
   const handleSelectChange = (value: string) => {
     setState(old => ({
       ...old,
@@ -53,6 +58,7 @@ const App: React.FC<CreateWorkspaceProps> = ({
     }));
   };
 
+  //handling submit in modal -> api call to create workspace
   const handleSubmit = async () => {
     setState(old => ({
       ...old,
@@ -72,7 +78,7 @@ const App: React.FC<CreateWorkspaceProps> = ({
       toast.error('Error in creating key or token expired, Login again !');
     }
   };
-
+  //api call to get key list in select
   useEffect(() => {
     const getKeyList = async () => {
       try {
@@ -128,7 +134,7 @@ const App: React.FC<CreateWorkspaceProps> = ({
             error={titleError}
           />
           <label htmlFor="" className="pl-2 font-poppins text-gray300 pb-1">
-            {'Select Key'}
+            {Workspace.SelectKey}
           </label>
           <Select
             options={options}
@@ -139,11 +145,13 @@ const App: React.FC<CreateWorkspaceProps> = ({
             error={modal_keyError}
           />
           <div className="pt-4">
-            <Button
-              size={undefined}
-              variant={ButtonVariants.SECONDARY_LINK}
-              name={Workspace.AddKey}
-            />
+            <Link to={Paths.KeyManagement}>
+              <Button
+                size={undefined}
+                variant={ButtonVariants.SECONDARY_LINK}
+                name={Workspace.AddKey}
+              />
+            </Link>
           </div>
         </div>
       </Modal>

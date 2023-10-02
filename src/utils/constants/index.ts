@@ -102,6 +102,7 @@ export enum Workspace {
   AddVariable = 'Add Variable',
   User = 'User',
   Assistant = 'Assistent',
+  SelectKey = 'Select Key',
 }
 
 export enum KeyManagement {
