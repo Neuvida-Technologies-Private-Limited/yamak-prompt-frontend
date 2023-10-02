@@ -1,14 +1,6 @@
 import { atom } from 'recoil';
 import { KeyDetailsType } from 'types';
 
-const DataType = [
-  { uuid: '' },
-  { title: '' },
-  { description: '' },
-  { provider: '' },
-  { api_key: '' },
-];
-
 export const createKeystate = atom({
   key: 'createKey-state',
   default: {
@@ -22,7 +14,7 @@ export const createKeystate = atom({
     providerError: '',
   },
 });
-export const keyManagementstate = atom({
+export const keyManagementState = atom({
   key: 'key-management-state',
   default: {
     key_details: [] as KeyDetailsType[],

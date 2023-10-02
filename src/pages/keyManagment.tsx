@@ -9,11 +9,11 @@ import { Button, Text } from 'components/common';
 import { CreateKeyModal, EmptyKeyManagement } from 'components/helpers';
 import { KeyManagement, ButtonVariants } from 'utils/constants';
 import { CreateKey, DeleteKey, GetKeyList } from 'middleware/api';
-import { createKeystate, keyManagementstate } from 'middleware/state';
+import { createKeystate, keyManagementState } from 'middleware/state';
 
 const KeyManagment: React.FC = () => {
-  const [state, setState] = useRecoilState(keyManagementstate);
-  const [createKeystates, setcreateKeystate] = useRecoilState(createKeystate);
+  const [state, setState] = useRecoilState(keyManagementState);
+  const [createKeystates] = useRecoilState(createKeystate);
   // destructuring params
   const { title, description, api_key, provider } = createKeystates;
   const { key_details } = state;
@@ -94,7 +94,7 @@ const KeyManagment: React.FC = () => {
       {key_details.length === 0 ? (
         <EmptyKeyManagement />
       ) : (
-        <div className="mt-10 flex flex-col gap-y-10 h-full">
+        <div className="mt-10 flex flex-col gap-y-10">
           {key_details.map((item, index) => (
             <div
               key={`key-management-input-${index}`}

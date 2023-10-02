@@ -12,7 +12,7 @@ const WorkspaceDashboard: React.FC = () => {
   const [state, setState] = useRecoilState(workspaceState);
   const { workspace_details } = state;
 
-  const getKeyList = async () => {
+  const getKeyWorkspaces = async () => {
     try {
       const res = await GetWorkspaces();
       const formattedWorkspaces = res.map(
@@ -35,7 +35,7 @@ const WorkspaceDashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    getKeyList();
+    getKeyWorkspaces();
   }, []);
 
   return (
