@@ -3,9 +3,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiTrash2 } from 'react-icons/fi';
 import { useRecoilState } from 'recoil';
+
 import { Heading, PopupConfirm } from 'components/common';
 import { Button, Text } from 'components/common';
-import { CreateKeyModal } from 'components/helpers';
+import { CreateKeyModal, EmptyKeyManagement } from 'components/helpers';
 import { KeyManagement, ButtonVariants } from 'utils/constants';
 import { CreateKey, DeleteKey, GetKeyList } from 'middleware/api';
 import { createKeystate, keyManagementstate } from 'middleware/state';
@@ -46,7 +47,7 @@ const KeyManagment: React.FC = () => {
       const res = await GetKeyList();
       setState(old => ({
         ...old,
-        key_details: res,
+        key_details: Array.isArray(res) ? res : [],
       }));
     } catch (error: any) {
       toast.error(error);
@@ -78,7 +79,7 @@ const KeyManagment: React.FC = () => {
   }, []);
 
   return (
-    <div className="font-poppins p-6 h-screen overflow-hidden overflow-y-scroll">
+    <div className="font-poppins p-6 h-screen overflow-y-scroll">
       <div className="flex sm:flex-col lg:flex-row justify-between items-start md:items-start mb-5 gap-3">
         <div>
           <Heading level={2} children="Key management" />
@@ -91,7 +92,7 @@ const KeyManagment: React.FC = () => {
       </div>
 
       {key_details.length === 0 ? (
-        <p className="text-gray400 text-center">No key</p>
+        <EmptyKeyManagement />
       ) : (
         <div className="mt-10 flex flex-col gap-y-10 h-full">
           {key_details.map((item, index) => (

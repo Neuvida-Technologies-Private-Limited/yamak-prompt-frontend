@@ -13,6 +13,7 @@ export { default as WorkspaceChatOutput } from './workspace/output/ChatOutput';
 export { default as WorkspaceCompletionOutput } from './workspace/output/CompletionOutput';
 export { default as WorkspaceParameters } from './workspace/parameters';
 export { default as CreateKeyModal } from './keyManagement/CreateKeyModal';
+export { default as EmptyKeyManagement } from './keyManagement/EmptyContent';
 export { default as WorkspaceHistory } from './workspace/history';
 export { default as WorkspaceChat } from './workspace/chat';
 export { default as WorkspaceCompletion } from './workspace/completion';

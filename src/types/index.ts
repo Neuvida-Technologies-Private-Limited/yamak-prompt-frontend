@@ -28,3 +28,10 @@ export type LabelType = {
   id: string | number;
   text: string;
 };
+export type KeyDetailsType = {
+  uuid: string;
+  title: string;
+  description: string;
+  api_key: string;
+  provider: string;
+};
