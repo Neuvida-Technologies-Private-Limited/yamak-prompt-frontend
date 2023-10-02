@@ -57,6 +57,19 @@ export const IsCreateKeyFormValidated = (
     return false;
   }
 };
+export const IsCreateWorkspaceFormValidated = (
+  title: string,
+  modal_key: string
+) => {
+  if (
+    isKeyDescriptionValidated(modal_key) === '' &&
+    isKeyTitleValidated(title) === ''
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};
 export const isWorkspaceTitleValidated = (title: string) => {
   if (title === '') {
     return 'Title of workspace is required!';

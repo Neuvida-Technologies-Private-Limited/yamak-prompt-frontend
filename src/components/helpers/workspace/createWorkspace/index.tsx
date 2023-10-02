@@ -8,6 +8,7 @@ import { createWorkspaceState, keyManagementState } from 'middleware/state';
 import {
   isWorkspaceTitleValidated,
   isWorkspaceModalKeyValidated,
+  IsCreateWorkspaceFormValidated,
 } from 'utils/validations';
 import { GetKeyList } from 'middleware/api';
 
@@ -19,9 +20,14 @@ interface OptionItems {
 interface CreateWorkspaceProps {
   btnName: string;
   className?: string;
+  createWorkspace: () => Promise<boolean>;
 }
 
-const App: React.FC<CreateWorkspaceProps> = ({ btnName, className }) => {
+const App: React.FC<CreateWorkspaceProps> = ({
+  btnName,
+  className,
+  createWorkspace,
+}) => {
   const [state, setState] = useRecoilState(createWorkspaceState);
   const [keystate, setKeyState] = useRecoilState(keyManagementState);
   const resetState = useResetRecoilState(createWorkspaceState);
@@ -47,6 +53,26 @@ const App: React.FC<CreateWorkspaceProps> = ({ btnName, className }) => {
     }));
   };
 
+  const handleSubmit = async () => {
+    setState(old => ({
+      ...old,
+      isLoading: true,
+      titleError: isWorkspaceTitleValidated(title),
+      modal_keyError: isWorkspaceModalKeyValidated(modal_key),
+    }));
+
+    if (!IsCreateWorkspaceFormValidated(title, modal_key)) {
+      return;
+    }
+
+    if (await createWorkspace()) {
+      setShowModal(false);
+      resetState();
+    } else {
+      toast.error('Error in creating key or token expired, Login again !');
+    }
+  };
+
   useEffect(() => {
     const getKeyList = async () => {
       try {
@@ -56,17 +82,17 @@ const App: React.FC<CreateWorkspaceProps> = ({ btnName, className }) => {
           key_details: Array.isArray(res) ? res : [],
         }));
 
-        const keyTitles = Array.isArray(res)
-          ? res.map(item => ({ value: item.title, label: item.title }))
+        const keyInfo = Array.isArray(res)
+          ? res.map(item => ({ value: item.uuid, label: item.title }))
           : [];
-        setOptions(keyTitles);
+        setOptions(keyInfo);
       } catch (error: any) {
         toast.error(error);
       }
     };
 
     getKeyList();
-  }, [setState]);
+  }, []);
 
   return (
     <div className={className}>
@@ -80,8 +106,11 @@ const App: React.FC<CreateWorkspaceProps> = ({ btnName, className }) => {
         title={Workspace.CreateWorkspace}
         centered={true}
         isOpen={showModal}
-        sumbitHandler={() => setShowModal(true)}
-        cancelModalHandler={() => setShowModal(false)}
+        sumbitHandler={handleSubmit}
+        cancelModalHandler={() => {
+          setShowModal(false);
+          resetState();
+        }}
         okText={Workspace.Create}
         className="createWorkspace"
       >
@@ -94,6 +123,7 @@ const App: React.FC<CreateWorkspaceProps> = ({ btnName, className }) => {
             id={Workspace.Name}
             name={Workspace.Name}
             onChange={handleTitleChange}
+            value={title}
             variant={InputVariants.Filled}
             error={titleError}
           />

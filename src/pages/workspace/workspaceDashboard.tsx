@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
+import { ToastContainer, toast } from 'react-toastify';
 
-import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
+import { CreateWorkspaceModal, WorkspaceCard } from 'components/helpers';
 import { ButtonVariants, Workspace, workspaces } from 'utils/constants';
 import { Button, Heading } from 'components/common';
-import { GetWorkspaces } from 'middleware/api';
-import { workspaceState } from 'middleware/state';
+import { GetWorkspaces, CreateWorkspace } from 'middleware/api';
+import { createWorkspaceState, workspaceState } from 'middleware/state';
 
 const WorkspaceDashboard: React.FC = () => {
   const [state, setState] = useRecoilState(workspaceState);
+  const [createState, setCreateState] = useRecoilState(createWorkspaceState);
   const { workspace_details } = state;
+  const { title, modal_key } = createState;
 
   const getKeyWorkspaces = async () => {
     try {
@@ -34,6 +37,24 @@ const WorkspaceDashboard: React.FC = () => {
     }
   };
 
+  const createWorkspace = async () => {
+    const createWorkspaceParams = {
+      title,
+      modal_key,
+    };
+
+    try {
+      await CreateWorkspace(createWorkspaceParams);
+      getKeyWorkspaces();
+      toast.success('Workspace created successfully');
+      return true;
+    } catch (error: any) {
+      const errorMessage = error.error;
+      toast.error(errorMessage);
+      return false;
+    }
+  };
+
   useEffect(() => {
     getKeyWorkspaces();
   }, []);
@@ -48,9 +69,10 @@ const WorkspaceDashboard: React.FC = () => {
           </h4>
           <h4 className="text-sm md:text-base">{Workspace.Subhead2}</h4>
         </div>
-        <CreateWorkspace
+        <CreateWorkspaceModal
           btnName={Workspace.Create}
           className="sm:hidden em:block"
+          createWorkspace={createWorkspace}
         />
       </div>
       {workspace_details.length > 0 ? (
@@ -68,9 +90,10 @@ const WorkspaceDashboard: React.FC = () => {
             ))}
           </div>
           <div className="sm:flex em:hidden bottom-0 z-2 fixed items-center justify-center w-full bg-gray100 rounded-t-xl py-4">
-            <CreateWorkspace
+            <CreateWorkspaceModal
               btnName={Workspace.CreateWorkspace}
               className="w-72 h-12 flex justify-center"
+              createWorkspace={createWorkspace}
             />
           </div>
         </div>
@@ -85,9 +108,10 @@ const WorkspaceDashboard: React.FC = () => {
               {Workspace.NoWorkspaceDesc}
             </p>
           </div>
-          <CreateWorkspace
+          <CreateWorkspaceModal
             btnName={Workspace.CreateWorkspace}
             className="sm:w-72 em:w-56 sm:h-12 em:h-10 flex justify-center"
+            createWorkspace={createWorkspace}
           />
           <Button
             size="small"
@@ -97,6 +121,7 @@ const WorkspaceDashboard: React.FC = () => {
           />
         </div>
       )}
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };
