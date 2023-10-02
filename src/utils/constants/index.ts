@@ -146,6 +146,8 @@ export enum Library {
   CardButtonName = 'Import Prompt',
   CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
   ImportPrompt = 'Import Prompt',
+  EmptyLibraryHeading = "Oops, it's a bit empty in here...",
+  EmptyLibraryText = 'sNot sure where to start? Browse our library of pre-built templates to get the inspiration flowing.',
 }
 
 export enum LibraryCard {
