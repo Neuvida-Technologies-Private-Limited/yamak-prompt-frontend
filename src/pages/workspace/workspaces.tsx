@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { useLocation } from 'react-router-dom';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
-import { Button, Input, Tabs } from 'components/common';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
+import { BsCheck2Circle } from 'react-icons/bs';
+
+import { getWorkspace } from 'middleware/api';
 import {
   WorkspaceParameters,
   WorkspaceChat,
   WorkspaceCompletion,
 } from 'components/helpers';
-import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
-import { BsCheck2Circle } from 'react-icons/bs';
-
-interface WorkspaceProps {
-  label: string;
-}
+import { Button, Input, Tabs } from 'components/common';
+import { WorkspaceData } from 'types';
 
 const tabs = [
   {
@@ -31,8 +32,22 @@ const tabs = [
 const handleClick = () => {};
 const handleChange = () => {};
 
-const Index: React.FC<WorkspaceProps> = ({ label }) => {
+const Index = () => {
+  const [workspaceData, setWorkspaceData] = useState<WorkspaceData>();
   const [currentTab, setCurrentTab] = useState<string | null>('1');
+  const id = useLocation().pathname.split('/').at(-1);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await getWorkspace(id);
+        setWorkspaceData(res);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getData();
+  }, [id]);
 
   const handleTabClick = (tabId: string) => {
     setCurrentTab(tabId);
@@ -43,7 +58,7 @@ const Index: React.FC<WorkspaceProps> = ({ label }) => {
       <div className="grid items-center h-full p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1 gap-4">
         <div className="flex sm:justify-center md:justify-start items-center">
           <h1 className="sm:text-xl md:text-2xl font-poppins font-semibold pr-3">
-            {Workspace.Marketing}
+            {workspaceData?.title}
           </h1>
           <Button
             size={undefined}
