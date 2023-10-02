@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useRecoilState } from 'recoil';
 
 import { CreateWorkspace, WorkspaceCard } from 'components/helpers';
-import { ButtonVariants, Workspace, workspaces } from 'utils/constants';
+import { ButtonVariants, Workspace } from 'utils/constants';
 import { Button, Heading } from 'components/common';
 import { GetWorkspaces } from 'middleware/api';
 import { workspaceState } from 'middleware/state';
@@ -12,31 +12,31 @@ const WorkspaceDashboard: React.FC = () => {
   const [state, setState] = useRecoilState(workspaceState);
   const { workspace_details } = state;
 
-  const getKeyList = async () => {
-    try {
-      const res = await GetWorkspaces();
-      const formattedWorkspaces = res.map(
-        (item: {
-          last_modified: moment.MomentInput;
-          timestamp: moment.MomentInput;
-        }) => ({
-          ...item,
-          last_modified: moment(item.last_modified).format('h:mm A'),
-          timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
-        })
-      );
-      setState(old => ({
-        ...old,
-        workspace_details: formattedWorkspaces,
-      }));
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const getKeyList = async () => {
+      try {
+        const res = await GetWorkspaces();
+        const formattedWorkspaces = res.map(
+          (item: {
+            last_modified: moment.MomentInput;
+            timestamp: moment.MomentInput;
+          }) => ({
+            ...item,
+            last_modified: moment(item.last_modified).format('h:mm A'),
+            timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
+          })
+        );
+        setState(old => ({
+          ...old,
+          workspace_details: formattedWorkspaces,
+        }));
+      } catch (error: any) {
+        console.log(error);
+      }
+    };
+
     getKeyList();
-  }, []);
+  }, [setState]);
 
   return (
     <div className="flex flex-col">
@@ -56,14 +56,14 @@ const WorkspaceDashboard: React.FC = () => {
       {workspace_details.length > 0 ? (
         <div className="">
           <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
-            {workspaces.map((item: any, index: number) => (
+            {workspace_details.map((item: any, index: number) => (
               <WorkspaceCard
                 key={`workspace-card-item-${index}`}
-                heading={item.heading}
-                link={item.link}
+                id={item.id}
+                heading={item.title}
                 createdBy={item.createdBy}
-                createdOn={item.createdOn}
-                last_edited={''}
+                createdOn={item.timestamp}
+                last_edited={item.last_modified}
               />
             ))}
           </div>

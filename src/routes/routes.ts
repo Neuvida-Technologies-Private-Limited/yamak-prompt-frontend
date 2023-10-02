@@ -6,7 +6,6 @@ import {
   Workspaces,
 } from 'pages';
 import React from 'react';
-import { workspaces } from 'utils/constants';
 
 interface Route {
   path: string;
@@ -31,11 +30,8 @@ export const routes: Route[] = [
     path: '/home/profile',
     element: Profile,
   },
-];
-
-workspaces.forEach(workspace => {
-  routes.push({
-    path: workspace.link,
+  {
+    path: '/home/workspace/:id',
     element: Workspaces,
-  });
-});
+  },
+];
