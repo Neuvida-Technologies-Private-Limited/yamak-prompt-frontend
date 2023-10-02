@@ -10,7 +10,7 @@ interface WorkspaceCardProps {
   createdBy: string;
   createdOn: string;
   last_edited: string;
-  link: string;
+  id: string;
 }
 
 const items: MenuProps['items'] = [
@@ -25,11 +25,11 @@ const items: MenuProps['items'] = [
 ];
 
 const index: React.FC<WorkspaceCardProps> = ({
+  id,
   heading,
   createdOn,
   createdBy,
   last_edited,
-  link,
 }) => {
   return (
     <div className="font-poppins p-4 bg-white rounded-lg flex flex-col justify-between gap-6 hover:shadow-md transition-all duration-300 ease-in-out">
@@ -37,7 +37,7 @@ const index: React.FC<WorkspaceCardProps> = ({
         <div className="flex items-center gap-1 h-full">
           <div className="w-1.5 bg-secondary rounded-xl h-12" />
           <div className="flex flex-col h-full px-2">
-            <Link to={link}>
+            <Link to={`/home/workspace/${id}`}>
               <h1 className="font-bold text-base md:text-lg text-black hover:text-primary">
                 {heading}
               </h1>

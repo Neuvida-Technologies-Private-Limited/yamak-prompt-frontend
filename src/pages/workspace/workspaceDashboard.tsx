@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { CreateWorkspaceModal, WorkspaceCard } from 'components/helpers';
-import { ButtonVariants, Workspace, workspaces } from 'utils/constants';
+import { ButtonVariants, Workspace } from 'utils/constants';
 import { Button, Heading } from 'components/common';
 import { GetWorkspaces, CreateWorkspace } from 'middleware/api';
 import { createWorkspaceState, workspaceState } from 'middleware/state';
@@ -78,14 +78,14 @@ const WorkspaceDashboard: React.FC = () => {
       {workspace_details.length > 0 ? (
         <div className="">
           <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
-            {workspaces.map((item: any, index: number) => (
+            {workspace_details.map((item: any, index: number) => (
               <WorkspaceCard
                 key={`workspace-card-item-${index}`}
-                heading={item.heading}
-                link={item.link}
+                id={item.id}
+                heading={item.title}
                 createdBy={item.createdBy}
-                createdOn={item.createdOn}
-                last_edited={''}
+                createdOn={item.timestamp}
+                last_edited={item.last_modified}
               />
             ))}
           </div>

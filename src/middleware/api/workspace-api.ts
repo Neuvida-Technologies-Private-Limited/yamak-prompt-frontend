@@ -20,6 +20,14 @@ export const CreateWorkspace = async (model: CreateWorkspaceModal) => {
       model
     );
     return response.data;
+
+export const getWorkspace = async (id: string | undefined) => {
+  try {
+    const res = await axiosClientProtected.get(
+      `${workspaceRoutes.GET_WORKSPACE}/${id}/`
+    );
+
+    return res.data;
   } catch (error: any) {
     return error;
   }

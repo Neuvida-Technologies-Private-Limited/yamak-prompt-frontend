@@ -1,10 +1,4 @@
 export type LibraryCardItem = {
-  // id: number;
-  // heading: string;
-  // subHeading: string;
-  // buttonName: string;
-  // description: string;
-  // favorite?: boolean;
   title: string;
   bookmarked: boolean;
   is_public: boolean;
@@ -28,6 +22,18 @@ export type LabelType = {
   id: string | number;
   text: string;
 };
+
+export type WorkspaceData = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  title: string;
+  last_modified: string;
+  model_key: string | null;
+  timestamp: string;
+  user_uuid: string;
+};
+
 export type KeyDetailsType = {
   uuid: string;
   title: string;

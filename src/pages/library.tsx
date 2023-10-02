@@ -51,7 +51,7 @@ const Library = () => {
   }, [activeTab, items]);
 
   return (
-    <div className="library font-poppins h-screen overflow-y-scroll">
+    <div className="library font-poppins h-screen">
       <LibraryHeader>
         <HeadingArea />
         <TabsArea>
