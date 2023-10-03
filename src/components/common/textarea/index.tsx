@@ -12,6 +12,7 @@ interface TextAreaProps {
   className?: string;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
   disabled?: boolean;
+  value?: string;
 }
 
 const index: React.FC<TextAreaProps> = ({
@@ -23,12 +24,14 @@ const index: React.FC<TextAreaProps> = ({
   className,
   onChange,
   disabled,
+  value,
 }) => {
   return (
     <TextArea
       id={id}
       name={name}
       rows={rows}
+      value={value}
       placeholder={placeholder}
       maxLength={maxLength}
       className={`border-0 !focus:outline-none !resize-none ${className}`}

@@ -9,7 +9,9 @@ import {
 } from 'components/helpers';
 import { Tabs } from 'components/common';
 import { LibraryCardItem as CardItem } from 'types';
-import { getAllPrompts } from 'middleware/api/library-api';
+import { createPrompt, getAllPrompts } from 'middleware/api/library-api';
+import { ToastContainer, toast } from 'react-toastify';
+import { PromptModal } from 'middleware/api/types';
 
 const tabs = [
   {
@@ -29,18 +31,28 @@ const Library = () => {
   const [filteredItems, setFilteredItems] = useState<CardItem[]>([]);
   const [activeTab, setActiveTab] = useState('1');
 
-  const handleTabClick = (tabId: string) => {
+  function handleTabClick(tabId: string) {
     setActiveTab(tabId);
-  };
+  }
+
+  async function getPrompts() {
+    try {
+      const res = await getAllPrompts();
+      setItems(res.data.results);
+    } catch (err) {}
+  }
+
+  async function addPromptHandler(prompt: PromptModal) {
+    try {
+      const res = await createPrompt(prompt);
+      console.log(res);
+      getPrompts();
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  }
 
   useEffect(() => {
-    async function getPrompts() {
-      try {
-        const res = await getAllPrompts();
-        setItems(res.data.results);
-      } catch (err) {}
-    }
-
     getPrompts();
   }, []);
 
@@ -53,7 +65,7 @@ const Library = () => {
   return (
     <div className="library font-poppins h-screen">
       <LibraryHeader>
-        <HeadingArea />
+        <HeadingArea onAddPrompt={addPromptHandler} />
         <TabsArea>
           <Tabs
             tabs={tabs}
@@ -64,6 +76,7 @@ const Library = () => {
         <SearchArea />
       </LibraryHeader>
       <LibraryCardsGrid items={filteredItems} />
+      <ToastContainer />
     </div>
   );
 };
