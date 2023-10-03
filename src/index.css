@@ -156,6 +156,9 @@
 .ant-popconfirm-buttons .ant-btn-primary {
   background: var(--primary-color) !important;
 }
+.ant-dropdown .ant-dropdown-menu {
+  font-family: 'Poppins';
+}
 
 /* Material UI COMPONENTS CSS */
 

@@ -6,7 +6,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import { CreateWorkspaceModal, WorkspaceCard } from 'components/helpers';
 import { ButtonVariants, Workspace } from 'utils/constants';
 import { Button, Heading } from 'components/common';
-import { GetWorkspaces, CreateWorkspace } from 'middleware/api';
+import {
+  GetWorkspaces,
+  CreateWorkspace,
+  DeleteWorkspace,
+} from 'middleware/api';
 import { createWorkspaceState, workspaceState } from 'middleware/state';
 
 const WorkspaceDashboard: React.FC = () => {
@@ -15,7 +19,7 @@ const WorkspaceDashboard: React.FC = () => {
   const { workspace_details } = state;
   const { title, modal_key } = createState;
 
-  const getKeyWorkspaces = async () => {
+  const getAllWorkspaces = async () => {
     try {
       const res = await GetWorkspaces();
       const formattedWorkspaces = res.map(
@@ -45,7 +49,7 @@ const WorkspaceDashboard: React.FC = () => {
 
     try {
       await CreateWorkspace(createWorkspaceParams);
-      getKeyWorkspaces();
+      getAllWorkspaces();
       toast.success('Workspace created successfully');
       return true;
     } catch (error: any) {
@@ -55,12 +59,26 @@ const WorkspaceDashboard: React.FC = () => {
     }
   };
 
+  const deleteWorkspace = async (id: string | undefined) => {
+    try {
+      if (id) {
+        await DeleteWorkspace(id);
+        getAllWorkspaces();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      toast.error('Workspace cannot be deleted, please login again !');
+    }
+  };
+
   useEffect(() => {
-    getKeyWorkspaces();
+    getAllWorkspaces();
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-screen overflow-y-scroll">
       <div className="flex sm:flex-col sm:justify-between sm:items-start md:flex-row gap-4 p-6">
         <div className="flex flex-col font-poppins">
           <Heading level={2} children={Workspace.Workspaces} />

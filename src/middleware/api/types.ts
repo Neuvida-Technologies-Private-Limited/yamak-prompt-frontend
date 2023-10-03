@@ -2,6 +2,9 @@ export type LoginModel = {
   username: string;
   password: string;
 };
+export type RefreshModal = {
+  refresh: string;
+};
 export type CreateKeyModal = {
   title: string;
   api_key: string;
