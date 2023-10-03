@@ -8,6 +8,7 @@ import ModalContent from './ModalContent';
 import { LibraryCardItem as CardItemProps } from 'types';
 import { ButtonVariants, Library, LibraryCard as Card } from 'utils/constants';
 import { BsTrash } from 'react-icons/bs';
+import { message } from 'antd';
 
 const LibraryCard: React.FC<CardItemProps> = ({
   title,
@@ -20,6 +21,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
   tags,
   user_message,
   uuid,
+  onDeletePrompt,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -87,7 +89,11 @@ const LibraryCard: React.FC<CardItemProps> = ({
             size="small"
             name={Card.ButtonDelete}
             icon={<BsTrash />}
-            onClick={() => {}}
+            onClick={() => {
+              window.confirm('Are you sure?') &&
+                onDeletePrompt(uuid) &&
+                message.success('Prompt deleted');
+            }}
           />
         </div>
       </div>

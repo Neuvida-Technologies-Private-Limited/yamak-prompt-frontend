@@ -9,7 +9,11 @@ import {
 } from 'components/helpers';
 import { Tabs } from 'components/common';
 import { LibraryCardItem as CardItem } from 'types';
-import { createPrompt, getAllPrompts } from 'middleware/api/library-api';
+import {
+  createPrompt,
+  deletePrompt,
+  getAllPrompts,
+} from 'middleware/api/library-api';
 import { ToastContainer, toast } from 'react-toastify';
 import { PromptModal } from 'middleware/api/types';
 
@@ -44,8 +48,16 @@ const Library = () => {
 
   async function addPromptHandler(prompt: PromptModal) {
     try {
-      const res = await createPrompt(prompt);
-      console.log(res);
+      await createPrompt(prompt);
+      getPrompts();
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  }
+
+  async function deletePromptHandler(id: string) {
+    try {
+      await deletePrompt(id);
       getPrompts();
     } catch (err: any) {
       toast.error(err.message);
@@ -75,7 +87,10 @@ const Library = () => {
         </TabsArea>
         <SearchArea />
       </LibraryHeader>
-      <LibraryCardsGrid items={filteredItems} />
+      <LibraryCardsGrid
+        items={filteredItems}
+        onDeletePrompt={deletePromptHandler}
+      />
       <ToastContainer />
     </div>
   );

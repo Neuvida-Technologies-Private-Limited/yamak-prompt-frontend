@@ -16,3 +16,13 @@ export const createPrompt = async (prompt: any) => {
     return Promise.reject(err);
   }
 };
+
+export const deletePrompt = async (id: string) => {
+  try {
+    return await axiosClientProtected.delete(
+      `${libraryRoutes.DELETE_PROMPT}${id}/`
+    );
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};

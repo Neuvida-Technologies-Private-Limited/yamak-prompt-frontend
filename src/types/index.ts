@@ -9,6 +9,7 @@ export type LibraryCardItem = {
   tags: string[];
   user_message: string;
   uuid: string;
+  onDeletePrompt: (id: string) => {};
 };
 
 export type Tab = {

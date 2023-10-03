@@ -2,7 +2,10 @@ import { LibraryCardItem as CardItem } from 'types';
 import { EmptyLibrary, LibraryCard } from 'components/helpers';
 import { Pagination } from 'components/common';
 
-const CardsGrid: React.FC<{ items: CardItem[] }> = ({ items }) => {
+const CardsGrid: React.FC<{
+  items: CardItem[];
+  onDeletePrompt: (id: string) => {};
+}> = ({ items, onDeletePrompt }) => {
   return items.length === 0 ? (
     <EmptyLibrary />
   ) : (
@@ -21,6 +24,7 @@ const CardsGrid: React.FC<{ items: CardItem[] }> = ({ items }) => {
             tags={item.tags}
             user_message={item.user_message}
             uuid={item.uuid}
+            onDeletePrompt={onDeletePrompt}
           />
         ))}
       </div>
