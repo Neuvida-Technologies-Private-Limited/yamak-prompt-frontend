@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
@@ -12,7 +13,8 @@ import {
   WorkspaceCompletion,
 } from 'components/helpers';
 import { Button, Input, Tabs } from 'components/common';
-import { WorkspaceData } from 'types';
+import { useRecoilState } from 'recoil';
+import { workspaceInfoState } from 'middleware/state';
 
 const tabs = [
   {
@@ -33,32 +35,37 @@ const handleClick = () => {};
 const handleChange = () => {};
 
 const Index = () => {
-  const [workspaceData, setWorkspaceData] = useState<WorkspaceData>();
+  const [workspaceData, setWorkspaceData] = useRecoilState(workspaceInfoState);
+  const { id, title, model_key, last_modified, timestamp, user_uuid } =
+    workspaceData;
+
   const [currentTab, setCurrentTab] = useState<string | null>('2');
-  const id = useLocation().pathname.split('/').at(-1);
+  const Id = useLocation().pathname.split('/').at(-1);
 
   useEffect(() => {
     async function getData() {
       try {
-        const res = await getWorkspace(id);
+        const res = await getWorkspace(Id);
         setWorkspaceData(res);
       } catch (err) {
         console.log(err);
       }
     }
     getData();
-  }, [id]);
+  }, [Id]);
+
+  const generateOutput = async () => {};
 
   const handleTabClick = (tabId: string) => {
     setCurrentTab(tabId);
   };
 
   return (
-    <div className="flex flex-col max-h-screen">
-      <div className="grid items-center h-full p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1 gap-4">
+    <div className="flex flex-col h-screen">
+      <div className="grid items-center p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1 gap-4">
         <div className="flex sm:justify-center md:justify-start items-center">
           <h1 className="sm:text-xl md:text-2xl font-poppins font-semibold pr-3">
-            {workspaceData?.title}
+            {title}
           </h1>
           <Button
             size={undefined}
@@ -84,7 +91,7 @@ const Index = () => {
           />
         </div>
       </div>
-      <div className="flex px-8 h-full py-2 border-b-4 border-gray50 items-center justify-between">
+      <div className="flex px-8 py-2 border-b-4 border-gray50 items-center justify-between">
         {/* Tab Switcher starts */}
         <Tabs tabs={tabs} currentTab={currentTab} onTabClick={handleTabClick} />
         {/* Tab Switcher ends */}
@@ -104,12 +111,13 @@ const Index = () => {
 
       {tabs.map((tab, i) => (
         <div
-          className="lg:flex lg:flex-row sm:grid md:grid-col-2 h-full sm:grid-col-1 px-4 !overflow-y-scroll"
+          className="lg:flex lg:flex-row sm:grid md:grid-col-2 sm:grid-col-1 px-4 !overflow-y-scroll"
           key={i}
         >
           {currentTab === tab.id && <>{tab.content}</>}
         </div>
       ))}
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };

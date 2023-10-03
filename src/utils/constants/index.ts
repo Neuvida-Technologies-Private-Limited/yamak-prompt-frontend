@@ -87,7 +87,7 @@ export enum Workspace {
   CharacterLimit = 'Your limit is 300 character',
   Marketing = 'Marketing Prompt Room',
   History = 'History',
-  Prompt = 'Marketing Prompt 1',
+  Prompt = 'Prompt Title',
   Date = '1 day ago',
   Time = '6.23 pm',
   SearchLibrary = 'Search Library',
@@ -216,14 +216,12 @@ export const WorkspaceCompletionInputs = [
     id: '1',
     label: 'System',
     placeholder: 'You are helpful assistance',
-    className: ' w-full',
   },
   {
     id: '2',
     label: 'User',
     placeholder:
       'Classify the following {{text 1}} into one of the following: Positive sentiment Negative sentiment Neutral sentiment Text: """ {{ text 2}} """',
-    className: ' w-full',
   },
 ];
 

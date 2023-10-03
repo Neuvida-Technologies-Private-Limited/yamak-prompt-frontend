@@ -20,20 +20,6 @@ const parameters: Types[] = [
     title: 'Max Length Info',
   },
   {
-    label: 'Stop Sequences',
-    input: (
-      <Input
-        id={''}
-        name={''}
-        placeholder={'0'}
-        onChange={handleChange}
-        className="!w-2/3"
-        variant={InputVariants.Filled}
-      />
-    ),
-    title: 'Sequences Info',
-  },
-  {
     label: 'Top P',
     input: <Slider onValueChange={sliderChange} />,
     title: 'Top Info',

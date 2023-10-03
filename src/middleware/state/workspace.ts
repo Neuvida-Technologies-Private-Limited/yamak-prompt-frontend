@@ -7,6 +7,17 @@ export const workspaceState = atom({
     workspace_details: [] as WorkspaceDetailsType[],
   },
 });
+export const workspaceInfoState = atom({
+  key: 'workspaceInfo-state',
+  default: {
+    id: '',
+    title: '',
+    model_key: '',
+    last_modified: '',
+    timestamp: '',
+    user_uuid: '',
+  },
+});
 
 export const createWorkspaceState = atom({
   key: 'createWorkspace-state',

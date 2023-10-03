@@ -10,7 +10,7 @@ const index = () => {
   return (
     <>
       {isDekstopView ? (
-        <div className="lg:w-1/3 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
+        <div className="lg:w-1/5 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
           <WorkspaceHistory />
         </div>
       ) : null}
