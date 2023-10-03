@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { FiCopy, FiHeart } from 'react-icons/fi';
 import { BiDislike } from 'react-icons/bi';
@@ -22,12 +22,15 @@ const LibraryCard: React.FC<CardItemProps> = ({
   user_message,
   uuid,
   onDeletePrompt,
+  onPromptInfo,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const addPromptHandler: React.MouseEventHandler = () => {
+  const promptInfoHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);
   };
+
+  useEffect(() => {}, []);
 
   const importPromptHandler = () => {};
 
@@ -37,7 +40,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
         <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between gap-4 items-center mb-4">
           <h2
             className="text-black font-bold text-md cursor-pointer transition hover:text-primary"
-            onClick={addPromptHandler}
+            onClick={promptInfoHandler}
           >
             {title}
           </h2>
@@ -113,7 +116,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
           />,
         ]}
       >
-        <ModalContent title={title} tags={tags} user_message={user_message} />
+        <ModalContent key={uuid} id={uuid} onPromptInfo={onPromptInfo} />
       </Modal>
     </>
   );

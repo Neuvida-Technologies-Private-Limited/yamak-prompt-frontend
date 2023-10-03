@@ -10,6 +10,29 @@ export type LibraryCardItem = {
   user_message: string;
   uuid: string;
   onDeletePrompt: (id: string) => {};
+  onPromptInfo: (id: string) => unknown;
+};
+
+export type LibraryGetPromptInfoModal = {
+  data: {
+    title: string;
+    system_message: string;
+    user_message: string;
+    sample_output: string;
+    favourite: boolean;
+    published: boolean;
+    is_public: boolean;
+    prompt_type: string;
+    workspace: string | null;
+    likes_dislikes_count: {
+      likes: number;
+      dislikes: number;
+    };
+    liked_by_user: boolean | null;
+    tags: string[];
+  };
+  error: string;
+  status_code: number;
 };
 
 export type Tab = {

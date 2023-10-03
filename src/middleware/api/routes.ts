@@ -20,4 +20,5 @@ export enum libraryRoutes {
   GET_PROMPTS = '/prompt/get-prompt-list-private/?page=1',
   CREATE_PROMPT = '/prompt/',
   DELETE_PROMPT = '/prompt/',
+  GET_PROMPT = '/prompt/',
 }

@@ -5,7 +5,8 @@ import { Pagination } from 'components/common';
 const CardsGrid: React.FC<{
   items: CardItem[];
   onDeletePrompt: (id: string) => {};
-}> = ({ items, onDeletePrompt }) => {
+  onPromptInfo: (id: string) => unknown;
+}> = ({ items, onDeletePrompt, onPromptInfo }) => {
   return items.length === 0 ? (
     <EmptyLibrary />
   ) : (
@@ -25,6 +26,7 @@ const CardsGrid: React.FC<{
             user_message={item.user_message}
             uuid={item.uuid}
             onDeletePrompt={onDeletePrompt}
+            onPromptInfo={onPromptInfo}
           />
         ))}
       </div>

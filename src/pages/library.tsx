@@ -13,6 +13,7 @@ import {
   createPrompt,
   deletePrompt,
   getAllPrompts,
+  getPromptInfo,
 } from 'middleware/api/library-api';
 import { ToastContainer, toast } from 'react-toastify';
 import { PromptModal } from 'middleware/api/types';
@@ -64,6 +65,14 @@ const Library = () => {
     }
   }
 
+  async function promptInfoHandler(id: string) {
+    try {
+      return await getPromptInfo(id);
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  }
+
   useEffect(() => {
     getPrompts();
   }, []);
@@ -90,6 +99,7 @@ const Library = () => {
       <LibraryCardsGrid
         items={filteredItems}
         onDeletePrompt={deletePromptHandler}
+        onPromptInfo={promptInfoHandler}
       />
       <ToastContainer />
     </div>
