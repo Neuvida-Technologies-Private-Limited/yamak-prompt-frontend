@@ -6,7 +6,7 @@ import { CreateWorkspaceModal } from './types';
 export const GetWorkspaces = async () => {
   try {
     const response = await axiosClientProtected.get(
-      workspaceRoutes.GET_WORKSPACE_ROUTE
+      workspaceRoutes.GET_WORKSPACES_ROUTE
     );
     return response.data;
   } catch (error: any) {
@@ -24,15 +24,22 @@ export const CreateWorkspace = async (model: CreateWorkspaceModal) => {
     return error;
   }
 };
-
 export const getWorkspace = async (id: string | undefined) => {
   try {
     const res = await axiosClientProtected.get(
-      `${workspaceRoutes.GET_WORKSPACE}/${id}/`
+      `${workspaceRoutes.GET_WORKSPACE_INFO_ROUTE}/${id}/`
     );
 
     return res.data;
   } catch (error: any) {
     return error;
   }
+};
+export const DeleteWorkspace = async (id: string) => {
+  await axiosClientProtected
+    .delete(`${workspaceRoutes.DELETE_WORKSPACE_ROUTE}${id}/`)
+    .then(response => {})
+    .catch((error: AxiosError) => {
+      return Promise.reject(error);
+    });
 };
