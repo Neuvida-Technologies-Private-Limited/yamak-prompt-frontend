@@ -17,7 +17,7 @@ const WorkspaceDashboard: React.FC = () => {
   const [state, setState] = useRecoilState(workspaceState);
   const [createState, setCreateState] = useRecoilState(createWorkspaceState);
   const { workspace_details } = state;
-  const { title, modal_key } = createState;
+  const { title, model_key } = createState;
 
   const getAllWorkspaces = async () => {
     try {
@@ -44,7 +44,7 @@ const WorkspaceDashboard: React.FC = () => {
   const createWorkspace = async () => {
     const createWorkspaceParams = {
       title,
-      modal_key,
+      model_key,
     };
 
     try {

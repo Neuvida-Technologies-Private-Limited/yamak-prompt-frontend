@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import axiosClientProtected from 'middleware/axios/axios-client/axios-client-protected';
 import { workspaceRoutes } from './routes';
-import { CreateWorkspaceModal } from './types';
+import { CreateWorkspaceModal, GenerateOutputModal } from './types';
 
 export const GetWorkspaces = async () => {
   try {
@@ -42,4 +42,15 @@ export const DeleteWorkspace = async (id: string) => {
     .catch((error: AxiosError) => {
       return Promise.reject(error);
     });
+};
+export const GenerateOutput = async (modal: GenerateOutputModal) => {
+  try {
+    const response = await axiosClientProtected.post(
+      workspaceRoutes.GENERATE_OUTPUT_ROUTE,
+      modal
+    );
+    return response.data;
+  } catch (error: any) {
+    return error;
+  }
 };

@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { REFRESH_ACCESS_TOKEN } from 'middleware/api';
-import { GetStorage } from 'middleware/cache';
+import { GetStorage, SetStorage } from 'middleware/cache';
 import { TOKENS } from 'utils/constants';
 
 // Axios client for protected APIs
@@ -37,8 +37,10 @@ axiosClientProtected.interceptors.response.use(
   },
   async function (error) {
     const originalRequest = error.config;
-    if (error.response.status_code === 401) {
-      const access_token = await REFRESH_ACCESS_TOKEN();
+    if (error.response.status === 401) {
+      SetStorage(TOKENS.ACCESS_TOKEN, '');
+      await REFRESH_ACCESS_TOKEN();
+      const access_token = GetStorage(TOKENS.ACCESS_TOKEN);
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
       return axiosClientProtected(originalRequest);
     }

@@ -59,10 +59,10 @@ export const IsCreateKeyFormValidated = (
 };
 export const IsCreateWorkspaceFormValidated = (
   title: string,
-  modal_key: string
+  model_key: string
 ) => {
   if (
-    isKeyDescriptionValidated(modal_key) === '' &&
+    isKeyDescriptionValidated(model_key) === '' &&
     isKeyTitleValidated(title) === ''
   ) {
     return true;
@@ -77,8 +77,8 @@ export const isWorkspaceTitleValidated = (title: string) => {
     return '';
   }
 };
-export const isWorkspaceModalKeyValidated = (modal_key: string) => {
-  if (modal_key === '') {
+export const isWorkspaceModalKeyValidated = (model_key: string) => {
+  if (model_key === '') {
     return 'Model key is required!';
   } else {
     return '';

@@ -34,7 +34,7 @@ const handleChange = () => {};
 
 const Index = () => {
   const [workspaceData, setWorkspaceData] = useState<WorkspaceData>();
-  const [currentTab, setCurrentTab] = useState<string | null>('1');
+  const [currentTab, setCurrentTab] = useState<string | null>('2');
   const id = useLocation().pathname.split('/').at(-1);
 
   useEffect(() => {
