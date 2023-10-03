@@ -16,7 +16,8 @@ import { BsHddStack } from 'react-icons/bs';
 //components
 import Button from '../button';
 //constants
-import { Paths, SidebarConst } from 'utils/constants';
+import { Paths, SidebarConst, TOKENS } from 'utils/constants';
+import { SetStorage } from 'middleware/cache';
 
 interface LinkItem {
   label: React.ReactNode;
@@ -60,13 +61,18 @@ const items: LinkItem[] = [
     icon: <MdOutlineSubject />,
   },
   { key: Paths.Profile, label: SidebarConst.Profile, icon: <AiOutlineUser /> },
-  { key: '/', label: SidebarConst.Logout, icon: <FiLogOut /> },
 ];
 
 const App: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const handleLogout = () => {
+    // Remove the access token from local storage
+    SetStorage(TOKENS.ACCESS_TOKEN, '');
+    SetStorage(TOKENS.REFRESH_TOKEN, '');
+    navigate('/');
+  };
 
   const showDrawer = () => {
     setOpen(true);
@@ -115,6 +121,9 @@ const App: React.FC = () => {
               {item.label}
             </Menu.Item>
           ))}
+          <Menu.Item key="/" icon={<FiLogOut />} onClick={handleLogout}>
+            {SidebarConst.Logout}
+          </Menu.Item>
         </Menu>
       </Drawer>
     </>

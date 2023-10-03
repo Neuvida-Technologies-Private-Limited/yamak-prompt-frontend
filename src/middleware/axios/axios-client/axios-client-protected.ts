@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import { REFRESH_ACCESS_TOKEN } from 'middleware/api';
 import { GetStorage } from 'middleware/cache';
 import { TOKENS } from 'utils/constants';
 
@@ -29,14 +30,18 @@ axiosClientProtected.interceptors.request.use(
   }
 );
 
-// Add a response interceptor
+// Response interceptor for API calls
 axiosClientProtected.interceptors.response.use(
-  function (response: AxiosResponse) {
-    // Do something with the response data
+  response => {
     return response.data;
   },
-  function (error: AxiosError) {
-    // Do something with the response error
+  async function (error) {
+    const originalRequest = error.config;
+    if (error.response.status_code === 401) {
+      const access_token = await REFRESH_ACCESS_TOKEN();
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
+      return axiosClientProtected(originalRequest);
+    }
     return Promise.reject(error.response?.data);
   }
 );

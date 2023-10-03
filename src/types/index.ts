@@ -65,3 +65,11 @@ export type KeyDetailsType = {
   api_key: string;
   provider: string;
 };
+export type WorkspaceDetailsType = {
+  id: string;
+  title: string;
+  last_modified: string;
+  timestamp: string;
+  model_key: string;
+  user_uuid: string;
+};

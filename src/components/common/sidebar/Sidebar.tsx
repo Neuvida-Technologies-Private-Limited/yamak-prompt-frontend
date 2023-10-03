@@ -13,7 +13,8 @@ import { BsHddStack } from 'react-icons/bs';
 import { AiOutlineUser } from 'react-icons/ai';
 import { Layout, Menu } from 'antd';
 //constants
-import { Paths, SidebarConst } from 'utils/constants';
+import { Paths, SidebarConst, TOKENS } from 'utils/constants';
+import { SetStorage } from 'middleware/cache';
 
 interface LinkItem {
   label: React.ReactNode;
@@ -51,11 +52,6 @@ const items: LinkItem[] = [
     disabled: true,
   },
   {
-    key: Paths.Help,
-    label: SidebarConst.Help,
-    icon: <FiHeadphones />,
-  },
-  {
     key: Paths.Feedback,
     label: SidebarConst.Feedback,
     icon: <MdOutlineSubject />,
@@ -65,7 +61,6 @@ const items: LinkItem[] = [
     label: SidebarConst.Profile,
     icon: <AiOutlineUser />,
   },
-  { key: '/', label: SidebarConst.Logout, icon: <FiLogOut /> },
 ];
 
 const { Sider } = Layout;
@@ -74,6 +69,13 @@ const Index: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
+
+  const handleLogout = () => {
+    // Remove the access token from local storage
+    SetStorage(TOKENS.ACCESS_TOKEN, '');
+    SetStorage(TOKENS.REFRESH_TOKEN, '');
+    navigate('/');
+  };
 
   return (
     <Sider
@@ -123,11 +125,14 @@ const Index: React.FC = () => {
         >
           {SidebarConst.Support}
         </span>
-        {items.slice(5, 9).map(item => (
+        {items.slice(5, 8).map(item => (
           <Menu.Item key={item.key} icon={item.icon} disabled={item.disabled}>
             {item.label}
           </Menu.Item>
         ))}
+        <Menu.Item key="/" icon={<FiLogOut />} onClick={handleLogout}>
+          {SidebarConst.Logout}
+        </Menu.Item>
       </Menu>
     </Sider>
   );

@@ -1,17 +1,19 @@
 import { atom } from 'recoil';
-
-const DataType = [
-  { id: '' },
-  { title: '' },
-  { last_modified: '' },
-  { timestamp: '' },
-  { model_key: '' },
-  { user_uuid: '' },
-];
+import { WorkspaceDetailsType } from 'types';
 
 export const workspaceState = atom({
   key: 'workspace-state',
   default: {
-    workspace_details: DataType,
+    workspace_details: [] as WorkspaceDetailsType[],
+  },
+});
+
+export const createWorkspaceState = atom({
+  key: 'createWorkspace-state',
+  default: {
+    title: '',
+    titleError: '',
+    modal_key: '',
+    modal_keyError: '',
   },
 });

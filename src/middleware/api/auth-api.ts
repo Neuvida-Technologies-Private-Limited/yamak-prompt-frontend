@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import axiosClient from 'middleware/axios/axios-client/axios-client-public';
 import { LoginModel } from './types';
 import { authRoutes } from './routes';
-import { SetStorage } from 'middleware/cache';
+import { GetStorage, SetStorage } from 'middleware/cache';
 import { TOKENS } from 'utils/constants';
 
 //CSRF Token
@@ -15,6 +15,22 @@ export const CSRF_TOKEN = async () => {
 
       // set token in local storage
       SetStorage(TOKENS.CSRF_TOKEN, csrf_token);
+    })
+    .catch((error: AxiosError) => {
+      return Promise.reject(error);
+    });
+};
+
+//Refresh Token
+export const REFRESH_ACCESS_TOKEN = async () => {
+  const refresh_token = GetStorage(TOKENS.REFRESH_TOKEN);
+  await axiosClient
+    .post(authRoutes.REFRESH_ACCESS_TOKEN_ROUTE, refresh_token)
+    .then(response => {
+      const access_token = response.data.access_token;
+
+      SetStorage(TOKENS.ACCESS_TOKEN, access_token);
+      return access_token;
     })
     .catch((error: AxiosError) => {
       return Promise.reject(error);

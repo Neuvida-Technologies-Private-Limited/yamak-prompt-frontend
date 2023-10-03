@@ -2,6 +2,9 @@ export type LoginModel = {
   username: string;
   password: string;
 };
+export type RefreshModal = {
+  refresh: string;
+};
 export type CreateKeyModal = {
   title: string;
   api_key: string;
@@ -19,4 +22,8 @@ export type PromptModal = {
   is_public: boolean;
   system_message: string;
   sample_output: string;
+};
+export type CreateWorkspaceModal = {
+  title: string;
+  modal_key: string;
 };
