@@ -12,7 +12,8 @@ export enum keyManagementRoutes {
 }
 
 export enum workspaceRoutes {
-  GET_WORKSPACES_ROUTE = '/workspace/get-all-workspaces/',
+  GET_WORKSPACE_ROUTE = '/workspace/get-all-workspaces/',
+  CREATE_WORKSPACE_ROUTE = '/workspace/create-workspace/',
   GET_WORKSPACE = '/workspace/get-workspace-info',
 }
 

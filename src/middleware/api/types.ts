@@ -12,3 +12,7 @@ export type TestConnectionModal = {
   api_key: string;
   provider: string;
 };
+export type CreateWorkspaceModal = {
+  title: string;
+  modal_key: string;
+};
