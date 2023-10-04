@@ -160,6 +160,29 @@
   font-family: 'Poppins';
 }
 
+/* Pagination */
+ul[aria-label='Pagination'] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+ul[aria-label='Pagination'] .previous.disabled,
+ul[aria-label='Pagination'] .next.disabled {
+  color: gray;
+}
+
+ul[aria-label='Pagination'] li {
+  padding: 0.4rem 0.9rem;
+}
+
+ul[aria-label='Pagination'] li.selected {
+  background-color: var(--primary-color);
+  color: var(--white);
+  transition: all background-color 0.1s;
+}
+
 /* Material UI COMPONENTS CSS */
 
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {

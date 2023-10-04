@@ -56,6 +56,6 @@ export const updatePromptInfo = async (update: any, id: string) => {
       update
     );
   } catch (err: any) {
-    throw new Error(err);
+    return Promise.reject(err);
   }
 };

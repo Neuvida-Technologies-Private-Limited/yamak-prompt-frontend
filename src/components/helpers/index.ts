@@ -5,6 +5,7 @@ export { default as LibraryHeader } from './library/header';
 export { default as HeadingArea } from './library/header/HeadingArea';
 export { default as TabsArea } from './library/header/TabsArea';
 export { default as SearchArea } from './library/header/SearchArea';
+export { default as PaginatedItems } from './library/cardGrid/PaginatedItems';
 export { default as WorkspaceCard } from './workspace/card';
 export { default as CreateWorkspaceModal } from './workspace/createWorkspace';
 export { default as WorkspaceChatInputs } from './workspace/inputs/ChatInputs';

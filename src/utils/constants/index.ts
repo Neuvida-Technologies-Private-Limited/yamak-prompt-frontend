@@ -240,8 +240,6 @@ export const KeyManagementSelectOptions = [
   { value: 'Bard', label: 'Bard' },
 ];
 
-export const LibraryCardItems: CardItem[] = [];
-
 export const KeyDetails = [
   {
     id: '1',
@@ -260,3 +258,7 @@ export const KeyDetails = [
     provider: 'Bard',
   },
 ];
+
+export const Pagination = {
+  itemsPerPage: 4,
+};

@@ -1,19 +1,13 @@
 import { Pagination } from 'antd';
 
-interface PaginationProps {
-  defaultCurrentPage: number;
-  totalItems: number;
-}
+interface PaginationProps {}
 
-const index: React.FC<PaginationProps> = ({
-  defaultCurrentPage,
-  totalItems,
-}) => {
+const Index: React.FC<PaginationProps> = ({}) => {
   return (
     <div className="self-center py-4">
-      <Pagination defaultCurrent={defaultCurrentPage} total={totalItems} />
+      <Pagination />
     </div>
   );
 };
 
-export default index;
+export default Index;

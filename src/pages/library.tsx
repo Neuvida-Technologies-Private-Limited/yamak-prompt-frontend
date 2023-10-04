@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
+
+import { ToastContainer, toast } from 'react-toastify';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
+
 import {
-  LibraryCardsGrid,
   LibraryHeader,
   HeadingArea,
   TabsArea,
   SearchArea,
+  PaginatedItems,
 } from 'components/helpers';
 import { Tabs } from 'components/common';
 import { LibraryCardItem as CardItem } from 'types';
@@ -16,8 +19,8 @@ import {
   getPromptInfo,
   updatePromptInfo,
 } from 'middleware/api/library-api';
-import { ToastContainer, toast } from 'react-toastify';
 import { PromptModal } from 'middleware/api/types';
+import { Pagination } from 'utils/constants';
 
 const tabs = [
   {
@@ -103,7 +106,7 @@ const Library = () => {
   }, [activeTab, items]);
 
   return (
-    <div className="library font-poppins h-screen">
+    <div className="library font-poppins h-full">
       <LibraryHeader>
         <HeadingArea onAddPrompt={addPromptHandler} />
         <TabsArea>
@@ -115,8 +118,9 @@ const Library = () => {
         </TabsArea>
         <SearchArea onSearchPrompt={searchPromptHandler} />
       </LibraryHeader>
-      <LibraryCardsGrid
+      <PaginatedItems
         items={filteredItems}
+        itemsPerPage={Pagination.itemsPerPage}
         onDeletePrompt={deletePromptHandler}
         onPromptInfo={promptInfoHandler}
         onUpdatePrompt={updatePromptHandler}
