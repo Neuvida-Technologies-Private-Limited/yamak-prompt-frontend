@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
 import {
   LibraryCardsGrid,
@@ -73,6 +73,15 @@ const Library = () => {
     }
   }
 
+  const searchPromptHandler = useCallback(async function (
+    input: string,
+    res: any
+  ) {
+    const { results } = res.data;
+    setItems(results);
+    if (input === '') await getPrompts();
+  }, []);
+
   useEffect(() => {
     getPrompts();
   }, []);
@@ -84,7 +93,7 @@ const Library = () => {
   }, [activeTab, items]);
 
   return (
-    <div className="library font-poppins h-screen overflow-y-scroll">
+    <div className="library font-poppins h-screen">
       <LibraryHeader>
         <HeadingArea onAddPrompt={addPromptHandler} />
         <TabsArea>
@@ -94,7 +103,7 @@ const Library = () => {
             onTabClick={handleTabClick}
           />
         </TabsArea>
-        <SearchArea />
+        <SearchArea onSearchPrompt={searchPromptHandler} />
       </LibraryHeader>
       <LibraryCardsGrid
         items={filteredItems}

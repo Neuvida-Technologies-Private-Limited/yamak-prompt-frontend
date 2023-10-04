@@ -34,3 +34,17 @@ export const getPromptInfo = async (id: string) => {
     return Promise.reject(err);
   }
 };
+
+export const getSearchPromptInfo = async (
+  input: string,
+  controller?: AbortController
+) => {
+  try {
+    return await axiosClientProtected.get(
+      `${libraryRoutes.SEARCH_PROMPT}${input}`,
+      { signal: controller?.signal }
+    );
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};

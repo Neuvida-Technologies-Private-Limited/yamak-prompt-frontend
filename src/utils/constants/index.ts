@@ -143,7 +143,7 @@ export enum Library {
   SelectTagPlaceholder = 'Select Tag',
   TagsTitle = 'add-tags',
   TagsPlaceholder = 'Enter tags (comma seperated)',
-  SearchLibrary = 'Search Library',
+  SearchLibrary = 'Search prompts...',
   CardHeading = 'Human Written | 100% Unique | SEO Optimized Article',
   CardSubHeading = 'SEO/Writing',
   CardButtonName = 'Import Prompt',
