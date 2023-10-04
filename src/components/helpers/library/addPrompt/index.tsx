@@ -39,6 +39,7 @@ const AddNewPrompt: React.FC<{ onAddPrompt?: (prompt: PromptModal) => {} }> = ({
       user_message: userMessage,
       system_message: systemMessage,
       is_public: false,
+      liked_by_user: false,
       sample_output: promptOutput,
       tags,
     };

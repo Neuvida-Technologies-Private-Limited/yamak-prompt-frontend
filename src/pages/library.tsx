@@ -85,7 +85,7 @@ const Library = () => {
 
   const updatePromptHandler = async function (update: any, id: string) {
     try {
-      const res = await updatePromptInfo(update, id);
+      await updatePromptInfo(update, id);
       await getPrompts();
     } catch (err: any) {
       toast.error(err.message);

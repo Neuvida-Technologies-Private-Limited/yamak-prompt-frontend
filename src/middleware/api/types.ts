@@ -20,6 +20,7 @@ export type PromptModal = {
   user_message: string;
   tags: string;
   is_public: boolean;
+  liked_by_user: boolean;
   system_message: string;
   sample_output: string;
 };
