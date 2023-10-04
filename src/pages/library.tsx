@@ -87,7 +87,6 @@ const Library = () => {
     try {
       const res = await updatePromptInfo(update, id);
       await getPrompts();
-      console.log(res);
     } catch (err: any) {
       toast.error(err.message);
     }

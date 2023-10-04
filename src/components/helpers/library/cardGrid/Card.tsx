@@ -35,6 +35,11 @@ const LibraryCard: React.FC<CardItemProps> = ({
 
   function importPromptHandler() {}
 
+  function copyPromptHandler() {
+    navigator.clipboard.writeText(user_message);
+    message.success(Card.Copied);
+  }
+
   function favoriteHandler() {
     setIsFavourite(prev => !prev);
     const updateObj = {
@@ -93,7 +98,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
             size="small"
             name={Card.ButtonCopyPrompt}
             icon={<FiCopy />}
-            onClick={() => {}}
+            onClick={copyPromptHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
