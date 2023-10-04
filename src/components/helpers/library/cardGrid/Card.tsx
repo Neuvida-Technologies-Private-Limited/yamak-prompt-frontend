@@ -27,7 +27,9 @@ const LibraryCard: React.FC<CardItemProps> = ({
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isFavourite, setIsFavourite] = useState(false);
-  const [isLiked, setisLiked] = useState(liked_by_user);
+  const [isLiked, setisLiked] = useState(liked_by_user === null);
+
+  console.log(liked_by_user, isLiked);
 
   const promptInfoHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);
@@ -59,6 +61,13 @@ const LibraryCard: React.FC<CardItemProps> = ({
     };
     onUpdatePrompt(JSON.stringify(updateObj), uuid);
     message.success(Card.Success);
+  }
+
+  function deleteHandler() {
+    if (window.confirm('Are you sure?')) {
+      onDeletePrompt(uuid);
+      message.success('Prompt deleted');
+    }
   }
 
   return (
@@ -119,11 +128,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
             size="small"
             name={Card.ButtonDelete}
             icon={<BsTrash />}
-            onClick={() => {
-              window.confirm('Are you sure?') &&
-                onDeletePrompt(uuid) &&
-                message.success('Prompt deleted');
-            }}
+            onClick={deleteHandler}
           />
         </div>
       </div>

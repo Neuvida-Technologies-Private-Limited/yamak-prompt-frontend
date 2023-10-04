@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { ToastContainer, toast } from 'react-toastify';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
+import { useRecoilState } from 'recoil';
 
 import {
   LibraryHeader,
@@ -11,7 +12,6 @@ import {
   PaginatedItems,
 } from 'components/helpers';
 import { Tabs } from 'components/common';
-import { LibraryCardItem as CardItem } from 'types';
 import {
   createPrompt,
   deletePrompt,
@@ -19,8 +19,9 @@ import {
   getPromptInfo,
   updatePromptInfo,
 } from 'middleware/api/library-api';
-import { PromptModal } from 'middleware/api/types';
 import { Pagination } from 'utils/constants';
+import { libraryState } from 'middleware/state/library';
+import { message } from 'antd';
 
 const tabs = [
   {
@@ -36,36 +37,40 @@ const tabs = [
 ];
 
 const Library = () => {
-  const [items, setItems] = useState<CardItem[]>([]);
-  const [filteredItems, setFilteredItems] = useState<CardItem[]>([]);
-  const [activeTab, setActiveTab] = useState('1');
+  const [state, setState] = useRecoilState(libraryState);
+  const { items, filteredItems, activeTab } = state;
 
   function handleTabClick(tabId: string) {
-    setActiveTab(tabId);
+    setState(old => ({ ...old, activeTab: tabId }));
   }
 
-  async function getPrompts() {
-    try {
-      const res = await getAllPrompts();
-      setItems(res.data.results);
-    } catch (err) {}
-  }
+  const getPrompts = useCallback(
+    async function () {
+      try {
+        const res = await getAllPrompts();
+        setState(old => ({ ...old, items: res.data.results }));
+      } catch (err) {}
+    },
+    [setState]
+  );
 
-  async function addPromptHandler(prompt: PromptModal) {
+  async function addPromptHandler(prompt: string) {
     try {
-      await createPrompt(prompt);
+      const res = await createPrompt(prompt);
       getPrompts();
+      return res;
     } catch (err: any) {
-      toast.error(err.message);
+      message.error(err.message);
     }
   }
 
   async function deletePromptHandler(id: string) {
     try {
-      await deletePrompt(id);
+      const res = await deletePrompt(id);
       getPrompts();
+      return res;
     } catch (err: any) {
-      toast.error(err.message);
+      message.error(err.message);
     }
   }
 
@@ -73,23 +78,24 @@ const Library = () => {
     try {
       return await getPromptInfo(id);
     } catch (err: any) {
-      toast.error(err.message);
+      message.error(err.message);
     }
   }
 
-  const searchPromptHandler = useCallback(async function (
-    input: string,
-    res: any
-  ) {
-    const { results } = res.data;
-    setItems(results);
-    if (input === '') await getPrompts();
-  }, []);
+  const searchPromptHandler = useCallback(
+    async function (input: string, res: any) {
+      const { results } = res.data;
+      setState(old => ({ ...old, items: results }));
+      if (input === '') await getPrompts();
+    },
+    [getPrompts, setState]
+  );
 
   const updatePromptHandler = async function (update: any, id: string) {
     try {
-      await updatePromptInfo(update, id);
+      const res = await updatePromptInfo(update, id);
       await getPrompts();
+      return res;
     } catch (err: any) {
       toast.error(err.message);
     }
@@ -97,13 +103,16 @@ const Library = () => {
 
   useEffect(() => {
     getPrompts();
-  }, []);
+  }, [getPrompts]);
 
   useEffect(() => {
-    if (activeTab === '1') return setFilteredItems(items);
-    const data = items.filter(item => item.bookmarked);
-    setFilteredItems(data);
-  }, [activeTab, items]);
+    if (activeTab === '2') {
+      const data = items.filter(item => item.bookmarked);
+      setState(old => ({ ...old, filteredItems: data }));
+      return;
+    }
+    setState(old => ({ ...old, items }));
+  }, [activeTab, items, setState]);
 
   return (
     <div className="library font-poppins h-full">
@@ -119,7 +128,7 @@ const Library = () => {
         <SearchArea onSearchPrompt={searchPromptHandler} />
       </LibraryHeader>
       <PaginatedItems
-        items={filteredItems}
+        items={activeTab === '1' ? items : filteredItems}
         itemsPerPage={Pagination.itemsPerPage}
         onAddPrompt={addPromptHandler}
         onDeletePrompt={deletePromptHandler}

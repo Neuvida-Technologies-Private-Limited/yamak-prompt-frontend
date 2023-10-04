@@ -3,9 +3,9 @@ import AddNewPrompt from '../addPrompt';
 import { Library } from 'utils/constants';
 import { PromptModal } from 'middleware/api/types';
 
-const EmptyLibrary: React.FC<{ onAddPrompt: (prompt: PromptModal) => {} }> = ({
-  onAddPrompt,
-}) => {
+const EmptyLibrary: React.FC<{
+  onAddPrompt: (prompt: string) => Promise<any>;
+}> = ({ onAddPrompt }) => {
   return (
     <div className="w-full flex flex-col items-center gap-4 py-20">
       <img src="/assets/images/library.svg" alt="No prompt found" />

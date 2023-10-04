@@ -1,53 +1,54 @@
 import { useState } from 'react';
 import { Button, Input, Modal, TextArea } from 'components/common';
 import { Library, InputVariants, ButtonVariants } from 'utils/constants';
-import { toast } from 'react-toastify';
-import { PromptModal } from 'middleware/api/types';
+import { message } from 'antd';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { promptModalState } from 'middleware/state/library';
 
-const AddNewPrompt: React.FC<{ onAddPrompt?: (prompt: PromptModal) => {} }> = ({
-  onAddPrompt,
-}) => {
+const AddNewPrompt: React.FC<{
+  onAddPrompt?: (prompt: string) => Promise<any>;
+}> = ({ onAddPrompt }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [title, setTitle] = useState('');
-  const [userMessage, setUserMessage] = useState('');
-  const [systemMessage, setSystemMessage] = useState('');
-  const [promptOutput, setPromptOutput] = useState('');
-  const [tags, setTags] = useState('');
+  const [state, setState] = useRecoilState(promptModalState);
+  const resetState = useResetRecoilState(promptModalState);
+  const { title, userMessage, systemMessage, promptOutput, tags } = state;
 
   const addPromptHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);
   };
 
-  function reset() {
-    setTitle('');
-    setUserMessage('');
-    setSystemMessage('');
-    setPromptOutput('');
-    setTags('');
-  }
+  const handleInputChange = (fieldName: string, value: string) => {
+    setState(old => ({
+      ...old,
+      [fieldName]: value,
+    }));
+  };
 
-  function submitHandler(event: React.FormEvent) {
+  async function submitHandler(event: React.FormEvent) {
     event.preventDefault();
 
     if (!title || !userMessage || !systemMessage || !promptOutput || !tags) {
-      toast.error('Fields cannot be empty');
-      return console.log('Fields cannot be empty');
+      message.error('Fields cannot be empty');
+      return;
     }
 
-    const prompt: PromptModal = {
+    const prompt = {
       title,
       user_message: userMessage,
       system_message: systemMessage,
       is_public: false,
-      liked_by_user: false,
+      liked_by_user: true,
       sample_output: promptOutput,
       tags,
     };
 
-    onAddPrompt?.(prompt);
-    toast.success('Prompt created successfully');
+    const res = await onAddPrompt?.(JSON.stringify(prompt));
+
+    if (res.status_code !== 201) return message.error(res.error);
+
+    message.success(res.data);
     setShowModal(false);
-    reset();
+    resetState();
   }
 
   return (
@@ -63,7 +64,10 @@ const AddNewPrompt: React.FC<{ onAddPrompt?: (prompt: PromptModal) => {} }> = ({
         centered={true}
         isOpen={showModal}
         sumbitHandler={submitHandler}
-        cancelModalHandler={() => setShowModal(false)}
+        cancelModalHandler={() => {
+          setShowModal(false);
+          resetState();
+        }}
         okText={Library.OkText}
         className="library"
       >
@@ -76,7 +80,9 @@ const AddNewPrompt: React.FC<{ onAddPrompt?: (prompt: PromptModal) => {} }> = ({
                 name={Library.NewPromptTitle}
                 placeholder={Library.TitlePlaceholder}
                 value={title}
-                onChange={setTitle}
+                onChange={value =>
+                  handleInputChange(Library.NewPromptTitle, value)
+                }
                 variant={InputVariants.Filled}
               />
               <Input
@@ -84,7 +90,9 @@ const AddNewPrompt: React.FC<{ onAddPrompt?: (prompt: PromptModal) => {} }> = ({
                 name={Library.UserMessageTitle}
                 placeholder={Library.UserMessagePlaceholder}
                 value={userMessage}
-                onChange={setUserMessage}
+                onChange={value =>
+                  handleInputChange(Library.UserMessageTitle, value)
+                }
                 variant={InputVariants.Filled}
               />
               <Input
@@ -92,7 +100,9 @@ const AddNewPrompt: React.FC<{ onAddPrompt?: (prompt: PromptModal) => {} }> = ({
                 name={Library.SystemMessageTitle}
                 placeholder={Library.SystemMessagePlaceholder}
                 value={systemMessage}
-                onChange={setSystemMessage}
+                onChange={value =>
+                  handleInputChange(Library.SystemMessageTitle, value)
+                }
                 variant={InputVariants.Filled}
               />
               <TextArea
@@ -101,7 +111,9 @@ const AddNewPrompt: React.FC<{ onAddPrompt?: (prompt: PromptModal) => {} }> = ({
                 name={Library.WritePromptTitle}
                 placeholder={Library.WritePromptPlaceholder}
                 value={promptOutput}
-                onChange={e => setPromptOutput(e.target.value)}
+                onChange={value =>
+                  handleInputChange(Library.WritePromptTitle, value)
+                }
                 className="p-3 w-full bg-gray50 mb-4"
               />
               <Input
@@ -109,7 +121,7 @@ const AddNewPrompt: React.FC<{ onAddPrompt?: (prompt: PromptModal) => {} }> = ({
                 name={Library.TagsTitle}
                 placeholder={Library.TagsPlaceholder}
                 value={tags}
-                onChange={setTags}
+                onChange={value => handleInputChange(Library.TagsTitle, value)}
                 variant={InputVariants.Filled}
               />
             </div>

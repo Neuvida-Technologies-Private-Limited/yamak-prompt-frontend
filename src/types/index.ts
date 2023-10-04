@@ -10,7 +10,7 @@ export type LibraryCardItem = {
   user_message: string;
   uuid: string;
   onDeletePrompt: (id: string) => {};
-  onPromptInfo: (id: string) => unknown;
+  onPromptInfo: (id: string) => Promise<any>;
   onUpdatePrompt: (update: any, id: string) => void;
 };
 

@@ -1,7 +1,7 @@
+import { message } from 'antd';
 import { Input } from 'components/common';
 import { getSearchPromptInfo } from 'middleware/api';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { Library, InputVariants } from 'utils/constants';
 
 const SearchArea: React.FC<{
@@ -15,7 +15,7 @@ const SearchArea: React.FC<{
         const res = await getSearchPromptInfo(input);
         onSearchPrompt(input, res);
       } catch (err: any) {
-        toast.error(err.message);
+        message.error(err.message);
       }
     }
     getData();

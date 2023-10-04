@@ -10,7 +10,7 @@ interface TextAreaProps {
   placeholder: string;
   maxLength?: number;
   className?: string;
-  onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
+  onChange: (value: string) => void;
   disabled?: boolean;
   value?: string;
 }
@@ -26,6 +26,10 @@ const index: React.FC<TextAreaProps> = ({
   disabled,
   value,
 }) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onChange(event.target.value);
+  };
+
   return (
     <TextArea
       id={id}
@@ -35,7 +39,7 @@ const index: React.FC<TextAreaProps> = ({
       placeholder={placeholder}
       maxLength={maxLength}
       className={`border-0 !focus:outline-none !resize-none ${className}`}
-      onChange={onChange}
+      onChange={handleChange}
       disabled={disabled}
     />
   );

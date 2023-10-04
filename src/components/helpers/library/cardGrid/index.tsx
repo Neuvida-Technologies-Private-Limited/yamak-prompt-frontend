@@ -1,12 +1,11 @@
 import { LibraryCardItem as CardItem } from 'types';
 import { EmptyLibrary, LibraryCard } from 'components/helpers';
-import { PromptModal } from 'middleware/api/types';
 
 interface CardsGridProps {
   items: CardItem[];
-  onAddPrompt: (prompt: PromptModal) => {};
+  onAddPrompt: (prompt: string) => Promise<any>;
   onDeletePrompt: (id: string) => {};
-  onPromptInfo: (id: string) => unknown;
+  onPromptInfo: (id: string) => Promise<any>;
   onUpdatePrompt: (update: any, id: string) => void;
 }
 
