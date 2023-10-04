@@ -12,6 +12,7 @@ import { message } from 'antd';
 
 const LibraryCard: React.FC<CardItemProps> = ({
   title,
+  favourite,
   bookmarked,
   is_public,
   liked_by_user,
@@ -26,10 +27,8 @@ const LibraryCard: React.FC<CardItemProps> = ({
   onUpdatePrompt,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [isFavourite, setIsFavourite] = useState(false);
+  const [isFavourite, setIsFavourite] = useState(favourite);
   const [isLiked, setisLiked] = useState(liked_by_user === null);
-
-  console.log(liked_by_user, isLiked);
 
   const promptInfoHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);

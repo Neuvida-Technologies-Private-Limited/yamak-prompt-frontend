@@ -49,7 +49,9 @@ const Library = () => {
       try {
         const res = await getAllPrompts();
         setState(old => ({ ...old, items: res.data.results }));
-      } catch (err) {}
+      } catch (err: any) {
+        message.error(err.message);
+      }
     },
     [setState]
   );
@@ -107,7 +109,7 @@ const Library = () => {
 
   useEffect(() => {
     if (activeTab === '2') {
-      const data = items.filter(item => item.bookmarked);
+      const data = items.filter(item => item.favourite);
       setState(old => ({ ...old, filteredItems: data }));
       return;
     }

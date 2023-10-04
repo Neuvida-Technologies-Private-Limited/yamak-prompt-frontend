@@ -25,6 +25,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
           <LibraryCard
             key={`library-card-item-${index}`}
             title={item.title}
+            favourite={item.favourite}
             bookmarked={item.bookmarked}
             is_public={item.is_public}
             liked_by_user={item.liked_by_user}

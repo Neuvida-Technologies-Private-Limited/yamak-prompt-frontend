@@ -1,5 +1,6 @@
 export type LibraryCardItem = {
   title: string;
+  favourite: boolean;
   bookmarked: boolean;
   is_public: boolean;
   liked_by_user: boolean | null;
