@@ -7,12 +7,14 @@ interface LabelProps {
   initialLabels?: LabelType[] | undefined;
   noLabelsMessage?: string;
   className?: string;
+  onChange?: (labels: string[]) => void;
 }
 
 const Label: React.FC<LabelProps> = ({
   initialLabels = [],
   noLabelsMessage = LabelConst.NO_LABELS_MESSAGE,
   className,
+  onChange,
 }) => {
   const [labels, setLabels] = useState(initialLabels);
   const [showInput, setShowInput] = useState(false);
@@ -20,9 +22,15 @@ const Label: React.FC<LabelProps> = ({
 
   function submitHandler(event: React.FormEvent) {
     event.preventDefault();
-    setLabels(prev => [...prev, { id: crypto.randomUUID(), text }]);
+    const newLabel = { id: crypto.randomUUID(), text };
+    setLabels(prev => [...prev, newLabel]);
     setText('');
     setShowInput(false);
+
+    if (onChange) {
+      const newTexts = labels.map(label => label.text);
+      onChange([...newTexts, newLabel.text]);
+    }
   }
 
   return (

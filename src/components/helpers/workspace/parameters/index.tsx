@@ -73,27 +73,39 @@ const Parameters: React.FC = () => {
   const parametersInputs: Types[] = [
     {
       label: 'Temperature',
-      input: <Slider onValueChange={temperatureSliderChange} />,
+      input: (
+        <Slider onValueChange={temperatureSliderChange} min={0} max={100} />
+      ),
       title: 'Temperature Info',
     },
     {
       label: 'Maximum Tokens',
-      input: <Slider onValueChange={max_tokensSliderChange} />,
+      input: (
+        <Slider onValueChange={max_tokensSliderChange} min={0} max={500} />
+      ),
       title: 'Max Tokens Info * 10',
     },
     {
       label: 'Top P',
-      input: <Slider onValueChange={topPSliderChange} />,
+      input: <Slider onValueChange={topPSliderChange} min={0} max={100} />,
       title: 'Top Info',
     },
     {
       label: 'Frequency Penalty',
-      input: <Slider onValueChange={frequencyPenaltySliderChange} />,
+      input: (
+        <Slider
+          onValueChange={frequencyPenaltySliderChange}
+          min={0}
+          max={100}
+        />
+      ),
       title: 'Frequency Penalty Info',
     },
     {
       label: 'Presence Penalty',
-      input: <Slider onValueChange={presencePenaltySliderChange} />,
+      input: (
+        <Slider onValueChange={presencePenaltySliderChange} min={0} max={100} />
+      ),
       title: 'Presence Penalty Info',
     },
     {
