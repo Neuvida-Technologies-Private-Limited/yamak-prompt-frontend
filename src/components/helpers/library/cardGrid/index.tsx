@@ -1,8 +1,10 @@
 import { LibraryCardItem as CardItem } from 'types';
 import { EmptyLibrary, LibraryCard } from 'components/helpers';
+import { PromptModal } from 'middleware/api/types';
 
 interface CardsGridProps {
   items: CardItem[];
+  onAddPrompt: (prompt: PromptModal) => {};
   onDeletePrompt: (id: string) => {};
   onPromptInfo: (id: string) => unknown;
   onUpdatePrompt: (update: any, id: string) => void;
@@ -10,12 +12,13 @@ interface CardsGridProps {
 
 const CardsGrid: React.FC<CardsGridProps> = ({
   items,
+  onAddPrompt,
   onDeletePrompt,
   onPromptInfo,
   onUpdatePrompt,
 }) => {
   return items.length === 0 ? (
-    <EmptyLibrary />
+    <EmptyLibrary onAddPrompt={onAddPrompt} />
   ) : (
     <div className="flex flex-col">
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 font-poppins bg-gray50">

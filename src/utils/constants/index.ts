@@ -1,5 +1,3 @@
-import { LibraryCardItem as CardItem } from 'types';
-
 export enum InputVariants {
   Filled = 'filled',
   Outlined = 'outlined',

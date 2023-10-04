@@ -1,5 +1,6 @@
 import { LibraryCardsGrid } from 'components/helpers';
 import { usePagination } from 'hooks';
+import { PromptModal } from 'middleware/api/types';
 import ReactPaginate from 'react-paginate';
 import { LibraryCardItem } from 'types';
 
@@ -7,6 +8,7 @@ interface PaginatedItemsProps {
   itemsPerPage: number;
   children?: React.ReactNode | any;
   items: LibraryCardItem[];
+  onAddPrompt: (prompt: PromptModal) => {};
   onDeletePrompt: (id: string) => {};
   onPromptInfo: (id: string) => unknown;
   onUpdatePrompt: (update: any, id: string) => void;
@@ -14,6 +16,7 @@ interface PaginatedItemsProps {
 
 const PaginatedItems: React.FC<PaginatedItemsProps> = ({
   items,
+  onAddPrompt,
   onDeletePrompt,
   onPromptInfo,
   onUpdatePrompt,
@@ -29,6 +32,7 @@ const PaginatedItems: React.FC<PaginatedItemsProps> = ({
     <>
       <LibraryCardsGrid
         items={currentItems}
+        onAddPrompt={onAddPrompt}
         onDeletePrompt={onDeletePrompt}
         onPromptInfo={onPromptInfo}
         onUpdatePrompt={onUpdatePrompt}

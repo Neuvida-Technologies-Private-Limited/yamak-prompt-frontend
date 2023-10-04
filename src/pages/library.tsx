@@ -121,6 +121,7 @@ const Library = () => {
       <PaginatedItems
         items={filteredItems}
         itemsPerPage={Pagination.itemsPerPage}
+        onAddPrompt={addPromptHandler}
         onDeletePrompt={deletePromptHandler}
         onPromptInfo={promptInfoHandler}
         onUpdatePrompt={updatePromptHandler}
