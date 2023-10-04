@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { FiCopy, FiHeart } from 'react-icons/fi';
-import { BiDislike } from 'react-icons/bi';
+import { BiDislike, BiSolidDislike, BiSolidHeart } from 'react-icons/bi';
 
 import { Button, Modal, Tag, Text } from 'components/common';
 import ModalContent from './ModalContent';
@@ -23,16 +23,38 @@ const LibraryCard: React.FC<CardItemProps> = ({
   uuid,
   onDeletePrompt,
   onPromptInfo,
+  onUpdatePrompt,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isFavourite, setIsFavourite] = useState(false);
+  const [isLiked, setisLiked] = useState(liked_by_user);
 
   const promptInfoHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);
   };
 
-  useEffect(() => {}, []);
+  function importPromptHandler() {}
 
-  const importPromptHandler = () => {};
+  function favoriteHandler() {
+    setIsFavourite(prev => !prev);
+    const updateObj = {
+      favourite: !isFavourite,
+    };
+    onUpdatePrompt(JSON.stringify(updateObj), uuid);
+    message.success(Card.Success);
+  }
+
+  function dislikeHandler() {
+    setisLiked(prev => !prev);
+    /**
+     * If not isDisliked means, the user like the card
+     */
+    const updateObj = {
+      liked: !isLiked,
+    };
+    onUpdatePrompt(JSON.stringify(updateObj), uuid);
+    message.success(Card.Success);
+  }
 
   return (
     <>
@@ -77,15 +99,15 @@ const LibraryCard: React.FC<CardItemProps> = ({
             variant={ButtonVariants.OUTLINED_LIGHT}
             size="small"
             name={Card.ButtonFavorite}
-            icon={<FiHeart />}
-            onClick={() => {}}
+            icon={isFavourite ? <BiSolidHeart /> : <FiHeart />}
+            onClick={favoriteHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
             size="small"
             name={Card.ButtonDislike}
-            icon={<BiDislike />}
-            onClick={() => {}}
+            icon={!isLiked ? <BiSolidDislike /> : <BiDislike />}
+            onClick={dislikeHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}

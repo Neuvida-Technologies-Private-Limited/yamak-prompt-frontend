@@ -2,11 +2,19 @@ import { LibraryCardItem as CardItem } from 'types';
 import { EmptyLibrary, LibraryCard } from 'components/helpers';
 import { Pagination } from 'components/common';
 
-const CardsGrid: React.FC<{
+interface CardsGridProps {
   items: CardItem[];
   onDeletePrompt: (id: string) => {};
   onPromptInfo: (id: string) => unknown;
-}> = ({ items, onDeletePrompt, onPromptInfo }) => {
+  onUpdatePrompt: (update: any, id: string) => void;
+}
+
+const CardsGrid: React.FC<CardsGridProps> = ({
+  items,
+  onDeletePrompt,
+  onPromptInfo,
+  onUpdatePrompt,
+}) => {
   return items.length === 0 ? (
     <EmptyLibrary />
   ) : (
@@ -27,6 +35,7 @@ const CardsGrid: React.FC<{
             uuid={item.uuid}
             onDeletePrompt={onDeletePrompt}
             onPromptInfo={onPromptInfo}
+            onUpdatePrompt={onUpdatePrompt}
           />
         ))}
       </div>

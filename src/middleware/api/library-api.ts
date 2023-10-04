@@ -48,3 +48,14 @@ export const getSearchPromptInfo = async (
     return Promise.reject(err);
   }
 };
+
+export const updatePromptInfo = async (update: any, id: string) => {
+  try {
+    return await axiosClientProtected.patch(
+      `${libraryRoutes.UPDATE_PROMPT}${id}/`,
+      update
+    );
+  } catch (err: any) {
+    throw new Error(err);
+  }
+};

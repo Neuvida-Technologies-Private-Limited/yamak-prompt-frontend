@@ -25,4 +25,5 @@ export enum libraryRoutes {
   DELETE_PROMPT = '/prompt/',
   GET_PROMPT = '/prompt/',
   SEARCH_PROMPT = '/prompt/search-prompt/?q=',
+  UPDATE_PROMPT = '/prompt/',
 }

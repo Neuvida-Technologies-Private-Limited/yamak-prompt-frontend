@@ -158,6 +158,7 @@ export enum LibraryCard {
   ButtonFavorite = 'Favorite',
   ButtonDislike = 'Dislike',
   ButtonDelete = 'Delete',
+  Success = 'Successfully updated',
 }
 
 export enum Label {

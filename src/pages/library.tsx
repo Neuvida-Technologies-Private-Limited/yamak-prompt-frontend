@@ -14,6 +14,7 @@ import {
   deletePrompt,
   getAllPrompts,
   getPromptInfo,
+  updatePromptInfo,
 } from 'middleware/api/library-api';
 import { ToastContainer, toast } from 'react-toastify';
 import { PromptModal } from 'middleware/api/types';
@@ -82,6 +83,16 @@ const Library = () => {
     if (input === '') await getPrompts();
   }, []);
 
+  const updatePromptHandler = async function (update: any, id: string) {
+    try {
+      const res = await updatePromptInfo(update, id);
+      await getPrompts();
+      console.log(res);
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  };
+
   useEffect(() => {
     getPrompts();
   }, []);
@@ -109,6 +120,7 @@ const Library = () => {
         items={filteredItems}
         onDeletePrompt={deletePromptHandler}
         onPromptInfo={promptInfoHandler}
+        onUpdatePrompt={updatePromptHandler}
       />
       <ToastContainer />
     </div>

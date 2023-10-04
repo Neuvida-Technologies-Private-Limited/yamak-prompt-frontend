@@ -11,6 +11,7 @@ export type LibraryCardItem = {
   uuid: string;
   onDeletePrompt: (id: string) => {};
   onPromptInfo: (id: string) => unknown;
+  onUpdatePrompt: (update: any, id: string) => void;
 };
 
 export type LibraryGetPromptInfoModal = {
