@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Dropdown } from 'components/common';
-import { BsThreeDots } from 'react-icons/bs';
-import { Workspace } from 'utils/constants';
 import type { MenuProps } from 'antd';
+import { BsThreeDots } from 'react-icons/bs';
 import { useResetRecoilState } from 'recoil';
+import { Link } from 'react-router-dom';
+
+import { Dropdown } from 'components/common';
+import { Workspace } from 'utils/constants';
 import { generateOutputState } from 'middleware/state';
 
 interface WorkspaceCardProps {
@@ -34,6 +35,7 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
   last_edited,
 }) => {
   const resetOutputState = useResetRecoilState(generateOutputState);
+
   return (
     <div className="font-poppins p-4 bg-white rounded-lg flex flex-col justify-between gap-6 hover:shadow-md transition-all duration-300 ease-in-out">
       <div className="flex justify-between items-start h-full py-2">
