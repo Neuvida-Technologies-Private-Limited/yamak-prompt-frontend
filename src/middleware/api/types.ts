@@ -17,5 +17,22 @@ export type TestConnectionModal = {
 };
 export type CreateWorkspaceModal = {
   title: string;
-  modal_key: string;
+  model_key: string;
+};
+export type GenerateOutputModal = {
+  workspace: string;
+  system_message: string;
+  user_message: string;
+  title: string;
+  is_public: string | any;
+  bookmarked: string | any;
+  prompt_type: string | any;
+  // parameters: {
+  //   temperature: number;
+  //   max_tokens: number;
+  //   top_p: number;
+  //   frequency_penalty: number;
+  //   presence_penalty: number;
+  //   logit_bias: number;
+  // };
 };

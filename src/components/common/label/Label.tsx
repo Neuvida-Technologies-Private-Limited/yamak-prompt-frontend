@@ -27,11 +27,11 @@ const Label: React.FC<LabelProps> = ({
 
   return (
     <div
-      className={`flex justify-center font-poppins items-center gap-2 m-4 ${className}`}
+      className={`flex justify-center font-poppins items-center gap-2 mx-4 ${className}`}
     >
       <div className="flex gap-2">
         {labels.length === 0 ? (
-          <p className="text-xs font-semibold text-secondary">
+          <p className="text-xs font-medium text-secondary">
             {noLabelsMessage}
           </p>
         ) : (

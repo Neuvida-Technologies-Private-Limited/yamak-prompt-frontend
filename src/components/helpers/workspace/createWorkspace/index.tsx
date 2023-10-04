@@ -41,20 +41,20 @@ const App: React.FC<CreateWorkspaceProps> = ({
   const [showModal, setShowModal] = useState(false);
   const [options, setOptions] = useState<OptionItems[]>([]);
 
-  const { title, titleError, modal_key, modal_keyError } = state;
+  const { title, titleError, model_key, model_keyError } = state;
 
-  const handleTitleChange = (value: string) => {
+  const handleTitleChange = (title: string) => {
     setState(old => ({
       ...old,
-      title: value,
-      titleError: isWorkspaceTitleValidated(value),
+      title,
+      titleError: isWorkspaceTitleValidated(title),
     }));
   };
-  const handleSelectChange = (value: string) => {
+  const handleSelectChange = (model_key: string) => {
     setState(old => ({
       ...old,
-      modal_key: value,
-      modal_keyError: isWorkspaceModalKeyValidated(value),
+      model_key,
+      model_keyError: isWorkspaceModalKeyValidated(model_key),
     }));
   };
 
@@ -64,10 +64,10 @@ const App: React.FC<CreateWorkspaceProps> = ({
       ...old,
       isLoading: true,
       titleError: isWorkspaceTitleValidated(title),
-      modal_keyError: isWorkspaceModalKeyValidated(modal_key),
+      model_keyError: isWorkspaceModalKeyValidated(model_key),
     }));
 
-    if (!IsCreateWorkspaceFormValidated(title, modal_key)) {
+    if (!IsCreateWorkspaceFormValidated(title, model_key)) {
       return;
     }
 
@@ -138,11 +138,11 @@ const App: React.FC<CreateWorkspaceProps> = ({
           </label>
           <Select
             options={options}
-            value={modal_key}
+            value={model_key}
             onChange={handleSelectChange}
             className="filled w-full"
             size="large"
-            error={modal_keyError}
+            error={model_keyError}
           />
           <div className="pt-4">
             <Link to={Paths.KeyManagement}>
