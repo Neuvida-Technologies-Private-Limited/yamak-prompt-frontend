@@ -79,7 +79,7 @@ export enum Workspace {
   Test = 'Test Connection',
   AddKey = 'Add Key',
   PromptTitle = 'Prompt Title',
-  EnterHere = 'Enter a user message here',
+  EnterHere = 'Enter a user message',
   Output = 'Output',
   Reset = 'Reset',
   Publish = 'Publish Prompt',
@@ -208,20 +208,6 @@ export const WorkspaceChatInputs = [
     label: 'System',
     placeholder: 'You are helpful assistance',
     className: ' w-full',
-  },
-];
-
-export const WorkspaceCompletionInputs = [
-  {
-    id: '1',
-    label: 'System',
-    placeholder: 'You are helpful assistance',
-  },
-  {
-    id: '2',
-    label: 'User',
-    placeholder:
-      'Classify the following {{text 1}} into one of the following: Positive sentiment Negative sentiment Neutral sentiment Text: """ {{ text 2}} """',
   },
 ];
 

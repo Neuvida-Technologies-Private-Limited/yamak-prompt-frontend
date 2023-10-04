@@ -37,11 +37,18 @@ axiosClientProtected.interceptors.response.use(
   },
   async function (error) {
     const originalRequest = error.config;
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
       SetStorage(TOKENS.ACCESS_TOKEN, '');
-      await REFRESH_ACCESS_TOKEN();
+      const refresh_token = GetStorage(TOKENS.REFRESH_TOKEN);
+
+      await REFRESH_ACCESS_TOKEN({ refresh: refresh_token });
+
       const access_token = GetStorage(TOKENS.ACCESS_TOKEN);
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
+      originalRequest.headers['Authorization'] = 'Bearer ' + access_token;
+
       return axiosClientProtected(originalRequest);
     }
     return Promise.reject(error.response?.data);

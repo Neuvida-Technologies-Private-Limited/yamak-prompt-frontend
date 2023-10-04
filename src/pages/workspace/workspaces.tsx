@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
+import { useRecoilState } from 'recoil';
 
 import { getWorkspace } from 'middleware/api';
 import {
@@ -13,29 +14,14 @@ import {
   WorkspaceCompletion,
 } from 'components/helpers';
 import { Button, Input, Tabs } from 'components/common';
-import { useRecoilState } from 'recoil';
 import { workspaceInfoState } from 'middleware/state';
-
-const tabs = [
-  {
-    id: '1',
-    tabTitle: Workspace.Chat,
-    content: <WorkspaceChat />,
-    icon: <HiOutlineChatAlt2 />,
-  },
-  {
-    id: '2',
-    tabTitle: Workspace.Completion,
-    content: <WorkspaceCompletion />,
-    icon: <BsCheck2Circle />,
-  },
-];
 
 const handleClick = () => {};
 const handleChange = () => {};
 
 const Index = () => {
   const [workspaceData, setWorkspaceData] = useRecoilState(workspaceInfoState);
+
   const { id, title, model_key, last_modified, timestamp, user_uuid } =
     workspaceData;
 
@@ -46,15 +32,37 @@ const Index = () => {
     async function getData() {
       try {
         const res = await getWorkspace(Id);
-        setWorkspaceData(res);
+
+        setWorkspaceData(old => ({
+          ...old,
+          id: res.id,
+          title: res.title,
+          model_key: res.model_key,
+          last_modified: res.last_modified,
+          timestamp: res.timestamp,
+          user_uuid: res.user_uuid,
+        }));
       } catch (err) {
         console.log(err);
       }
     }
     getData();
-  }, [Id]);
+  }, [workspaceData.id]);
 
-  const generateOutput = async () => {};
+  const tabs = [
+    {
+      id: '1',
+      tabTitle: Workspace.Chat,
+      content: <WorkspaceChat />,
+      icon: <HiOutlineChatAlt2 />,
+    },
+    {
+      id: '2',
+      tabTitle: Workspace.Completion,
+      content: <WorkspaceCompletion id={id} />,
+      icon: <BsCheck2Circle />,
+    },
+  ];
 
   const handleTabClick = (tabId: string) => {
     setCurrentTab(tabId);

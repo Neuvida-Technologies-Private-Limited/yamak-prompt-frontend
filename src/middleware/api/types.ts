@@ -24,12 +24,15 @@ export type GenerateOutputModal = {
   system_message: string;
   user_message: string;
   title: string;
-  is_public: string;
-  bookmarked: string;
-  prompt_type: string;
-  tags: [];
-  parameters: {
-    temperature: string;
-    max_token: string;
-  };
+  is_public: string | any;
+  bookmarked: string | any;
+  prompt_type: string | any;
+  // parameters: {
+  //   temperature: number;
+  //   max_tokens: number;
+  //   top_p: number;
+  //   frequency_penalty: number;
+  //   presence_penalty: number;
+  //   logit_bias: number;
+  // };
 };

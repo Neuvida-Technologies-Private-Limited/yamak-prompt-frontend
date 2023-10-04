@@ -10,8 +10,9 @@ interface TextAreaProps {
   placeholder: string;
   maxLength?: number;
   className?: string;
-  onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   disabled?: boolean;
+  value?: string;
 }
 
 const index: React.FC<TextAreaProps> = ({
@@ -23,10 +24,12 @@ const index: React.FC<TextAreaProps> = ({
   className,
   onChange,
   disabled,
+  value,
 }) => {
   return (
     <TextArea
       id={id}
+      value={value}
       name={name}
       rows={rows}
       placeholder={placeholder}
