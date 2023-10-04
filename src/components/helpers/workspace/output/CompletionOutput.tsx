@@ -26,7 +26,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
   const handleLabelsChange = (tags: string[]) => {
     setOutputState(old => ({
       ...old,
-      tags: [...old.tags, ...tags],
+      tags: [...tags],
     }));
   };
 
@@ -56,7 +56,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
         <label className="font-semibold pb-2">{Workspace.Output}</label>
         <div className="overflow-y-scroll h-full">
           {output ? (
-            <p className="text-black">{typedOutput}</p>
+            <p className="text-black text-base">{typedOutput}</p>
           ) : (
             <p className="text-gray100">{Workspace.EnterHere}</p>
           )}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
@@ -42,8 +42,8 @@ const Index = () => {
           timestamp: res.timestamp,
           user_uuid: res.user_uuid,
         }));
-      } catch (err) {
-        console.log(err);
+      } catch (err: any) {
+        toast.error(err.error);
       }
     }
     getData();

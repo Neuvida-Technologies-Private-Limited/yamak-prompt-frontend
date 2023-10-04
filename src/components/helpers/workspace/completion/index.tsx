@@ -75,7 +75,7 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
       <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">
         <WorkspaceCompletionOutput generateOutput={generateOutput} />
       </div>
-      <ToastContainer />
+      <ToastContainer autoClose={3000} />
     </>
   );
 };
