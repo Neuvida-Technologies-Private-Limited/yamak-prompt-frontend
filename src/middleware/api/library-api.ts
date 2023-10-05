@@ -3,7 +3,9 @@ import { libraryRoutes } from './routes';
 
 export const getAllPrompts = async () => {
   try {
-    return await axiosClientProtected.get(libraryRoutes.GET_PROMPTS);
+    const res: any = await axiosClientProtected.get(libraryRoutes.GET_PROMPTS);
+    if (res.status_code !== 200) throw new Error(res.error);
+    return res;
   } catch (err: any) {
     throw new Error(err.message);
   }
