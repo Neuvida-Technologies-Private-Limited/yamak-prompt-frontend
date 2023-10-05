@@ -99,7 +99,7 @@ const Library = () => {
   }, [activeTab, items, setState]);
 
   return (
-    <div className="library font-poppins h-full">
+    <div className="library font-poppins h-screen overflow-y-scroll">
       <LibraryHeader>
         <HeadingArea onAddPrompt={addPromptHandler} />
         <TabsArea>
