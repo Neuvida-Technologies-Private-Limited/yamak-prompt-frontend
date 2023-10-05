@@ -13,6 +13,18 @@ export enum ButtonVariants {
   SECONDARY_LINK = 'secondary-link',
   DEFAULT = 'default',
 }
+
+export enum TextAreaVariants {
+  FILLED = 'filled',
+  DEFAULT = 'default',
+}
+
+export enum TextVariants {
+  LARGE = 'large',
+  MEDIUM = 'medium',
+  SMALL = 'small',
+}
+
 export enum CardConst {
   CopyPrompt = 'Copy Prompt',
   Likes = '5.1M',
@@ -158,6 +170,12 @@ export enum LibraryCard {
   ButtonDelete = 'Delete',
   Success = 'Successfully updated',
   Copied = 'Copied',
+}
+
+export enum ModalContent {
+  NoUserMessage = 'No user message',
+  NoSystemMessage = 'No system message',
+  NoSampleOutput = 'No sample output',
 }
 
 export enum Label {

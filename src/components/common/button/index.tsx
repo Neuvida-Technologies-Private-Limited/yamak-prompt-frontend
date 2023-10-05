@@ -6,7 +6,7 @@ interface ButtonProps {
   icon?: React.ReactNode;
   name?: string | number;
   className?: string;
-  size: 'small' | 'middle' | 'large' | undefined;
+  size?: 'small' | 'middle' | 'large' | undefined;
   variant:
     | 'primary'
     | 'primary-light'
@@ -26,7 +26,7 @@ const button: React.FC<ButtonProps> = ({
   icon,
   name,
   className,
-  size,
+  size = 'small',
   variant = 'primary',
   href,
   onClick,

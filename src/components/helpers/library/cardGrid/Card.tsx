@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 
 import { FiCopy, FiHeart } from 'react-icons/fi';
 import { BiDislike, BiSolidDislike, BiSolidHeart } from 'react-icons/bi';
+import { BsTrash } from 'react-icons/bs';
+import { message } from 'antd';
 
 import { Button, Modal, Tag, Text } from 'components/common';
 import ModalContent from './ModalContent';
 import { LibraryCardItem as CardItemProps } from 'types';
 import { ButtonVariants, Library, LibraryCard as Card } from 'utils/constants';
-import { BsTrash } from 'react-icons/bs';
-import { message } from 'antd';
 
 const LibraryCard: React.FC<CardItemProps> = ({
   title,
@@ -28,7 +28,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isFavourite, setIsFavourite] = useState(favourite);
-  const [isLiked, setisLiked] = useState(liked_by_user === null);
+  const [isLiked, setisLiked] = useState(liked_by_user);
 
   const promptInfoHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);
@@ -80,7 +80,6 @@ const LibraryCard: React.FC<CardItemProps> = ({
             {title}
           </h2>
           <Button
-            size="small"
             variant={ButtonVariants.DEFAULT}
             onClick={importPromptHandler}
             name={Library.CardButtonName}
@@ -103,28 +102,24 @@ const LibraryCard: React.FC<CardItemProps> = ({
         <div className="flex flex-wrap justify-start gap-2">
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            size="small"
             name={Card.ButtonCopyPrompt}
             icon={<FiCopy />}
             onClick={copyPromptHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            size="small"
             name={Card.ButtonFavorite}
             icon={isFavourite ? <BiSolidHeart /> : <FiHeart />}
             onClick={favoriteHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            size="small"
             name={Card.ButtonDislike}
             icon={!isLiked ? <BiSolidDislike /> : <BiDislike />}
             onClick={dislikeHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            size="small"
             name={Card.ButtonDelete}
             icon={<BsTrash />}
             onClick={deleteHandler}
@@ -137,15 +132,8 @@ const LibraryCard: React.FC<CardItemProps> = ({
         centered={true}
         isOpen={showModal}
         cancelModalHandler={() => setShowModal(false)}
+        sumbitHandler={() => {}}
         okText={'Import Prompt'}
-        footer={[
-          <Button
-            variant={ButtonVariants.PRIMARY}
-            size="small"
-            name={Library.ImportPrompt}
-            onClick={() => {}}
-          />,
-        ]}
       >
         <ModalContent key={uuid} id={uuid} onPromptInfo={onPromptInfo} />
       </Modal>

@@ -1,7 +1,12 @@
 import React from 'react';
 import { FiBookmark, FiClock } from 'react-icons/fi';
 import { Button, Input, TextArea } from 'components/common';
-import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
+import {
+  Workspace,
+  InputVariants,
+  ButtonVariants,
+  TextAreaVariants,
+} from 'utils/constants';
 
 const buttons = [
   {
@@ -54,7 +59,7 @@ const OutputSection: React.FC = () => {
           rows={10}
           placeholder={Workspace.EnterHere}
           maxLength={0}
-          className="!resize-none !h-full focus:border-gray50 hover:border-0"
+          variant={TextAreaVariants.DEFAULT}
           onChange={handleChange}
         />
       </div>

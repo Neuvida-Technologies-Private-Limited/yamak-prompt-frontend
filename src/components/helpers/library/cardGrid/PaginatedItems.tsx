@@ -1,6 +1,7 @@
-import { LibraryCardsGrid } from 'components/helpers';
 import { usePagination } from 'hooks';
 import ReactPaginate from 'react-paginate';
+
+import { LibraryCardsGrid } from 'components/helpers';
 import { LibraryCardItem } from 'types';
 
 interface PaginatedItemsProps {

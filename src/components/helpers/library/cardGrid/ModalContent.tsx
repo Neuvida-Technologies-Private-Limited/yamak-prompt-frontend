@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
+import { message } from 'antd';
+
 import { Text, Heading, Tag } from 'components/common';
+import { TextVariants } from 'utils/constants';
+import { ModalContent as ModalConst } from 'utils/constants';
 
 interface ContentProps {
   id: string;
-  onPromptInfo: (id: string) => unknown;
+  onPromptInfo: (id: string) => Promise<any>;
 }
 
 const ModalContent: React.FC<ContentProps> = ({ id, onPromptInfo }) => {
@@ -15,9 +20,10 @@ const ModalContent: React.FC<ContentProps> = ({ id, onPromptInfo }) => {
       try {
         setIsLoading(true);
         const res = await onPromptInfo(id);
+        if (res.status_code !== 200) return message.error(res.error);
         setModalContent(res);
-      } catch (err) {
-        console.log(err);
+      } catch (err: any) {
+        message.error(err.message);
       } finally {
         setIsLoading(false);
       }
@@ -40,25 +46,25 @@ const ModalContent: React.FC<ContentProps> = ({ id, onPromptInfo }) => {
         ))}
       </div>
       <div className="mt-2 mb-4">
-        <Text variant="medium">
-          {modalContent.data.user_message || 'No user message'}
+        <Text variant={TextVariants.MEDIUM}>
+          {modalContent.data.user_message || ModalConst.NoUserMessage}
         </Text>
       </div>
       <Heading level={5}>Prompt</Heading>
       <div className="flex flex-col gap-2 bg-gray50 rounded-md p-4 mb-6">
         <p className="font-bold">System: </p>
-        <Text variant="medium">
-          {modalContent.data.system_message || 'No system message'}
+        <Text variant={TextVariants.SMALL}>
+          {modalContent.data.system_message || ModalConst.NoSystemMessage}
         </Text>
         <p className="font-bold">User: </p>
-        <Text variant="medium">
-          {modalContent.data.user_message || 'No user message'}
+        <Text variant={TextVariants.SMALL}>
+          {modalContent.data.user_message || ModalConst.NoUserMessage}
         </Text>
       </div>
       <div>
         <Heading level={5}>Sample Answer</Heading>
-        <Text variant="medium" className="text-secondary">
-          {modalContent.data.sample_output || 'No sample output'}
+        <Text variant={TextVariants.SMALL} className="text-secondary">
+          {modalContent.data.sample_output || ModalConst.NoSampleOutput}
         </Text>
       </div>
     </>

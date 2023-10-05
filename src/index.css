@@ -170,7 +170,7 @@ ul[aria-label='Pagination'] {
 
 ul[aria-label='Pagination'] .previous.disabled,
 ul[aria-label='Pagination'] .next.disabled {
-  color: gray;
+  color: var(--gray-400);
 }
 
 ul[aria-label='Pagination'] li {

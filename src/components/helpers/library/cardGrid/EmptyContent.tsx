@@ -1,7 +1,6 @@
 import { Heading, Text } from 'components/common';
 import AddNewPrompt from '../addPrompt';
 import { Library } from 'utils/constants';
-import { PromptModal } from 'middleware/api/types';
 
 const EmptyLibrary: React.FC<{
   onAddPrompt: (prompt: string) => Promise<any>;

@@ -5,7 +5,7 @@ export const getAllPrompts = async () => {
   try {
     return await axiosClientProtected.get(libraryRoutes.GET_PROMPTS);
   } catch (err: any) {
-    throw new Error(`Problem getting prompts`);
+    throw new Error(err.message);
   }
 };
 

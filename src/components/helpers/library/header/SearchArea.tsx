@@ -18,6 +18,7 @@ const SearchArea: React.FC<{
         message.error(err.message);
       }
     }
+
     getData();
   }, [input, onSearchPrompt]);
 

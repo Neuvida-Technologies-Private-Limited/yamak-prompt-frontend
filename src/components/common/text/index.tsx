@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react';
-import cn from 'classnames';
+import classNames from 'classnames';
+import { TextVariants } from 'utils/constants';
 
 interface Props {
   variant?: Variant;
@@ -8,7 +9,7 @@ interface Props {
   children?: React.ReactNode | any;
 }
 
-type Variant = 'body' | 'medium' | 'small';
+type Variant = TextVariants.LARGE | TextVariants.MEDIUM | TextVariants.SMALL;
 
 const Text: React.FC<Props> = ({
   style,
@@ -18,12 +19,14 @@ const Text: React.FC<Props> = ({
 }) => {
   return (
     <p
-      className={cn(
+      className={classNames(
         'text-gray900 text-sm leading-4',
         {
-          'lg:leading-[27px] lg:text-15px': variant === 'body', // default body text
-          'lg:text-15px xl:text-base': variant === 'medium',
-          'text-xs lg:leading-[1.85em]': variant === 'small',
+          'lg:leading-[27px] text-15px lg:text-20px':
+            variant === TextVariants.LARGE,
+          'text-14px lg:text-15px xl:text-base':
+            variant === TextVariants.MEDIUM,
+          'text-xs lg:leading-[1.85em]': variant === TextVariants.SMALL,
         },
         className
       )}

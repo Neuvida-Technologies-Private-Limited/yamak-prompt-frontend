@@ -1,6 +1,11 @@
 import React from 'react';
 import { Button, Input, TextArea, Label } from 'components/common';
-import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
+import {
+  Workspace,
+  InputVariants,
+  ButtonVariants,
+  TextAreaVariants,
+} from 'utils/constants';
 
 const OutputSection: React.FC = () => {
   const handleChange = () => {};
@@ -26,6 +31,7 @@ const OutputSection: React.FC = () => {
           rows={10}
           placeholder={Workspace.EnterHere}
           maxLength={0}
+          variant={TextAreaVariants.DEFAULT}
           onChange={handleChange}
         />
       </div>

@@ -3,6 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
 import { useRecoilState } from 'recoil';
+import { message } from 'antd';
 
 import {
   LibraryHeader,
@@ -21,7 +22,6 @@ import {
 } from 'middleware/api/library-api';
 import { Pagination } from 'utils/constants';
 import { libraryState } from 'middleware/state/library';
-import { message } from 'antd';
 
 const tabs = [
   {
@@ -59,7 +59,7 @@ const Library = () => {
   async function addPromptHandler(prompt: string) {
     try {
       const res = await createPrompt(prompt);
-      getPrompts();
+      await getPrompts();
       return res;
     } catch (err: any) {
       message.error(err.message);
@@ -69,14 +69,14 @@ const Library = () => {
   async function deletePromptHandler(id: string) {
     try {
       const res = await deletePrompt(id);
-      getPrompts();
+      await getPrompts();
       return res;
     } catch (err: any) {
       message.error(err.message);
     }
   }
 
-  async function promptInfoHandler(id: string) {
+  async function getPromptInfoHandler(id: string) {
     try {
       return await getPromptInfo(id);
     } catch (err: any) {
@@ -113,7 +113,6 @@ const Library = () => {
       setState(old => ({ ...old, filteredItems: data }));
       return;
     }
-    setState(old => ({ ...old, items }));
   }, [activeTab, items, setState]);
 
   return (
@@ -134,7 +133,7 @@ const Library = () => {
         itemsPerPage={Pagination.itemsPerPage}
         onAddPrompt={addPromptHandler}
         onDeletePrompt={deletePromptHandler}
-        onPromptInfo={promptInfoHandler}
+        onPromptInfo={getPromptInfoHandler}
         onUpdatePrompt={updatePromptHandler}
       />
       <ToastContainer />

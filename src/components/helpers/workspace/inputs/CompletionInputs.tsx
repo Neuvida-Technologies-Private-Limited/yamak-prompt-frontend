@@ -1,6 +1,7 @@
 import { Button, TextArea } from 'components/common';
 import {
   ButtonVariants,
+  TextAreaVariants,
   Workspace,
   WorkspaceCompletionInputs,
 } from 'utils/constants';
@@ -21,6 +22,7 @@ const CompletionInputs = () => {
             rows={10}
             placeholder={item.placeholder}
             maxLength={0}
+            variant={TextAreaVariants.DEFAULT}
             onChange={() => {}}
           />
         </div>

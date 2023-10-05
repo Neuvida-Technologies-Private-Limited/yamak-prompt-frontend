@@ -1,9 +1,16 @@
 import { useState } from 'react';
-import { Button, Input, Modal, TextArea } from 'components/common';
-import { Library, InputVariants, ButtonVariants } from 'utils/constants';
-import { message } from 'antd';
+
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { promptModalState } from 'middleware/state/library';
+import { message } from 'antd';
+
+import { Button, Input, Modal, TextArea } from 'components/common';
+import {
+  Library,
+  InputVariants,
+  ButtonVariants,
+  TextAreaVariants,
+} from 'utils/constants';
 
 const AddNewPrompt: React.FC<{
   onAddPrompt?: (prompt: string) => Promise<any>;
@@ -111,10 +118,10 @@ const AddNewPrompt: React.FC<{
                 name={Library.WritePromptTitle}
                 placeholder={Library.WritePromptPlaceholder}
                 value={promptOutput}
+                variant={TextAreaVariants.FILLED}
                 onChange={value =>
                   handleInputChange(Library.WritePromptTitle, value)
                 }
-                className="p-3 w-full bg-gray50 mb-4"
               />
               <Input
                 id={Library.TagsTitle}
