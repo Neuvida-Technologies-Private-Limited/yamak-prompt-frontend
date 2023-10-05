@@ -7,12 +7,14 @@ interface LabelProps {
   initialLabels?: LabelType[] | undefined;
   noLabelsMessage?: string;
   className?: string;
+  onChange?: (labels: string[]) => void;
 }
 
 const Label: React.FC<LabelProps> = ({
   initialLabels = [],
   noLabelsMessage = LabelConst.NO_LABELS_MESSAGE,
   className,
+  onChange,
 }) => {
   const [labels, setLabels] = useState(initialLabels);
   const [showInput, setShowInput] = useState(false);
@@ -20,18 +22,24 @@ const Label: React.FC<LabelProps> = ({
 
   function submitHandler(event: React.FormEvent) {
     event.preventDefault();
-    setLabels(prev => [...prev, { id: crypto.randomUUID(), text }]);
+    const newLabel = { id: crypto.randomUUID(), text };
+    setLabels(prev => [...prev, newLabel]);
     setText('');
     setShowInput(false);
+
+    if (onChange) {
+      const newTexts = labels.map(label => label.text);
+      onChange([...newTexts, newLabel.text]);
+    }
   }
 
   return (
     <div
-      className={`flex justify-center font-poppins items-center gap-2 m-4 ${className}`}
+      className={`flex justify-center font-poppins items-center gap-2 mx-4 ${className}`}
     >
       <div className="flex gap-2">
         {labels.length === 0 ? (
-          <p className="text-xs font-semibold text-secondary">
+          <p className="text-xs font-medium text-secondary">
             {noLabelsMessage}
           </p>
         ) : (

@@ -1,46 +1,72 @@
-import React from 'react';
-import { Button, Input, TextArea, Label } from 'components/common';
-import {
-  Workspace,
-  InputVariants,
-  ButtonVariants,
-  TextAreaVariants,
-} from 'utils/constants';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
-const OutputSection: React.FC = () => {
-  const handleChange = () => {};
+import { Button, Input, Label } from 'components/common';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
+import { generateOutputState } from 'middleware/state';
+
+interface OutputSectionProps {
+  generateOutput: (event: { preventDefault: () => void }) => Promise<void>;
+}
+
+const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
+  const [outputState, setOutputState] = useRecoilState(generateOutputState);
+  const [typedOutput, setTypedOutput] = useState('');
+  const [outputIndex, setOutputIndex] = useState(0);
+
+  const { title, output, tags } = outputState;
+
+  const handleTitleChange = (title: string) => {
+    setOutputState(old => ({
+      ...old,
+      title,
+    }));
+  };
+  const handleLabelsChange = (tags: string[]) => {
+    setOutputState(old => ({
+      ...old,
+      tags: [...tags],
+    }));
+  };
+
+  useEffect(() => {
+    if (output && outputIndex < output.length) {
+      const char = output.charAt(outputIndex);
+      setTypedOutput(prevTypedOutput => prevTypedOutput + char);
+      setOutputIndex(outputIndex + 1);
+    }
+  }, [output, outputIndex]);
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex items-center">
+      <div className="flex items-center pb-4">
         <Input
           id={Workspace.PromptTitle}
           name={Workspace.PromptTitle}
           placeholder={Workspace.PromptTitle}
-          onChange={handleChange}
+          onChange={handleTitleChange}
           variant={InputVariants.Filled}
           className="!w-1/2 !mb-0"
+          value={title}
         />
-        <Label />
+        <Label onChange={handleLabelsChange} />
       </div>
-      <div className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full">
+      <div className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full overflow-hidden">
         <label className="font-semibold pb-2">{Workspace.Output}</label>
-        <TextArea
-          id={Workspace.EnterHere}
-          name={Workspace.EnterHere}
-          rows={10}
-          placeholder={Workspace.EnterHere}
-          maxLength={0}
-          variant={TextAreaVariants.DEFAULT}
-          onChange={handleChange}
-        />
+        <div className="overflow-y-scroll h-full">
+          {output ? (
+            <p className="text-black text-base">{typedOutput}</p>
+          ) : (
+            <p className="text-gray100">{Workspace.EnterHere}</p>
+          )}
+        </div>
       </div>
       <div className="flex py-6 md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
         <div className="flex items-center gap-4">
           <Button
             variant={ButtonVariants.PRIMARY}
             size="small"
-            onClick={() => {}}
+            onClick={generateOutput}
             name={'Submit'}
           />
           <Button

@@ -5,7 +5,7 @@ const ChatOutput = () => {
   return (
     <div className="flex flex-col justify-between h-full">
       <div className="h-full">
-        <div className="flex items-center">
+        <div className="flex items-center pb-4">
           <Input
             id={Workspace.PromptTitle}
             name={Workspace.PromptTitle}

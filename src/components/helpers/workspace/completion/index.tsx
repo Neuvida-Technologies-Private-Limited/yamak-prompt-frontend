@@ -1,16 +1,70 @@
+import { useRecoilState } from 'recoil';
+import { toast, ToastContainer } from 'react-toastify';
+
 import {
   WorkspaceCompletionOutput,
   WorkspaceHistory,
   WorkspaceCompletionInputs,
 } from 'components/helpers';
+import { generateOutputState } from 'middleware/state';
+import { GenerateOutput } from 'middleware/api';
 
-const index = () => {
+interface CompletionProps {
+  id: string;
+}
+
+const Completion: React.FC<CompletionProps> = ({ id }) => {
   const isDekstopView = window.innerWidth >= 768;
+  const [outputState, setOutputState] = useRecoilState(generateOutputState);
+
+  const {
+    workspace,
+    system_message,
+    user_message,
+    title,
+    bookmarked,
+    is_public,
+    prompt_type,
+    tags,
+    output,
+    parameters: { temperature, max_tokens },
+  } = outputState;
+
+  const generateOutput = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+
+    const outputParams = {
+      workspace: id,
+      system_message,
+      user_message,
+      title,
+      bookmarked,
+      is_public,
+      prompt_type,
+      tags,
+      parameters: {
+        temperature: temperature,
+        max_tokens: max_tokens,
+      },
+    };
+
+    try {
+      const res = await GenerateOutput(outputParams);
+      var message = res.message;
+    } catch (error: any) {
+      toast.error(error);
+    }
+
+    setOutputState(old => ({
+      ...old,
+      output: message,
+    }));
+  };
 
   return (
     <>
       {isDekstopView ? (
-        <div className="lg:w-1/3 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
+        <div className="lg:w-1/5 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
           <WorkspaceHistory />
         </div>
       ) : null}
@@ -19,10 +73,11 @@ const index = () => {
         <WorkspaceCompletionInputs />
       </div>
       <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">
-        <WorkspaceCompletionOutput />
+        <WorkspaceCompletionOutput generateOutput={generateOutput} />
       </div>
+      <ToastContainer autoClose={3000} />
     </>
   );
 };
 
-export default index;
+export default Completion;

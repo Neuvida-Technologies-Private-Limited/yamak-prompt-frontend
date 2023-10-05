@@ -1,3 +1,5 @@
+import { LabelType } from 'types';
+
 export type LoginModel = {
   username: string;
   password: string;
@@ -26,5 +28,19 @@ export type PromptModal = {
 };
 export type CreateWorkspaceModal = {
   title: string;
-  modal_key: string;
+  model_key: string;
+};
+export type GenerateOutputModal = {
+  workspace: string;
+  system_message: string;
+  user_message: string;
+  title: string;
+  is_public: string | any;
+  bookmarked: string | any;
+  prompt_type: string | any;
+  tags: string[];
+  parameters: {
+    temperature: number;
+    max_tokens: number;
+  };
 };

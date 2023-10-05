@@ -119,8 +119,11 @@ const AddNewPrompt: React.FC<{
                 placeholder={Library.WritePromptPlaceholder}
                 value={promptOutput}
                 variant={TextAreaVariants.FILLED}
-                onChange={value =>
-                  handleInputChange(Library.WritePromptTitle, value)
+                onChange={event =>
+                  handleInputChange(
+                    Library.WritePromptTitle,
+                    event.target.value
+                  )
                 }
               />
               <Input

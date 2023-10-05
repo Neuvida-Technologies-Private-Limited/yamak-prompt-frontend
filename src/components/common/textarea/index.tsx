@@ -12,10 +12,10 @@ interface TextAreaProps {
   placeholder: string;
   maxLength?: number;
   className?: string;
-  onChange: (value: string) => void;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   disabled?: boolean;
   value?: string;
-  variant: TextAreaVariants.FILLED | TextAreaVariants.DEFAULT;
+  variant: 'default' | 'filled';
 }
 
 const index: React.FC<TextAreaProps> = ({
@@ -30,10 +30,6 @@ const index: React.FC<TextAreaProps> = ({
   value,
   variant,
 }) => {
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onChange(event.target.value);
-  };
-
   const rootClassnames = classNames(
     'border-0 !focus:outline-none !resize-none',
     {
@@ -46,13 +42,13 @@ const index: React.FC<TextAreaProps> = ({
   return (
     <TextArea
       id={id}
+      value={value}
       name={name}
       rows={rows}
-      value={value}
       placeholder={placeholder}
       maxLength={maxLength}
       className={rootClassnames}
-      onChange={handleChange}
+      onChange={onChange}
       disabled={disabled}
     />
   );

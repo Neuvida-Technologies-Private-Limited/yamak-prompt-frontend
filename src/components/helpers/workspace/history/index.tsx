@@ -1,5 +1,7 @@
 import React from 'react';
+import { FiBookmark, FiUploadCloud } from 'react-icons/fi';
 import { IoListCircleOutline } from 'react-icons/io5';
+
 import Draft from './drafts';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Input } from 'components/common';
@@ -11,7 +13,7 @@ const handleClick = () => {};
 
 const index: React.FC = () => {
   return (
-    <div className="flex flex-col pl-4 h-full w-full">
+    <div className="flex flex-col pl-4 w-full justify-between py-6">
       <div className="flex justify-between items-center font-poppins mb-4">
         <h1 className="font-semibold text-base">{Workspace.History}</h1>
         <IoListCircleOutline size={25} />
@@ -24,25 +26,25 @@ const index: React.FC = () => {
         onChange={handleChange}
         variant={InputVariants.Filled}
       />
-      <div className="flex flex-col h-5/6">
+      <div className="flex flex-col h-4/5">
         <div className="pt-2 overflow-y-scroll pr-2">
           {Array.from(Array(10)).map((_, index) => (
             <Draft key={`draft-item-${index}`} />
           ))}
         </div>
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-center gap-4 mt-4 flex-wrap">
           <Button
-            size={undefined}
-            variant={ButtonVariants.OUTLINED}
+            size={'large'}
+            variant={ButtonVariants.SECONDARY}
             onClick={handleClick}
-            name={Workspace.ShowBookmarked}
+            icon={<FiBookmark />}
           />
           <Button
-            size={undefined}
-            variant={ButtonVariants.OUTLINED}
+            size={'large'}
+            variant={ButtonVariants.SECONDARY}
             onClick={handleClick}
-            name={Workspace.ShowPublished}
-            className="border-gray200 text-gray200"
+            className="!bg-gray200 !text-gray700"
+            icon={<FiUploadCloud />}
           />
         </div>
       </div>

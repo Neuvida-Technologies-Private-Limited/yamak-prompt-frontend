@@ -17,25 +17,33 @@ const WorkspaceDashboard: React.FC = () => {
   const [state, setState] = useRecoilState(workspaceState);
   const [createState, setCreateState] = useRecoilState(createWorkspaceState);
   const { workspace_details } = state;
-  const { title, modal_key } = createState;
+  const { title, model_key } = createState;
 
   const getAllWorkspaces = async () => {
     try {
       const res = await GetWorkspaces();
-      const formattedWorkspaces = res.map(
-        (item: {
-          last_modified: moment.MomentInput;
-          timestamp: moment.MomentInput;
-        }) => ({
-          ...item,
-          last_modified: moment(item.last_modified).format('h:mm A'),
-          timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
-        })
-      );
-      setState(old => ({
-        ...old,
-        workspace_details: formattedWorkspaces,
-      }));
+      const response = Array.isArray(res) ? res : [];
+      if (response.length === 0) {
+        setState(old => ({
+          ...old,
+          workspace_details: [],
+        }));
+      } else {
+        const formattedWorkspaces = res.map(
+          (item: {
+            last_modified: moment.MomentInput;
+            timestamp: moment.MomentInput;
+          }) => ({
+            ...item,
+            last_modified: moment(item.last_modified).format('h:mm A'),
+            timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
+          })
+        );
+        setState(old => ({
+          ...old,
+          workspace_details: formattedWorkspaces,
+        }));
+      }
     } catch (error: any) {
       console.log(error);
     }
@@ -44,7 +52,7 @@ const WorkspaceDashboard: React.FC = () => {
   const createWorkspace = async () => {
     const createWorkspaceParams = {
       title,
-      modal_key,
+      model_key,
     };
 
     try {
@@ -104,6 +112,7 @@ const WorkspaceDashboard: React.FC = () => {
                 createdBy={item.createdBy}
                 createdOn={item.timestamp}
                 last_edited={item.last_modified}
+                deleteWorkspace={deleteWorkspace}
               />
             ))}
           </div>
