@@ -22,14 +22,14 @@ const WorkspaceDashboard: React.FC = () => {
   const getAllWorkspaces = async () => {
     try {
       const res = await GetWorkspaces();
-      const response = Array.isArray(res) ? res : [];
+      const response = Array.isArray(res.results) ? res.results : [];
       if (response.length === 0) {
         setState(old => ({
           ...old,
           workspace_details: [],
         }));
       } else {
-        const formattedWorkspaces = res.map(
+        const formattedWorkspaces = response.map(
           (item: {
             last_modified: moment.MomentInput;
             timestamp: moment.MomentInput;
