@@ -1,5 +1,6 @@
 import react, { ReactNode } from 'react';
 import { message, Popconfirm } from 'antd';
+import { TooltipPlacement } from 'antd/es/tooltip';
 
 interface PopConfirmProps {
   item: ReactNode;
@@ -8,6 +9,8 @@ interface PopConfirmProps {
   onConfirm: () => Promise<boolean | undefined>;
   title: string;
   description: string;
+  successMessage?: string;
+  placement: TooltipPlacement | undefined;
 }
 
 const PopupConfirm: React.FC<PopConfirmProps> = ({
@@ -17,13 +20,15 @@ const PopupConfirm: React.FC<PopConfirmProps> = ({
   onConfirm,
   title,
   description,
+  successMessage,
+  placement,
 }) => {
   const confirm = async () => {
     handlePopupConfirm(false);
     if (await onConfirm()) {
-      message.success('Key Deleted !');
+      message.success(successMessage);
     } else {
-      message.error('Error in deleting key !');
+      message.error('Error in deleting !');
     }
   };
 
@@ -35,6 +40,7 @@ const PopupConfirm: React.FC<PopConfirmProps> = ({
     <div className="">
       <Popconfirm
         title={title}
+        placement={placement}
         description={description}
         open={isOpen}
         onConfirm={confirm}
