@@ -13,10 +13,10 @@ export const libraryState = atom({
 export const promptModalState = atom({
   key: 'prompt-modal-state',
   default: {
-    title: '',
-    userMessage: '',
-    systemMessage: '',
-    promptOutput: '',
-    tags: '',
+    title: 'test',
+    userMessage: 'test',
+    systemMessage: 'test',
+    promptOutput: 'test',
+    tags: 'test',
   },
 });

@@ -4,9 +4,9 @@ import { EmptyLibrary, LibraryCard } from 'components/helpers';
 interface CardsGridProps {
   items: CardItem[];
   onAddPrompt: (prompt: string) => Promise<any>;
-  onDeletePrompt: (id: string) => {};
+  onDeletePrompt: (id: string) => Promise<any>;
   onPromptInfo: (id: string) => Promise<any>;
-  onUpdatePrompt: (update: any, id: string) => void;
+  onUpdatePrompt: (update: any, id: string) => Promise<any>;
 }
 
 const CardsGrid: React.FC<CardsGridProps> = ({

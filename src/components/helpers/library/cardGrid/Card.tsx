@@ -41,16 +41,19 @@ const LibraryCard: React.FC<CardItemProps> = ({
     message.success(Card.Copied);
   }
 
-  function favoriteHandler() {
+  async function favoriteHandler() {
     setIsFavourite(prev => !prev);
     const updateObj = {
       favourite: !isFavourite,
     };
-    onUpdatePrompt(JSON.stringify(updateObj), uuid);
+    const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
+
+    if (res.status_code !== 200) return message.error(res.error);
+
     message.success(Card.Success);
   }
 
-  function dislikeHandler() {
+  async function dislikeHandler() {
     setisLiked(prev => !prev);
     /**
      * If not isDisliked means, the user like the card
@@ -58,13 +61,16 @@ const LibraryCard: React.FC<CardItemProps> = ({
     const updateObj = {
       liked: !isLiked,
     };
-    onUpdatePrompt(JSON.stringify(updateObj), uuid);
+    const res = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
+
+    if (res.status_code !== 200) return message.error(res.error);
+
     message.success(Card.Success);
   }
 
-  function deleteHandler() {
+  async function deleteHandler() {
     if (window.confirm('Are you sure?')) {
-      onDeletePrompt(uuid);
+      await onDeletePrompt(uuid);
       message.success('Prompt deleted');
     }
   }

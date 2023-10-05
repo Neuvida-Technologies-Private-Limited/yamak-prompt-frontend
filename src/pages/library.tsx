@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { ToastContainer, toast } from 'react-toastify';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
@@ -43,18 +43,14 @@ const Library = () => {
   function handleTabClick(tabId: string) {
     setState(old => ({ ...old, activeTab: tabId }));
   }
-
-  const getPrompts = useCallback(
-    async function () {
-      try {
-        const res = await getAllPrompts();
-        setState(old => ({ ...old, items: res.data.results }));
-      } catch (err: any) {
-        message.error(err.message);
-      }
-    },
-    [setState]
-  );
+  async function getPrompts() {
+    try {
+      const res = await getAllPrompts();
+      setState(old => ({ ...old, items: res.data.results }));
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  }
 
   async function addPromptHandler(prompt: string) {
     try {

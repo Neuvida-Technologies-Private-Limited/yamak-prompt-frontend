@@ -10,9 +10,9 @@ export type LibraryCardItem = {
   tags: string[];
   user_message: string;
   uuid: string;
-  onDeletePrompt: (id: string) => {};
+  onDeletePrompt: (id: string) => Promise<any>;
   onPromptInfo: (id: string) => Promise<any>;
-  onUpdatePrompt: (update: any, id: string) => void;
+  onUpdatePrompt: (update: any, id: string) => Promise<any>;
 };
 
 export type LibraryGetPromptInfoModal = {

@@ -17,13 +17,15 @@ const SearchArea = () => {
       try {
         const res: any = await getSearchPromptInfo(input);
 
-        if (res.status_code !== 200)
-          throw new Error('Something went wrong while searching prompts');
+        if (res.status_code !== 200) throw new Error(res.error);
 
         setState(old => ({ ...old, items: res.data.results }));
 
         if (input.length === 0) {
           const res = await getAllPrompts();
+
+          if (res.status_code !== 200) throw new Error(res.error);
+
           setState(old => ({ ...old, items: res.data.results }));
           return;
         }

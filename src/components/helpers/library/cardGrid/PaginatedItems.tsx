@@ -9,9 +9,9 @@ interface PaginatedItemsProps {
   children?: React.ReactNode | any;
   items: LibraryCardItem[];
   onAddPrompt: (prompt: string) => Promise<any>;
-  onDeletePrompt: (id: string) => {};
+  onDeletePrompt: (id: string) => Promise<any>;
   onPromptInfo: (id: string) => Promise<any>;
-  onUpdatePrompt: (update: any, id: string) => void;
+  onUpdatePrompt: (update: any, id: string) => Promise<any>;
 }
 
 const PaginatedItems: React.FC<PaginatedItemsProps> = ({
