@@ -1,15 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+
+import { ToastContainer, toast } from 'react-toastify';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
+import { useRecoilState } from 'recoil';
+import { message } from 'antd';
+
 import {
-  LibraryCardsGrid,
   LibraryHeader,
   HeadingArea,
   TabsArea,
   SearchArea,
+  PaginatedItems,
 } from 'components/helpers';
 import { Tabs } from 'components/common';
-import { LibraryCardItem as CardItem } from 'types';
-import { getAllPrompts } from 'middleware/api/library-api';
+import {
+  createPrompt,
+  deletePrompt,
+  getAllPrompts,
+  getPromptInfo,
+  updatePromptInfo,
+} from 'middleware/api/library-api';
+import { Pagination } from 'utils/constants';
+import { libraryState } from 'middleware/state/library';
 
 const tabs = [
   {
@@ -25,35 +37,71 @@ const tabs = [
 ];
 
 const Library = () => {
-  const [items, setItems] = useState<CardItem[]>([]);
-  const [filteredItems, setFilteredItems] = useState<CardItem[]>([]);
-  const [activeTab, setActiveTab] = useState('1');
+  const [state, setState] = useRecoilState(libraryState);
+  const { items, filteredItems, activeTab } = state;
 
-  const handleTabClick = (tabId: string) => {
-    setActiveTab(tabId);
+  function handleTabClick(tabId: string) {
+    setState(old => ({ ...old, activeTab: tabId }));
+  }
+  async function getPrompts() {
+    try {
+      const res = await getAllPrompts();
+      setState(old => ({ ...old, items: res.data.results }));
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  }
+
+  async function addPromptHandler(prompt: string) {
+    try {
+      const res = await createPrompt(prompt);
+      await getPrompts();
+      return res;
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  }
+
+  async function deletePromptHandler(id: string) {
+    try {
+      const res = await deletePrompt(id);
+      await getPrompts();
+      return res;
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  }
+
+  async function getPromptInfoHandler(id: string) {
+    try {
+      return await getPromptInfo(id);
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  }
+
+  const updatePromptHandler = async function (update: any, id: string) {
+    try {
+      const res = await updatePromptInfo(update, id);
+      await getPrompts();
+      return res;
+    } catch (err: any) {
+      toast.error(err.message);
+    }
   };
 
   useEffect(() => {
-    async function getPrompts() {
-      try {
-        const res = await getAllPrompts();
-        setItems(res.data.results);
-      } catch (err) {}
+    if (activeTab === '2') {
+      const data = items.filter(item => item.favourite);
+      setState(old => ({ ...old, filteredItems: data }));
+      return;
     }
-
-    getPrompts();
-  }, []);
-
-  useEffect(() => {
-    if (activeTab === '1') return setFilteredItems(items);
-    const data = items.filter(item => item.bookmarked);
-    setFilteredItems(data);
-  }, [activeTab, items]);
+  }, [activeTab, items, setState]);
 
   return (
-    <div className="library font-poppins h-screen overflow-y-scroll">
+    <div className="library font-poppins h-full">
       <LibraryHeader>
-        <HeadingArea />
+        <HeadingArea onAddPrompt={addPromptHandler} />
         <TabsArea>
           <Tabs
             tabs={tabs}
@@ -63,7 +111,15 @@ const Library = () => {
         </TabsArea>
         <SearchArea />
       </LibraryHeader>
-      <LibraryCardsGrid items={filteredItems} />
+      <PaginatedItems
+        items={activeTab === '1' ? items : filteredItems}
+        itemsPerPage={Pagination.itemsPerPage}
+        onAddPrompt={addPromptHandler}
+        onDeletePrompt={deletePromptHandler}
+        onPromptInfo={getPromptInfoHandler}
+        onUpdatePrompt={updatePromptHandler}
+      />
+      <ToastContainer />
     </div>
   );
 };

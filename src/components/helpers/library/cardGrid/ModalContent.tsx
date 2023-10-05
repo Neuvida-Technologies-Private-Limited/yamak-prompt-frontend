@@ -1,17 +1,42 @@
-import React from 'react';
-import { Tag, Text, Heading } from 'components/common';
+import React, { useEffect, useState } from 'react';
+
+import { message } from 'antd';
+
+import { Text, Heading, Tag } from 'components/common';
+import { TextVariants } from 'utils/constants';
+import { ModalContent as ModalConst } from 'utils/constants';
 
 interface ContentProps {
-  title: string;
-  tags: string[];
-  user_message: string;
+  id: string;
+  onPromptInfo: (id: string) => Promise<any>;
 }
 
-const ModalContent: React.FC<ContentProps> = ({ tags, user_message }) => {
-  return (
+const ModalContent: React.FC<ContentProps> = ({ id, onPromptInfo }) => {
+  const [modalContent, setModalContent] = useState<any>();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        setIsLoading(true);
+        const res = await onPromptInfo(id);
+        if (res.status_code !== 200) return message.error(res.error);
+        setModalContent(res);
+      } catch (err: any) {
+        message.error(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    getData();
+  }, [id, onPromptInfo]);
+
+  return isLoading ? (
+    <p>Loading prompt content...</p>
+  ) : (
     <>
       <div className="flex">
-        {tags.map((tag, i) => (
+        {modalContent.data.tags.map((tag: string, i: number) => (
           <Tag
             key={`prompt-card-tag-${i}`}
             color="blue"
@@ -20,31 +45,27 @@ const ModalContent: React.FC<ContentProps> = ({ tags, user_message }) => {
           />
         ))}
       </div>
-      <Text
-        children={user_message}
-        className="text-xs text-gray900 !opacity-100 mb-4"
-      />
+      <div className="mt-2 mb-4">
+        <Text variant={TextVariants.MEDIUM}>
+          {modalContent.data.user_message || ModalConst.NoUserMessage}
+        </Text>
+      </div>
       <Heading level={5}>Prompt</Heading>
       <div className="flex flex-col gap-2 bg-gray50 rounded-md p-4 mb-6">
         <p className="font-bold">System: </p>
-        <Text
-          children={
-            'You will be provided with statements, and your task is to convert them to standard English.'
-          }
-          className="text-xs text-black !opacity-100"
-        />
+        <Text variant={TextVariants.SMALL}>
+          {modalContent.data.system_message || ModalConst.NoSystemMessage}
+        </Text>
         <p className="font-bold">User: </p>
-        <Text
-          children={'She no went to the market'}
-          className="text-xs text-black !opacity-100"
-        />
+        <Text variant={TextVariants.SMALL}>
+          {modalContent.data.user_message || ModalConst.NoUserMessage}
+        </Text>
       </div>
       <div>
         <Heading level={5}>Sample Answer</Heading>
-        <Text
-          children={'She did not go to the market'}
-          className="text-xs text-secondary !opacity-100 font-medium mb-4"
-        />
+        <Text variant={TextVariants.SMALL} className="text-secondary">
+          {modalContent.data.sample_output || ModalConst.NoSampleOutput}
+        </Text>
       </div>
     </>
   );

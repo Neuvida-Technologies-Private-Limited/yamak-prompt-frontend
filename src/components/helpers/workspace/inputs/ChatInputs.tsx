@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextArea } from 'components/common';
-import { WorkspaceChatInputs } from 'utils/constants';
+import { TextAreaVariants, WorkspaceChatInputs } from 'utils/constants';
 
 const handleChange = () => {};
 
@@ -20,6 +20,7 @@ const ChatInputs: React.FC = () => {
             placeholder={item.placeholder}
             maxLength={0}
             className="!resize-none !h-full focus:border-gray50 hover:border-0"
+            variant={TextAreaVariants.DEFAULT}
             onChange={handleChange}
           />
         </div>

@@ -17,6 +17,15 @@ export type TestConnectionModal = {
   api_key: string;
   provider: string;
 };
+export type PromptModal = {
+  title: string;
+  user_message: string;
+  tags: string;
+  is_public: boolean;
+  liked_by_user: boolean;
+  system_message: string;
+  sample_output: string;
+};
 export type CreateWorkspaceModal = {
   title: string;
   model_key: string;

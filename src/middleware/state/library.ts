@@ -1,10 +1,22 @@
 import { atom } from 'recoil';
+import { LibraryCardItem } from 'types';
 
 export const libraryState = atom({
   key: 'library-state',
   default: {
-    items: [],
-    filteredItems: [],
+    items: [] as LibraryCardItem[],
+    filteredItems: [] as LibraryCardItem[],
     activeTab: '1',
+  },
+});
+
+export const promptModalState = atom({
+  key: 'prompt-modal-state',
+  default: {
+    title: 'test',
+    userMessage: 'test',
+    systemMessage: 'test',
+    promptOutput: 'test',
+    tags: 'test',
   },
 });

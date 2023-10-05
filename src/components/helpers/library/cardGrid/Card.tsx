@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 
 import { FiCopy, FiHeart } from 'react-icons/fi';
-import { BiDislike } from 'react-icons/bi';
+import { BiDislike, BiSolidDislike, BiSolidHeart } from 'react-icons/bi';
+import { BsTrash } from 'react-icons/bs';
+import { message } from 'antd';
 
 import { Button, Modal, Tag, Text } from 'components/common';
 import ModalContent from './ModalContent';
 import { LibraryCardItem as CardItemProps } from 'types';
 import { ButtonVariants, Library, LibraryCard as Card } from 'utils/constants';
-import { BsTrash } from 'react-icons/bs';
 
 const LibraryCard: React.FC<CardItemProps> = ({
   title,
+  favourite,
   bookmarked,
   is_public,
   liked_by_user,
@@ -20,14 +22,58 @@ const LibraryCard: React.FC<CardItemProps> = ({
   tags,
   user_message,
   uuid,
+  onDeletePrompt,
+  onPromptInfo,
+  onUpdatePrompt,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isFavourite, setIsFavourite] = useState(favourite);
+  const [isLiked, setisLiked] = useState(liked_by_user);
 
-  const addPromptHandler: React.MouseEventHandler = () => {
+  const promptInfoHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);
   };
 
-  const importPromptHandler = () => {};
+  function importPromptHandler() {}
+
+  function copyPromptHandler() {
+    navigator.clipboard.writeText(user_message);
+    message.success(Card.Copied);
+  }
+
+  async function favoriteHandler() {
+    setIsFavourite(prev => !prev);
+    const updateObj = {
+      favourite: !isFavourite,
+    };
+    const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
+
+    if (res.status_code !== 200) return message.error(res.error);
+
+    message.success(Card.Success);
+  }
+
+  async function dislikeHandler() {
+    setisLiked(prev => !prev);
+    /**
+     * If not isDisliked means, the user like the card
+     */
+    const updateObj = {
+      liked: !isLiked,
+    };
+    const res = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
+
+    if (res.status_code !== 200) return message.error(res.error);
+
+    message.success(Card.Success);
+  }
+
+  async function deleteHandler() {
+    if (window.confirm('Are you sure?')) {
+      await onDeletePrompt(uuid);
+      message.success('Prompt deleted');
+    }
+  }
 
   return (
     <>
@@ -35,12 +81,11 @@ const LibraryCard: React.FC<CardItemProps> = ({
         <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between gap-4 items-center mb-4">
           <h2
             className="text-black font-bold text-md cursor-pointer transition hover:text-primary"
-            onClick={addPromptHandler}
+            onClick={promptInfoHandler}
           >
             {title}
           </h2>
           <Button
-            size="small"
             variant={ButtonVariants.DEFAULT}
             onClick={importPromptHandler}
             name={Library.CardButtonName}
@@ -63,31 +108,27 @@ const LibraryCard: React.FC<CardItemProps> = ({
         <div className="flex flex-wrap justify-start gap-2">
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            size="small"
             name={Card.ButtonCopyPrompt}
             icon={<FiCopy />}
-            onClick={() => {}}
+            onClick={copyPromptHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            size="small"
             name={Card.ButtonFavorite}
-            icon={<FiHeart />}
-            onClick={() => {}}
+            icon={isFavourite ? <BiSolidHeart /> : <FiHeart />}
+            onClick={favoriteHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            size="small"
             name={Card.ButtonDislike}
-            icon={<BiDislike />}
-            onClick={() => {}}
+            icon={!isLiked ? <BiSolidDislike /> : <BiDislike />}
+            onClick={dislikeHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            size="small"
             name={Card.ButtonDelete}
             icon={<BsTrash />}
-            onClick={() => {}}
+            onClick={deleteHandler}
           />
         </div>
       </div>
@@ -97,17 +138,10 @@ const LibraryCard: React.FC<CardItemProps> = ({
         centered={true}
         isOpen={showModal}
         cancelModalHandler={() => setShowModal(false)}
+        sumbitHandler={() => {}}
         okText={'Import Prompt'}
-        footer={[
-          <Button
-            variant={ButtonVariants.PRIMARY}
-            size="small"
-            name={Library.ImportPrompt}
-            onClick={() => {}}
-          />,
-        ]}
       >
-        <ModalContent title={title} tags={tags} user_message={user_message} />
+        <ModalContent key={uuid} id={uuid} onPromptInfo={onPromptInfo} />
       </Modal>
     </>
   );

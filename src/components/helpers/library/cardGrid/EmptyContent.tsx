@@ -2,7 +2,9 @@ import { Heading, Text } from 'components/common';
 import AddNewPrompt from '../addPrompt';
 import { Library } from 'utils/constants';
 
-const EmptyContent = () => {
+const EmptyLibrary: React.FC<{
+  onAddPrompt: (prompt: string) => Promise<any>;
+}> = ({ onAddPrompt }) => {
   return (
     <div className="w-full flex flex-col items-center gap-4 py-20">
       <img src="/assets/images/library.svg" alt="No prompt found" />
@@ -10,9 +12,9 @@ const EmptyContent = () => {
         <Heading level={4}>{Library.EmptyLibraryHeading}</Heading>
         <Text children={Library.EmptyLibraryText} />
       </div>
-      <AddNewPrompt />
+      <AddNewPrompt onAddPrompt={onAddPrompt} />
     </div>
   );
 };
 
-export default EmptyContent;
+export default EmptyLibrary;

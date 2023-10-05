@@ -1,5 +1,3 @@
-import { LibraryCardItem as CardItem } from 'types';
-
 export enum InputVariants {
   Filled = 'filled',
   Outlined = 'outlined',
@@ -15,6 +13,18 @@ export enum ButtonVariants {
   SECONDARY_LINK = 'secondary-link',
   DEFAULT = 'default',
 }
+
+export enum TextAreaVariants {
+  FILLED = 'filled',
+  DEFAULT = 'default',
+}
+
+export enum TextVariants {
+  LARGE = 'large',
+  MEDIUM = 'medium',
+  SMALL = 'small',
+}
+
 export enum CardConst {
   CopyPrompt = 'Copy Prompt',
   Likes = '5.1M',
@@ -132,18 +142,18 @@ export enum Library {
   ModalHeading = 'Add New Prompt',
   OkText = 'Add Prompt',
   SubHead = 'Fill in the details of your prompt',
-  NewPromptTitle = 'new-prompt-title',
+  NewPromptTitle = 'title',
   TitlePlaceholder = 'Enter prompt title',
-  UserMessageTitle = 'user-message-title',
+  UserMessageTitle = 'userMessage',
   UserMessagePlaceholder = 'Enter user message',
-  SystemMessageTitle = 'system-message-title',
+  SystemMessageTitle = 'systemMessage',
   SystemMessagePlaceholder = 'Enter system message',
-  WritePromptTitle = 'write-prompt-text',
+  WritePromptTitle = 'promptOutput',
   WritePromptPlaceholder = 'Prompt sample output',
   SelectTagPlaceholder = 'Select Tag',
-  TagsTitle = 'add-tags',
+  TagsTitle = 'tags',
   TagsPlaceholder = 'Enter tags (comma seperated)',
-  SearchLibrary = 'Search Library',
+  SearchLibrary = 'Search prompts...',
   CardHeading = 'Human Written | 100% Unique | SEO Optimized Article',
   CardSubHeading = 'SEO/Writing',
   CardButtonName = 'Import Prompt',
@@ -158,6 +168,14 @@ export enum LibraryCard {
   ButtonFavorite = 'Favorite',
   ButtonDislike = 'Dislike',
   ButtonDelete = 'Delete',
+  Success = 'Successfully updated',
+  Copied = 'Copied',
+}
+
+export enum ModalContent {
+  NoUserMessage = 'No user message',
+  NoSystemMessage = 'No system message',
+  NoSampleOutput = 'No sample output',
 }
 
 export enum Label {
@@ -222,8 +240,6 @@ export const KeyManagementSelectOptions = [
   { value: 'Bard', label: 'Bard' },
 ];
 
-export const LibraryCardItems: CardItem[] = [];
-
 export const KeyDetails = [
   {
     id: '1',
@@ -242,3 +258,7 @@ export const KeyDetails = [
     provider: 'Bard',
   },
 ];
+
+export const Pagination = {
+  itemsPerPage: 4,
+};

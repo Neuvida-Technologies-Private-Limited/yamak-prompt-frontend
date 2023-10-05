@@ -4,7 +4,6 @@ import { useRecoilState } from 'recoil';
 import { Button, Input, Label } from 'components/common';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { generateOutputState } from 'middleware/state';
-import { LabelType } from 'types';
 
 interface OutputSectionProps {
   generateOutput: (event: { preventDefault: () => void }) => Promise<void>;

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Input } from 'antd';
+import classNames from 'classnames';
+import { TextAreaVariants } from 'utils/constants';
 
 const { TextArea } = Input;
 
@@ -13,6 +15,7 @@ interface TextAreaProps {
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   disabled?: boolean;
   value?: string;
+  variant: 'default' | 'filled';
 }
 
 const index: React.FC<TextAreaProps> = ({
@@ -25,7 +28,17 @@ const index: React.FC<TextAreaProps> = ({
   onChange,
   disabled,
   value,
+  variant,
 }) => {
+  const rootClassnames = classNames(
+    'border-0 !focus:outline-none !resize-none',
+    {
+      'p-3 w-full bg-gray50 mb-4': variant === TextAreaVariants.FILLED,
+      'bg-white': variant === TextAreaVariants.DEFAULT,
+    },
+    className
+  );
+
   return (
     <TextArea
       id={id}
@@ -34,7 +47,7 @@ const index: React.FC<TextAreaProps> = ({
       rows={rows}
       placeholder={placeholder}
       maxLength={maxLength}
-      className={`border-0 !focus:outline-none !resize-none ${className}`}
+      className={rootClassnames}
       onChange={onChange}
       disabled={disabled}
     />

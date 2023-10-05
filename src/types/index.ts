@@ -1,5 +1,6 @@
 export type LibraryCardItem = {
   title: string;
+  favourite: boolean;
   bookmarked: boolean;
   is_public: boolean;
   liked_by_user: boolean | null;
@@ -9,6 +10,31 @@ export type LibraryCardItem = {
   tags: string[];
   user_message: string;
   uuid: string;
+  onDeletePrompt: (id: string) => Promise<any>;
+  onPromptInfo: (id: string) => Promise<any>;
+  onUpdatePrompt: (update: any, id: string) => Promise<any>;
+};
+
+export type LibraryGetPromptInfoModal = {
+  data: {
+    title: string;
+    system_message: string;
+    user_message: string;
+    sample_output: string;
+    favourite: boolean;
+    published: boolean;
+    is_public: boolean;
+    prompt_type: string;
+    workspace: string | null;
+    likes_dislikes_count: {
+      likes: number;
+      dislikes: number;
+    };
+    liked_by_user: boolean | null;
+    tags: string[];
+  };
+  error: string;
+  status_code: number;
 };
 
 export type Tab = {

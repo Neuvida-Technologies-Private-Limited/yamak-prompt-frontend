@@ -2,7 +2,7 @@ import { HiPlus } from 'react-icons/hi';
 import { useRecoilState } from 'recoil';
 
 import { Button, TextArea } from 'components/common';
-import { ButtonVariants, Workspace } from 'utils/constants';
+import { ButtonVariants, TextAreaVariants, Workspace } from 'utils/constants';
 import { generateOutputState } from 'middleware/state';
 
 interface CompletionInputsProps {}
@@ -64,8 +64,9 @@ const CompletionInputs: React.FC<CompletionInputsProps> = () => {
             rows={5}
             placeholder={item.placeholder}
             maxLength={0}
-            onChange={item.onChange}
+            variant={TextAreaVariants.DEFAULT}
             value={item.value}
+            onChange={item.onChange}
           />
         </div>
       ))}
