@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { getWorkspace } from 'middleware/api';
 import {
@@ -14,13 +14,14 @@ import {
   WorkspaceCompletion,
 } from 'components/helpers';
 import { Button, Input, Tabs } from 'components/common';
-import { workspaceInfoState } from 'middleware/state';
+import { generateOutputState, workspaceInfoState } from 'middleware/state';
 
 const handleClick = () => {};
 const handleChange = () => {};
 
 const Index = () => {
   const [workspaceData, setWorkspaceData] = useRecoilState(workspaceInfoState);
+  const resetOutputState = useResetRecoilState(generateOutputState);
 
   const { id, title, model_key, last_modified, timestamp, user_uuid } =
     workspaceData;
@@ -89,7 +90,7 @@ const Index = () => {
             variant={ButtonVariants.PRIMARY_LIGHT}
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
-            onClick={handleClick}
+            onClick={resetOutputState}
           />
           <Button
             size={undefined}
