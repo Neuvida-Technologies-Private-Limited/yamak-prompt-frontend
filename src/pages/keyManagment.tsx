@@ -136,6 +136,7 @@ const KeyManagment: React.FC = () => {
                     onConfirm={() => deleteKey(item.uuid)}
                     title={KeyManagement.POPUP_TITLE}
                     description={KeyManagement.POPUP_DESCRIPTION}
+                    placement="top"
                   />
                 </div>
               </div>

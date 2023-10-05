@@ -1,4 +1,5 @@
 import { useRecoilState } from 'recoil';
+import { toast, ToastContainer } from 'react-toastify';
 
 import {
   WorkspaceCompletionOutput,
@@ -24,15 +25,9 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
     bookmarked,
     is_public,
     prompt_type,
+    tags,
     output,
-    parameters: {
-      temperature,
-      max_tokens,
-      top_p,
-      frequency_penalty,
-      presence_penalty,
-      logit_bias,
-    },
+    parameters: { temperature, max_tokens },
   } = outputState;
 
   const generateOutput = async (event: { preventDefault: () => void }) => {
@@ -46,21 +41,18 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
       bookmarked,
       is_public,
       prompt_type,
-      // parameters: {
-      //   temperature,
-      //   max_tokens,
-      //   top_p,
-      //   frequency_penalty,
-      //   presence_penalty,
-      //   logit_bias,
-      // },
+      tags,
+      parameters: {
+        temperature: temperature,
+        max_tokens: max_tokens,
+      },
     };
 
     try {
       const res = await GenerateOutput(outputParams);
       var message = res.message;
     } catch (error: any) {
-      console.log(error);
+      toast.error(error);
     }
 
     setOutputState(old => ({
@@ -83,6 +75,7 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
       <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">
         <WorkspaceCompletionOutput generateOutput={generateOutput} />
       </div>
+      <ToastContainer autoClose={3000} />
     </>
   );
 };

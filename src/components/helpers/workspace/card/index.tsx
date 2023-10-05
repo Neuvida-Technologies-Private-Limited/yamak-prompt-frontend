@@ -1,10 +1,10 @@
-import React from 'react';
-import type { MenuProps } from 'antd';
+import React, { useState } from 'react';
+import { message, type MenuProps } from 'antd';
 import { BsThreeDots } from 'react-icons/bs';
 import { useResetRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
 
-import { Dropdown } from 'components/common';
+import { Dropdown, Modal } from 'components/common';
 import { Workspace } from 'utils/constants';
 import { generateOutputState } from 'middleware/state';
 
@@ -14,18 +14,8 @@ interface WorkspaceCardProps {
   createdOn: string;
   last_edited: string;
   id: string;
+  deleteWorkspace: (id: string) => Promise<boolean | undefined>;
 }
-
-const items: MenuProps['items'] = [
-  {
-    key: '1',
-    label: <button onClick={() => {}}>Edit</button>,
-  },
-  {
-    key: '2',
-    label: <button onClick={() => {}}>Delete</button>,
-  },
-];
 
 const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
   id,
@@ -33,8 +23,35 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
   createdOn,
   createdBy,
   last_edited,
+  deleteWorkspace,
 }) => {
   const resetOutputState = useResetRecoilState(generateOutputState);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleDeleteWorkspace = async (event: {
+    preventDefault: () => void;
+  }) => {
+    event.preventDefault();
+
+    try {
+      if (await deleteWorkspace(id)) {
+        setShowModal(false);
+        message.success('Workspace deleted !');
+      }
+    } catch (error: any) {
+      message.error('Error in deleting workspace!');
+    }
+  };
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: <button onClick={() => {}}>Edit</button>,
+    },
+    {
+      key: '2',
+      label: <button onClick={() => setShowModal(true)}>Delete</button>,
+    },
+  ];
 
   return (
     <div className="font-poppins p-4 bg-white rounded-lg flex flex-col justify-between gap-6 hover:shadow-md transition-all duration-300 ease-in-out">
@@ -62,6 +79,18 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
           </p>
         </div>
       </div>
+      <Modal
+        title={'Do you want to delete this workspace?'}
+        centered={true}
+        isOpen={showModal}
+        sumbitHandler={handleDeleteWorkspace}
+        cancelModalHandler={() => {
+          setShowModal(false);
+        }}
+        okText={'Yes'}
+        cancelText="No"
+        className="keyManagement"
+      />
     </div>
   );
 };

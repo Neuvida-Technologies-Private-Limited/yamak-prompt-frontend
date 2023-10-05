@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { WorkspaceDetailsType } from 'types';
+import { WorkspaceDetailsType, LabelType } from 'types';
 
 export const workspaceState = atom({
   key: 'workspace-state',
@@ -39,7 +39,7 @@ export const generateOutputState = atom({
     is_public: false,
     bookmarked: false,
     prompt_type: 'Completion',
-    tags: [],
+    tags: [] as string[],
     parameters: {
       temperature: 1.0,
       max_tokens: 50,

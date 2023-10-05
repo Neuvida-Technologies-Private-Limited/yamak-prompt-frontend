@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { Button, Input, Label } from 'components/common';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { generateOutputState } from 'middleware/state';
+import { LabelType } from 'types';
 
 interface OutputSectionProps {
   generateOutput: (event: { preventDefault: () => void }) => Promise<void>;
@@ -14,12 +15,18 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
   const [typedOutput, setTypedOutput] = useState('');
   const [outputIndex, setOutputIndex] = useState(0);
 
-  const { title, output } = outputState;
+  const { title, output, tags } = outputState;
 
   const handleTitleChange = (title: string) => {
     setOutputState(old => ({
       ...old,
       title,
+    }));
+  };
+  const handleLabelsChange = (tags: string[]) => {
+    setOutputState(old => ({
+      ...old,
+      tags: [...tags],
     }));
   };
 
@@ -43,13 +50,13 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
           className="!w-1/2 !mb-0"
           value={title}
         />
-        <Label />
+        <Label onChange={handleLabelsChange} />
       </div>
       <div className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full overflow-hidden">
         <label className="font-semibold pb-2">{Workspace.Output}</label>
         <div className="overflow-y-scroll h-full">
           {output ? (
-            <p className="text-black">{typedOutput}</p>
+            <p className="text-black text-base">{typedOutput}</p>
           ) : (
             <p className="text-gray100">{Workspace.EnterHere}</p>
           )}

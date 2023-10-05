@@ -39,13 +39,13 @@ axiosClientProtected.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-
+      debugger;
       SetStorage(TOKENS.ACCESS_TOKEN, '');
       const refresh_token = GetStorage(TOKENS.REFRESH_TOKEN);
 
-      await REFRESH_ACCESS_TOKEN({ refresh: refresh_token });
-
-      const access_token = GetStorage(TOKENS.ACCESS_TOKEN);
+      const access_token = await REFRESH_ACCESS_TOKEN({
+        refresh: refresh_token,
+      });
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
       originalRequest.headers['Authorization'] = 'Bearer ' + access_token;
 
