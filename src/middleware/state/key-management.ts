@@ -17,6 +17,6 @@ export const createKeystate = atom({
 export const keyManagementState = atom({
   key: 'key-management-state',
   default: {
-    key_details: [] as KeyDetailsType[],
+    results: [] as KeyDetailsType[],
   },
 });
