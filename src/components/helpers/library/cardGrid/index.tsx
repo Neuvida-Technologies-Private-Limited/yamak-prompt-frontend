@@ -19,7 +19,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   return items.length === 0 ? (
     <EmptyLibrary onAddPrompt={onAddPrompt} />
   ) : (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-[30rem] overflow-y-scroll">
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 font-poppins bg-gray50">
         {items.map(item => (
           <LibraryCard

@@ -1,13 +1,48 @@
-import { Pagination } from 'antd';
+import { useRecoilState } from 'recoil';
+import { Button } from '..';
+import { libraryPaginationState } from 'middleware/state/library';
 
-interface PaginationProps {}
+function Pagination() {
+  const [{ currentPage, hasPrevious, hasNext, count, itemsPerPage }, setState] =
+    useRecoilState(libraryPaginationState);
 
-const Index: React.FC<PaginationProps> = ({}) => {
+  const totalKeys = Math.ceil(count / itemsPerPage);
+
+  const totalButtons = Array.from({ length: totalKeys }).map((_, index) => (
+    <Button
+      key={index}
+      variant="outlined-light"
+      disabled={currentPage === index + 1}
+      name={index + 1}
+      onClick={() => setState(old => ({ ...old, currentPage: index + 1 }))}
+    />
+  ));
+
+  function nextPageHandler() {
+    setState(old => ({ ...old, currentPage: currentPage + 1 }));
+  }
+
+  function previousPageHandler() {
+    setState(old => ({ ...old, currentPage: currentPage - 1 }));
+  }
+
   return (
-    <div className="self-center py-4">
-      <Pagination />
+    <div className="flex gap-4 self-center py-4">
+      <Button
+        disabled={hasPrevious ? false : true}
+        variant="outlined-light"
+        name={'Previous'}
+        onClick={previousPageHandler}
+      />
+      {totalButtons}
+      <Button
+        disabled={hasNext ? false : true}
+        variant="outlined-light"
+        name={'Next'}
+        onClick={nextPageHandler}
+      />
     </div>
   );
-};
+}
 
-export default Index;
+export default Pagination;

@@ -1,9 +1,11 @@
 import axiosClientProtected from 'middleware/axios/axios-client/axios-client-protected';
 import { libraryRoutes } from './routes';
 
-export const getAllPrompts = async () => {
+export const getAllPrompts = async (page: number) => {
   try {
-    const res: any = await axiosClientProtected.get(libraryRoutes.GET_PROMPTS);
+    const res: any = await axiosClientProtected.get(
+      `${libraryRoutes.GET_PROMPTS}${page}`
+    );
     if (res.status_code !== 200) throw new Error(res.error);
     return res;
   } catch (err: any) {

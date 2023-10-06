@@ -10,13 +10,24 @@ export const libraryState = atom({
   },
 });
 
+export const libraryPaginationState = atom({
+  key: 'library-pagination',
+  default: {
+    currentPage: 1,
+    count: 0,
+    itemsPerPage: 10,
+    hasNext: null,
+    hasPrevious: null,
+  },
+});
+
 export const promptModalState = atom({
   key: 'prompt-modal-state',
   default: {
-    title: '',
-    userMessage: '',
-    systemMessage: '',
-    promptOutput: '',
-    tags: '',
+    title: 'test',
+    userMessage: 'test',
+    systemMessage: 'test',
+    promptOutput: 'test',
+    tags: 'test',
   },
 });
