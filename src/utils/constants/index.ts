@@ -143,11 +143,11 @@ export enum Library {
   OkText = 'Add Prompt',
   SubHead = 'Fill in the details of your prompt',
   NewPromptTitle = 'title',
-  TitlePlaceholder = 'Enter prompt title',
+  TitlePlaceholder = 'Prompt title',
   UserMessageTitle = 'userMessage',
-  UserMessagePlaceholder = 'Enter user message',
+  UserMessagePlaceholder = 'User message',
   SystemMessageTitle = 'systemMessage',
-  SystemMessagePlaceholder = 'Enter system message',
+  SystemMessagePlaceholder = 'System message',
   WritePromptTitle = 'promptOutput',
   WritePromptPlaceholder = 'Prompt sample output',
   SelectTagPlaceholder = 'Select Tag',
@@ -160,13 +160,22 @@ export enum Library {
   CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
   ImportPrompt = 'Import Prompt',
   EmptyLibraryHeading = "Oops, it's a bit empty in here...",
-  EmptyLibraryText = 'sNot sure where to start? Browse our library of pre-built templates to get the inspiration flowing.',
+  EmptyLibraryText = 'Start by creating a new prompt.',
+}
+
+export enum LibraryAddPrompt {
+  NoTitleMessage = 'Title is required',
+  NoUserMessage = 'User message is required',
+  NoSystemMessage = 'System message is required',
+  NoSampleOutput = 'Prompt output is required',
+  NoTags = 'Tags are required',
 }
 
 export enum LibraryCard {
   ButtonCopyPrompt = 'Copy prompt',
   ButtonFavorite = 'Favorite',
   ButtonDislike = 'Dislike',
+  ButtonLike = 'Like',
   ButtonDelete = 'Delete',
   Success = 'Successfully updated',
   Copied = 'Copied',

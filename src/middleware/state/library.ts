@@ -24,10 +24,15 @@ export const libraryPaginationState = atom({
 export const promptModalState = atom({
   key: 'prompt-modal-state',
   default: {
-    title: 'test',
-    userMessage: 'test',
-    systemMessage: 'test',
-    promptOutput: 'test',
-    tags: 'test',
+    title: '',
+    titleError: '',
+    userMessage: '',
+    userMessageError: '',
+    systemMessage: '',
+    systemMessageError: '',
+    promptOutput: '',
+    promptOutputError: '',
+    tags: '',
+    tagsError: '',
   },
 });

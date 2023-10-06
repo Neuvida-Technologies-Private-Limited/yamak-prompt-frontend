@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 
 import { FiCopy, FiHeart } from 'react-icons/fi';
-import { BiDislike, BiSolidDislike, BiSolidHeart } from 'react-icons/bi';
+import {
+  BiDislike,
+  BiLike,
+  BiSolidDislike,
+  BiSolidHeart,
+  BiSolidLike,
+} from 'react-icons/bi';
 import { BsTrash } from 'react-icons/bs';
 import { message } from 'antd';
 
@@ -54,18 +60,16 @@ const LibraryCard: React.FC<CardItemProps> = ({
   }
 
   async function dislikeHandler() {
-    setisLiked(prev => !prev);
-    /**
-     * If not isDisliked means, the user like the card
-     */
-    const updateObj = {
-      liked: !isLiked,
-    };
-    const res = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
-
-    if (res.status_code !== 200) return message.error(res.error);
-
-    message.success(Card.Success);
+    // setisLiked(prev => !prev);
+    // /**
+    //  * If not isDisliked means, the user like the card
+    //  */
+    // const updateObj = {
+    //   liked: !isLiked,
+    // };
+    // const res = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
+    // if (res.status_code !== 200) return message.error(res.error);
+    // message.success(Card.Success);
   }
 
   async function deleteHandler() {
@@ -120,8 +124,14 @@ const LibraryCard: React.FC<CardItemProps> = ({
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            name={Card.ButtonDislike}
-            icon={!isLiked ? <BiSolidDislike /> : <BiDislike />}
+            name={likes_dislikes_count.likes}
+            icon={<BiLike />}
+            onClick={dislikeHandler}
+          />
+          <Button
+            variant={ButtonVariants.OUTLINED_LIGHT}
+            name={likes_dislikes_count.dislikes}
+            icon={<BiDislike />}
             onClick={dislikeHandler}
           />
           <Button
