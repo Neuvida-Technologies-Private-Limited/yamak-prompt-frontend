@@ -117,15 +117,16 @@ const Index = () => {
           <WorkspaceParameters />
         </div>
       </div>
-
-      {tabs.map((tab, i) => (
-        <div
-          className="lg:flex lg:flex-row sm:grid md:grid-col-2 sm:grid-col-1 px-4 !overflow-y-scroll"
-          key={i}
-        >
-          {currentTab === tab.id && <>{tab.content}</>}
-        </div>
-      ))}
+      <div className="h-full">
+        {tabs.map((tab, i) => (
+          <div
+            className="lg:flex lg:flex-row sm:grid md:grid-col-2 sm:grid-col-1 px-4 "
+            key={i}
+          >
+            {currentTab === tab.id && <>{tab.content}</>}
+          </div>
+        ))}
+      </div>
       <ToastContainer autoClose={3000} />
     </div>
   );

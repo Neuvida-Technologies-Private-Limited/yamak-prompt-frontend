@@ -8,10 +8,10 @@ const Chat = () => {
   const isDekstopView = window.innerWidth >= 768;
 
   return (
-    <>
+    <div className="h-full w-full flex">
       {isDekstopView ? (
         <div className="lg:w-1/5 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
-          <WorkspaceHistory />
+          <WorkspaceHistory id={undefined} />
         </div>
       ) : null}
 
@@ -21,7 +21,7 @@ const Chat = () => {
       <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">
         <WorkspaceChatOutput />
       </div>
-    </>
+    </div>
   );
 };
 

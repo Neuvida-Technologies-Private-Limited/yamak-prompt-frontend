@@ -45,7 +45,6 @@ const KeyManagment: React.FC = () => {
   const getKeyList = async () => {
     try {
       const res = await GetKeyList();
-      console.log(res);
       setState(old => ({
         ...old,
         results: Array.isArray(res.results) ? res.results : [],

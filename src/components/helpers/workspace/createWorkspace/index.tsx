@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { Button, Input, Modal, Select } from 'components/common';
@@ -9,19 +10,17 @@ import {
   ButtonVariants,
   Paths,
 } from 'utils/constants';
-import { createWorkspaceState, keyManagementState } from 'middleware/state';
+import {
+  createWorkspaceState,
+  keyManagementState,
+  keyOptionsState,
+} from 'middleware/state';
 import {
   isWorkspaceTitleValidated,
   isWorkspaceModalKeyValidated,
   IsCreateWorkspaceFormValidated,
 } from 'utils/validations';
 import { GetKeyList } from 'middleware/api';
-import { Link } from 'react-router-dom';
-
-interface OptionItems {
-  value: string;
-  label: string;
-}
 
 interface CreateWorkspaceProps {
   btnName: string;
@@ -36,12 +35,13 @@ const App: React.FC<CreateWorkspaceProps> = ({
 }) => {
   const [state, setState] = useRecoilState(createWorkspaceState);
   const [keystate, setKeyState] = useRecoilState(keyManagementState);
+  const [optionsState, setOptionsState] = useRecoilState(keyOptionsState);
   const resetState = useResetRecoilState(createWorkspaceState);
 
   const [showModal, setShowModal] = useState(false);
-  const [options, setOptions] = useState<OptionItems[]>([]);
 
   const { title, titleError, model_key, model_keyError } = state;
+  const { options } = optionsState;
 
   const handleTitleChange = (title: string) => {
     setState(old => ({
@@ -83,15 +83,23 @@ const App: React.FC<CreateWorkspaceProps> = ({
     const getKeyList = async () => {
       try {
         const res = await GetKeyList();
+
         setKeyState(old => ({
           ...old,
-          key_details: Array.isArray(res) ? res : [],
+          results: Array.isArray(res.results) ? res.results : [],
         }));
 
-        const keyInfo = Array.isArray(res)
-          ? res.map(item => ({ value: item.uuid, label: item.title }))
+        const keyInfo = Array.isArray(res.results)
+          ? res.results.map((item: { uuid: any; title: any }) => ({
+              value: item.uuid,
+              label: item.title,
+            }))
           : [];
-        setOptions(keyInfo);
+
+        setOptionsState(old => ({
+          ...old,
+          options: keyInfo,
+        }));
       } catch (error: any) {
         toast.error(error);
       }

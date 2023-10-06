@@ -18,7 +18,6 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
 
   const {
-    workspace,
     system_message,
     user_message,
     title,
@@ -26,7 +25,6 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
     is_public,
     prompt_type,
     tags,
-    output,
     parameters: { temperature, max_tokens },
   } = outputState;
 
@@ -65,7 +63,7 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
     <>
       {isDekstopView ? (
         <div className="lg:w-1/5 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
-          <WorkspaceHistory />
+          <WorkspaceHistory id={id} />
         </div>
       ) : null}
 

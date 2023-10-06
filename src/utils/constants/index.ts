@@ -112,6 +112,9 @@ export enum Workspace {
   User = 'User',
   Assistant = 'Assistent',
   SelectKey = 'Select Key',
+  UpdateWorkspace = 'Update Workspace',
+  Update = 'Update',
+  Delete = 'Delete',
 }
 
 export enum KeyManagement {
