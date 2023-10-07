@@ -92,7 +92,7 @@ export enum Workspace {
   EnterHere = 'Enter a user message',
   Output = 'Output',
   Reset = 'Reset',
-  Publish = 'Publish Prompt',
+  PublishPrompt = 'Publish Prompt',
   SearchPrompt = 'Search Prompt Library',
   CharacterLimit = 'Your limit is 300 character',
   Marketing = 'Marketing Prompt Room',
@@ -115,6 +115,7 @@ export enum Workspace {
   UpdateWorkspace = 'Update Workspace',
   Update = 'Update',
   Delete = 'Delete',
+  Publish = 'Publish',
 }
 
 export enum KeyManagement {

@@ -11,6 +11,7 @@ import {
   WorkspaceParameters,
   WorkspaceChat,
   WorkspaceCompletion,
+  PublishPromptModal,
 } from 'components/helpers';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Input, Tabs } from 'components/common';
@@ -92,6 +93,7 @@ const Index = () => {
             name={Workspace.Reset}
             onClick={resetOutputState}
           />
+          <PublishPromptModal />
         </div>
       </div>
       <div className="flex px-8 py-2 border-b-4 border-gray50 items-center justify-between">
