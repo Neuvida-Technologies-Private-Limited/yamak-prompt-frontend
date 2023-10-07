@@ -7,6 +7,8 @@ export const libraryState = atom({
     items: [] as LibraryCardItem[],
     filteredItems: [] as LibraryCardItem[],
     activeTab: '1',
+    error: '',
+    status_code: 200,
   },
 });
 
@@ -24,15 +26,15 @@ export const libraryPaginationState = atom({
 export const promptModalState = atom({
   key: 'prompt-modal-state',
   default: {
-    title: '',
+    title: 'test',
     titleError: '',
-    userMessage: '',
+    userMessage: 'test',
     userMessageError: '',
-    systemMessage: '',
+    systemMessage: 'test',
     systemMessageError: '',
-    promptOutput: '',
+    promptOutput: 'test',
     promptOutputError: '',
-    tags: '',
+    tags: 'test',
     tagsError: '',
   },
 });

@@ -6,18 +6,20 @@ export const getAllPrompts = async (page: number) => {
     const res: any = await axiosClientProtected.get(
       `${libraryRoutes.GET_PROMPTS}${page}`
     );
-    if (res.status_code !== 200) throw new Error(res.error);
+
+    // console.log(res);
+    // if (res.status_code !== 200) throw new Error(res.error);
     return res;
   } catch (err: any) {
-    throw new Error(err.message);
+    throw new Error(err.error);
   }
 };
 
 export const createPrompt = async (prompt: any) => {
   try {
     return await axiosClientProtected.post(libraryRoutes.CREATE_PROMPT, prompt);
-  } catch (err) {
-    return Promise.reject(err);
+  } catch (err: any) {
+    throw new Error(err);
   }
 };
 
@@ -26,16 +28,16 @@ export const deletePrompt = async (id: string) => {
     return await axiosClientProtected.delete(
       `${libraryRoutes.DELETE_PROMPT}${id}/`
     );
-  } catch (err) {
-    return Promise.reject(err);
+  } catch (err: any) {
+    throw new Error(err);
   }
 };
 
 export const getPromptInfo = async (id: string) => {
   try {
     return await axiosClientProtected.get(`${libraryRoutes.GET_PROMPT}${id}/`);
-  } catch (err) {
-    return Promise.reject(err);
+  } catch (err: any) {
+    throw new Error(err);
   }
 };
 
@@ -48,8 +50,8 @@ export const getSearchPromptInfo = async (
       `${libraryRoutes.SEARCH_PROMPT}${input}`,
       { signal: controller?.signal }
     );
-  } catch (err) {
-    return Promise.reject(err);
+  } catch (err: any) {
+    throw new Error(err);
   }
 };
 
@@ -60,6 +62,6 @@ export const updatePromptInfo = async (update: any, id: string) => {
       update
     );
   } catch (err: any) {
-    return Promise.reject(err);
+    throw new Error(err);
   }
 };

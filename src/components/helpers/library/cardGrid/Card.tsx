@@ -40,14 +40,18 @@ const LibraryCard: React.FC<CardItemProps> = ({
     setShowModal(prev => !prev);
   };
 
-  function importPromptHandler() {}
+  function importPromptHandler(event: React.MouseEvent) {
+    event.stopPropagation();
+  }
 
-  function copyPromptHandler() {
+  function copyPromptHandler(event: React.MouseEvent) {
+    event.stopPropagation();
     navigator.clipboard.writeText(user_message);
     message.success(Card.Copied);
   }
 
-  async function favoriteHandler() {
+  async function favoriteHandler(event: React.MouseEvent) {
+    event.stopPropagation();
     setIsFavourite(prev => !prev);
     const updateObj = {
       favourite: !isFavourite,
@@ -72,7 +76,8 @@ const LibraryCard: React.FC<CardItemProps> = ({
     // message.success(Card.Success);
   }
 
-  async function deleteHandler() {
+  async function deleteHandler(event: React.MouseEvent) {
+    event.stopPropagation();
     if (window.confirm('Are you sure?')) {
       await onDeletePrompt(uuid);
       message.success('Prompt deleted');
@@ -81,12 +86,12 @@ const LibraryCard: React.FC<CardItemProps> = ({
 
   return (
     <>
-      <div className="flex flex-col bg-white p-4 rounded-2xl shadow">
+      <div
+        className="flex flex-col bg-white p-4 rounded-2xl shadow cursor-pointer transition-all duration-300 hover:shadow-md hover:-translate-y-1"
+        onClick={promptInfoHandler}
+      >
         <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between gap-4 items-center mb-4">
-          <h2
-            className="text-black font-bold text-md cursor-pointer transition hover:text-primary"
-            onClick={promptInfoHandler}
-          >
+          <h2 className="text-black font-bold text-md cursor-pointer">
             {title}
           </h2>
           <Button
