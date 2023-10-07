@@ -9,13 +9,14 @@ interface TextAreaProps {
   id: string;
   name: string;
   rows: number;
-  placeholder: string;
+  placeholder?: string;
   maxLength?: number;
   className?: string;
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   disabled?: boolean;
   value?: string;
   variant: 'default' | 'filled';
+  error?: string;
 }
 
 const index: React.FC<TextAreaProps> = ({
@@ -29,6 +30,7 @@ const index: React.FC<TextAreaProps> = ({
   disabled,
   value,
   variant,
+  error,
 }) => {
   const rootClassnames = classNames(
     'border-0 !focus:outline-none !resize-none',
@@ -40,17 +42,24 @@ const index: React.FC<TextAreaProps> = ({
   );
 
   return (
-    <TextArea
-      id={id}
-      value={value}
-      name={name}
-      rows={rows}
-      placeholder={placeholder}
-      maxLength={maxLength}
-      className={rootClassnames}
-      onChange={onChange}
-      disabled={disabled}
-    />
+    <>
+      <TextArea
+        id={id}
+        value={value}
+        name={name}
+        rows={rows}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        className={rootClassnames}
+        onChange={onChange}
+        disabled={disabled}
+      />
+      <div>
+        <label className="font-poppins text-xs text-error font-semibold transition-all">
+          {error}
+        </label>
+      </div>
+    </>
   );
 };
 

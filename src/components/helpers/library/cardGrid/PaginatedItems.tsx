@@ -30,13 +30,13 @@ const PaginatedItems: React.FC<PaginatedItemsProps> = ({
 
   return (
     <>
-      <LibraryCardsGrid
+      {/* <LibraryCardsGrid
         items={currentItems}
         onAddPrompt={onAddPrompt}
         onDeletePrompt={onDeletePrompt}
         onPromptInfo={onPromptInfo}
         onUpdatePrompt={onUpdatePrompt}
-      />
+      /> */}
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"

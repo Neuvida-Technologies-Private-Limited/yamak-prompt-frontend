@@ -1,5 +1,6 @@
 import { LibraryCardItem as CardItem } from 'types';
 import { EmptyLibrary, LibraryCard } from 'components/helpers';
+import { Pagination } from 'components/common';
 
 interface CardsGridProps {
   items: CardItem[];
@@ -41,6 +42,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
           />
         ))}
       </div>
+      <Pagination />
     </div>
   );
 };

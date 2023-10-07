@@ -7,16 +7,36 @@ export const libraryState = atom({
     items: [] as LibraryCardItem[],
     filteredItems: [] as LibraryCardItem[],
     activeTab: '1',
+    error: '',
+    status_code: 200,
+  },
+});
+
+export const libraryPaginationState = atom({
+  key: 'library-pagination',
+  default: {
+    currentPage: 1,
+    count: 0,
+    itemsPerPage: 10,
+    hasNext: null,
+    hasPrevious: null,
+    query: '',
+    totalPages: 0,
   },
 });
 
 export const promptModalState = atom({
   key: 'prompt-modal-state',
   default: {
-    title: 'test',
-    userMessage: 'test',
-    systemMessage: 'test',
-    promptOutput: 'test',
-    tags: 'test',
+    title: '',
+    titleError: '',
+    userMessage: '',
+    userMessageError: '',
+    systemMessage: '',
+    systemMessageError: '',
+    promptOutput: '',
+    promptOutputError: '',
+    tags: '',
+    tagsError: '',
   },
 });
