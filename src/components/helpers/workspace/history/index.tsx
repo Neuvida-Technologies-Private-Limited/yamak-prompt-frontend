@@ -24,41 +24,42 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({ id }) => {
     workspaceHistoryState
   );
   const { history } = workspaceHistory;
-
-  useEffect(() => {
-    async function getHistory() {
-      if (id) {
-        try {
-          const res = await GetWorkspaceHistory(id);
-          setWorkspaceHistory(old => ({
-            ...old,
-            history: Array.isArray(res.data) ? res.data : [],
-          }));
-        } catch (error: any) {
-          toast.error(error.error);
-        }
+  async function getHistory() {
+    if (id) {
+      try {
+        const res = await GetWorkspaceHistory(id);
+        setWorkspaceHistory(old => ({
+          ...old,
+          history: Array.isArray(res.data) ? res.data : [],
+        }));
+      } catch (error: any) {
+        toast.error(error.error);
       }
     }
+  }
 
+  useEffect(() => {
     getHistory();
   }, [id]);
 
   return (
     <div className="flex flex-col pl-4 w-full justify-between py-6">
-      <div className="flex justify-between items-center font-poppins mb-4">
-        <h1 className="font-semibold text-base">{Workspace.History}</h1>
-        <IoListCircleOutline size={25} />
+      <div className="h-1/6">
+        <div className="flex justify-between items-center font-poppins mb-4">
+          <h1 className="font-semibold text-base">{Workspace.History}</h1>
+          <IoListCircleOutline size={25} />
+        </div>
+        <Input
+          id={Workspace.SearchHistory}
+          name={Workspace.SearchHistory}
+          placeholder={Workspace.SearchHistory}
+          type={Workspace.Search}
+          onChange={handleChange}
+          variant={InputVariants.Filled}
+        />
       </div>
-      <Input
-        id={Workspace.SearchLibrary}
-        name={Workspace.SearchLibrary}
-        placeholder={Workspace.SearchLibrary}
-        type={Workspace.Search}
-        onChange={handleChange}
-        variant={InputVariants.Filled}
-      />
-      <div className="flex flex-col h-4/5">
-        <div className="pt-2 overflow-y-scroll pr-2 h-full">
+      <div className="flex flex-col h-5/6">
+        <div className="overflow-y-scroll pr-2 h-full">
           {history.length === 0 ? (
             <p>no history!</p>
           ) : (

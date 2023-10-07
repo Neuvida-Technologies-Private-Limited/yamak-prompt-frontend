@@ -100,7 +100,7 @@ export enum Workspace {
   Prompt = 'Prompt Title',
   Date = '1 day ago',
   Time = '6.23 pm',
-  SearchLibrary = 'Search Library',
+  SearchHistory = 'Search History',
   Search = 'search',
   ShowBookmarked = 'Show Bookmarked',
   ShowPublished = 'Show Published',

@@ -113,11 +113,18 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       api_key,
       provider,
     };
-    try {
-      const res = await TestConnection(testConnectionParams);
-      message.success(res);
-    } catch (error: any) {
-      message.error(error.error);
+    if (isKeyValidated(api_key) === '') {
+      try {
+        const res = await TestConnection(testConnectionParams);
+        message.success(res);
+      } catch (error: any) {
+        message.error(error.error);
+      }
+    } else {
+      setState(old => ({
+        ...old,
+        api_keyError: isKeyValidated(api_key),
+      }));
     }
   };
   //API call to create Key
