@@ -20,21 +20,23 @@ export const libraryPaginationState = atom({
     itemsPerPage: 10,
     hasNext: null,
     hasPrevious: null,
+    query: '',
+    totalPages: 0,
   },
 });
 
 export const promptModalState = atom({
   key: 'prompt-modal-state',
   default: {
-    title: 'test',
+    title: '',
     titleError: '',
-    userMessage: 'test',
+    userMessage: '',
     userMessageError: '',
-    systemMessage: 'test',
+    systemMessage: '',
     systemMessageError: '',
-    promptOutput: 'test',
+    promptOutput: '',
     promptOutputError: '',
-    tags: 'test',
+    tags: '',
     tagsError: '',
   },
 });

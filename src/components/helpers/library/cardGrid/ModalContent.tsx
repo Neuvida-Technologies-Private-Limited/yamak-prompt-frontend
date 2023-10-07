@@ -20,7 +20,6 @@ const ModalContent: React.FC<ContentProps> = ({ id, onPromptInfo }) => {
       try {
         setIsLoading(true);
         const res = await onPromptInfo(id);
-        if (res.status_code !== 200) return message.error(res.error);
         setModalContent(res);
       } catch (err: any) {
         message.error(err.message);

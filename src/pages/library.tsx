@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
 import { useRecoilState } from 'recoil';
@@ -20,7 +20,6 @@ import {
   getSearchPromptInfo,
   updatePromptInfo,
 } from 'middleware/api/library-api';
-import { Pagination } from 'components/common';
 import { libraryPaginationState, libraryState } from 'middleware/state/library';
 
 const tabs = [
@@ -78,6 +77,7 @@ const Library = () => {
       await getPrompts(pagination.currentPage);
       return res;
     } catch (err: any) {
+      console.log(err);
       message.error(err.message);
     }
   }
@@ -85,7 +85,14 @@ const Library = () => {
   const searchPromptHandler = useCallback(
     async function (input: string) {
       try {
-        const res = await getSearchPromptInfo(input);
+        if (input.length === 0) {
+          await getPrompts(pagination.currentPage);
+          return;
+        }
+
+        if (items.length === 0) return;
+
+        const res = await getSearchPromptInfo(pagination.currentPage, input);
         setPaginationState(old => ({
           ...old,
           count: res.data.count,
@@ -97,12 +104,28 @@ const Library = () => {
         message.error(err.message);
       }
     },
-    [setPaginationState, setState]
+    [
+      setPaginationState,
+      setState,
+      getPrompts,
+      pagination.currentPage,
+      items.length,
+    ]
   );
 
   async function deletePromptHandler(id: string) {
     try {
       const res = await deletePrompt(id);
+
+      if (pagination.count === 1) {
+        await getPrompts(pagination.currentPage);
+        return;
+      }
+
+      if (pagination.currentPage < pagination.totalPages) {
+        await getPrompts(pagination.currentPage);
+        return;
+      }
 
       if (pagination.count % pagination.itemsPerPage === 1) {
         setPaginationState(old => ({
@@ -138,9 +161,9 @@ const Library = () => {
     }
   };
 
-  useEffect(() => {
-    getPrompts(pagination.currentPage);
-  }, [getPrompts, pagination.currentPage]);
+  // useEffect(() => {
+  //   getPrompts(pagination.currentPage);
+  // }, [getPrompts, pagination.currentPage]);
 
   return (
     <div className="flex flex-col font-poppins">
@@ -162,7 +185,6 @@ const Library = () => {
         onPromptInfo={getPromptInfoHandler}
         onUpdatePrompt={updatePromptHandler}
       />
-      <Pagination />
     </div>
   );
 };

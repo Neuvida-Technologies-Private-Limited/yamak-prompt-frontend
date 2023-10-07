@@ -72,8 +72,6 @@ const AddNewPrompt: React.FC<{
 
     const res = await onAddPrompt?.(JSON.stringify(prompt));
 
-    if (res.status_code !== 201) return message.error(res.error);
-
     message.success(res.data);
     setShowModal(false);
     resetState();

@@ -42,12 +42,13 @@ export const getPromptInfo = async (id: string) => {
 };
 
 export const getSearchPromptInfo = async (
+  page: number,
   input: string,
   controller?: AbortController
 ) => {
   try {
     return await axiosClientProtected.get(
-      `${libraryRoutes.SEARCH_PROMPT}${input}`,
+      `${libraryRoutes.SEARCH_PROMPT}${page}&q=${input}`,
       { signal: controller?.signal }
     );
   } catch (err: any) {
