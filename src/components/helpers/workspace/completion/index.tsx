@@ -60,7 +60,7 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
   };
 
   return (
-    <>
+    <div className="em:flex em:flex-row h-full sm:grid md:grid-col-2 sm:grid-col-1">
       {isDekstopView ? (
         <div className="lg:w-1/5 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
           <WorkspaceHistory id={id} />
@@ -74,7 +74,7 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
         <WorkspaceCompletionOutput generateOutput={generateOutput} />
       </div>
       <ToastContainer autoClose={3000} />
-    </>
+    </div>
   );
 };
 

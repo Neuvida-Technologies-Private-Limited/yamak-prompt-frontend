@@ -126,7 +126,7 @@ const App: React.FC<CreateWorkspaceProps> = ({
           resetState();
         }}
         okText={Workspace.Create}
-        className="createWorkspace"
+        className="createWorkspace" //TODO: Will discuss that without classname , how to implement only one button
       >
         <div className="flex flex-col">
           <p className="text-gray500 pb-3">{Workspace.Subhead3}</p>

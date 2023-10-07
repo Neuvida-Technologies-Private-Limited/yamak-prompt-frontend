@@ -61,7 +61,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
         isOpen={showModal}
         cancelModalHandler={() => setShowModal(false)}
         okText={Workspace.Update}
-        className="createWorkspace"
+        className="createWorkspace" //TODO: Will discuss that without classname , how to implement only one button
         sumbitHandler={() => handleUpdateWorkspace(updatedData, id)}
       >
         <div className="flex flex-col">

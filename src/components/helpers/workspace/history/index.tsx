@@ -8,6 +8,7 @@ import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Input } from 'components/common';
 import { GetWorkspaceHistory } from 'middleware/api';
 import { workspaceHistoryState } from 'middleware/state';
+import { toast } from 'react-toastify';
 
 interface CompletionHistoryProps {
   id: string | undefined;
@@ -34,7 +35,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({ id }) => {
             history: Array.isArray(res.data) ? res.data : [],
           }));
         } catch (error: any) {
-          console.log(error);
+          toast.error(error.error);
         }
       }
     }
