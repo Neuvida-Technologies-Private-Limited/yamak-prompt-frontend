@@ -42,7 +42,7 @@ export const generateOutputState = atom({
     tags: [] as string[],
     parameters: {
       temperature: 1.0,
-      max_tokens: 50,
+      max_tokens: 256,
       top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,

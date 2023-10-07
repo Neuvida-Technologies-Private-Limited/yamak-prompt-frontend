@@ -10,7 +10,7 @@ interface InputProps {
   required?: boolean;
   className?: string;
   onChange: (value: string) => void;
-  value?: string;
+  value?: string | number;
   error?: string;
   variant: Variant;
 }

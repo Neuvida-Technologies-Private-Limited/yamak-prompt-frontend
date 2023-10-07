@@ -69,25 +69,56 @@ const Parameters: React.FC = () => {
       },
     }));
   };
+  const logit_biasChange = (logit_bias: number) => {
+    setOutputState(old => ({
+      ...old,
+      parameters: {
+        ...old.parameters,
+        logit_bias,
+      },
+    }));
+  };
 
   const parametersInputs: Types[] = [
     {
       label: 'Temperature',
       input: (
-        <Slider onValueChange={temperatureSliderChange} min={0} max={100} />
+        <Slider
+          onValueChange={temperatureSliderChange}
+          min={0}
+          max={2}
+          defaultValue={1}
+          step={0.01}
+          value={temperature}
+        />
       ),
       title: 'Temperature Info',
     },
     {
       label: 'Maximum Tokens',
       input: (
-        <Slider onValueChange={max_tokensSliderChange} min={0} max={500} />
+        <Slider
+          onValueChange={max_tokensSliderChange}
+          min={0}
+          max={500}
+          defaultValue={256}
+          value={max_tokens}
+        />
       ),
       title: 'Max Tokens Info * 10',
     },
     {
       label: 'Top P',
-      input: <Slider onValueChange={topPSliderChange} min={0} max={100} />,
+      input: (
+        <Slider
+          onValueChange={topPSliderChange}
+          min={0}
+          max={1}
+          defaultValue={1}
+          step={0.01}
+          value={top_p}
+        />
+      ),
       title: 'Top Info',
     },
     {
@@ -96,7 +127,10 @@ const Parameters: React.FC = () => {
         <Slider
           onValueChange={frequencyPenaltySliderChange}
           min={0}
-          max={100}
+          max={2}
+          defaultValue={0}
+          step={0.01}
+          value={frequency_penalty}
         />
       ),
       title: 'Frequency Penalty Info',
@@ -104,7 +138,14 @@ const Parameters: React.FC = () => {
     {
       label: 'Presence Penalty',
       input: (
-        <Slider onValueChange={presencePenaltySliderChange} min={0} max={100} />
+        <Slider
+          onValueChange={presencePenaltySliderChange}
+          min={0}
+          max={2}
+          defaultValue={0}
+          value={presence_penalty}
+          step={0.01}
+        />
       ),
       title: 'Presence Penalty Info',
     },
@@ -115,9 +156,10 @@ const Parameters: React.FC = () => {
           id={''}
           name={''}
           placeholder={'0'}
-          onChange={handleChange}
+          onChange={value => logit_biasChange(Number(value))}
           className="!w-2/3"
           variant={InputVariants.Filled}
+          value={logit_bias.toString()}
         />
       ),
       title: 'Logit Bias Info',
