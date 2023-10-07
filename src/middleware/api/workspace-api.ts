@@ -54,3 +54,24 @@ export const GenerateOutput = async (modal: GenerateOutputModal) => {
     return error;
   }
 };
+export const GetWorkspaceHistory = async (id: string | undefined) => {
+  try {
+    const response = await axiosClientProtected.get(
+      `${workspaceRoutes.GET_WORKSPACE_HISTORY_ROUTE}/${id}/`
+    );
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};
+export const UpdateWorkspace = async (update: any, id: string) => {
+  try {
+    const response = await axiosClientProtected.patch(
+      `${workspaceRoutes.UPDATE_WORKSPACE_ROUTE}${id}/`,
+      update
+    );
+    return response.status;
+  } catch (err: any) {
+    return Promise.reject(err);
+  }
+};
