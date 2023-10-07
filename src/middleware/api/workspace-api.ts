@@ -1,7 +1,11 @@
 import { AxiosError } from 'axios';
 import axiosClientProtected from 'middleware/axios/axios-client/axios-client-protected';
 import { workspaceRoutes } from './routes';
-import { CreateWorkspaceModal, GenerateOutputModal } from './types';
+import {
+  CreateWorkspaceModal,
+  GenerateOutputModal,
+  PublishPromptModal,
+} from './types';
 
 export const GetWorkspaces = async () => {
   try {
@@ -73,5 +77,16 @@ export const UpdateWorkspace = async (update: any, id: string) => {
     return response.status;
   } catch (err: any) {
     return Promise.reject(err);
+  }
+};
+export const PublishPrompt = async (modal: PublishPromptModal) => {
+  try {
+    const response = await axiosClientProtected.post(
+      workspaceRoutes.PUBLISH_PROMPT_ROUTE,
+      modal
+    );
+    return response.data;
+  } catch (error: any) {
+    return error;
   }
 };

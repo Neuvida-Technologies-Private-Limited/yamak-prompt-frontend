@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
-import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
@@ -13,6 +12,7 @@ import {
   WorkspaceChat,
   WorkspaceCompletion,
 } from 'components/helpers';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Input, Tabs } from 'components/common';
 import { generateOutputState, workspaceInfoState } from 'middleware/state';
 
@@ -91,12 +91,6 @@ const Index = () => {
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
             onClick={resetOutputState}
-          />
-          <Button
-            size={undefined}
-            variant={ButtonVariants.OUTLINED}
-            name={Workspace.Publish}
-            onClick={handleClick}
           />
         </div>
       </div>

@@ -48,9 +48,9 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
 
     try {
       const res = await GenerateOutput(outputParams);
-      var message = res.message;
+      var message = String(res.prompt_output);
     } catch (error: any) {
-      toast.error(error);
+      toast.error(error.error);
     }
 
     setOutputState(old => ({

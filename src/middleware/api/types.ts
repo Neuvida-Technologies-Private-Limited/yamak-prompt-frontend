@@ -1,5 +1,3 @@
-import { LabelType } from 'types';
-
 export type LoginModel = {
   username: string;
   password: string;
@@ -43,4 +41,8 @@ export type GenerateOutputModal = {
     temperature: number;
     max_tokens: number;
   };
+};
+export type PublishPromptModal = {
+  uuid: string;
+  is_public: boolean;
 };
