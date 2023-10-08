@@ -63,18 +63,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
     message.success(Card.Success);
   }
 
-  async function dislikeHandler() {
-    // setisLiked(prev => !prev);
-    // /**
-    //  * If not isDisliked means, the user like the card
-    //  */
-    // const updateObj = {
-    //   liked: !isLiked,
-    // };
-    // const res = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
-    // if (res.status_code !== 200) return message.error(res.error);
-    // message.success(Card.Success);
-  }
+  async function dislikeHandler() {}
 
   async function deleteHandler(event: React.MouseEvent) {
     event.stopPropagation();

@@ -161,10 +161,6 @@ const Library = () => {
     }
   };
 
-  // useEffect(() => {
-  //   getPrompts(pagination.currentPage);
-  // }, [getPrompts, pagination.currentPage]);
-
   return (
     <div className="flex flex-col font-poppins">
       <LibraryHeader>

@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { Button } from '..';
 import { libraryPaginationState } from 'middleware/state/library';
+import { ButtonVariants } from 'utils/constants';
 
 function Pagination() {
   const [{ currentPage, hasPrevious, hasNext, count, itemsPerPage }, setState] =
@@ -30,14 +31,14 @@ function Pagination() {
     <div className="flex gap-4 self-center py-4">
       <Button
         disabled={hasPrevious ? false : true}
-        variant="outlined-light"
+        variant={ButtonVariants.OUTLINED_LIGHT}
         name={'Previous'}
         onClick={previousPageHandler}
       />
       {totalButtons}
       <Button
         disabled={hasNext ? false : true}
-        variant="outlined-light"
+        variant={ButtonVariants.OUTLINED_LIGHT}
         name={'Next'}
         onClick={nextPageHandler}
       />
