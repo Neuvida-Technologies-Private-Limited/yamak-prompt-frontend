@@ -109,13 +109,15 @@ export enum Workspace {
   LastEdited = 'Last Edited: ',
   ExploreTemplates = 'Explore Templates',
   AddVariable = 'Add Variable',
-  User = 'User',
   Assistant = 'Assistent',
   SelectKey = 'Select Key',
   UpdateWorkspace = 'Update Workspace',
   Update = 'Update',
   Delete = 'Delete',
   Publish = 'Publish',
+  System = 'System: ',
+  User = 'User: ',
+  Sample = 'Sample Answer',
 }
 
 export enum KeyManagement {

@@ -51,6 +51,17 @@ export const generateOutputState = atom({
     output: '',
   },
 });
+export const publishPromptState = atom({
+  key: 'publishPrompt-state',
+  default: {
+    uuid: '',
+    systemMessage: '',
+    userMessage: '',
+    heading: '',
+    is_public: false,
+    prompt_type: 'Completion',
+  },
+});
 export const workspaceHistoryState = atom({
   key: 'workspaceHistory-state',
   default: {

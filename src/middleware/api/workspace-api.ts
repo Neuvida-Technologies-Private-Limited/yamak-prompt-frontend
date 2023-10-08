@@ -53,7 +53,7 @@ export const GenerateOutput = async (modal: GenerateOutputModal) => {
       workspaceRoutes.GENERATE_OUTPUT_ROUTE,
       modal
     );
-    return response.data;
+    return response;
   } catch (error: any) {
     return error;
   }
@@ -79,13 +79,13 @@ export const UpdateWorkspace = async (update: any, id: string) => {
     return Promise.reject(err);
   }
 };
-export const PublishPrompt = async (modal: PublishPromptModal) => {
+export const PublishPromptWorkspace = async (modal: PublishPromptModal) => {
   try {
     const response = await axiosClientProtected.post(
       workspaceRoutes.PUBLISH_PROMPT_ROUTE,
       modal
     );
-    return response.data;
+    return response;
   } catch (error: any) {
     return error;
   }

@@ -6,7 +6,7 @@ import {
   WorkspaceHistory,
   WorkspaceCompletionInputs,
 } from 'components/helpers';
-import { generateOutputState } from 'middleware/state';
+import { generateOutputState, publishPromptState } from 'middleware/state';
 import { GenerateOutput } from 'middleware/api';
 
 interface CompletionProps {
@@ -16,6 +16,7 @@ interface CompletionProps {
 const Completion: React.FC<CompletionProps> = ({ id }) => {
   const isDekstopView = window.innerWidth >= 768;
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
+  const [publishState, setPublishState] = useRecoilState(publishPromptState);
 
   const {
     system_message,
@@ -48,14 +49,28 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
 
     try {
       const res = await GenerateOutput(outputParams);
-      var message = String(res.prompt_output);
+      if (res.status === 201) {
+        var msg = String(res.data.prompt_output);
+        var hd = String(res.data.title);
+        var uuid = String(res.data.uuid);
+        var UM = String(res.data.user_message);
+        var SM = String(res.data.system_message);
+      } else {
+        toast.error('Error in generating Output');
+      }
     } catch (error: any) {
       toast.error(error.error);
     }
-
     setOutputState(old => ({
       ...old,
-      output: message,
+      output: msg,
+    }));
+    setPublishState(old => ({
+      ...old,
+      heading: hd,
+      uuid: uuid,
+      userMessage: UM,
+      systemMessage: SM,
     }));
   };
 

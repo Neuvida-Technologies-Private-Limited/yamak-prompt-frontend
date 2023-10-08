@@ -20,7 +20,7 @@ export enum workspaceRoutes {
   GENERATE_OUTPUT_ROUTE = '/workspace/generate-output/',
   GET_WORKSPACE_HISTORY_ROUTE = '/workspace/get-workspace-history',
   UPDATE_WORKSPACE_ROUTE = '/workspace/',
-  PUBLISH_PROMPT_ROUTE = '/workspace/publish-prompt/',
+  PUBLISH_PROMPT_ROUTE = '/prompt/publish-prompt/',
 }
 
 export enum libraryRoutes {

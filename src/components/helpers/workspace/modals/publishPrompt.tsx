@@ -1,11 +1,41 @@
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { Button, Modal } from 'components/common';
+import { Button, Heading, Modal, Text } from 'components/common';
 import { Workspace, ButtonVariants, TextVariants } from 'utils/constants';
+import { publishPromptState } from 'middleware/state';
+import { toast } from 'react-toastify';
+import { PublishPromptWorkspace } from 'middleware/api';
+import { message } from 'antd';
 
-const PublishPrompt = () => {
+interface PublishPromptProps {}
+
+const PublishPrompt: React.FC<PublishPromptProps> = ({}) => {
   const [showModal, setShowModal] = useState(false);
-  const handleClick = () => {};
+  const [publishState, setPublishState] = useRecoilState(publishPromptState);
+
+  const { systemMessage, userMessage, heading, uuid, is_public } = publishState;
+
+  const handlePublishPrompt = async (uuid: string, is_public: boolean) => {
+    debugger;
+    const publishPromptParams = {
+      uuid,
+      is_public,
+    };
+
+    try {
+      const res = await PublishPromptWorkspace(publishPromptParams);
+
+      if (res.status === 201) {
+        message.success(res.data);
+        setShowModal(false);
+      } else {
+        message.error(res.error);
+      }
+    } catch (error: any) {
+      toast.error(error);
+    }
+  };
   return (
     <div>
       <Button
@@ -20,41 +50,18 @@ const PublishPrompt = () => {
         isOpen={showModal}
         cancelModalHandler={() => setShowModal(false)}
         okText={Workspace.Publish}
-        sumbitHandler={handleClick}
+        sumbitHandler={() => handlePublishPrompt(uuid, is_public)}
         className="keyManagement"
       >
         <>
-          <div className="flex">
-            {modalContent.data.tags.map((tag: string, i: number) => (
-              <Tag
-                key={`prompt-card-tag-${i}`}
-                color="blue"
-                bordered={true}
-                label={tag}
-              />
-            ))}
-          </div>
-          <div className="mt-2 mb-4">
-            <Text variant={TextVariants.MEDIUM}>
-              {modalContent.data.user_message || ModalConst.NoUserMessage}
-            </Text>
-          </div>
-          <Heading level={5}>Prompt</Heading>
+          <Heading level={5}>
+            {Workspace.Prompt} : {heading}
+          </Heading>
           <div className="flex flex-col gap-2 bg-gray50 rounded-md p-4 mb-6">
-            <p className="font-bold">System: </p>
-            <Text variant={TextVariants.SMALL}>
-              {modalContent.data.system_message || ModalConst.NoSystemMessage}
-            </Text>
-            <p className="font-bold">User: </p>
-            <Text variant={TextVariants.SMALL}>
-              {modalContent.data.user_message || ModalConst.NoUserMessage}
-            </Text>
-          </div>
-          <div>
-            <Heading level={5}>Sample Answer</Heading>
-            <Text variant={TextVariants.SMALL} className="text-secondary">
-              {modalContent.data.sample_output || ModalConst.NoSampleOutput}
-            </Text>
+            <p className="font-bold">{Workspace.System}</p>
+            <Text variant={TextVariants.SMALL}>{systemMessage}</Text>
+            <p className="font-bold">{Workspace.User}</p>
+            <Text variant={TextVariants.SMALL}>{userMessage}</Text>
           </div>
         </>
       </Modal>
