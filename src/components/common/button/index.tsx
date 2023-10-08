@@ -20,6 +20,7 @@ interface ButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   htmlType?: 'submit' | undefined;
   type?: 'link' | 'primary' | 'text' | 'default' | undefined;
+  disabled?: boolean;
 }
 
 const button: React.FC<ButtonProps> = ({
@@ -32,6 +33,7 @@ const button: React.FC<ButtonProps> = ({
   onClick,
   htmlType,
   type,
+  disabled,
 }) => {
   const rootClassName = classNames(
     'flex items-center justify-center font-poppins text-xs md:text-sm ',
@@ -64,6 +66,7 @@ const button: React.FC<ButtonProps> = ({
       href={href}
       onClick={onClick}
       htmlType={htmlType}
+      disabled={disabled}
     >
       {name}
     </Button>

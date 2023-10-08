@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 
-import { ToastContainer, toast } from 'react-toastify';
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
 import { useRecoilState } from 'recoil';
 import { message } from 'antd';
@@ -10,7 +9,7 @@ import {
   HeadingArea,
   TabsArea,
   SearchArea,
-  PaginatedItems,
+  LibraryCardsGrid,
 } from 'components/helpers';
 import { Tabs } from 'components/common';
 import {
@@ -18,10 +17,10 @@ import {
   deletePrompt,
   getAllPrompts,
   getPromptInfo,
+  getSearchPromptInfo,
   updatePromptInfo,
 } from 'middleware/api/library-api';
-import { Pagination } from 'utils/constants';
-import { libraryState } from 'middleware/state/library';
+import { libraryPaginationState, libraryState } from 'middleware/state/library';
 
 const tabs = [
   {
@@ -39,33 +38,105 @@ const tabs = [
 const Library = () => {
   const [state, setState] = useRecoilState(libraryState);
   const { items, filteredItems, activeTab } = state;
+  const [pagination, setPaginationState] = useRecoilState(
+    libraryPaginationState
+  );
+
+  const handlePaginationState = useCallback(
+    function (count: number, hasNext: null, hasPrevious: null) {
+      setPaginationState(old => ({
+        ...old,
+        count,
+        hasNext,
+        hasPrevious,
+      }));
+    },
+    [setPaginationState]
+  );
 
   function handleTabClick(tabId: string) {
     setState(old => ({ ...old, activeTab: tabId }));
   }
-  async function getPrompts() {
-    try {
-      const res = await getAllPrompts();
-      setState(old => ({ ...old, items: res.data.results }));
-    } catch (err: any) {
-      message.error(err.message);
-    }
-  }
+
+  const getPrompts = useCallback(
+    async function (currentPage: number) {
+      try {
+        const res = await getAllPrompts(currentPage);
+        handlePaginationState(res.data.count, res.data.next, res.data.previous);
+        setState(old => ({ ...old, items: res.data.results }));
+      } catch (err: any) {
+        message.error(err.message);
+      }
+    },
+    [handlePaginationState, setState]
+  );
 
   async function addPromptHandler(prompt: string) {
     try {
       const res = await createPrompt(prompt);
-      await getPrompts();
+      await getPrompts(pagination.currentPage);
       return res;
     } catch (err: any) {
+      console.log(err);
       message.error(err.message);
     }
   }
 
+  const searchPromptHandler = useCallback(
+    async function (input: string) {
+      try {
+        if (input.length === 0) {
+          await getPrompts(pagination.currentPage);
+          return;
+        }
+
+        if (items.length === 0) return;
+
+        const res = await getSearchPromptInfo(pagination.currentPage, input);
+        setPaginationState(old => ({
+          ...old,
+          count: res.data.count,
+          hasNext: res.data.next,
+          hasPrevious: res.data.previous,
+        }));
+        setState(old => ({ ...old, items: res.data.results }));
+      } catch (err: any) {
+        message.error(err.message);
+      }
+    },
+    [
+      setPaginationState,
+      setState,
+      getPrompts,
+      pagination.currentPage,
+      items.length,
+    ]
+  );
+
   async function deletePromptHandler(id: string) {
     try {
       const res = await deletePrompt(id);
-      await getPrompts();
+
+      if (pagination.count === 1) {
+        await getPrompts(pagination.currentPage);
+        return;
+      }
+
+      if (pagination.currentPage < pagination.totalPages) {
+        await getPrompts(pagination.currentPage);
+        return;
+      }
+
+      if (pagination.count % pagination.itemsPerPage === 1) {
+        setPaginationState(old => ({
+          ...old,
+          currentPage: pagination.currentPage - 1,
+        }));
+        await getPrompts(pagination.currentPage - 1);
+        return;
+      }
+
+      await getPrompts(pagination.currentPage);
       return res;
     } catch (err: any) {
       message.error(err.message);
@@ -83,23 +154,15 @@ const Library = () => {
   const updatePromptHandler = async function (update: any, id: string) {
     try {
       const res = await updatePromptInfo(update, id);
-      await getPrompts();
+      await getPrompts(pagination.currentPage);
       return res;
     } catch (err: any) {
-      toast.error(err.message);
+      message.error(err.message);
     }
   };
 
-  useEffect(() => {
-    if (activeTab === '2') {
-      const data = items.filter(item => item.favourite);
-      setState(old => ({ ...old, filteredItems: data }));
-      return;
-    }
-  }, [activeTab, items, setState]);
-
   return (
-    <div className="library font-poppins h-screen overflow-y-scroll">
+    <div className="flex flex-col font-poppins">
       <LibraryHeader>
         <HeadingArea onAddPrompt={addPromptHandler} />
         <TabsArea>
@@ -109,17 +172,15 @@ const Library = () => {
             onTabClick={handleTabClick}
           />
         </TabsArea>
-        <SearchArea />
+        <SearchArea onSearchPrompt={searchPromptHandler} />
       </LibraryHeader>
-      <PaginatedItems
+      <LibraryCardsGrid
         items={activeTab === '1' ? items : filteredItems}
-        itemsPerPage={Pagination.itemsPerPage}
         onAddPrompt={addPromptHandler}
         onDeletePrompt={deletePromptHandler}
         onPromptInfo={getPromptInfoHandler}
         onUpdatePrompt={updatePromptHandler}
       />
-      <ToastContainer />
     </div>
   );
 };

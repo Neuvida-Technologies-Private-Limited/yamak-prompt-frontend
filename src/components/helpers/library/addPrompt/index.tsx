@@ -7,6 +7,7 @@ import { message } from 'antd';
 import { Button, Input, Modal, TextArea } from 'components/common';
 import {
   Library,
+  LibraryAddPrompt,
   InputVariants,
   ButtonVariants,
   TextAreaVariants,
@@ -18,7 +19,18 @@ const AddNewPrompt: React.FC<{
   const [showModal, setShowModal] = useState<boolean>(false);
   const [state, setState] = useRecoilState(promptModalState);
   const resetState = useResetRecoilState(promptModalState);
-  const { title, userMessage, systemMessage, promptOutput, tags } = state;
+  const {
+    title,
+    titleError,
+    userMessage,
+    userMessageError,
+    systemMessage,
+    systemMessageError,
+    promptOutput,
+    promptOutputError,
+    tags,
+    tagsError,
+  } = state;
 
   const addPromptHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);
@@ -34,10 +46,19 @@ const AddNewPrompt: React.FC<{
   async function submitHandler(event: React.FormEvent) {
     event.preventDefault();
 
-    if (!title || !userMessage || !systemMessage || !promptOutput || !tags) {
-      message.error('Fields cannot be empty');
+    setState(old => ({
+      ...old,
+      titleError: !title ? LibraryAddPrompt.NoTitleMessage : '',
+      userMessageError: !userMessage ? LibraryAddPrompt.NoUserMessage : '',
+      systemMessageError: !systemMessage
+        ? LibraryAddPrompt.NoSystemMessage
+        : '',
+      promptOutputError: !promptOutput ? LibraryAddPrompt.NoSampleOutput : '',
+      tagsError: !tags ? LibraryAddPrompt.NoTags : '',
+    }));
+
+    if (!title || !userMessage || !systemMessage || !promptOutput || !tags)
       return;
-    }
 
     const prompt = {
       title,
@@ -50,8 +71,6 @@ const AddNewPrompt: React.FC<{
     };
 
     const res = await onAddPrompt?.(JSON.stringify(prompt));
-
-    if (res.status_code !== 201) return message.error(res.error);
 
     message.success(res.data);
     setShowModal(false);
@@ -82,58 +101,102 @@ const AddNewPrompt: React.FC<{
           <p className="text-gray400">{Library.SubHead}</p>
           <form action="#" method="post">
             <div className="mt-5">
-              <Input
-                id={Library.NewPromptTitle}
-                name={Library.NewPromptTitle}
-                placeholder={Library.TitlePlaceholder}
-                value={title}
-                onChange={value =>
-                  handleInputChange(Library.NewPromptTitle, value)
-                }
-                variant={InputVariants.Filled}
-              />
-              <Input
-                id={Library.UserMessageTitle}
-                name={Library.UserMessageTitle}
-                placeholder={Library.UserMessagePlaceholder}
-                value={userMessage}
-                onChange={value =>
-                  handleInputChange(Library.UserMessageTitle, value)
-                }
-                variant={InputVariants.Filled}
-              />
-              <Input
-                id={Library.SystemMessageTitle}
-                name={Library.SystemMessageTitle}
-                placeholder={Library.SystemMessagePlaceholder}
-                value={systemMessage}
-                onChange={value =>
-                  handleInputChange(Library.SystemMessageTitle, value)
-                }
-                variant={InputVariants.Filled}
-              />
-              <TextArea
-                rows={6}
-                id={Library.WritePromptTitle}
-                name={Library.WritePromptTitle}
-                placeholder={Library.WritePromptPlaceholder}
-                value={promptOutput}
-                variant={TextAreaVariants.FILLED}
-                onChange={event =>
-                  handleInputChange(
-                    Library.WritePromptTitle,
-                    event.target.value
-                  )
-                }
-              />
-              <Input
-                id={Library.TagsTitle}
-                name={Library.TagsTitle}
-                placeholder={Library.TagsPlaceholder}
-                value={tags}
-                onChange={value => handleInputChange(Library.TagsTitle, value)}
-                variant={InputVariants.Filled}
-              />
+              <div className="flex flex-col">
+                <label
+                  htmlFor={Library.NewPromptTitle}
+                  className="pl-2 font-poppins text-gray300"
+                >
+                  {Library.TitlePlaceholder}
+                </label>
+                <Input
+                  id={Library.NewPromptTitle}
+                  name={Library.NewPromptTitle}
+                  value={title}
+                  onChange={value =>
+                    handleInputChange(Library.NewPromptTitle, value)
+                  }
+                  variant={InputVariants.Filled}
+                  error={titleError}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor={Library.UserMessageTitle}
+                  className="pl-2 font-poppins text-gray300"
+                >
+                  {Library.UserMessagePlaceholder}
+                </label>
+                <Input
+                  id={Library.UserMessageTitle}
+                  name={Library.UserMessageTitle}
+                  value={userMessage}
+                  onChange={value =>
+                    handleInputChange(Library.UserMessageTitle, value)
+                  }
+                  variant={InputVariants.Filled}
+                  error={userMessageError}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor={Library.SystemMessageTitle}
+                  className="pl-2 font-poppins text-gray300"
+                >
+                  {Library.SystemMessagePlaceholder}
+                </label>
+
+                <Input
+                  id={Library.SystemMessageTitle}
+                  name={Library.SystemMessageTitle}
+                  value={systemMessage}
+                  onChange={value =>
+                    handleInputChange(Library.SystemMessageTitle, value)
+                  }
+                  variant={InputVariants.Filled}
+                  error={systemMessageError}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor={Library.WritePromptTitle}
+                  className="pl-2 font-poppins text-gray300"
+                >
+                  {Library.WritePromptPlaceholder}
+                </label>
+                <TextArea
+                  rows={6}
+                  id={Library.WritePromptTitle}
+                  name={Library.WritePromptTitle}
+                  value={promptOutput}
+                  variant={TextAreaVariants.FILLED}
+                  onChange={event =>
+                    handleInputChange(
+                      Library.WritePromptTitle,
+                      event.target.value
+                    )
+                  }
+                  error={promptOutputError}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor={Library.TagsTitle}
+                  className="pl-2 font-poppins text-gray300"
+                >
+                  {Library.TagsPlaceholder}
+                </label>
+
+                <Input
+                  id={Library.TagsTitle}
+                  name={Library.TagsTitle}
+                  value={tags}
+                  onChange={value =>
+                    handleInputChange(Library.TagsTitle, value)
+                  }
+                  variant={InputVariants.Filled}
+                  error={tagsError}
+                />
+              </div>
             </div>
           </form>
         </div>
