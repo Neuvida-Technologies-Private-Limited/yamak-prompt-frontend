@@ -92,7 +92,7 @@ const App: React.FC = () => {
       />
       <Drawer
         placement={'left'}
-        width={500}
+        width={300}
         onClose={onClose}
         open={open}
         extra={<Space></Space>}
@@ -105,6 +105,7 @@ const App: React.FC = () => {
           mode="inline"
           onClick={item => {
             navigate(item.key);
+            setOpen(false);
           }}
           className="font-raleway text-xs"
         >
