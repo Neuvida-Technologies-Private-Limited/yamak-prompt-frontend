@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { WorkspaceDetailsType, LabelType } from 'types';
+import { OptionItems, WorkspaceDetailsType, WorkspaceHistoryType } from 'types';
 
 export const workspaceState = atom({
   key: 'workspace-state',
@@ -49,5 +49,17 @@ export const generateOutputState = atom({
       logit_bias: 0,
     },
     output: '',
+  },
+});
+export const workspaceHistoryState = atom({
+  key: 'workspaceHistory-state',
+  default: {
+    history: [] as WorkspaceHistoryType[],
+  },
+});
+export const keyOptionsState = atom({
+  key: 'keyOptions-state',
+  default: {
+    options: [] as OptionItems[],
   },
 });

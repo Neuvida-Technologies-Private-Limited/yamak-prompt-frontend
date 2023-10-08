@@ -16,10 +16,10 @@ const KeyManagment: React.FC = () => {
   const [createKeystates] = useRecoilState(createKeystate);
   // destructuring params
   const { title, description, api_key, provider } = createKeystates;
-  const { key_details } = state;
+  const { results } = state;
 
   const [showPopupConfirm, setShowPopupConfirm] = useState<Array<boolean>>(
-    key_details.length > 0 ? key_details.map(() => false) : []
+    results.length > 0 ? results.map(() => false) : []
   );
 
   const createKey = async () => {
@@ -47,7 +47,7 @@ const KeyManagment: React.FC = () => {
       const res = await GetKeyList();
       setState(old => ({
         ...old,
-        key_details: Array.isArray(res) ? res : [],
+        results: Array.isArray(res.results) ? res.results : [],
       }));
     } catch (error: any) {
       toast.error(error);
@@ -91,11 +91,11 @@ const KeyManagment: React.FC = () => {
         <CreateKeyModal createKey={createKey} />
       </div>
 
-      {key_details.length === 0 ? (
+      {results.length === 0 ? (
         <EmptyKeyManagement />
       ) : (
         <div className="mt-10 flex flex-col gap-y-10">
-          {key_details.map((item, index) => (
+          {results.map((item, index) => (
             <div
               key={`key-management-input-${index}`}
               className="w-full flex sm:flex-col md:flex-row sm:items-start md:items-end gap-4 w-full"
@@ -137,6 +137,7 @@ const KeyManagment: React.FC = () => {
                     title={KeyManagement.POPUP_TITLE}
                     description={KeyManagement.POPUP_DESCRIPTION}
                     placement="top"
+                    successMessage={KeyManagement.SUCCESS}
                   />
                 </div>
               </div>

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Dropdown, Modal } from 'components/common';
 import { Workspace } from 'utils/constants';
 import { generateOutputState } from 'middleware/state';
+import { UpdateModal } from 'components/helpers';
 
 interface WorkspaceCardProps {
   heading: string;
@@ -15,6 +16,8 @@ interface WorkspaceCardProps {
   last_edited: string;
   id: string;
   deleteWorkspace: (id: string) => Promise<boolean | undefined>;
+  updateWorkspace: (update: any, id: string) => Promise<boolean | undefined>;
+  model_key: string;
 }
 
 const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
@@ -24,9 +27,12 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
   createdBy,
   last_edited,
   deleteWorkspace,
+  updateWorkspace,
+  model_key,
 }) => {
   const resetOutputState = useResetRecoilState(generateOutputState);
   const [showModal, setShowModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const handleDeleteWorkspace = async (event: {
     preventDefault: () => void;
@@ -45,11 +51,17 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: <button onClick={() => {}}>Edit</button>,
+      label: (
+        <button onClick={() => setShowUpdateModal(true)}>
+          {Workspace.Update}
+        </button>
+      ),
     },
     {
       key: '2',
-      label: <button onClick={() => setShowModal(true)}>Delete</button>,
+      label: (
+        <button onClick={() => setShowModal(true)}>{Workspace.Delete}</button>
+      ),
     },
   ];
 
@@ -90,6 +102,14 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
         okText={'Yes'}
         cancelText="No"
         className="keyManagement"
+      />
+      <UpdateModal
+        showModal={showUpdateModal}
+        setShowModal={setShowUpdateModal}
+        heading={heading}
+        modelKey={model_key}
+        updateWorkspace={updateWorkspace}
+        id={id}
       />
     </div>
   );

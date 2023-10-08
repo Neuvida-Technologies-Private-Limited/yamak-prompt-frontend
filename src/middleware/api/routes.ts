@@ -17,7 +17,9 @@ export enum workspaceRoutes {
   CREATE_WORKSPACE_ROUTE = '/workspace/create-workspace/',
   GET_WORKSPACE_INFO_ROUTE = '/workspace/get-workspace-info',
   DELETE_WORKSPACE_ROUTE = '/workspace/',
-  GENERATE_OUTPUT_ROUTE = 'workspace/generate-output/',
+  GENERATE_OUTPUT_ROUTE = '/workspace/generate-output/',
+  GET_WORKSPACE_HISTORY_ROUTE = '/workspace/get-workspace-history',
+  UPDATE_WORKSPACE_ROUTE = '/workspace/',
 }
 
 export enum libraryRoutes {

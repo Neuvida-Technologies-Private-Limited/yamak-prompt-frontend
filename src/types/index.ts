@@ -75,3 +75,13 @@ export type WorkspaceDetailsType = {
   model_key: string;
   user_uuid: string;
 };
+export type WorkspaceHistoryType = {
+  title: string;
+  bookmarked: boolean;
+  is_public: boolean;
+};
+
+export type OptionItems = {
+  value: any;
+  label: any;
+};

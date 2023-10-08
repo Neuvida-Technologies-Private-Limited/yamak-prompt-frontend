@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { BsCheck2Circle } from 'react-icons/bs';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { getWorkspace } from 'middleware/api';
 import {
@@ -14,13 +14,14 @@ import {
   WorkspaceCompletion,
 } from 'components/helpers';
 import { Button, Input, Tabs } from 'components/common';
-import { workspaceInfoState } from 'middleware/state';
+import { generateOutputState, workspaceInfoState } from 'middleware/state';
 
 const handleClick = () => {};
 const handleChange = () => {};
 
 const Index = () => {
   const [workspaceData, setWorkspaceData] = useRecoilState(workspaceInfoState);
+  const resetOutputState = useResetRecoilState(generateOutputState);
 
   const { id, title, model_key, last_modified, timestamp, user_uuid } =
     workspaceData;
@@ -89,7 +90,7 @@ const Index = () => {
             variant={ButtonVariants.PRIMARY_LIGHT}
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
-            onClick={handleClick}
+            onClick={resetOutputState}
           />
           <Button
             size={undefined}
@@ -116,15 +117,13 @@ const Index = () => {
           <WorkspaceParameters />
         </div>
       </div>
-
-      {tabs.map((tab, i) => (
-        <div
-          className="lg:flex lg:flex-row sm:grid md:grid-col-2 sm:grid-col-1 px-4 !overflow-y-scroll"
-          key={i}
-        >
-          {currentTab === tab.id && <>{tab.content}</>}
+      <div className="h-full">
+        <div className=" px-4 h-full ">
+          {tabs.map(tab => (
+            <>{currentTab === tab.id && <>{tab.content}</>}</>
+          ))}
         </div>
-      ))}
+      </div>
       <ToastContainer autoClose={3000} />
     </div>
   );

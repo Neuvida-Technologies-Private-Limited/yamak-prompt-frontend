@@ -10,26 +10,28 @@ import {
   GetWorkspaces,
   CreateWorkspace,
   DeleteWorkspace,
+  UpdateWorkspace,
 } from 'middleware/api';
 import { createWorkspaceState, workspaceState } from 'middleware/state';
+import { message } from 'antd';
 
 const WorkspaceDashboard: React.FC = () => {
   const [state, setState] = useRecoilState(workspaceState);
-  const [createState, setCreateState] = useRecoilState(createWorkspaceState);
+  const [createState] = useRecoilState(createWorkspaceState);
   const { workspace_details } = state;
   const { title, model_key } = createState;
 
   const getAllWorkspaces = async () => {
     try {
       const res = await GetWorkspaces();
-      const response = Array.isArray(res) ? res : [];
+      const response = Array.isArray(res.results) ? res.results : [];
       if (response.length === 0) {
         setState(old => ({
           ...old,
           workspace_details: [],
         }));
       } else {
-        const formattedWorkspaces = res.map(
+        const formattedWorkspaces = response.map(
           (item: {
             last_modified: moment.MomentInput;
             timestamp: moment.MomentInput;
@@ -81,6 +83,20 @@ const WorkspaceDashboard: React.FC = () => {
     }
   };
 
+  const updateWorkspace = async (update: any, id: string) => {
+    try {
+      const response = await UpdateWorkspace(update, id);
+
+      // if (response === 200) {
+      message.success('Workspace updated!');
+      getAllWorkspaces();
+      return true;
+      // } else {
+      //   return false;
+      // }
+    } catch (error) {}
+  };
+
   useEffect(() => {
     getAllWorkspaces();
   }, []);
@@ -113,6 +129,8 @@ const WorkspaceDashboard: React.FC = () => {
                 createdOn={item.timestamp}
                 last_edited={item.last_modified}
                 deleteWorkspace={deleteWorkspace}
+                model_key={item.model_key}
+                updateWorkspace={updateWorkspace}
               />
             ))}
           </div>
