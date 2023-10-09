@@ -24,8 +24,6 @@ const KeyManagment: React.FC = () => {
     results.length > 0 ? results.map(() => false) : []
   );
 
-  console.log(pagination);
-
   const createKey = async () => {
     const keyManagementParams = {
       title,
@@ -77,7 +75,7 @@ const KeyManagment: React.FC = () => {
 
   async function deleteKey(uuid: string) {
     try {
-      const res = await DeleteKey(uuid);
+      await DeleteKey(uuid);
 
       if (pagination.count === 1) {
         await getKeyList(pagination.currentPage);

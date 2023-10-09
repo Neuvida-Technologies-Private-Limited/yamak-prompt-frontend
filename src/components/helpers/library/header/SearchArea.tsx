@@ -6,12 +6,14 @@ import { Input } from 'components/common';
 import { Library, InputVariants } from 'utils/constants';
 import { useRecoilState } from 'recoil';
 import { paginationState } from 'middleware/state/pagination';
+import { libraryState } from 'middleware/state/library';
 
 const SearchArea: React.FC<{ onSearchPrompt: (input: string) => void }> = ({
   onSearchPrompt,
 }) => {
   const [input, setInput] = useState('');
-  const [pagination, setPagination] = useRecoilState(paginationState);
+  const [, setPagination] = useRecoilState(paginationState);
+  const [library] = useRecoilState(libraryState);
 
   useEffect(() => {
     async function getData() {
@@ -31,7 +33,11 @@ const SearchArea: React.FC<{ onSearchPrompt: (input: string) => void }> = ({
       <Input
         id={Library.SearchLibrary}
         name={Library.SearchLibrary}
-        placeholder={Library.SearchLibrary}
+        placeholder={
+          library.items.length === 0
+            ? 'No items to search'
+            : Library.SearchLibrary
+        }
         value={input}
         onChange={setInput}
         type="search"

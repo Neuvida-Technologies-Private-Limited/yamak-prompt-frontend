@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { message } from 'antd';
 
 import {
@@ -15,6 +15,7 @@ import { Tabs } from 'components/common';
 import {
   createPrompt,
   deletePrompt,
+  getAllFavouritePrompts,
   getAllPrompts,
   getPromptInfo,
   getSearchPromptInfo,
@@ -40,14 +41,6 @@ const Library = () => {
   const [state, setState] = useRecoilState(libraryState);
   const { items, filteredItems, activeTab } = state;
   const [pagination, setPaginationState] = useRecoilState(paginationState);
-  const resetPaginationState = useResetRecoilState(paginationState);
-
-  // const handlePaginationState = useCallback(
-  //   function (count: number, hasNext: null, hasPrevious: null) {
-
-  //   },
-  //   [setPaginationState]
-  // );
 
   function handleTabClick(tabId: string) {
     setState(old => ({ ...old, activeTab: tabId }));
@@ -57,7 +50,6 @@ const Library = () => {
     async function (currentPage: number) {
       try {
         const res = await getAllPrompts(currentPage);
-        // handlePaginationState(res.data.count, res.data.next, res.data.previous);
         setPaginationState(old => ({
           ...old,
           count: res.data.count,
@@ -73,13 +65,33 @@ const Library = () => {
     [setState, pagination.count, pagination.itemsPerPage, setPaginationState]
   );
 
+  const getFavouritePrompts = useCallback(
+    async function (currentPage: number) {
+      try {
+        const res = await getAllFavouritePrompts(currentPage);
+
+        setPaginationState(old => ({
+          ...old,
+          count: res.data.count,
+          hasNext: res.data.next,
+          hasPrevious: res.data.previous,
+          totalPages: Math.ceil(pagination.count / pagination.itemsPerPage),
+        }));
+
+        setState(old => ({ ...old, filteredItems: res.data.results }));
+      } catch (err: any) {
+        message.error(err.message);
+      }
+    },
+    [setState, setPaginationState, pagination.count, pagination.itemsPerPage]
+  );
+
   async function addPromptHandler(prompt: string) {
     try {
       const res = await createPrompt(prompt);
       await getPrompts(pagination.currentPage);
       return res;
     } catch (err: any) {
-      console.log(err);
       message.error(err.message);
     }
   }
@@ -88,20 +100,26 @@ const Library = () => {
     async function (input: string) {
       try {
         if (input.length === 0) {
-          await getPrompts(pagination.currentPage);
+          if (activeTab === '1') await getPrompts(pagination.currentPage);
           return;
         }
 
-        if (items.length === 0) return;
+        if (items.length === 0 && activeTab === '1') return;
+        if (filteredItems.length === 0 && activeTab === '2') return;
 
         const res = await getSearchPromptInfo(pagination.currentPage, input);
+
         setPaginationState(old => ({
           ...old,
           count: res.data.count,
           hasNext: res.data.next,
           hasPrevious: res.data.previous,
+          totalPages: Math.ceil(pagination.count / pagination.itemsPerPage),
         }));
-        setState(old => ({ ...old, items: res.data.results }));
+
+        activeTab === '1'
+          ? setState(old => ({ ...old, items: res.data.results }))
+          : setState(old => ({ ...old, filteredItems: res.data.results }));
       } catch (err: any) {
         message.error(err.message);
       }
@@ -112,6 +130,10 @@ const Library = () => {
       getPrompts,
       pagination.currentPage,
       items.length,
+      filteredItems.length,
+      activeTab,
+      pagination.count,
+      pagination.itemsPerPage,
     ]
   );
 
@@ -120,12 +142,16 @@ const Library = () => {
       const res = await deletePrompt(id);
 
       if (pagination.count === 1) {
-        await getPrompts(pagination.currentPage);
+        activeTab === '1'
+          ? await getPrompts(pagination.currentPage)
+          : await getFavouritePrompts(pagination.currentPage);
         return;
       }
 
       if (pagination.currentPage < pagination.totalPages) {
-        await getPrompts(pagination.currentPage);
+        activeTab === '1'
+          ? await getPrompts(pagination.currentPage)
+          : await getFavouritePrompts(pagination.currentPage);
         return;
       }
 
@@ -134,11 +160,15 @@ const Library = () => {
           ...old,
           currentPage: pagination.currentPage - 1,
         }));
-        await getPrompts(pagination.currentPage - 1);
+        activeTab === '1'
+          ? await getPrompts(pagination.currentPage - 1)
+          : await getFavouritePrompts(pagination.currentPage - 1);
         return;
       }
 
-      await getPrompts(pagination.currentPage);
+      activeTab === '1'
+        ? await getPrompts(pagination.currentPage)
+        : await getFavouritePrompts(pagination.currentPage);
       return res;
     } catch (err: any) {
       message.error(err.message);
@@ -156,7 +186,9 @@ const Library = () => {
   const updatePromptHandler = async function (update: any, id: string) {
     try {
       const res = await updatePromptInfo(update, id);
-      await getPrompts(pagination.currentPage);
+      activeTab === '1'
+        ? await getPrompts(pagination.currentPage)
+        : await getFavouritePrompts(pagination.currentPage);
       return res;
     } catch (err: any) {
       message.error(err.message);
@@ -164,8 +196,11 @@ const Library = () => {
   };
 
   useEffect(() => {
-    return () => resetPaginationState();
-  }, [resetPaginationState]);
+    if (activeTab === '2') {
+      getFavouritePrompts(pagination.currentPage);
+      return;
+    }
+  }, [getFavouritePrompts, activeTab, pagination.currentPage]);
 
   return (
     <div className="flex flex-col font-poppins">
@@ -178,7 +213,9 @@ const Library = () => {
             onTabClick={handleTabClick}
           />
         </TabsArea>
-        <SearchArea onSearchPrompt={searchPromptHandler} />
+        {activeTab === '1' && (
+          <SearchArea onSearchPrompt={searchPromptHandler} />
+        )}
       </LibraryHeader>
       <LibraryCardsGrid
         items={activeTab === '1' ? items : filteredItems}

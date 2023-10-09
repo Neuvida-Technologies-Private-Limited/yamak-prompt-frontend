@@ -24,6 +24,7 @@ export enum workspaceRoutes {
 
 export enum libraryRoutes {
   GET_PROMPTS = '/prompt/get-prompt-list-private/?page=',
+  GET_FAVOURITE_PROMPTS = '/prompt/get-prompt-list-private/?favourite=true&page=',
   CREATE_PROMPT = '/prompt/',
   DELETE_PROMPT = '/prompt/',
   GET_PROMPT = '/prompt/',

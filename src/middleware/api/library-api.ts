@@ -6,9 +6,17 @@ export const getAllPrompts = async (page: number) => {
     const res: any = await axiosClientProtected.get(
       `${libraryRoutes.GET_PROMPTS}${page}`
     );
+    return res;
+  } catch (err: any) {
+    throw new Error(err.error);
+  }
+};
 
-    // console.log(res);
-    // if (res.status_code !== 200) throw new Error(res.error);
+export const getAllFavouritePrompts = async (page: number) => {
+  try {
+    const res: any = await axiosClientProtected.get(
+      `${libraryRoutes.GET_FAVOURITE_PROMPTS}${page}`
+    );
     return res;
   } catch (err: any) {
     throw new Error(err.error);
