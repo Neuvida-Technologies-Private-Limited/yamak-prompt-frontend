@@ -7,11 +7,12 @@ import Draft from './drafts';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Input } from 'components/common';
 import { GetWorkspaceHistory } from 'middleware/api';
-import { workspaceHistoryState } from 'middleware/state';
-import { toast } from 'react-toastify';
+import { searchHistoryState, workspaceHistoryState } from 'middleware/state';
 
 interface CompletionHistoryProps {
-  id: string | undefined;
+  onHistorySearch: (input: string, id: string) => void;
+  id: string;
+  getHistory: () => Promise<void>;
 }
 
 // later these will come from API
@@ -19,28 +20,24 @@ interface CompletionHistoryProps {
 const handleChange = () => {};
 const handleClick = () => {};
 
-const CompletionHistory: React.FC<CompletionHistoryProps> = ({ id }) => {
-  const [workspaceHistory, setWorkspaceHistory] = useRecoilState(
-    workspaceHistoryState
-  );
-  const { history } = workspaceHistory;
-  async function getHistory() {
-    if (id) {
-      try {
-        const res = await GetWorkspaceHistory(id);
-        setWorkspaceHistory(old => ({
-          ...old,
-          history: Array.isArray(res.data) ? res.data : [],
-        }));
-      } catch (error: any) {
-        toast.error(error.error);
-      }
-    }
-  }
+const CompletionHistory: React.FC<CompletionHistoryProps> = ({
+  onHistorySearch,
+  id,
+  getHistory,
+}) => {
+  const [workspaceHistory] = useRecoilState(workspaceHistoryState);
+  const [searchInput, setSearchInput] = useRecoilState(searchHistoryState);
 
-  useEffect(() => {
-    getHistory();
-  }, [id]);
+  const { input } = searchInput;
+  const { history } = workspaceHistory;
+
+  const handleHistorySearchChange = (input: string) => {
+    // update the email value
+    setSearchInput(old => ({
+      ...old,
+      input,
+    }));
+  };
 
   return (
     <div className="flex flex-col pl-4 w-full justify-between py-6">
@@ -54,7 +51,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({ id }) => {
           name={Workspace.SearchHistory}
           placeholder={Workspace.SearchHistory}
           type={Workspace.Search}
-          onChange={handleChange}
+          onChange={handleHistorySearchChange}
           variant={InputVariants.Filled}
         />
       </div>

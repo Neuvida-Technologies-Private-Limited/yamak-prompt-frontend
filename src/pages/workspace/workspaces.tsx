@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,7 +6,7 @@ import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
-import { getWorkspace } from 'middleware/api';
+import { getSearchWorkspaceHistory, getWorkspace } from 'middleware/api';
 import {
   WorkspaceParameters,
   WorkspaceChat,
@@ -15,41 +15,64 @@ import {
 } from 'components/helpers';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Input, Tabs } from 'components/common';
-import { generateOutputState, workspaceInfoState } from 'middleware/state';
+import {
+  generateOutputState,
+  workspaceHistoryState,
+  workspaceInfoState,
+} from 'middleware/state';
+import { message } from 'antd';
 
 const handleClick = () => {};
 const handleChange = () => {};
 
 const Index = () => {
   const [workspaceData, setWorkspaceData] = useRecoilState(workspaceInfoState);
+  const [workspaceHistory, setWorkspaceHistory] = useRecoilState(
+    workspaceHistoryState
+  );
   const resetOutputState = useResetRecoilState(generateOutputState);
 
-  const { id, title, model_key, last_modified, timestamp, user_uuid } =
-    workspaceData;
+  const { id, title } = workspaceData;
 
   const [currentTab, setCurrentTab] = useState<string | null>('2');
   const Id = useLocation().pathname.split('/').at(-1);
 
-  useEffect(() => {
-    async function getData() {
-      try {
-        const res = await getWorkspace(Id);
+  async function getWorkspaceData() {
+    try {
+      const res = await getWorkspace(Id);
 
-        setWorkspaceData(old => ({
+      setWorkspaceData(old => ({
+        ...old,
+        id: res.id,
+        title: res.title,
+        model_key: res.model_key,
+        last_modified: res.last_modified,
+        timestamp: res.timestamp,
+        user_uuid: res.user_uuid,
+      }));
+    } catch (err: any) {
+      toast.error(err.error);
+    }
+  }
+
+  const searchHistoryHandler = useCallback(
+    async function (input: string, id: string) {
+      try {
+        const res = await getSearchWorkspaceHistory(id, input);
+        setWorkspaceHistory(old => ({
           ...old,
-          id: res.id,
-          title: res.title,
-          model_key: res.model_key,
-          last_modified: res.last_modified,
-          timestamp: res.timestamp,
-          user_uuid: res.user_uuid,
+          history: Array.isArray(res.results) ? res.results : [],
         }));
       } catch (err: any) {
-        toast.error(err.error);
+        message.error(err.error);
       }
-    }
-    getData();
-  }, [workspaceData.id]);
+    },
+    [setWorkspaceHistory]
+  );
+
+  useEffect(() => {
+    getWorkspaceData();
+  }, [workspaceData.id, getWorkspaceData]);
 
   const tabs = [
     {
@@ -61,7 +84,9 @@ const Index = () => {
     {
       id: '2',
       tabTitle: Workspace.Completion,
-      content: <WorkspaceCompletion id={id} />,
+      content: (
+        <WorkspaceCompletion id={id} onHistorySearch={searchHistoryHandler} />
+      ),
       icon: <BsCheck2Circle />,
     },
   ];

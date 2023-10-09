@@ -74,3 +74,9 @@ export const keyOptionsState = atom({
     options: [] as OptionItems[],
   },
 });
+export const searchHistoryState = atom({
+  key: 'searchHistory-State',
+  default: {
+    input: '',
+  },
+});

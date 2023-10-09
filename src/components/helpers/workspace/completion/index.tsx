@@ -6,17 +6,28 @@ import {
   WorkspaceHistory,
   WorkspaceCompletionInputs,
 } from 'components/helpers';
-import { generateOutputState, publishPromptState } from 'middleware/state';
-import { GenerateOutput } from 'middleware/api';
+import {
+  generateOutputState,
+  publishPromptState,
+  searchHistoryState,
+  workspaceHistoryState,
+} from 'middleware/state';
+import { GenerateOutput, GetWorkspaceHistory } from 'middleware/api';
+import { useEffect } from 'react';
 
 interface CompletionProps {
   id: string;
+  onHistorySearch: (input: string, id: string) => void;
 }
 
-const Completion: React.FC<CompletionProps> = ({ id }) => {
+const Completion: React.FC<CompletionProps> = ({ id, onHistorySearch }) => {
   const isDekstopView = window.innerWidth >= 768;
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
   const [publishState, setPublishState] = useRecoilState(publishPromptState);
+  const [workspaceHistory, setWorkspaceHistory] = useRecoilState(
+    workspaceHistoryState
+  );
+  const [searchInput] = useRecoilState(searchHistoryState);
 
   const {
     system_message,
@@ -28,6 +39,20 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
     tags,
     parameters: { temperature, max_tokens },
   } = outputState;
+
+  async function getHistory() {
+    if (id) {
+      try {
+        const res = await GetWorkspaceHistory(id);
+        setWorkspaceHistory(old => ({
+          ...old,
+          history: Array.isArray(res.data) ? res.data : [],
+        }));
+      } catch (error: any) {
+        toast.error(error.error);
+      }
+    }
+  }
 
   const generateOutput = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -55,6 +80,7 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
         var uuid = String(res.data.uuid);
         var UM = String(res.data.user_message);
         var SM = String(res.data.system_message);
+        getHistory();
       } else {
         toast.error('Error in generating Output');
       }
@@ -74,11 +100,22 @@ const Completion: React.FC<CompletionProps> = ({ id }) => {
     }));
   };
 
+  useEffect(() => {
+    const getData = async () => {
+      await getHistory();
+    };
+    getData();
+  }, [workspaceHistory, getHistory, id]);
+
   return (
     <div className="em:flex em:flex-row h-full sm:grid md:grid-col-2 sm:grid-col-1">
       {isDekstopView ? (
         <div className="lg:w-1/5 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
-          <WorkspaceHistory id={id} />
+          <WorkspaceHistory
+            onHistorySearch={onHistorySearch}
+            id={id}
+            getHistory={getHistory}
+          />
         </div>
       ) : null}
 

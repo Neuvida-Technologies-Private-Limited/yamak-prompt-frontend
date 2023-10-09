@@ -90,3 +90,18 @@ export const PublishPromptWorkspace = async (modal: PublishPromptModal) => {
     return error;
   }
 };
+export const getSearchWorkspaceHistory = async (
+  id: string,
+  input: string,
+  controller?: AbortController
+) => {
+  try {
+    const res = await axiosClientProtected.get(
+      `${workspaceRoutes.SEARCH_HISTORY_ROUTE}${id}/&q=${input}`,
+      { signal: controller?.signal }
+    );
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};

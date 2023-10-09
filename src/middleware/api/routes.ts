@@ -21,6 +21,7 @@ export enum workspaceRoutes {
   GET_WORKSPACE_HISTORY_ROUTE = '/workspace/get-workspace-history',
   UPDATE_WORKSPACE_ROUTE = '/workspace/',
   PUBLISH_PROMPT_ROUTE = '/prompt/publish-prompt/',
+  SEARCH_HISTORY_ROUTE = '/workspace/search-workspace-history/',
 }
 
 export enum libraryRoutes {
