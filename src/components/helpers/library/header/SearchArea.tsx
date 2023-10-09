@@ -35,7 +35,7 @@ const SearchArea: React.FC<{ onSearchPrompt: (input: string) => void }> = ({
         name={Library.SearchLibrary}
         placeholder={
           library.items.length === 0
-            ? 'No items to search'
+            ? Library.NoSearchLibrary
             : Library.SearchLibrary
         }
         value={input}

@@ -3,7 +3,7 @@ import axiosClientProtected from 'middleware/axios/axios-client/axios-client-pro
 import { CreateKeyModal, TestConnectionModal } from './types';
 import { keyManagementRoutes } from './routes';
 
-export const GetLLMProviders = async () => {
+export const getLLMProviders = async () => {
   try {
     const response = await axiosClientProtected.get(
       keyManagementRoutes.LLM_PROVIDERS
@@ -13,7 +13,7 @@ export const GetLLMProviders = async () => {
     return Promise.reject(error);
   }
 };
-export const CreateKey = async (model: CreateKeyModal) => {
+export const createKey = async (model: CreateKeyModal) => {
   await axiosClientProtected
     .post(keyManagementRoutes.CREATE_KEY_ROUTE, model)
     .then(response => {})
@@ -21,7 +21,7 @@ export const CreateKey = async (model: CreateKeyModal) => {
       return Promise.reject(error);
     });
 };
-export const GetKeyList = async (page: number) => {
+export const getKeyList = async (page: number) => {
   try {
     const response = await axiosClientProtected.get(
       `${keyManagementRoutes.KEY_LIST_ROUTE}${page}`
@@ -31,7 +31,7 @@ export const GetKeyList = async (page: number) => {
     return Promise.reject(error);
   }
 };
-export const DeleteKey = async (uuid: string) => {
+export const deleteKey = async (uuid: string) => {
   await axiosClientProtected
     .delete(`${keyManagementRoutes.DELETE_KEY_ROUTE}${uuid}/`)
     .then(response => {})
@@ -39,7 +39,7 @@ export const DeleteKey = async (uuid: string) => {
       return Promise.reject(error);
     });
 };
-export const TestConnection = async (model: TestConnectionModal) => {
+export const testConnection = async (model: TestConnectionModal) => {
   try {
     const response = await axiosClientProtected.post(
       keyManagementRoutes.TEST_CONNECTION_ROUTE,

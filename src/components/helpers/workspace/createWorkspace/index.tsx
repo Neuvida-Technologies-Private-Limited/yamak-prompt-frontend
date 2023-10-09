@@ -20,7 +20,7 @@ import {
   isWorkspaceModalKeyValidated,
   IsCreateWorkspaceFormValidated,
 } from 'utils/validations';
-import { GetKeyList } from 'middleware/api';
+import { getKeyList } from 'middleware/api';
 import { paginationState } from 'middleware/state/pagination';
 
 interface CreateWorkspaceProps {
@@ -82,9 +82,9 @@ const App: React.FC<CreateWorkspaceProps> = ({
   };
   //api call to get key list in select
   useEffect(() => {
-    const getKeyList = async () => {
+    const getKeys = async () => {
       try {
-        const res = await GetKeyList(pagination.currentPage);
+        const res = await getKeyList(pagination.currentPage);
 
         setKeyState(old => ({
           ...old,
@@ -107,7 +107,7 @@ const App: React.FC<CreateWorkspaceProps> = ({
       }
     };
 
-    getKeyList();
+    getKeys();
   }, [pagination.currentPage, setKeyState, setOptionsState]);
 
   return (

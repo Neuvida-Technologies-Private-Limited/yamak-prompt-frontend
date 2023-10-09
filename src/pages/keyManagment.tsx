@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
+
 import { FiTrash2 } from 'react-icons/fi';
 import { useRecoilState } from 'recoil';
+import { message } from 'antd';
 
 import { Heading, Pagination, PopupConfirm } from 'components/common';
 import { Button, Text } from 'components/common';
 import { CreateKeyModal, EmptyKeyManagement } from 'components/helpers';
 import { KeyManagement, ButtonVariants } from 'utils/constants';
-import { CreateKey, DeleteKey, GetKeyList } from 'middleware/api';
+import { createKey, deleteKey, getKeyList } from 'middleware/api';
 import { createKeystate, keyManagementState } from 'middleware/state';
 import { paginationState } from 'middleware/state/pagination';
-import { message } from 'antd';
 
 const KeyManagment: React.FC = () => {
   const [state, setState] = useRecoilState(keyManagementState);
@@ -24,7 +25,7 @@ const KeyManagment: React.FC = () => {
     results.length > 0 ? results.map(() => false) : []
   );
 
-  const createKey = async () => {
+  const createKeyHandler = async () => {
     const keyManagementParams = {
       title,
       description,
@@ -33,7 +34,7 @@ const KeyManagment: React.FC = () => {
     };
 
     try {
-      await CreateKey(keyManagementParams);
+      await createKey(keyManagementParams);
       await getKeyList(pagination.currentPage);
       message.success('Key created successfully');
       return true;
@@ -44,10 +45,10 @@ const KeyManagment: React.FC = () => {
     }
   };
 
-  const getKeyList = useCallback(
+  const getKeys = useCallback(
     async function (currentPage: number) {
       try {
-        const res = await GetKeyList(currentPage);
+        const res = await getKeyList(currentPage);
         setPaginationState(old => ({
           ...old,
           count: res.count,
@@ -73,9 +74,9 @@ const KeyManagment: React.FC = () => {
     setShowPopupConfirm(updatedVisibility);
   };
 
-  async function deleteKey(uuid: string) {
+  async function deleteKeyHandler(uuid: string) {
     try {
-      await DeleteKey(uuid);
+      await deleteKey(uuid);
 
       if (pagination.count === 1) {
         await getKeyList(pagination.currentPage);
@@ -102,7 +103,7 @@ const KeyManagment: React.FC = () => {
 
   useEffect(() => {
     getKeyList(pagination.currentPage);
-  }, [getKeyList, pagination.currentPage]);
+  }, [getKeys, pagination.currentPage]);
 
   return (
     <div className="flex flex-col gap-5 font-poppins p-6 h-screen overflow-y-scroll">
@@ -114,7 +115,7 @@ const KeyManagment: React.FC = () => {
             className="text-sm md:text-base lg:w-3/4 font-normal text-gray400"
           />
         </div>
-        <CreateKeyModal createKey={createKey} />
+        <CreateKeyModal createKey={createKeyHandler} />
       </div>
 
       {results.length === 0 ? (
@@ -147,7 +148,6 @@ const KeyManagment: React.FC = () => {
                       item={
                         <Button
                           key={index}
-                          size="small"
                           variant={ButtonVariants.OUTLINED}
                           onClick={() => {
                             handlePopupConfirmOpen(index, true);
@@ -160,7 +160,7 @@ const KeyManagment: React.FC = () => {
                       handlePopupConfirm={open =>
                         handlePopupConfirmOpen(index, open)
                       }
-                      onConfirm={() => deleteKey(item.uuid)}
+                      onConfirm={() => deleteKeyHandler(item.uuid)}
                       title={KeyManagement.POPUP_TITLE}
                       description={KeyManagement.POPUP_DESCRIPTION}
                       placement="top"

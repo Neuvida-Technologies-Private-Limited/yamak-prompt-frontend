@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Button, Input, Modal, Select } from 'components/common';
 import { KeyManagement, InputVariants, ButtonVariants } from 'utils/constants';
-import { GetLLMProviders, TestConnection } from 'middleware/api';
+import { getLLMProviders, testConnection } from 'middleware/api';
 import { createKeystate } from 'middleware/state';
 import {
   IsCreateKeyFormValidated,
@@ -94,7 +94,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
   //API call to get all LLM Providers
   const getLLMProviderList = async () => {
     try {
-      const res = await GetLLMProviders();
+      const res = await getLLMProviders();
       //modifying API data
       if (Array.isArray(res)) {
         const providerSelectOptions = res.map((item: string) => ({
@@ -114,7 +114,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       provider,
     };
     try {
-      const res = await TestConnection(testConnectionParams);
+      const res = await testConnection(testConnectionParams);
       message.success(res);
     } catch (error: any) {
       message.error(error.error);
