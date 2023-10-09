@@ -35,7 +35,7 @@ const KeyManagment: React.FC = () => {
 
     try {
       await createKey(keyManagementParams);
-      await getKeyList(pagination.currentPage);
+      await getKeys(pagination.currentPage);
       message.success('Key created successfully');
       return true;
     } catch (error: any) {
@@ -79,7 +79,7 @@ const KeyManagment: React.FC = () => {
       await deleteKey(uuid);
 
       if (pagination.count === 1) {
-        await getKeyList(pagination.currentPage);
+        await getKeys(pagination.currentPage);
         return true;
       }
 
@@ -88,11 +88,11 @@ const KeyManagment: React.FC = () => {
           ...old,
           currentPage: pagination.currentPage - 1,
         }));
-        await getKeyList(pagination.currentPage - 1);
+        await getKeys(pagination.currentPage - 1);
         return true;
       }
 
-      await getKeyList(pagination.currentPage);
+      await getKeys(pagination.currentPage);
       return true;
     } catch (error) {
       console.log(error);
@@ -102,7 +102,7 @@ const KeyManagment: React.FC = () => {
   }
 
   useEffect(() => {
-    getKeyList(pagination.currentPage);
+    getKeys(pagination.currentPage);
   }, [getKeys, pagination.currentPage]);
 
   return (
