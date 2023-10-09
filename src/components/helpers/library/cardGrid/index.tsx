@@ -1,6 +1,8 @@
 import { LibraryCardItem as CardItem } from 'types';
 import { EmptyLibrary, LibraryCard } from 'components/helpers';
 import { Pagination } from 'components/common';
+import { useRecoilState } from 'recoil';
+import { paginationState } from 'middleware/state/pagination';
 
 interface CardsGridProps {
   items: CardItem[];
@@ -17,6 +19,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   onPromptInfo,
   onUpdatePrompt,
 }) => {
+  const [{ totalPages }, _] = useRecoilState(paginationState);
   return items.length === 0 ? (
     <EmptyLibrary onAddPrompt={onAddPrompt} />
   ) : (
@@ -42,7 +45,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
           />
         ))}
       </div>
-      <Pagination />
+      {totalPages >= 2 ? <Pagination /> : null}
     </div>
   );
 };

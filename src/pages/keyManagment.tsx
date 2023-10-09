@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { Heading, Pagination, PopupConfirm } from 'components/common';
 import { Button, Text } from 'components/common';
@@ -19,11 +19,12 @@ const KeyManagment: React.FC = () => {
   const { results } = state;
 
   const [pagination, setPaginationState] = useRecoilState(paginationState);
-  const resetPaginationState = useResetRecoilState(paginationState);
 
   const [showPopupConfirm, setShowPopupConfirm] = useState<Array<boolean>>(
     results.length > 0 ? results.map(() => false) : []
   );
+
+  console.log(pagination);
 
   const createKey = async () => {
     const keyManagementParams = {
@@ -49,16 +50,15 @@ const KeyManagment: React.FC = () => {
     async function (currentPage: number) {
       try {
         const res = await GetKeyList(currentPage);
-        console.log(res);
         setPaginationState(old => ({
           ...old,
           count: res.count,
           hasNext: res.next,
           hasPrevious: res.previous,
+          totalPages: Math.ceil(pagination.count / pagination.itemsPerPage),
         }));
         setState(old => ({
           ...old,
-          // results: Array.isArray(res.results) ? res.results : [],
           results: res.results,
         }));
       } catch (error: any) {
@@ -66,7 +66,7 @@ const KeyManagment: React.FC = () => {
         message.error(error);
       }
     },
-    [setState, setPaginationState]
+    [setState, setPaginationState, pagination.count, pagination.itemsPerPage]
   );
 
   const handlePopupConfirmOpen = (index: number, open: boolean) => {
@@ -75,12 +75,9 @@ const KeyManagment: React.FC = () => {
     setShowPopupConfirm(updatedVisibility);
   };
 
-  console.log(pagination);
-
   async function deleteKey(uuid: string) {
     try {
       const res = await DeleteKey(uuid);
-      console.log(res);
 
       if (pagination.count === 1) {
         await getKeyList(pagination.currentPage);
@@ -97,8 +94,6 @@ const KeyManagment: React.FC = () => {
       }
 
       await getKeyList(pagination.currentPage);
-
-      message.success('Key deleted successfully');
       return true;
     } catch (error) {
       console.log(error);
@@ -109,8 +104,6 @@ const KeyManagment: React.FC = () => {
 
   useEffect(() => {
     getKeyList(pagination.currentPage);
-
-    // return () => resetPaginationState();
   }, [getKeyList, pagination.currentPage]);
 
   return (
@@ -143,12 +136,12 @@ const KeyManagment: React.FC = () => {
                   <p className="text-gray400 md:text-base pb-3">
                     {item.description}
                   </p>
-                  <div className="flex sm:gap-2 md:gap-8 md:items-center sm:flex-col md:flex-row">
-                    <div className="flex flex-col font-poppins rounded-lg bg-primary50 p-2 h-full md:w-2/3 sm:w-full border border-gray200">
+                  <div className="flex sm:gap-2 md:gap-8 md:items-center sm:flex-col md:flex-row mt-2">
+                    <div className="flex flex-col font-poppins rounded-lg p-1 bg-primary50 h-full md:w-2/3 sm:w-full border border-gray200">
                       <label className="font-medium px-2 mx-2 -mt-4 bg-white w-fit rounded-md border border-gray200 text-primary900">
                         {item.provider}
                       </label>
-                      <label className="p-2 text-gray900 text-base overflow-hidden">
+                      <label className="p-2 text-gray900 text-base truncate">
                         {item.api_key}
                       </label>
                     </div>
@@ -180,7 +173,7 @@ const KeyManagment: React.FC = () => {
               </div>
             ))}
           </div>
-          <Pagination />
+          {pagination.totalPages >= 2 ? <Pagination /> : null}
         </>
       )}
     </div>

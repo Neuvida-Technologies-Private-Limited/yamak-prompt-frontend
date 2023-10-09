@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 export const paginationState = atom({
-  key: 'library-pagination',
+  key: 'pagination',
   default: {
     currentPage: 1,
     count: 0,

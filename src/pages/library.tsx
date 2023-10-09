@@ -42,17 +42,12 @@ const Library = () => {
   const [pagination, setPaginationState] = useRecoilState(paginationState);
   const resetPaginationState = useResetRecoilState(paginationState);
 
-  const handlePaginationState = useCallback(
-    function (count: number, hasNext: null, hasPrevious: null) {
-      setPaginationState(old => ({
-        ...old,
-        count,
-        hasNext,
-        hasPrevious,
-      }));
-    },
-    [setPaginationState]
-  );
+  // const handlePaginationState = useCallback(
+  //   function (count: number, hasNext: null, hasPrevious: null) {
+
+  //   },
+  //   [setPaginationState]
+  // );
 
   function handleTabClick(tabId: string) {
     setState(old => ({ ...old, activeTab: tabId }));
@@ -62,13 +57,20 @@ const Library = () => {
     async function (currentPage: number) {
       try {
         const res = await getAllPrompts(currentPage);
-        handlePaginationState(res.data.count, res.data.next, res.data.previous);
+        // handlePaginationState(res.data.count, res.data.next, res.data.previous);
+        setPaginationState(old => ({
+          ...old,
+          count: res.data.count,
+          hasNext: res.data.next,
+          hasPrevious: res.data.previous,
+          totalPages: Math.ceil(pagination.count / pagination.itemsPerPage),
+        }));
         setState(old => ({ ...old, items: res.data.results }));
       } catch (err: any) {
         message.error(err.message);
       }
     },
-    [handlePaginationState, setState]
+    [setState, pagination.count, pagination.itemsPerPage, setPaginationState]
   );
 
   async function addPromptHandler(prompt: string) {
@@ -162,11 +164,7 @@ const Library = () => {
   };
 
   useEffect(() => {
-    console.log('MOUNT');
-    return () => {
-      console.log('UNMOUNT');
-      resetPaginationState();
-    };
+    return () => resetPaginationState();
   }, [resetPaginationState]);
 
   return (

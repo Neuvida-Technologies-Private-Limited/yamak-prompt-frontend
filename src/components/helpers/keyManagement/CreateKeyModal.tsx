@@ -174,7 +174,10 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
           <form action="#" method="post">
             <div className="mt-5">
               {inputFields.map((input, i) => (
-                <div className="flex flex-col">
+                <div
+                  key={`create-key-input-item-${i}`}
+                  className="flex flex-col"
+                >
                   <label htmlFor="" className="pl-2 font-poppins text-gray300">
                     {input.placeholder}
                   </label>
