@@ -8,20 +8,7 @@ export const libraryState = atom({
     filteredItems: [] as LibraryCardItem[],
     activeTab: '1',
     error: '',
-    status_code: 200,
-  },
-});
-
-export const libraryPaginationState = atom({
-  key: 'library-pagination',
-  default: {
-    currentPage: 1,
-    count: 0,
-    itemsPerPage: 10,
-    hasNext: null,
-    hasPrevious: null,
-    query: '',
-    totalPages: 0,
+    status: 200,
   },
 });
 

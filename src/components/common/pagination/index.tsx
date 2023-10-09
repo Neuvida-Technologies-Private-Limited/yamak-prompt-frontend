@@ -1,11 +1,12 @@
 import { useRecoilState } from 'recoil';
 import { Button } from '..';
-import { libraryPaginationState } from 'middleware/state/library';
 import { ButtonVariants } from 'utils/constants';
+import { paginationState } from 'middleware/state/pagination';
+import { useEffect } from 'react';
 
 function Pagination() {
   const [{ currentPage, hasPrevious, hasNext, count, itemsPerPage }, setState] =
-    useRecoilState(libraryPaginationState);
+    useRecoilState(paginationState);
 
   const totalKeys = Math.ceil(count / itemsPerPage);
 
@@ -26,6 +27,10 @@ function Pagination() {
   function previousPageHandler() {
     setState(old => ({ ...old, currentPage: currentPage - 1 }));
   }
+
+  useEffect(() => {
+    setState(old => ({ ...old, totalPages: totalKeys }));
+  }, [totalKeys, setState]);
 
   return (
     <div className="flex gap-4 self-center py-4">

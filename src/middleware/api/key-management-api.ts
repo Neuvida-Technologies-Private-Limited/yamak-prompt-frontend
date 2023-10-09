@@ -21,10 +21,10 @@ export const CreateKey = async (model: CreateKeyModal) => {
       return Promise.reject(error);
     });
 };
-export const GetKeyList = async () => {
+export const GetKeyList = async (page: number) => {
   try {
     const response = await axiosClientProtected.get(
-      keyManagementRoutes.KEY_LIST_ROUTE
+      `${keyManagementRoutes.KEY_LIST_ROUTE}${page}`
     );
     return response.data;
   } catch (error: any) {

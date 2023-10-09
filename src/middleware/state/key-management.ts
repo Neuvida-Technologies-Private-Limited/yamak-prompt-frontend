@@ -4,10 +4,10 @@ import { KeyDetailsType } from 'types';
 export const createKeystate = atom({
   key: 'createKey-state',
   default: {
-    title: '',
-    api_key: '',
-    description: '',
-    provider: '',
+    title: 'test',
+    api_key: 'test12312',
+    description: 'test',
+    provider: 'Bard',
     titleError: '',
     api_keyError: '',
     descriptionError: '',

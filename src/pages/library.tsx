@@ -1,7 +1,7 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { message } from 'antd';
 
 import {
@@ -20,7 +20,8 @@ import {
   getSearchPromptInfo,
   updatePromptInfo,
 } from 'middleware/api/library-api';
-import { libraryPaginationState, libraryState } from 'middleware/state/library';
+import { libraryState } from 'middleware/state/library';
+import { paginationState } from 'middleware/state/pagination';
 
 const tabs = [
   {
@@ -38,9 +39,8 @@ const tabs = [
 const Library = () => {
   const [state, setState] = useRecoilState(libraryState);
   const { items, filteredItems, activeTab } = state;
-  const [pagination, setPaginationState] = useRecoilState(
-    libraryPaginationState
-  );
+  const [pagination, setPaginationState] = useRecoilState(paginationState);
+  const resetPaginationState = useResetRecoilState(paginationState);
 
   const handlePaginationState = useCallback(
     function (count: number, hasNext: null, hasPrevious: null) {
@@ -160,6 +160,14 @@ const Library = () => {
       message.error(err.message);
     }
   };
+
+  useEffect(() => {
+    console.log('MOUNT');
+    return () => {
+      console.log('UNMOUNT');
+      resetPaginationState();
+    };
+  }, [resetPaginationState]);
 
   return (
     <div className="flex flex-col font-poppins">

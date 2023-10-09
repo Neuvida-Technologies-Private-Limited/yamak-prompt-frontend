@@ -183,6 +183,7 @@ export enum LibraryCard {
   ButtonDelete = 'Delete',
   Success = 'Successfully updated',
   Copied = 'Copied',
+  Deleted = 'Prompt deleted',
 }
 
 export enum ModalContent {

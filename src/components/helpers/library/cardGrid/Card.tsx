@@ -58,7 +58,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
     };
     const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
 
-    if (res.status_code !== 200) return message.error(res.error);
+    if (res.status !== 200) return message.error(res.error);
 
     message.success(Card.Success);
   }
@@ -69,7 +69,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
     event.stopPropagation();
     if (window.confirm('Are you sure?')) {
       await onDeletePrompt(uuid);
-      message.success('Prompt deleted');
+      message.success(Card.Deleted);
     }
   }
 
@@ -143,7 +143,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
         isOpen={showModal}
         cancelModalHandler={() => setShowModal(false)}
         sumbitHandler={() => {}}
-        okText={'Import Prompt'}
+        okText={Library.CardButtonName}
       >
         <ModalContent key={uuid} id={uuid} onPromptInfo={onPromptInfo} />
       </Modal>

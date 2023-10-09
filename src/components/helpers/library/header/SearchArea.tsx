@@ -5,13 +5,13 @@ import { message } from 'antd';
 import { Input } from 'components/common';
 import { Library, InputVariants } from 'utils/constants';
 import { useRecoilState } from 'recoil';
-import { libraryPaginationState } from 'middleware/state/library';
+import { paginationState } from 'middleware/state/pagination';
 
 const SearchArea: React.FC<{ onSearchPrompt: (input: string) => void }> = ({
   onSearchPrompt,
 }) => {
   const [input, setInput] = useState('');
-  const [pagination, setPagination] = useRecoilState(libraryPaginationState);
+  const [pagination, setPagination] = useRecoilState(paginationState);
 
   useEffect(() => {
     async function getData() {
