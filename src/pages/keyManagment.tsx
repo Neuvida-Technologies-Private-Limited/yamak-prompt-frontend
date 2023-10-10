@@ -9,8 +9,11 @@ import { Button, Text } from 'components/common';
 import { CreateKeyModal, EmptyKeyManagement } from 'components/helpers';
 import { KeyManagement, ButtonVariants } from 'utils/constants';
 import { createKey, deleteKey, getKeyList } from 'middleware/api';
-import { createKeystate, keyManagementState } from 'middleware/state';
-import { paginationState } from 'middleware/state/pagination';
+import {
+  createKeystate,
+  keyManagementState,
+  keyPaginationState,
+} from 'middleware/state';
 
 const KeyManagment: React.FC = () => {
   const [state, setState] = useRecoilState(keyManagementState);
@@ -19,7 +22,7 @@ const KeyManagment: React.FC = () => {
   const { title, description, api_key, provider } = createKeystates;
   const { results } = state;
 
-  const [pagination, setPaginationState] = useRecoilState(paginationState);
+  const [pagination, setPaginationState] = useRecoilState(keyPaginationState);
 
   const [showPopupConfirm, setShowPopupConfirm] = useState<Array<boolean>>(
     results.length > 0 ? results.map(() => false) : []
@@ -171,7 +174,9 @@ const KeyManagment: React.FC = () => {
               </div>
             ))}
           </div>
-          {pagination.totalPages >= 2 ? <Pagination /> : null}
+          {pagination.totalPages >= 2 ? (
+            <Pagination type="key-management" />
+          ) : null}
         </>
       )}
     </div>

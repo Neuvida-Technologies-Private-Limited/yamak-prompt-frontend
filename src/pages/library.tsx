@@ -21,8 +21,7 @@ import {
   getSearchPromptInfo,
   updatePromptInfo,
 } from 'middleware/api/library-api';
-import { libraryState } from 'middleware/state/library';
-import { paginationState } from 'middleware/state/pagination';
+import { libraryPaginationState, libraryState } from 'middleware/state/library';
 
 const tabs = [
   {
@@ -40,7 +39,9 @@ const tabs = [
 const Library = () => {
   const [state, setState] = useRecoilState(libraryState);
   const { items, filteredItems, activeTab } = state;
-  const [pagination, setPaginationState] = useRecoilState(paginationState);
+  const [pagination, setPaginationState] = useRecoilState(
+    libraryPaginationState
+  );
 
   function handleTabClick(tabId: string) {
     setState(old => ({ ...old, activeTab: tabId }));

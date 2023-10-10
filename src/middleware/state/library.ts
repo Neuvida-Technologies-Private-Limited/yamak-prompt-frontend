@@ -40,3 +40,14 @@ export const libraryPaginationState = atom({
     totalPages: 0,
   },
 });
+
+export const promptCardState = atom({
+  key: 'prompt-card-state',
+  default: {
+    isFavourite: false,
+    isLiked: false,
+    likesCount: 0,
+    isDisliked: false,
+    dislikesCount: 0,
+  },
+});

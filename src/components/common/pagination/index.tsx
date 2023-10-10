@@ -1,16 +1,24 @@
 import { useRecoilState } from 'recoil';
+
 import { Button } from '..';
 import { ButtonVariants } from 'utils/constants';
-import { paginationState } from 'middleware/state/pagination';
+import { libraryPaginationState } from 'middleware/state/library';
+import { keyPaginationState } from 'middleware/state';
 
-function Pagination() {
+interface PaginationProps {
+  type: 'library' | 'workspace' | 'key-management';
+}
+
+const Pagination: React.FC<PaginationProps> = ({ type }) => {
   const [{ currentPage, hasPrevious, hasNext, totalPages }, setState] =
-    useRecoilState(paginationState);
+    useRecoilState(
+      type === 'library' ? libraryPaginationState : keyPaginationState
+    );
 
   const totalButtons = Array.from({ length: totalPages }).map((_, index) => (
     <Button
       key={index}
-      variant="outlined-light"
+      variant={ButtonVariants.OUTLINED_LIGHT}
       disabled={currentPage === index + 1}
       name={index + 1}
       onClick={() => setState(old => ({ ...old, currentPage: index + 1 }))}
@@ -42,6 +50,6 @@ function Pagination() {
       />
     </div>
   );
-}
+};
 
 export default Pagination;

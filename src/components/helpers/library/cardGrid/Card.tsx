@@ -34,7 +34,14 @@ const LibraryCard: React.FC<CardItemProps> = ({
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isFavourite, setIsFavourite] = useState(favourite);
-  const [isLiked, setisLiked] = useState(liked_by_user);
+  const [isLiked, setisLiked] = useState({
+    liked: false,
+    count: likes_dislikes_count.likes,
+  });
+  const [isDisliked, setIsDisliked] = useState({
+    disliked: false,
+    count: likes_dislikes_count.dislikes,
+  });
 
   const promptInfoHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);
@@ -63,7 +70,18 @@ const LibraryCard: React.FC<CardItemProps> = ({
     message.success(Card.Success);
   }
 
-  async function dislikeHandler() {}
+  async function likeHandler(event: React.MouseEvent) {
+    event.stopPropagation();
+    setisLiked(prev => ({ liked: !prev.liked, count: prev.count + 1 }));
+  }
+
+  async function dislikeHandler(event: React.MouseEvent) {
+    event.stopPropagation();
+    setIsDisliked(prev => ({
+      disliked: !prev.disliked,
+      count: prev.count + 1,
+    }));
+  }
 
   async function deleteHandler(event: React.MouseEvent) {
     event.stopPropagation();
@@ -118,13 +136,13 @@ const LibraryCard: React.FC<CardItemProps> = ({
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            name={likes_dislikes_count.likes}
+            name={isLiked.count}
             icon={<BiLike />}
-            onClick={dislikeHandler}
+            onClick={likeHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            name={likes_dislikes_count.dislikes}
+            name={isDisliked.count}
             icon={<BiDislike />}
             onClick={dislikeHandler}
           />
