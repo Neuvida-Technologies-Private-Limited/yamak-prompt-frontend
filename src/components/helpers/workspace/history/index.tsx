@@ -12,7 +12,6 @@ import { searchHistoryState, workspaceHistoryState } from 'middleware/state';
 interface CompletionHistoryProps {
   onHistorySearch: (input: string, id: string) => void;
   id: string;
-  getHistory: () => Promise<void>;
 }
 
 // later these will come from API
@@ -23,7 +22,6 @@ const handleClick = () => {};
 const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   onHistorySearch,
   id,
-  getHistory,
 }) => {
   const [workspaceHistory] = useRecoilState(workspaceHistoryState);
   const [searchInput, setSearchInput] = useRecoilState(searchHistoryState);

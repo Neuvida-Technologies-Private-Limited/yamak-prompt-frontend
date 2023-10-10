@@ -37,23 +37,26 @@ const Index = () => {
   const [currentTab, setCurrentTab] = useState<string | null>('2');
   const Id = useLocation().pathname.split('/').at(-1);
 
-  async function getWorkspaceData() {
-    try {
-      const res = await getWorkspace(Id);
+  const getWorkspaceData = useCallback(
+    async function () {
+      try {
+        const res = await getWorkspace(Id);
 
-      setWorkspaceData(old => ({
-        ...old,
-        id: res.id,
-        title: res.title,
-        model_key: res.model_key,
-        last_modified: res.last_modified,
-        timestamp: res.timestamp,
-        user_uuid: res.user_uuid,
-      }));
-    } catch (err: any) {
-      toast.error(err.error);
-    }
-  }
+        setWorkspaceData(old => ({
+          ...old,
+          id: res.id,
+          title: res.title,
+          model_key: res.model_key,
+          last_modified: res.last_modified,
+          timestamp: res.timestamp,
+          user_uuid: res.user_uuid,
+        }));
+      } catch (err: any) {
+        toast.error(err.error);
+      }
+    },
+    [setWorkspaceData]
+  );
 
   const searchHistoryHandler = useCallback(
     async function (input: string, id: string) {
@@ -72,7 +75,7 @@ const Index = () => {
 
   useEffect(() => {
     getWorkspaceData();
-  }, [workspaceData.id, getWorkspaceData]);
+  }, [id]);
 
   const tabs = [
     {
@@ -84,9 +87,7 @@ const Index = () => {
     {
       id: '2',
       tabTitle: Workspace.Completion,
-      content: (
-        <WorkspaceCompletion id={id} onHistorySearch={searchHistoryHandler} />
-      ),
+      content: <WorkspaceCompletion onHistorySearch={searchHistoryHandler} />,
       icon: <BsCheck2Circle />,
     },
   ];

@@ -16,9 +16,6 @@ const Chat = () => {
               throw new Error('Function not implemented.');
             }}
             id={''}
-            getHistory={function (): Promise<void> {
-              throw new Error('Function not implemented.');
-            }}
           />
         </div>
       ) : null}
