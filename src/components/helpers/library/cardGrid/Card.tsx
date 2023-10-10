@@ -34,13 +34,15 @@ const LibraryCard: React.FC<CardItemProps> = ({
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isFavourite, setIsFavourite] = useState(favourite);
-  const [isLiked, setisLiked] = useState({
-    liked: false,
-    count: likes_dislikes_count.likes,
+  const [isLiked, setisLiked] = useState<null | boolean>(function () {
+    if (liked_by_user === null) return null;
+    if (liked_by_user === true) return true;
+    return false;
   });
-  const [isDisliked, setIsDisliked] = useState({
-    disliked: false,
-    count: likes_dislikes_count.dislikes,
+  const [isDisliked, setIsDisliked] = useState<null | boolean>(function () {
+    if (liked_by_user === null) return null;
+    if (liked_by_user === true) return false;
+    return true;
   });
 
   const promptInfoHandler: React.MouseEventHandler = () => {
@@ -72,19 +74,39 @@ const LibraryCard: React.FC<CardItemProps> = ({
 
   async function likeHandler(event: React.MouseEvent) {
     event.stopPropagation();
-    setisLiked(prev => ({ liked: !prev.liked, count: prev.count + 1 }));
+
+    setisLiked(prev => !prev);
+    setIsDisliked(false);
+    const updateObj = {
+      liked: true,
+    };
+    const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
+    if (res.status !== 200) {
+      message.error(res.error);
+      return;
+    }
+    message.success(Card.Success);
   }
 
   async function dislikeHandler(event: React.MouseEvent) {
     event.stopPropagation();
-    setIsDisliked(prev => ({
-      disliked: !prev.disliked,
-      count: prev.count + 1,
-    }));
+
+    setIsDisliked(prev => !prev);
+    setisLiked(false);
+    const updateObj = {
+      liked: false,
+    };
+    const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
+    if (res.status !== 200) {
+      message.error(res.error);
+      return;
+    }
+    message.success(Card.Success);
   }
 
   async function deleteHandler(event: React.MouseEvent) {
     event.stopPropagation();
+
     if (window.confirm('Are you sure?')) {
       await onDeletePrompt(uuid);
       message.success(Card.Deleted);
@@ -136,14 +158,30 @@ const LibraryCard: React.FC<CardItemProps> = ({
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            name={isLiked.count}
-            icon={<BiLike />}
+            name={likes_dislikes_count.likes}
+            icon={
+              isLiked === null ? (
+                <BiLike />
+              ) : isLiked === true ? (
+                <BiSolidLike />
+              ) : (
+                <BiLike />
+              )
+            }
             onClick={likeHandler}
           />
           <Button
             variant={ButtonVariants.OUTLINED_LIGHT}
-            name={isDisliked.count}
-            icon={<BiDislike />}
+            name={likes_dislikes_count.dislikes}
+            icon={
+              isDisliked === null ? (
+                <BiDislike />
+              ) : isDisliked === true ? (
+                <BiSolidDislike />
+              ) : (
+                <BiDislike />
+              )
+            }
             onClick={dislikeHandler}
           />
           <Button

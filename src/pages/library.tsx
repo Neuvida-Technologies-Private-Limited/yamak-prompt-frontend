@@ -100,6 +100,7 @@ const Library = () => {
   const searchPromptHandler = useCallback(
     async function (input: string) {
       try {
+        // getting prompts data on load
         if (input.length === 0) {
           if (activeTab === '1') await getPrompts(pagination.currentPage);
           return;
