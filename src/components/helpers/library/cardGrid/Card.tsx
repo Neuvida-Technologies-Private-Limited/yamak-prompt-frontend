@@ -77,9 +77,9 @@ const LibraryCard: React.FC<CardItemProps> = ({
 
     setisLiked(prev => !prev);
     setIsDisliked(false);
-    const updateObj = {
-      liked: true,
-    };
+
+    const updateObj = isLiked ? { liked: 'delete' } : { liked: true };
+
     const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
     if (res.status !== 200) {
       message.error(res.error);
@@ -93,9 +93,9 @@ const LibraryCard: React.FC<CardItemProps> = ({
 
     setIsDisliked(prev => !prev);
     setisLiked(false);
-    const updateObj = {
-      liked: false,
-    };
+
+    const updateObj = isDisliked ? { liked: 'delete' } : { liked: false };
+
     const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
     if (res.status !== 200) {
       message.error(res.error);
