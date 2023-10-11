@@ -5,20 +5,18 @@ import { message } from 'antd';
 import { Input } from 'components/common';
 import { Library, InputVariants } from 'utils/constants';
 import { useRecoilState } from 'recoil';
-import { paginationState } from 'middleware/state/pagination';
-import { libraryState } from 'middleware/state/library';
+import { libraryPaginationState, libraryState } from 'middleware/state/library';
 
 const SearchArea: React.FC<{ onSearchPrompt: (input: string) => void }> = ({
   onSearchPrompt,
 }) => {
   const [input, setInput] = useState('');
-  const [, setPagination] = useRecoilState(paginationState);
+  const [, setPagination] = useRecoilState(libraryPaginationState);
   const [library] = useRecoilState(libraryState);
 
   useEffect(() => {
     async function getData() {
       try {
-        setPagination(old => ({ ...old, query: input }));
         onSearchPrompt(input);
       } catch (err: any) {
         message.error(err.message);
@@ -27,6 +25,10 @@ const SearchArea: React.FC<{ onSearchPrompt: (input: string) => void }> = ({
 
     getData();
   }, [onSearchPrompt, input, setPagination]);
+
+  useEffect(() => {
+    setInput('');
+  }, [library.activeTab]);
 
   return (
     <div className="flex sm:flex-col md:flex-row md:w-1/2 justify-between items-start px-6 pt-4 sm:pb-4 md:pb-2">

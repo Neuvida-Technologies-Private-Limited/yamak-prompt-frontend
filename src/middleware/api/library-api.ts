@@ -50,17 +50,19 @@ export const getPromptInfo = async (id: string) => {
 };
 
 export const getSearchPromptInfo = async (
-  page: number,
+  page: number = 1,
   input: string,
+  favourite?: boolean,
   controller?: AbortController
 ) => {
   try {
-    return await axiosClientProtected.get(
-      `${libraryRoutes.SEARCH_PROMPT}${page}&q=${input}`,
-      { signal: controller?.signal }
-    );
+    const url = `${libraryRoutes.SEARCH_PROMPT}${page}&q=${input}${
+      favourite ? '&favourite=true' : ''
+    }`;
+    console.log(url);
+    return await axiosClientProtected.get(url);
   } catch (err: any) {
-    throw new Error(err);
+    throw new Error(err.error);
   }
 };
 

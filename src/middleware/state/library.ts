@@ -15,21 +15,34 @@ export const libraryState = atom({
 export const promptModalState = atom({
   key: 'prompt-modal-state',
   default: {
-    title: '',
+    title: 'test',
     titleError: '',
-    userMessage: '',
+    userMessage: 'test',
     userMessageError: '',
-    systemMessage: '',
+    systemMessage: 'test',
     systemMessageError: '',
-    promptOutput: '',
+    promptOutput: 'test',
     promptOutputError: '',
-    tags: '',
+    tags: 'test',
     tagsError: '',
   },
 });
 
 export const libraryPaginationState = atom({
   key: 'library-pagination-state',
+  default: {
+    currentPage: 1,
+    count: 0,
+    itemsPerPage: 10,
+    hasNext: null,
+    hasPrevious: null,
+    query: '',
+    totalPages: 0,
+  },
+});
+
+export const librarySearchPaginationState = atom({
+  key: 'library-search-pagination-state',
   default: {
     currentPage: 1,
     count: 0,

@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { message } from 'antd';
 
 import {
@@ -42,6 +42,7 @@ const Library = () => {
   const [pagination, setPaginationState] = useRecoilState(
     libraryPaginationState
   );
+  const resetPaginationState = useResetRecoilState(libraryPaginationState);
 
   function handleTabClick(tabId: string) {
     setState(old => ({ ...old, activeTab: tabId }));
@@ -80,9 +81,7 @@ const Library = () => {
         }));
 
         setState(old => ({ ...old, filteredItems: res.data.results }));
-      } catch (err: any) {
-        message.error(err.message);
-      }
+      } catch (err: any) {}
     },
     [setState, setPaginationState, pagination.count, pagination.itemsPerPage]
   );
@@ -102,14 +101,21 @@ const Library = () => {
       try {
         // getting prompts data on load
         if (input.length === 0) {
-          if (activeTab === '1') await getPrompts(pagination.currentPage);
+          activeTab === '1'
+            ? await getPrompts(pagination.currentPage)
+            : await getFavouritePrompts(pagination.currentPage);
+
           return;
         }
 
         if (items.length === 0 && activeTab === '1') return;
         if (filteredItems.length === 0 && activeTab === '2') return;
 
-        const res = await getSearchPromptInfo(pagination.currentPage, input);
+        const res = await getSearchPromptInfo(
+          pagination.currentPage,
+          input,
+          activeTab === '2'
+        );
 
         setPaginationState(old => ({
           ...old,
@@ -130,6 +136,7 @@ const Library = () => {
       setPaginationState,
       setState,
       getPrompts,
+      getFavouritePrompts,
       pagination.currentPage,
       items.length,
       filteredItems.length,
@@ -198,11 +205,8 @@ const Library = () => {
   };
 
   useEffect(() => {
-    if (activeTab === '2') {
-      getFavouritePrompts(pagination.currentPage);
-      return;
-    }
-  }, [getFavouritePrompts, activeTab, pagination.currentPage]);
+    setPaginationState(old => ({ ...old, currentPage: 1 }));
+  }, [activeTab, setPaginationState]);
 
   return (
     <div className="flex flex-col font-poppins">
@@ -215,9 +219,7 @@ const Library = () => {
             onTabClick={handleTabClick}
           />
         </TabsArea>
-        {activeTab === '1' && (
-          <SearchArea onSearchPrompt={searchPromptHandler} />
-        )}
+        <SearchArea onSearchPrompt={searchPromptHandler} />
       </LibraryHeader>
       <LibraryCardsGrid
         items={activeTab === '1' ? items : filteredItems}
