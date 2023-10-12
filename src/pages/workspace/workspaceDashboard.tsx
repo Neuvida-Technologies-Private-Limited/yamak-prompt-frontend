@@ -2,57 +2,62 @@ import React, { useCallback, useEffect } from 'react';
 
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
-import { ToastContainer, toast } from 'react-toastify';
 import { message } from 'antd';
 
 import { CreateWorkspaceModal, WordspaceCardGrid } from 'components/helpers';
-import { Workspace } from 'utils/constants';
+import { ITEMS_PER_PAGE, Workspace } from 'utils/constants';
 import { Heading } from 'components/common';
 import {
-  GetWorkspaces,
+  getWorkspaces,
   CreateWorkspace,
   DeleteWorkspace,
   UpdateWorkspace,
 } from 'middleware/api';
-import { createWorkspaceState, workspaceState } from 'middleware/state';
+import {
+  createWorkspaceState,
+  workspacePaginationState,
+  workspaceState,
+} from 'middleware/state';
 
 const WorkspaceDashboard: React.FC = () => {
   const [state, setState] = useRecoilState(workspaceState);
   const [createState] = useRecoilState(createWorkspaceState);
+  const [pagination, setPaginationState] = useRecoilState(
+    workspacePaginationState
+  );
   const { workspace_details } = state;
   const { title, model_key } = createState;
 
   const getAllWorkspaces = useCallback(
-    async function () {
+    async function (currentPage: number) {
       try {
-        const res = await GetWorkspaces();
-        const response = Array.isArray(res.results) ? res.results : [];
-        if (response.length === 0) {
-          setState(old => ({
-            ...old,
-            workspace_details: [],
-          }));
-        } else {
-          const formattedWorkspaces = response.map(
-            (item: {
-              last_modified: moment.MomentInput;
-              timestamp: moment.MomentInput;
-            }) => ({
-              ...item,
-              last_modified: moment(item.last_modified).format('h:mm A'),
-              timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
-            })
-          );
-          setState(old => ({
-            ...old,
-            workspace_details: formattedWorkspaces,
-          }));
-        }
+        const res = await getWorkspaces(currentPage);
+        const formattedWorkspaces = res.results.map(
+          (item: {
+            last_modified: moment.MomentInput;
+            timestamp: moment.MomentInput;
+          }) => ({
+            ...item,
+            last_modified: moment(item.last_modified).format('h:mm A'),
+            timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
+          })
+        );
+        setState(old => ({
+          ...old,
+          workspace_details: formattedWorkspaces,
+        }));
+        setPaginationState(old => ({
+          ...old,
+          count: res.count,
+          hasNext: res.next,
+          hasPrevious: res.previous,
+          totalPages: Math.ceil(res.count / ITEMS_PER_PAGE),
+        }));
       } catch (error: any) {
         console.log(error);
       }
     },
-    [setState]
+    [setState, setPaginationState]
   );
 
   const createWorkspace = async () => {
@@ -63,12 +68,12 @@ const WorkspaceDashboard: React.FC = () => {
 
     try {
       await CreateWorkspace(createWorkspaceParams);
-      getAllWorkspaces();
-      toast.success('Workspace created successfully');
+      await getAllWorkspaces(pagination.currentPage);
+      message.success('Workspace created successfully');
       return true;
     } catch (error: any) {
       const errorMessage = error.error;
-      toast.error(errorMessage);
+      message.error(errorMessage);
       return false;
     }
   };
@@ -77,13 +82,13 @@ const WorkspaceDashboard: React.FC = () => {
     try {
       if (id) {
         await DeleteWorkspace(id);
-        getAllWorkspaces();
+        await getAllWorkspaces(pagination.currentPage);
         return true;
       } else {
         return false;
       }
     } catch (error) {
-      toast.error('Workspace cannot be deleted, please login again !');
+      message.error('Workspace cannot be deleted, please login again !');
     }
   };
 
@@ -91,14 +96,14 @@ const WorkspaceDashboard: React.FC = () => {
     try {
       await UpdateWorkspace(update, id);
       message.success('Workspace updated!');
-      getAllWorkspaces();
+      getAllWorkspaces(pagination.currentPage);
       return true;
     } catch (error) {}
   };
 
   useEffect(() => {
-    getAllWorkspaces();
-  }, [getAllWorkspaces]);
+    getAllWorkspaces(pagination.currentPage);
+  }, [getAllWorkspaces, pagination.currentPage]);
 
   return (
     <div className="flex flex-col h-screen overflow-y-scroll">
@@ -122,7 +127,6 @@ const WorkspaceDashboard: React.FC = () => {
         onUpdate={updateWorkspace}
         createWorkspace={createWorkspace}
       />
-      <ToastContainer autoClose={3000} />
     </div>
   );
 };

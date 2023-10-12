@@ -8,6 +8,7 @@ import {
   libraryState,
 } from 'middleware/state/library';
 import { keyPaginationState } from 'middleware/state';
+import { workspacePaginationState } from 'middleware/state';
 
 interface PaginationProps {
   type: 'library' | 'workspace' | 'key-management';
@@ -16,14 +17,27 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = ({ type }) => {
   const [{ activeTab }] = useRecoilState(libraryState);
 
-  const [{ currentPage, hasPrevious, hasNext, totalPages }, setState] =
-    useRecoilState(
-      type === 'library'
-        ? activeTab === '1'
+  let state;
+
+  switch (type) {
+    case 'library':
+      state =
+        activeTab === '1'
           ? libraryPaginationState
-          : libraryFavouritePaginationState
-        : keyPaginationState
-    );
+          : libraryFavouritePaginationState;
+      break;
+
+    case 'key-management':
+      state = keyPaginationState;
+      break;
+
+    case 'workspace':
+      state = workspacePaginationState;
+      break;
+  }
+
+  const [{ currentPage, hasPrevious, hasNext, totalPages }, setState] =
+    useRecoilState(state);
 
   const totalButtons = Array.from({ length: totalPages }).map((_, index) => (
     <Button

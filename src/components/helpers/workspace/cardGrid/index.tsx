@@ -1,9 +1,12 @@
 import React from 'react';
 
-import { CreateWorkspaceModal, EmptyWorkspace } from 'components/helpers';
+import { useRecoilState } from 'recoil';
+
+import { EmptyWorkspace } from 'components/helpers';
 import WorkspaceCard from './Card';
-import { Workspace } from 'utils/constants';
 import { WorkspaceDetailsType } from 'types';
+import { Pagination } from 'components/common';
+import { workspacePaginationState } from 'middleware/state';
 
 interface WorkspaceCardGridProps {
   items: WorkspaceDetailsType[];
@@ -18,11 +21,12 @@ const WorkspaceCardGrid: React.FC<WorkspaceCardGridProps> = ({
   onUpdate,
   createWorkspace,
 }) => {
+  const [{ totalPages }] = useRecoilState(workspacePaginationState);
   return (
     <div>
       {items.length > 0 ? (
-        <div className="">
-          <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
+        <div className="flex flex-col">
+          <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3">
             {items.map((item: any, index: number) => (
               <WorkspaceCard
                 key={`workspace-card-item-${index}`}
@@ -37,13 +41,7 @@ const WorkspaceCardGrid: React.FC<WorkspaceCardGridProps> = ({
               />
             ))}
           </div>
-          <div className="sm:flex em:hidden bottom-0 z-2 fixed items-center justify-center w-full rounded-t-xl bg-gray100 py-4">
-            <CreateWorkspaceModal
-              btnName={Workspace.CreateWorkspace}
-              className="w-72 h-12 flex justify-center"
-              createWorkspace={createWorkspace}
-            />
-          </div>
+          {totalPages >= 2 ? <Pagination type="workspace" /> : null}
         </div>
       ) : (
         <EmptyWorkspace createWorkspace={createWorkspace} />

@@ -21,7 +21,7 @@ import {
   IsCreateWorkspaceFormValidated,
 } from 'utils/validations';
 import { getKeyList } from 'middleware/api';
-import { paginationState } from 'middleware/state/pagination';
+import { keyPaginationState } from 'middleware/state';
 
 interface CreateWorkspaceProps {
   btnName: string;
@@ -38,7 +38,7 @@ const App: React.FC<CreateWorkspaceProps> = ({
   const [keystate, setKeyState] = useRecoilState(keyManagementState);
   const [optionsState, setOptionsState] = useRecoilState(keyOptionsState);
   const resetState = useResetRecoilState(createWorkspaceState);
-  const [pagination, setPaginationState] = useRecoilState(paginationState);
+  const [pagination, setPaginationState] = useRecoilState(keyPaginationState);
 
   const [showModal, setShowModal] = useState(false);
 

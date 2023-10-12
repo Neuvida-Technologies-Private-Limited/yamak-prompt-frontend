@@ -63,3 +63,16 @@ export const keyOptionsState = atom({
     options: [] as OptionItems[],
   },
 });
+
+export const workspacePaginationState = atom({
+  key: 'workspace-pagination-state',
+  default: {
+    currentPage: 1,
+    count: 0,
+    itemsPerPage: 10,
+    hasNext: null,
+    hasPrevious: null,
+    query: '',
+    totalPages: 0,
+  },
+});
