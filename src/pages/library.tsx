@@ -59,6 +59,7 @@ const Library = () => {
         setState(old => ({ ...old, items: res.data.results }));
         setPaginationState(old => ({
           ...old,
+          count: res.data.count,
           hasNext: res.data.next,
           hasPrevious: res.data.previous,
           totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
@@ -77,6 +78,7 @@ const Library = () => {
         setState(old => ({ ...old, filteredItems: res.data.results }));
         setPaginationState(old => ({
           ...old,
+          count: res.data.count,
           hasNext: res.data.next,
           hasPrevious: res.data.previous,
           totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
@@ -116,6 +118,7 @@ const Library = () => {
 
         setPaginationState(old => ({
           ...old,
+          count: res.data.count,
           hasNext: res.data.next,
           hasPrevious: res.data.previous,
           totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),

@@ -25,9 +25,9 @@ const root = ReactDOM.createRoot(
 
   if (csrfToken) {
     root.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
+      // <React.StrictMode>
+      // </React.StrictMode>
     );
   } else {
     root.render(<div>Loading...</div>); //any custom loader will replace this
