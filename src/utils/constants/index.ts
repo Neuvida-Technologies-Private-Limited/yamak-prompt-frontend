@@ -136,7 +136,7 @@ export enum KeyManagement {
   POPUP_DESCRIPTION = 'Are you sure to delete this key?',
   TestConnection = 'Test Connection',
   EMPTY_SCREEN_TEXT = 'Click on the "Add New Key" button to get started',
-  SUCCESS = 'Key Deleted Successfully !',
+  SUCCESS = 'Key Deleted Successfully',
 }
 
 export enum Library {
@@ -158,6 +158,7 @@ export enum Library {
   TagsTitle = 'tags',
   TagsPlaceholder = 'Enter tags (comma seperated)',
   SearchLibrary = 'Search prompts...',
+  NoSearchLibrary = 'No items to search...',
   CardHeading = 'Human Written | 100% Unique | SEO Optimized Article',
   CardSubHeading = 'SEO/Writing',
   CardButtonName = 'Import Prompt',
@@ -183,6 +184,7 @@ export enum LibraryCard {
   ButtonDelete = 'Delete',
   Success = 'Successfully updated',
   Copied = 'Copied',
+  Deleted = 'Prompt deleted',
 }
 
 export enum ModalContent {
@@ -272,6 +274,4 @@ export const KeyDetails = [
   },
 ];
 
-export const Pagination = {
-  itemsPerPage: 4,
-};
+export const ITEMS_PER_PAGE = 10;

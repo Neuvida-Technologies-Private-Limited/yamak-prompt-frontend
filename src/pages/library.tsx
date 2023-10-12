@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { HiMenu, HiOutlineHeart } from 'react-icons/hi';
 import { useRecoilState } from 'recoil';
@@ -15,12 +15,18 @@ import { Tabs } from 'components/common';
 import {
   createPrompt,
   deletePrompt,
+  getAllFavouritePrompts,
   getAllPrompts,
   getPromptInfo,
   getSearchPromptInfo,
   updatePromptInfo,
 } from 'middleware/api/library-api';
-import { libraryPaginationState, libraryState } from 'middleware/state/library';
+import {
+  libraryPaginationState,
+  libraryFavouritePaginationState,
+  libraryState,
+} from 'middleware/state/library';
+import { ITEMS_PER_PAGE } from 'utils/constants';
 
 const tabs = [
   {
@@ -39,19 +45,7 @@ const Library = () => {
   const [state, setState] = useRecoilState(libraryState);
   const { items, filteredItems, activeTab } = state;
   const [pagination, setPaginationState] = useRecoilState(
-    libraryPaginationState
-  );
-
-  const handlePaginationState = useCallback(
-    function (count: number, hasNext: null, hasPrevious: null) {
-      setPaginationState(old => ({
-        ...old,
-        count,
-        hasNext,
-        hasPrevious,
-      }));
-    },
-    [setPaginationState]
+    activeTab === '1' ? libraryPaginationState : libraryFavouritePaginationState
   );
 
   function handleTabClick(tabId: string) {
@@ -62,13 +56,38 @@ const Library = () => {
     async function (currentPage: number) {
       try {
         const res = await getAllPrompts(currentPage);
-        handlePaginationState(res.data.count, res.data.next, res.data.previous);
         setState(old => ({ ...old, items: res.data.results }));
+        setPaginationState(old => ({
+          ...old,
+          count: res.data.count,
+          hasNext: res.data.next,
+          hasPrevious: res.data.previous,
+          totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
+        }));
       } catch (err: any) {
         message.error(err.message);
       }
     },
-    [handlePaginationState, setState]
+    [setState, setPaginationState]
+  );
+
+  const getFavouritePrompts = useCallback(
+    async function (currentPage: number) {
+      try {
+        const res = await getAllFavouritePrompts(currentPage);
+        setState(old => ({ ...old, filteredItems: res.data.results }));
+        setPaginationState(old => ({
+          ...old,
+          count: res.data.count,
+          hasNext: res.data.next,
+          hasPrevious: res.data.previous,
+          totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
+        }));
+      } catch (err: any) {
+        message.error(err.message);
+      }
+    },
+    [setState, setPaginationState]
   );
 
   async function addPromptHandler(prompt: string) {
@@ -77,7 +96,6 @@ const Library = () => {
       await getPrompts(pagination.currentPage);
       return res;
     } catch (err: any) {
-      console.log(err);
       message.error(err.message);
     }
   }
@@ -85,31 +103,35 @@ const Library = () => {
   const searchPromptHandler = useCallback(
     async function (input: string) {
       try {
-        if (input.length === 0) {
-          await getPrompts(pagination.currentPage);
-          return;
-        }
+        if (items.length === 0 && activeTab === '1') return;
+        if (filteredItems.length === 0 && activeTab === '2') return;
 
-        if (items.length === 0) return;
+        const res = await getSearchPromptInfo(
+          pagination.currentPage,
+          input,
+          activeTab === '2'
+        );
 
-        const res = await getSearchPromptInfo(pagination.currentPage, input);
+        activeTab === '1'
+          ? setState(old => ({ ...old, items: res.data.results }))
+          : setState(old => ({ ...old, filteredItems: res.data.results }));
+
         setPaginationState(old => ({
           ...old,
           count: res.data.count,
           hasNext: res.data.next,
           hasPrevious: res.data.previous,
+          totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
         }));
-        setState(old => ({ ...old, items: res.data.results }));
-      } catch (err: any) {
-        message.error(err.message);
-      }
+      } catch (err: any) {}
     },
     [
       setPaginationState,
       setState,
-      getPrompts,
+      activeTab,
       pagination.currentPage,
       items.length,
+      filteredItems.length,
     ]
   );
 
@@ -118,12 +140,16 @@ const Library = () => {
       const res = await deletePrompt(id);
 
       if (pagination.count === 1) {
-        await getPrompts(pagination.currentPage);
+        activeTab === '1'
+          ? await getPrompts(pagination.currentPage)
+          : await getFavouritePrompts(pagination.currentPage);
         return;
       }
 
       if (pagination.currentPage < pagination.totalPages) {
-        await getPrompts(pagination.currentPage);
+        activeTab === '1'
+          ? await getPrompts(pagination.currentPage)
+          : await getFavouritePrompts(pagination.currentPage);
         return;
       }
 
@@ -132,11 +158,15 @@ const Library = () => {
           ...old,
           currentPage: pagination.currentPage - 1,
         }));
-        await getPrompts(pagination.currentPage - 1);
+        activeTab === '1'
+          ? await getPrompts(pagination.currentPage - 1)
+          : await getFavouritePrompts(pagination.currentPage - 1);
         return;
       }
 
-      await getPrompts(pagination.currentPage);
+      activeTab === '1'
+        ? await getPrompts(pagination.currentPage)
+        : await getFavouritePrompts(pagination.currentPage);
       return res;
     } catch (err: any) {
       message.error(err.message);
@@ -154,12 +184,41 @@ const Library = () => {
   const updatePromptHandler = async function (update: any, id: string) {
     try {
       const res = await updatePromptInfo(update, id);
-      await getPrompts(pagination.currentPage);
+
+      if (pagination.query.length === 0) {
+        activeTab === '1'
+          ? await getPrompts(pagination.currentPage)
+          : await getFavouritePrompts(pagination.currentPage);
+      } else {
+        searchPromptHandler(pagination.query);
+      }
       return res;
     } catch (err: any) {
       message.error(err.message);
     }
   };
+
+  useEffect(() => {
+    async function getDataOnLoad() {
+      try {
+        if (pagination.query.length === 0) {
+          activeTab === '1'
+            ? getPrompts(pagination.currentPage)
+            : getFavouritePrompts(pagination.currentPage);
+        } else {
+          searchPromptHandler(pagination.query);
+        }
+      } catch (err) {}
+    }
+    getDataOnLoad();
+  }, [
+    getPrompts,
+    getFavouritePrompts,
+    searchPromptHandler,
+    activeTab,
+    pagination.currentPage,
+    pagination.query,
+  ]);
 
   return (
     <div className="flex flex-col font-poppins">

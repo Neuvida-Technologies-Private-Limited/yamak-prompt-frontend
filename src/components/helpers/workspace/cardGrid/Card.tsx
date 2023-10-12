@@ -15,8 +15,8 @@ interface WorkspaceCardProps {
   createdOn: string;
   last_edited: string;
   id: string;
-  deleteWorkspace: (id: string) => Promise<boolean | undefined>;
-  updateWorkspace: (update: any, id: string) => Promise<boolean | undefined>;
+  onDelete: (id: string) => Promise<boolean | undefined>;
+  onUpdate: (update: any, id: string) => Promise<boolean | undefined>;
   model_key: string;
 }
 
@@ -26,8 +26,8 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
   createdOn,
   createdBy,
   last_edited,
-  deleteWorkspace,
-  updateWorkspace,
+  onDelete,
+  onUpdate,
   model_key,
 }) => {
   const resetOutputState = useResetRecoilState(generateOutputState);
@@ -40,7 +40,7 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
     event.preventDefault();
 
     try {
-      if (await deleteWorkspace(id)) {
+      if (await onDelete(id)) {
         setShowModal(false);
         message.success('Workspace deleted !');
       }
@@ -66,7 +66,7 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
   ];
 
   return (
-    <div className="font-poppins p-4 bg-white rounded-lg flex flex-col justify-between gap-6 hover:shadow-md transition-all duration-300 ease-in-out">
+    <div className="font-poppins p-4 bg-white rounded-lg flex flex-col justify-between gap-2 hover:shadow-md transition-all duration-300 ease-in-out">
       <div className="flex justify-between items-start h-full py-2">
         <div className="flex items-center gap-1 h-full">
           <div className="w-1.5 bg-secondary rounded-xl h-12" />
@@ -108,7 +108,7 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
         setShowModal={setShowUpdateModal}
         heading={heading}
         modelKey={model_key}
-        updateWorkspace={updateWorkspace}
+        updateWorkspace={onUpdate}
         id={id}
       />
     </div>

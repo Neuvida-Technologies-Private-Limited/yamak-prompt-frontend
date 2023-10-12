@@ -3,10 +3,10 @@ import axiosClientProtected from 'middleware/axios/axios-client/axios-client-pro
 import { workspaceRoutes } from './routes';
 import { CreateWorkspaceModal, GenerateOutputModal } from './types';
 
-export const GetWorkspaces = async () => {
+export const getWorkspaces = async (page: number) => {
   try {
     const response = await axiosClientProtected.get(
-      workspaceRoutes.GET_WORKSPACES_ROUTE
+      `${workspaceRoutes.GET_WORKSPACES_ROUTE}${page}`
     );
     return response.data;
   } catch (error: any) {

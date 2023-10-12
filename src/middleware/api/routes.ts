@@ -7,13 +7,13 @@ export enum authRoutes {
 export enum keyManagementRoutes {
   LLM_PROVIDERS = '/key/llm-providers/',
   CREATE_KEY_ROUTE = '/key/create_key/',
-  KEY_LIST_ROUTE = '/key/get_key_list/',
+  KEY_LIST_ROUTE = '/key/get_key_list/?page=',
   DELETE_KEY_ROUTE = '/key/',
   TEST_CONNECTION_ROUTE = 'key/test-connection/',
 }
 
 export enum workspaceRoutes {
-  GET_WORKSPACES_ROUTE = '/workspace/get-all-workspaces/',
+  GET_WORKSPACES_ROUTE = '/workspace/get-all-workspaces/?page=',
   CREATE_WORKSPACE_ROUTE = '/workspace/create-workspace/',
   GET_WORKSPACE_INFO_ROUTE = '/workspace/get-workspace-info',
   DELETE_WORKSPACE_ROUTE = '/workspace/',
@@ -24,6 +24,7 @@ export enum workspaceRoutes {
 
 export enum libraryRoutes {
   GET_PROMPTS = '/prompt/get-prompt-list-private/?page=',
+  GET_FAVOURITE_PROMPTS = '/prompt/get-prompt-list-private/?favourite=true&page=',
   CREATE_PROMPT = '/prompt/',
   DELETE_PROMPT = '/prompt/',
   GET_PROMPT = '/prompt/',
