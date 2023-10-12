@@ -1,50 +1,67 @@
 import { useState, useEffect } from 'react';
 
-import { message } from 'antd';
-
 import { Input } from 'components/common';
-import { Library, InputVariants } from 'utils/constants';
+import { Library, InputVariants, ButtonVariants } from 'utils/constants';
 import { useRecoilState } from 'recoil';
-import { libraryPaginationState, libraryState } from 'middleware/state/library';
+import {
+  libraryFavouritePaginationState,
+  libraryPaginationState,
+  libraryState,
+} from 'middleware/state/library';
+import { Button } from 'components/common';
 
 const SearchArea: React.FC<{ onSearchPrompt: (input: string) => void }> = ({
   onSearchPrompt,
 }) => {
   const [input, setInput] = useState('');
-  const [, setPagination] = useRecoilState(libraryPaginationState);
   const [library] = useRecoilState(libraryState);
+  const [, setPagination] = useRecoilState(
+    library.activeTab === '1'
+      ? libraryPaginationState
+      : libraryFavouritePaginationState
+  );
+
+  function formSubmitHandler(event: React.FormEvent) {
+    event.preventDefault();
+
+    if (input.length === 0) return;
+
+    setPagination(old => ({ ...old, query: input, currentPage: 1 }));
+    onSearchPrompt(input);
+  }
 
   useEffect(() => {
-    async function getData() {
-      try {
-        onSearchPrompt(input);
-      } catch (err: any) {
-        message.error(err.message);
-      }
+    if (input === '') {
+      setPagination(old => ({ ...old, query: '' }));
     }
-
-    getData();
-  }, [onSearchPrompt, input, setPagination]);
+  }, [setPagination, input]);
 
   useEffect(() => {
     setInput('');
   }, [library.activeTab]);
 
   return (
-    <div className="flex sm:flex-col md:flex-row md:w-1/2 justify-between items-start px-6 pt-4 sm:pb-4 md:pb-2">
-      <Input
-        id={Library.SearchLibrary}
-        name={Library.SearchLibrary}
-        placeholder={
-          library.items.length === 0
-            ? Library.NoSearchLibrary
-            : Library.SearchLibrary
-        }
-        value={input}
-        onChange={setInput}
-        type="search"
-        variant={InputVariants.Filled}
-      />
+    <div className="md:flex-row md:w-1/2 justify-between items-start px-6 pt-4 sm:pb-4 md:pb-2">
+      <form onSubmit={formSubmitHandler} className="flex gap-2">
+        <Input
+          id={Library.SearchLibrary}
+          name={Library.SearchLibrary}
+          placeholder={
+            library.items.length === 0
+              ? Library.NoSearchLibrary
+              : Library.SearchLibrary
+          }
+          value={input}
+          onChange={setInput}
+          type="search"
+          variant={InputVariants.Filled}
+        />
+        <Button
+          variant={ButtonVariants.PRIMARY_LIGHT}
+          name="Search"
+          htmlType="submit"
+        />
+      </form>
     </div>
   );
 };

@@ -27,7 +27,7 @@ export const createPrompt = async (prompt: any) => {
   try {
     return await axiosClientProtected.post(libraryRoutes.CREATE_PROMPT, prompt);
   } catch (err: any) {
-    throw new Error(err);
+    throw new Error(err.error);
   }
 };
 
@@ -37,7 +37,7 @@ export const deletePrompt = async (id: string) => {
       `${libraryRoutes.DELETE_PROMPT}${id}/`
     );
   } catch (err: any) {
-    throw new Error(err);
+    throw new Error(err.error);
   }
 };
 
@@ -45,7 +45,7 @@ export const getPromptInfo = async (id: string) => {
   try {
     return await axiosClientProtected.get(`${libraryRoutes.GET_PROMPT}${id}/`);
   } catch (err: any) {
-    throw new Error(err);
+    throw new Error(err.error);
   }
 };
 
@@ -59,7 +59,6 @@ export const getSearchPromptInfo = async (
     const url = `${libraryRoutes.SEARCH_PROMPT}${page}&q=${input}${
       favourite ? '&favourite=true' : ''
     }`;
-    console.log(url);
     return await axiosClientProtected.get(url);
   } catch (err: any) {
     throw new Error(err.error);
@@ -73,6 +72,6 @@ export const updatePromptInfo = async (update: any, id: string) => {
       update
     );
   } catch (err: any) {
-    throw new Error(err);
+    throw new Error(err.error);
   }
 };

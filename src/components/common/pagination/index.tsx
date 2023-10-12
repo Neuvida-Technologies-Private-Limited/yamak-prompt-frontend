@@ -2,7 +2,11 @@ import { useRecoilState } from 'recoil';
 
 import { Button } from '..';
 import { ButtonVariants } from 'utils/constants';
-import { libraryPaginationState } from 'middleware/state/library';
+import {
+  libraryPaginationState,
+  libraryFavouritePaginationState,
+  libraryState,
+} from 'middleware/state/library';
 import { keyPaginationState } from 'middleware/state';
 
 interface PaginationProps {
@@ -10,9 +14,15 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ type }) => {
+  const [{ activeTab }] = useRecoilState(libraryState);
+
   const [{ currentPage, hasPrevious, hasNext, totalPages }, setState] =
     useRecoilState(
-      type === 'library' ? libraryPaginationState : keyPaginationState
+      type === 'library'
+        ? activeTab === '1'
+          ? libraryPaginationState
+          : libraryFavouritePaginationState
+        : keyPaginationState
     );
 
   const totalButtons = Array.from({ length: totalPages }).map((_, index) => (

@@ -274,6 +274,4 @@ export const KeyDetails = [
   },
 ];
 
-export const Pagination = {
-  itemsPerPage: 4,
-};
+export const ITEMS_PER_PAGE = 10;

@@ -26,10 +26,10 @@ export const keyPaginationState = atom({
   default: {
     currentPage: 1,
     count: 0,
+    query: '',
     itemsPerPage: 10,
     hasNext: null,
     hasPrevious: null,
-    query: '',
     totalPages: 0,
   },
 });
