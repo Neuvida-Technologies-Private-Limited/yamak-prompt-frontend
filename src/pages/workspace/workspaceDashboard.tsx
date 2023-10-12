@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import { ToastContainer, toast } from 'react-toastify';
+import { message } from 'antd';
 
-import { CreateWorkspaceModal, WorkspaceCard } from 'components/helpers';
-import { ButtonVariants, Workspace } from 'utils/constants';
-import { Button, Heading } from 'components/common';
+import { CreateWorkspaceModal, WordspaceCardGrid } from 'components/helpers';
+import { Workspace } from 'utils/constants';
+import { Heading } from 'components/common';
 import {
   GetWorkspaces,
   CreateWorkspace,
@@ -13,7 +15,6 @@ import {
   UpdateWorkspace,
 } from 'middleware/api';
 import { createWorkspaceState, workspaceState } from 'middleware/state';
-import { message } from 'antd';
 
 const WorkspaceDashboard: React.FC = () => {
   const [state, setState] = useRecoilState(workspaceState);
@@ -21,35 +22,38 @@ const WorkspaceDashboard: React.FC = () => {
   const { workspace_details } = state;
   const { title, model_key } = createState;
 
-  const getAllWorkspaces = async () => {
-    try {
-      const res = await GetWorkspaces();
-      const response = Array.isArray(res.results) ? res.results : [];
-      if (response.length === 0) {
-        setState(old => ({
-          ...old,
-          workspace_details: [],
-        }));
-      } else {
-        const formattedWorkspaces = response.map(
-          (item: {
-            last_modified: moment.MomentInput;
-            timestamp: moment.MomentInput;
-          }) => ({
-            ...item,
-            last_modified: moment(item.last_modified).format('h:mm A'),
-            timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
-          })
-        );
-        setState(old => ({
-          ...old,
-          workspace_details: formattedWorkspaces,
-        }));
+  const getAllWorkspaces = useCallback(
+    async function () {
+      try {
+        const res = await GetWorkspaces();
+        const response = Array.isArray(res.results) ? res.results : [];
+        if (response.length === 0) {
+          setState(old => ({
+            ...old,
+            workspace_details: [],
+          }));
+        } else {
+          const formattedWorkspaces = response.map(
+            (item: {
+              last_modified: moment.MomentInput;
+              timestamp: moment.MomentInput;
+            }) => ({
+              ...item,
+              last_modified: moment(item.last_modified).format('h:mm A'),
+              timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
+            })
+          );
+          setState(old => ({
+            ...old,
+            workspace_details: formattedWorkspaces,
+          }));
+        }
+      } catch (error: any) {
+        console.log(error);
       }
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
+    },
+    [setState]
+  );
 
   const createWorkspace = async () => {
     const createWorkspaceParams = {
@@ -85,21 +89,16 @@ const WorkspaceDashboard: React.FC = () => {
 
   const updateWorkspace = async (update: any, id: string) => {
     try {
-      const response = await UpdateWorkspace(update, id);
-
-      // if (response === 200) {
+      await UpdateWorkspace(update, id);
       message.success('Workspace updated!');
       getAllWorkspaces();
       return true;
-      // } else {
-      //   return false;
-      // }
     } catch (error) {}
   };
 
   useEffect(() => {
     getAllWorkspaces();
-  }, []);
+  }, [getAllWorkspaces]);
 
   return (
     <div className="flex flex-col h-screen overflow-y-scroll">
@@ -117,55 +116,12 @@ const WorkspaceDashboard: React.FC = () => {
           createWorkspace={createWorkspace}
         />
       </div>
-      {workspace_details.length > 0 ? (
-        <div className="">
-          <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3 sm:mb-16 em:mb-0">
-            {workspace_details.map((item: any, index: number) => (
-              <WorkspaceCard
-                key={`workspace-card-item-${index}`}
-                id={item.id}
-                heading={item.title}
-                createdBy={item.createdBy}
-                createdOn={item.timestamp}
-                last_edited={item.last_modified}
-                deleteWorkspace={deleteWorkspace}
-                model_key={item.model_key}
-                updateWorkspace={updateWorkspace}
-              />
-            ))}
-          </div>
-          <div className="sm:flex em:hidden bottom-0 z-2 fixed items-center justify-center w-full bg-gray100 rounded-t-xl py-4">
-            <CreateWorkspaceModal
-              btnName={Workspace.CreateWorkspace}
-              className="w-72 h-12 flex justify-center"
-              createWorkspace={createWorkspace}
-            />
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col justify-center items-center h-full gap-y-2 mt-10 p-6">
-          <img src="/assets/images/workspace.svg" alt="No Workspaces Found" />
-          <div className="flex font-poppins flex-col items-center gap-1 em:pb-10 sm:py-10">
-            <Heading level={4} className="font-bold text-black text-center">
-              {Workspace.NoWorkspace}
-            </Heading>
-            <p className="text-gray700 px-6 text-center">
-              {Workspace.NoWorkspaceDesc}
-            </p>
-          </div>
-          <CreateWorkspaceModal
-            btnName={Workspace.CreateWorkspace}
-            className="sm:w-72 em:w-56 sm:h-12 em:h-10 flex justify-center"
-            createWorkspace={createWorkspace}
-          />
-          <Button
-            size="small"
-            variant={ButtonVariants.SECONDARY_LINK}
-            onClick={() => {}}
-            name={Workspace.ExploreTemplates}
-          />
-        </div>
-      )}
+      <WordspaceCardGrid
+        items={workspace_details}
+        onDelete={deleteWorkspace}
+        onUpdate={updateWorkspace}
+        createWorkspace={createWorkspace}
+      />
       <ToastContainer autoClose={3000} />
     </div>
   );
