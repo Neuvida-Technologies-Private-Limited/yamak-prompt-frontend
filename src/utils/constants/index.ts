@@ -109,7 +109,7 @@ export enum Workspace {
   LastEdited = 'Last Edited: ',
   ExploreTemplates = 'Explore Templates',
   AddVariable = 'Add Variable',
-  User = 'User',
+  User = 'User Message',
   Assistant = 'Assistent',
   SelectKey = 'Select Key',
   UpdateWorkspace = 'Update Workspace',

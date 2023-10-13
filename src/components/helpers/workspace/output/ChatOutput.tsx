@@ -1,11 +1,16 @@
-import { Button, Input, Label } from 'components/common';
-import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
+import { Button, Heading, Input, Label, Text } from 'components/common';
+import {
+  Workspace,
+  InputVariants,
+  ButtonVariants,
+  TextVariants,
+} from 'utils/constants';
 
 const ChatOutput = () => {
   return (
-    <div className="flex flex-col justify-between h-full">
-      <div className="h-full">
-        <div className="flex items-center pb-4">
+    <div className="flex flex-col col-span-2 justify-between">
+      <div className="flex flex-col">
+        <div className="flex pb-4">
           <Input
             id={Workspace.PromptTitle}
             name={Workspace.PromptTitle}
@@ -16,34 +21,59 @@ const ChatOutput = () => {
           />
           <Label />
         </div>
-        <div className="flex font-poppins flex-col w-full border p-4 rounded-lg h-3/4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="user" className="font-semibold">
-              {Workspace.User}
-            </label>
-            <Input
-              variant={InputVariants.Default}
-              id={Workspace.User}
-              name={Workspace.User}
-              placeholder={Workspace.EnterHere}
-              onChange={() => {}}
-            />
+        <div className="font-poppins flex flex-col gap-4 w-full border rounded-lg p-4 h-[30rem] overflow-y-scroll">
+          <div>
+            <Heading level={5} children={'What is react js?'} />
+            <Text variant={TextVariants.MEDIUM}>
+              Suspendisse blandit suscipit risus, sit amet faucibus tortor
+              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
+              Phasellus quis euismod massa, vel tristique odio. Phasellus et
+              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
+            </Text>
           </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="assistant" className="font-semibold">
-              {Workspace.Assistant}
-            </label>
-            <Input
-              variant={InputVariants.Default}
-              id={Workspace.Assistant}
-              name={Workspace.Assistant}
-              placeholder={Workspace.EnterHere}
-              onChange={() => {}}
+          <div>
+            <Heading
+              level={5}
+              children={'Tell me something about generative AI and its uses?'}
             />
+            <Text variant={TextVariants.MEDIUM}>
+              Suspendisse blandit suscipit risus, sit amet faucibus tortor
+              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
+              Phasellus quis euismod massa, vel tristique odio. Phasellus et
+              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
+              Suspendisse blandit suscipit risus, sit amet faucibus tortor
+              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
+              Phasellus quis euismod massa, vel tristique odio. Phasellus et
+              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
+              Suspendisse blandit suscipit risus, sit amet faucibus tortor
+              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
+              Phasellus quis euismod massa, vel tristique odio. Phasellus et
+              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
+              Suspendisse blandit suscipit risus, sit amet faucibus tortor
+              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
+              Phasellus quis euismod massa, vel tristique odio. Phasellus et
+              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
+              Suspendisse blandit suscipit risus, sit amet faucibus tortor
+              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
+              Phasellus quis euismod massa, vel tristique odio. Phasellus et
+              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
+            </Text>
           </div>
         </div>
       </div>
-      <div className="flex py-6 md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="user" className="font-semibold">
+          {Workspace.User}
+        </label>
+        <Input
+          variant={InputVariants.Filled}
+          id={Workspace.User}
+          name={Workspace.User}
+          placeholder={Workspace.EnterHere}
+          onChange={() => {}}
+        />
+      </div>
+      <div className="flex md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
         <div className="flex items-center gap-4">
           <Button
             variant={ButtonVariants.PRIMARY}

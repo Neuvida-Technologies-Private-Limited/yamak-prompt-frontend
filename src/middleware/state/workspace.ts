@@ -51,6 +51,30 @@ export const generateOutputState = atom({
     output: '',
   },
 });
+
+export const generateChatOutputState = atom({
+  key: 'generate-chat-output-state',
+  default: {
+    workspace: '',
+    system_message: '',
+    user_message: '',
+    title: '',
+    is_public: false,
+    bookmarked: false,
+    prompt_type: 'Chat',
+    tags: [] as string[],
+    parameters: {
+      temperature: 1.0,
+      max_tokens: 50,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+      logit_bias: 0,
+    },
+    output: '',
+  },
+});
+
 export const workspaceHistoryState = atom({
   key: 'workspaceHistory-state',
   default: {
