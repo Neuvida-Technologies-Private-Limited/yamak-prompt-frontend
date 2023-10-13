@@ -42,13 +42,24 @@ export const generateOutputState = atom({
     tags: [] as string[],
     parameters: {
       temperature: 1.0,
-      max_tokens: 50,
+      max_tokens: 256,
       top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
       logit_bias: 0,
     },
     output: '',
+  },
+});
+export const publishPromptState = atom({
+  key: 'publishPrompt-state',
+  default: {
+    uuid: '',
+    systemMessage: '',
+    userMessage: '',
+    heading: '',
+    is_public: false,
+    prompt_type: 'Completion',
   },
 });
 export const workspaceHistoryState = atom({
@@ -61,6 +72,12 @@ export const keyOptionsState = atom({
   key: 'keyOptions-state',
   default: {
     options: [] as OptionItems[],
+  },
+});
+export const searchHistoryState = atom({
+  key: 'searchHistory-State',
+  default: {
+    input: '',
   },
 });
 

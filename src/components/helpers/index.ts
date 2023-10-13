@@ -20,3 +20,4 @@ export { default as WorkspaceHistory } from './workspace/history';
 export { default as WorkspaceChat } from './workspace/chat';
 export { default as WorkspaceCompletion } from './workspace/completion';
 export { default as UpdateModal } from './workspace/modals/update';
+export { default as PublishPromptModal } from './workspace/modals/publishPrompt';

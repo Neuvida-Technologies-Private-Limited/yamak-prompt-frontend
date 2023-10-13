@@ -1,7 +1,11 @@
 import { AxiosError } from 'axios';
 import axiosClientProtected from 'middleware/axios/axios-client/axios-client-protected';
 import { workspaceRoutes } from './routes';
-import { CreateWorkspaceModal, GenerateOutputModal } from './types';
+import {
+  CreateWorkspaceModal,
+  GenerateOutputModal,
+  PublishPromptModal,
+} from './types';
 
 export const getWorkspaces = async (page: number) => {
   try {
@@ -49,7 +53,7 @@ export const GenerateOutput = async (modal: GenerateOutputModal) => {
       workspaceRoutes.GENERATE_OUTPUT_ROUTE,
       modal
     );
-    return response.data;
+    return response;
   } catch (error: any) {
     return error;
   }
@@ -73,5 +77,31 @@ export const UpdateWorkspace = async (update: any, id: string) => {
     return response.status;
   } catch (err: any) {
     return Promise.reject(err);
+  }
+};
+export const PublishPromptWorkspace = async (modal: PublishPromptModal) => {
+  try {
+    const response = await axiosClientProtected.post(
+      workspaceRoutes.PUBLISH_PROMPT_ROUTE,
+      modal
+    );
+    return response;
+  } catch (error: any) {
+    return error;
+  }
+};
+export const getSearchWorkspaceHistory = async (
+  id: string,
+  input: string,
+  controller?: AbortController
+) => {
+  try {
+    const res = await axiosClientProtected.get(
+      `${workspaceRoutes.SEARCH_HISTORY_ROUTE}${id}/&q=${input}`,
+      { signal: controller?.signal }
+    );
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
