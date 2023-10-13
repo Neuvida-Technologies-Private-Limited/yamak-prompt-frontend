@@ -1,10 +1,12 @@
 import React from 'react';
 import { TextArea } from 'components/common';
 import { TextAreaVariants, WorkspaceChatInputs } from 'utils/constants';
-
-const handleChange = () => {};
+import { useRecoilState } from 'recoil';
+import { generateChatOutputState } from 'middleware/state';
 
 const ChatInputs: React.FC = () => {
+  const [, setChatOutputState] = useRecoilState(generateChatOutputState);
+
   return (
     <div className="grid h-full">
       {WorkspaceChatInputs.map((item, index) => (
@@ -19,9 +21,13 @@ const ChatInputs: React.FC = () => {
             rows={10}
             placeholder={item.placeholder}
             maxLength={0}
-            className="!resize-none !h-full focus:border-gray50 hover:border-0"
             variant={TextAreaVariants.DEFAULT}
-            onChange={handleChange}
+            onChange={event => {
+              setChatOutputState(old => ({
+                ...old,
+                system_message: event.target.value,
+              }));
+            }}
           />
         </div>
       ))}

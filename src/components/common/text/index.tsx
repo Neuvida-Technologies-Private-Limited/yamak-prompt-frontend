@@ -22,7 +22,7 @@ const Text: React.FC<Props> = ({
       className={classNames(
         'text-gray900 text-sm leading-6',
         {
-          'lg:leading-[27px] text-15px lg:text-20px':
+          'lg:leading-[27px] text-18px lg:text-20px':
             variant === TextVariants.LARGE,
           'text-14px lg:text-15px xl:text-base':
             variant === TextVariants.MEDIUM,

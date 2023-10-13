@@ -51,7 +51,6 @@ export const generateOutputState = atom({
     output: '',
   },
 });
-<<<<<<< HEAD
 
 export const generateChatOutputState = atom({
   key: 'generate-chat-output-state',
@@ -64,19 +63,10 @@ export const generateChatOutputState = atom({
     bookmarked: false,
     prompt_type: 'Chat',
     tags: [] as string[],
-    parameters: {
-      temperature: 1.0,
-      max_tokens: 50,
-      top_p: 1.0,
-      frequency_penalty: 0.0,
-      presence_penalty: 0.0,
-      logit_bias: 0,
-    },
     output: '',
   },
 });
 
-=======
 export const publishPromptState = atom({
   key: 'publishPrompt-state',
   default: {
@@ -88,7 +78,6 @@ export const publishPromptState = atom({
     prompt_type: 'Completion',
   },
 });
->>>>>>> origin/main
 export const workspaceHistoryState = atom({
   key: 'workspaceHistory-state',
   default: {

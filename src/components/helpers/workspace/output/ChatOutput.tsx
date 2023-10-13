@@ -1,12 +1,36 @@
-import { Button, Heading, Input, Label, Text } from 'components/common';
-import {
-  Workspace,
-  InputVariants,
-  ButtonVariants,
-  TextVariants,
-} from 'utils/constants';
+import { Button, Input, Label } from 'components/common';
+import { generateChatOutputState } from 'middleware/state';
+import { useRecoilState } from 'recoil';
+import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
+import Typewriter from 'typewriter-effect';
 
-const ChatOutput = () => {
+interface ChatOutputProps {
+  onSubmit: () => Promise<void>;
+}
+
+const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
+  const [chatOutputState, setChatOutputState] = useRecoilState(
+    generateChatOutputState
+  );
+
+  const handleTitleChange = (title: string) => {
+    setChatOutputState(old => ({
+      ...old,
+      title,
+    }));
+  };
+
+  const handleLabelsChange = (tags: string[]) => {
+    setChatOutputState(old => ({
+      ...old,
+      tags: [...tags],
+    }));
+  };
+
+  const handleUserMessage = (message: string) => {
+    setChatOutputState(old => ({ ...old, user_message: message }));
+  };
+
   return (
     <div className="flex flex-col col-span-2 justify-between">
       <div className="flex flex-col">
@@ -15,49 +39,23 @@ const ChatOutput = () => {
             id={Workspace.PromptTitle}
             name={Workspace.PromptTitle}
             placeholder={Workspace.PromptTitle}
-            onChange={() => {}}
+            onChange={handleTitleChange}
             variant={InputVariants.Filled}
             className="!w-1/2 !mb-0"
           />
-          <Label />
+          <Label onChange={handleLabelsChange} />
         </div>
-        <div className="font-poppins flex flex-col gap-4 w-full border rounded-lg p-4 h-[30rem] overflow-y-scroll">
-          <div>
-            <Heading level={5} children={'What is react js?'} />
-            <Text variant={TextVariants.MEDIUM}>
-              Suspendisse blandit suscipit risus, sit amet faucibus tortor
-              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
-              Phasellus quis euismod massa, vel tristique odio. Phasellus et
-              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
-            </Text>
-          </div>
-          <div>
-            <Heading
-              level={5}
-              children={'Tell me something about generative AI and its uses?'}
+        <div className="font-poppins flex flex-col gap-4 w-full border rounded-lg h-[30rem] overflow-y-scroll">
+          <div className="flex flex-col gap-2 border-b-2 p-4">
+            <h4 className="font-semibold text-gray700">Assistant</h4>
+            <Typewriter
+              options={{
+                strings: chatOutputState.output,
+                autoStart: true,
+                loop: false,
+                delay: 50,
+              }}
             />
-            <Text variant={TextVariants.MEDIUM}>
-              Suspendisse blandit suscipit risus, sit amet faucibus tortor
-              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
-              Phasellus quis euismod massa, vel tristique odio. Phasellus et
-              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
-              Suspendisse blandit suscipit risus, sit amet faucibus tortor
-              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
-              Phasellus quis euismod massa, vel tristique odio. Phasellus et
-              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
-              Suspendisse blandit suscipit risus, sit amet faucibus tortor
-              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
-              Phasellus quis euismod massa, vel tristique odio. Phasellus et
-              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
-              Suspendisse blandit suscipit risus, sit amet faucibus tortor
-              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
-              Phasellus quis euismod massa, vel tristique odio. Phasellus et
-              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
-              Suspendisse blandit suscipit risus, sit amet faucibus tortor
-              egestas nec. Duis faucibus risus nisl, nec mattis urna luctus at.
-              Phasellus quis euismod massa, vel tristique odio. Phasellus et
-              commodo nisl, sit amet rhoncus sem. Duis sit amet sem ut ante
-            </Text>
           </div>
         </div>
       </div>
@@ -70,7 +68,8 @@ const ChatOutput = () => {
           id={Workspace.User}
           name={Workspace.User}
           placeholder={Workspace.EnterHere}
-          onChange={() => {}}
+          onChange={handleUserMessage}
+          value={chatOutputState.user_message}
         />
       </div>
       <div className="flex md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
@@ -78,7 +77,7 @@ const ChatOutput = () => {
           <Button
             variant={ButtonVariants.PRIMARY}
             size="small"
-            onClick={() => {}}
+            onClick={onSubmit}
             name={'Submit'}
           />
           <Button
