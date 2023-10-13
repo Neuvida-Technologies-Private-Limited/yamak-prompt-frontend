@@ -29,7 +29,8 @@ export const REFRESH_ACCESS_TOKEN = async (model: RefreshModal) => {
       authRoutes.REFRESH_ACCESS_TOKEN_ROUTE,
       model
     );
-    const access_token = res.data.access_token;
+    const response = res.data;
+    const access_token = response.data.access_token;
     SetStorage(TOKENS.ACCESS_TOKEN, access_token);
     return access_token;
   } catch (error: any) {

@@ -6,26 +6,37 @@ interface SliderProps {
   onValueChange: (value: number) => void;
   min: number;
   max: number;
+  defaultValue: number | number[] | undefined;
+  step?: number | null | undefined;
+  value?: number;
 }
 
-const Index: React.FC<SliderProps> = ({ onValueChange, min, max }) => {
-  const [value, setValue] = useState<number>(0);
+const Index: React.FC<SliderProps> = ({
+  onValueChange,
+  min,
+  max,
+  defaultValue,
+  step,
+  value,
+}) => {
+  // const [Value, setValue] = useState<number>(0);
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number);
-    onValueChange(newValue as number);
+    if (typeof newValue === 'number') {
+      onValueChange(newValue);
+    }
   };
-
   return (
     <Box className="w-full">
       <Slider
         aria-label=""
-        defaultValue={0}
         valueLabelDisplay="auto"
         onChange={handleSliderChange}
-        value={typeof value === 'number' ? value : 0}
+        value={value}
         min={min}
         max={max}
+        defaultValue={defaultValue}
+        step={step}
       />
     </Box>
   );

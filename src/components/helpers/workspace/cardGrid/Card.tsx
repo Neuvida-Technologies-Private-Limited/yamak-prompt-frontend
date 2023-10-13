@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { Dropdown, Modal } from 'components/common';
 import { Workspace } from 'utils/constants';
-import { generateOutputState } from 'middleware/state';
+import { generateOutputState, publishPromptState } from 'middleware/state';
 import { UpdateModal } from 'components/helpers';
 
 interface WorkspaceCardProps {
@@ -30,9 +30,15 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
   onUpdate,
   model_key,
 }) => {
+  const resetPublishPromptState = useResetRecoilState(publishPromptState);
   const resetOutputState = useResetRecoilState(generateOutputState);
   const [showModal, setShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+
+  const handleLinkClick = () => {
+    resetOutputState();
+    resetPublishPromptState();
+  };
 
   const handleDeleteWorkspace = async (event: {
     preventDefault: () => void;
@@ -71,7 +77,7 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
         <div className="flex items-center gap-1 h-full">
           <div className="w-1.5 bg-secondary rounded-xl h-12" />
           <div className="flex flex-col h-full px-2">
-            <Link to={`/home/workspace/${id}`} onClick={resetOutputState}>
+            <Link to={`/home/workspace/${id}`} onClick={handleLinkClick}>
               <h1 className="font-bold text-base md:text-lg text-black hover:text-primary">
                 {heading}
               </h1>
