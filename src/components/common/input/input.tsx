@@ -13,6 +13,7 @@ interface InputProps {
   value?: string | number;
   error?: string;
   variant: Variant;
+  disabled?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -26,6 +27,7 @@ const Input: React.FC<InputProps> = ({
   value,
   variant,
   error,
+  disabled,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
@@ -43,6 +45,7 @@ const Input: React.FC<InputProps> = ({
         className={`${className} ${errorClassName} transition-all block rounded-lg w-full focus:outline-0 none text-black placeholder:text-gray200 bg-gray50 p-2 px-3 sm:text-sm sm:leading-6 font-poppins`}
         value={value}
         onChange={handleChange}
+        disabled={disabled}
       />
       <div>
         <label className="font-poppins text-xs text-error font-semibold transition-all">

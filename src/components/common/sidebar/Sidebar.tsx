@@ -82,7 +82,7 @@ const Index: React.FC = () => {
       collapsible
       collapsed={collapsed}
       onCollapse={value => setCollapsed(value)}
-      className="desktop h-screen border-r-2 em:block sm:hidden border-gray50"
+      className="desktop h-screen border-r-2 em:block sm:hidden border-gray50 !sticky !top-0 !left-0"
     >
       {!collapsed ? (
         <div className="demo-logo-vertical flex justify-center items-center p-4">

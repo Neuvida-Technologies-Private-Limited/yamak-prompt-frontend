@@ -1,17 +1,48 @@
 import { useRecoilState } from 'recoil';
+
 import { Button } from '..';
-import { libraryPaginationState } from 'middleware/state/library';
+import { ButtonVariants } from 'utils/constants';
+import {
+  libraryPaginationState,
+  libraryFavouritePaginationState,
+  libraryState,
+} from 'middleware/state/library';
+import { keyPaginationState } from 'middleware/state';
+import { workspacePaginationState } from 'middleware/state';
 
-function Pagination() {
-  const [{ currentPage, hasPrevious, hasNext, count, itemsPerPage }, setState] =
-    useRecoilState(libraryPaginationState);
+interface PaginationProps {
+  type: 'library' | 'workspace' | 'key-management';
+}
 
-  const totalKeys = Math.ceil(count / itemsPerPage);
+const Pagination: React.FC<PaginationProps> = ({ type }) => {
+  const [{ activeTab }] = useRecoilState(libraryState);
 
-  const totalButtons = Array.from({ length: totalKeys }).map((_, index) => (
+  let state;
+
+  switch (type) {
+    case 'library':
+      state =
+        activeTab === '1'
+          ? libraryPaginationState
+          : libraryFavouritePaginationState;
+      break;
+
+    case 'key-management':
+      state = keyPaginationState;
+      break;
+
+    case 'workspace':
+      state = workspacePaginationState;
+      break;
+  }
+
+  const [{ currentPage, hasPrevious, hasNext, totalPages }, setState] =
+    useRecoilState(state);
+
+  const totalButtons = Array.from({ length: totalPages }).map((_, index) => (
     <Button
       key={index}
-      variant="outlined-light"
+      variant={ButtonVariants.OUTLINED_LIGHT}
       disabled={currentPage === index + 1}
       name={index + 1}
       onClick={() => setState(old => ({ ...old, currentPage: index + 1 }))}
@@ -30,19 +61,19 @@ function Pagination() {
     <div className="flex gap-4 self-center py-4">
       <Button
         disabled={hasPrevious ? false : true}
-        variant="outlined-light"
+        variant={ButtonVariants.OUTLINED_LIGHT}
         name={'Previous'}
         onClick={previousPageHandler}
       />
       {totalButtons}
       <Button
         disabled={hasNext ? false : true}
-        variant="outlined-light"
+        variant={ButtonVariants.OUTLINED_LIGHT}
         name={'Next'}
         onClick={nextPageHandler}
       />
     </div>
   );
-}
+};
 
 export default Pagination;
