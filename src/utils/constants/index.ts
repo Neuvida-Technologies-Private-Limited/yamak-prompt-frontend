@@ -109,6 +109,7 @@ export enum Workspace {
   LastEdited = 'Last Edited: ',
   ExploreTemplates = 'Explore Templates',
   AddVariable = 'Add Variable',
+  User = 'User Message',
   Assistant = 'Assistent',
   SelectKey = 'Select Key',
   UpdateWorkspace = 'Update Workspace',
@@ -116,7 +117,6 @@ export enum Workspace {
   Delete = 'Delete',
   Publish = 'Publish',
   System = 'System: ',
-  User = 'User: ',
   Sample = 'Sample Answer',
 }
 

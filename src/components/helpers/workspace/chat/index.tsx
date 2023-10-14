@@ -1,31 +1,55 @@
-import {
-  WorkspaceHistory,
-  WorkspaceChatInputs,
-  WorkspaceChatOutput,
-} from 'components/helpers';
+import { message } from 'antd';
+import { WorkspaceChatInputs, WorkspaceChatOutput } from 'components/helpers';
+import { GenerateOutput } from 'middleware/api';
+import { generateChatOutputState, workspaceInfoState } from 'middleware/state';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
 const Chat = () => {
   const isDekstopView = window.innerWidth >= 768;
+  const [chatOutputState, setChatOutputState] = useRecoilState(
+    generateChatOutputState
+  );
+  const [{ id }] = useRecoilState(workspaceInfoState);
+
+  const {
+    system_message,
+    title,
+    user_message,
+    is_public,
+    bookmarked,
+    prompt_type,
+    tags,
+  } = chatOutputState;
+
+  async function submitHandler() {
+    try {
+      const requestObj = {
+        workspace: id,
+        system_message,
+        user_message,
+        title,
+        is_public,
+        bookmarked,
+        prompt_type,
+        tags,
+        parameters: {
+          temperature: 1.0,
+          max_tokens: 50,
+        },
+      };
+      message.success('Loading response');
+      const res = await GenerateOutput(requestObj);
+      console.log(res);
+      const output = res.data.prompt_output.join('. ');
+      setChatOutputState(old => ({ ...old, output, user_message: '' }));
+    } catch (err) {}
+  }
 
   return (
-    <div className="em:flex em:flex-row h-full sm:grid md:grid-col-2 sm:grid-col-1">
-      {isDekstopView ? (
-        <div className="lg:w-1/5 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
-          <WorkspaceHistory
-            onHistorySearch={function (input: string, id: string): void {
-              throw new Error('Function not implemented.');
-            }}
-            id={''}
-          />
-        </div>
-      ) : null}
-
-      <div className="lg:w-2/6 py-6 px-4 col-span-1">
-        <WorkspaceChatInputs />
-      </div>
-      <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">
-        <WorkspaceChatOutput />
-      </div>
+    <div className="grid sm:grid-cols-1 md:grid-cols-3 h-full gap-x-4 sm:gap-y-4 py-4">
+      {/* {isDekstopView ? <WorkspaceHistory id={undefined} /> : null} */}
+      <WorkspaceChatInputs />
+      <WorkspaceChatOutput onSubmit={submitHandler} />
     </div>
   );
 };

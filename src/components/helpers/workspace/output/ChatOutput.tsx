@@ -1,54 +1,83 @@
 import { Button, Input, Label } from 'components/common';
+import { generateChatOutputState } from 'middleware/state';
+import { useRecoilState } from 'recoil';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
+import Typewriter from 'typewriter-effect';
 
-const ChatOutput = () => {
+interface ChatOutputProps {
+  onSubmit: () => Promise<void>;
+}
+
+const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
+  const [chatOutputState, setChatOutputState] = useRecoilState(
+    generateChatOutputState
+  );
+
+  const handleTitleChange = (title: string) => {
+    setChatOutputState(old => ({
+      ...old,
+      title,
+    }));
+  };
+
+  const handleLabelsChange = (tags: string[]) => {
+    setChatOutputState(old => ({
+      ...old,
+      tags: [...tags],
+    }));
+  };
+
+  const handleUserMessage = (message: string) => {
+    setChatOutputState(old => ({ ...old, user_message: message }));
+  };
+
   return (
-    <div className="flex flex-col justify-between h-full">
-      <div className="h-full">
-        <div className="flex items-center pb-4">
+    <div className="flex flex-col col-span-2 justify-between">
+      <div className="flex flex-col">
+        <div className="flex pb-4">
           <Input
             id={Workspace.PromptTitle}
             name={Workspace.PromptTitle}
             placeholder={Workspace.PromptTitle}
-            onChange={() => {}}
+            onChange={handleTitleChange}
             variant={InputVariants.Filled}
             className="!w-1/2 !mb-0"
           />
-          <Label />
+          <Label onChange={handleLabelsChange} />
         </div>
-        <div className="flex font-poppins flex-col w-full border p-4 rounded-lg h-3/4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="user" className="font-semibold">
-              {Workspace.User}
-            </label>
-            <Input
-              variant={InputVariants.Default}
-              id={Workspace.User}
-              name={Workspace.User}
-              placeholder={Workspace.EnterHere}
-              onChange={() => {}}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="assistant" className="font-semibold">
-              {Workspace.Assistant}
-            </label>
-            <Input
-              variant={InputVariants.Default}
-              id={Workspace.Assistant}
-              name={Workspace.Assistant}
-              placeholder={Workspace.EnterHere}
-              onChange={() => {}}
+        <div className="font-poppins flex flex-col gap-4 w-full border rounded-lg h-[30rem] overflow-y-scroll">
+          <div className="flex flex-col gap-2 border-b-2 p-4">
+            <h4 className="font-semibold text-gray700">Assistant</h4>
+            <Typewriter
+              options={{
+                strings: chatOutputState.output,
+                autoStart: true,
+                loop: false,
+                delay: 50,
+              }}
             />
           </div>
         </div>
       </div>
-      <div className="flex py-6 md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="user" className="font-semibold">
+          {Workspace.User}
+        </label>
+        <Input
+          variant={InputVariants.Filled}
+          id={Workspace.User}
+          name={Workspace.User}
+          placeholder={Workspace.EnterHere}
+          onChange={handleUserMessage}
+          value={chatOutputState.user_message}
+        />
+      </div>
+      <div className="flex md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
         <div className="flex items-center gap-4">
           <Button
             variant={ButtonVariants.PRIMARY}
             size="small"
-            onClick={() => {}}
+            onClick={onSubmit}
             name={'Submit'}
           />
           <Button

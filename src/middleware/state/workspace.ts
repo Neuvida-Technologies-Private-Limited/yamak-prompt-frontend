@@ -51,6 +51,22 @@ export const generateOutputState = atom({
     output: '',
   },
 });
+
+export const generateChatOutputState = atom({
+  key: 'generate-chat-output-state',
+  default: {
+    workspace: '',
+    system_message: '',
+    user_message: '',
+    title: '',
+    is_public: false,
+    bookmarked: false,
+    prompt_type: 'Chat',
+    tags: [] as string[],
+    output: '',
+  },
+});
+
 export const publishPromptState = atom({
   key: 'publishPrompt-state',
   default: {
