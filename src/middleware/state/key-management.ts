@@ -27,7 +27,7 @@ export const keyPaginationState = atom({
     currentPage: 1,
     count: 0,
     query: '',
-    itemsPerPage: 10,
+    itemsPerPage: 5,
     hasNext: null,
     hasPrevious: null,
     totalPages: 0,

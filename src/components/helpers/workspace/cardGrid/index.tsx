@@ -1,12 +1,9 @@
 import React from 'react';
 
-import { useRecoilState } from 'recoil';
-
 import { EmptyWorkspace } from 'components/helpers';
 import WorkspaceCard from './Card';
 import { WorkspaceDetailsType } from 'types';
 import { Pagination } from 'components/common';
-import { workspacePaginationState } from 'middleware/state';
 
 interface WorkspaceCardGridProps {
   items: WorkspaceDetailsType[];
@@ -21,7 +18,6 @@ const WorkspaceCardGrid: React.FC<WorkspaceCardGridProps> = ({
   onUpdate,
   createWorkspace,
 }) => {
-  const [{ totalPages }] = useRecoilState(workspacePaginationState);
   return (
     <div>
       {items.length > 0 ? (
@@ -41,7 +37,7 @@ const WorkspaceCardGrid: React.FC<WorkspaceCardGridProps> = ({
               />
             ))}
           </div>
-          {totalPages >= 2 ? <Pagination type="workspace" /> : null}
+          <Pagination type="workspace" />
         </div>
       ) : (
         <EmptyWorkspace createWorkspace={createWorkspace} />

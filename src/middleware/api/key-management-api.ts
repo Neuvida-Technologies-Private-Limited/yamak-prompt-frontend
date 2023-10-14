@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import axiosClientProtected from 'middleware/axios/axios-client/axios-client-protected';
 import { CreateKeyModal, TestConnectionModal } from './types';
 import { keyManagementRoutes } from './routes';
@@ -9,17 +8,19 @@ export const getLLMProviders = async () => {
       keyManagementRoutes.LLM_PROVIDERS
     );
     return response.data;
-  } catch (error: any) {
-    return Promise.reject(error);
+  } catch (err: any) {
+    throw new Error(err.error);
   }
 };
 export const createKey = async (model: CreateKeyModal) => {
-  await axiosClientProtected
-    .post(keyManagementRoutes.CREATE_KEY_ROUTE, model)
-    .then(response => {})
-    .catch((error: AxiosError) => {
-      return Promise.reject(error);
-    });
+  try {
+    await axiosClientProtected.post(
+      keyManagementRoutes.CREATE_KEY_ROUTE,
+      model
+    );
+  } catch (err: any) {
+    throw new Error(err.error);
+  }
 };
 export const getKeyList = async (page: number) => {
   try {
@@ -27,17 +28,18 @@ export const getKeyList = async (page: number) => {
       `${keyManagementRoutes.KEY_LIST_ROUTE}${page}`
     );
     return response.data;
-  } catch (error: any) {
-    return Promise.reject(error);
+  } catch (err: any) {
+    throw new Error(err.error);
   }
 };
 export const deleteKey = async (uuid: string) => {
-  await axiosClientProtected
-    .delete(`${keyManagementRoutes.DELETE_KEY_ROUTE}${uuid}/`)
-    .then(response => {})
-    .catch((error: AxiosError) => {
-      return Promise.reject(error);
-    });
+  try {
+    await axiosClientProtected.delete(
+      `${keyManagementRoutes.DELETE_KEY_ROUTE}${uuid}/`
+    );
+  } catch (err: any) {
+    throw new Error(err.error);
+  }
 };
 export const testConnection = async (model: TestConnectionModal) => {
   try {
@@ -46,7 +48,7 @@ export const testConnection = async (model: TestConnectionModal) => {
       model
     );
     return response.data;
-  } catch (error: any) {
-    return Promise.reject(error);
+  } catch (err: any) {
+    throw new Error(err.error);
   }
 };

@@ -45,8 +45,10 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
     setState(old => ({
       ...old,
       [fieldName]: value,
+      [`${fieldName}Error`]: value === '' ? `${fieldName}Error` : '',
     }));
   };
+
   const handleSelectChange = (value: string) => {
     setState(old => ({
       ...old,
@@ -118,7 +120,9 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
         const res = await testConnection(testConnectionParams);
         message.success(res);
       } catch (error: any) {
-        message.error(error.error);
+        console.log(error);
+        message.error(error.message);
+        setState(old => ({ ...old, api_keyError: error.message }));
       }
     } else {
       setState(old => ({
@@ -127,8 +131,11 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       }));
     }
   };
+
   //API call to create Key
   const handleSubmit = async () => {
+    if (api_keyError) return;
+
     setState(old => ({
       ...old,
       isLoading: true,
@@ -138,9 +145,8 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       providerError: isLLMProviderValidated(provider),
     }));
 
-    if (!IsCreateKeyFormValidated(title, description, api_key, provider)) {
+    if (!IsCreateKeyFormValidated(title, description, api_key, provider))
       return;
-    }
 
     if (await createKey()) {
       setShowModal(false);
