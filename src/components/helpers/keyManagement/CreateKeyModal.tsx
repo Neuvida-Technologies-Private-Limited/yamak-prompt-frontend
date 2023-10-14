@@ -179,10 +179,14 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       provider,
     };
 
-    await createKey(keyObj);
-    message.success(`Key created successfully`);
-    setShowModal(false);
-    resetState();
+    try {
+      await createKey(keyObj);
+      message.success(`Key created successfully`);
+      setShowModal(false);
+      resetState();
+    } catch (err: any) {
+      message.error(err.error);
+    }
   };
 
   useEffect(() => {

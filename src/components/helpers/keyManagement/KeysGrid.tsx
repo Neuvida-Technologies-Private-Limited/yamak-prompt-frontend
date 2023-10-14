@@ -1,7 +1,9 @@
 import React from 'react';
+
+import { useRecoilState } from 'recoil';
+
 import { Pagination } from 'components/common';
 import { EmptyKeyManagement, KeyItem } from '..';
-import { useRecoilState } from 'recoil';
 import { keyManagementState } from 'middleware/state';
 
 interface KeysGridProps {

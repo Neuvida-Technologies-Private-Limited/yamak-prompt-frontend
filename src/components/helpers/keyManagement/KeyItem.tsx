@@ -1,9 +1,11 @@
 import React from 'react';
+
+import { message } from 'antd';
+import { FiTrash2 } from 'react-icons/fi';
+
 import { ButtonVariants } from 'utils/constants';
 import { Button } from 'components/common';
 import { KeyManagement } from 'utils/constants';
-import { FiTrash2 } from 'react-icons/fi';
-import { message } from 'antd';
 
 interface KeyItemProps {
   uuid: string;
