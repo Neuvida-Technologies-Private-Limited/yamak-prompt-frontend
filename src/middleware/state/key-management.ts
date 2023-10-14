@@ -12,6 +12,7 @@ export const createKeystate = atom({
     api_keyError: '',
     descriptionError: '',
     providerError: '',
+    isApiKeyValid: false,
   },
 });
 export const keyManagementState = atom({

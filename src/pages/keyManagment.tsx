@@ -5,35 +5,20 @@ import { message } from 'antd';
 
 import { KeyHeader, KeysGrid } from 'components/helpers';
 import { createKey, deleteKey, getKeyList } from 'middleware/api';
-import {
-  createKeystate,
-  keyManagementState,
-  keyPaginationState,
-} from 'middleware/state';
+import { keyManagementState, keyPaginationState } from 'middleware/state';
+import { CreateKeyModal } from 'middleware/api/types';
 
 const KeyManagment: React.FC = () => {
   const [, setState] = useRecoilState(keyManagementState);
-  const [createKeystates] = useRecoilState(createKeystate);
-  const { title, description, api_key, provider } = createKeystates;
   const [pagination, setPaginationState] = useRecoilState(keyPaginationState);
 
-  const createKeyHandler = async () => {
-    const keyManagementParams = {
-      title,
-      description,
-      api_key,
-      provider,
-    };
-
+  const createKeyHandler = async (key: CreateKeyModal) => {
     try {
-      await createKey(keyManagementParams);
+      const res = await createKey(key);
       await getKeys(pagination.currentPage);
-      message.success('Key created successfully');
-      return true;
-    } catch (error: any) {
-      const errorMessage = error.error;
-      message.error(errorMessage);
-      return false;
+      return res;
+    } catch (err: any) {
+      message.error(err.error);
     }
   };
 
@@ -61,16 +46,16 @@ const KeyManagment: React.FC = () => {
 
   async function deleteKeyHandler(uuid: string) {
     try {
-      await deleteKey(uuid);
+      const res = await deleteKey(uuid);
 
       if (pagination.count === 1) {
         await getKeys(pagination.currentPage);
-        return true;
+        return res;
       }
 
       if (pagination.currentPage < pagination.totalPages) {
         await getKeys(pagination.currentPage);
-        return true;
+        return res;
       }
 
       if (pagination.count % pagination.itemsPerPage === 1) {
@@ -79,11 +64,11 @@ const KeyManagment: React.FC = () => {
           currentPage: pagination.currentPage - 1,
         }));
         await getKeys(pagination.currentPage - 1);
-        return true;
+        return res;
       }
 
       await getKeys(pagination.currentPage);
-      return true;
+      return res;
     } catch (error) {
       console.log(error);
       message.error('Key cannot be deleted, please login again !');

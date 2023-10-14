@@ -14,7 +14,7 @@ export const getLLMProviders = async () => {
 };
 export const createKey = async (model: CreateKeyModal) => {
   try {
-    await axiosClientProtected.post(
+    return await axiosClientProtected.post(
       keyManagementRoutes.CREATE_KEY_ROUTE,
       model
     );

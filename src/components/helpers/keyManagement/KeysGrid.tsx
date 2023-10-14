@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { keyManagementState } from 'middleware/state';
 
 interface KeysGridProps {
-  onDeleteKey: (uuid: string) => Promise<boolean>;
+  onDeleteKey: (uuid: string) => Promise<any>;
 }
 
 const KeysGrid: React.FC<KeysGridProps> = ({ onDeleteKey }) => {

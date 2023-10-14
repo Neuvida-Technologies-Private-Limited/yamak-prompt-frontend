@@ -3,6 +3,7 @@ import { ButtonVariants } from 'utils/constants';
 import { Button } from 'components/common';
 import { KeyManagement } from 'utils/constants';
 import { FiTrash2 } from 'react-icons/fi';
+import { message } from 'antd';
 
 interface KeyItemProps {
   uuid: string;
@@ -21,6 +22,13 @@ const KeyItem: React.FC<KeyItemProps> = ({
   api_key,
   onDeleteKey,
 }) => {
+  async function keyDeleteHandler() {
+    if (window.confirm('Are you sure?')) {
+      await onDeleteKey(uuid);
+      message.success('Key deleted successfully');
+    }
+  }
+
   return (
     <div className="w-full flex sm:flex-col md:flex-row sm:items-start md:items-end gap-4 w-full">
       <div className="flex flex-col sm:w-full md:w-2/3">
@@ -39,9 +47,7 @@ const KeyItem: React.FC<KeyItemProps> = ({
           </div>
           <Button
             variant={ButtonVariants.OUTLINED}
-            onClick={() => {
-              window.confirm('Are you sure?') && onDeleteKey(uuid);
-            }}
+            onClick={keyDeleteHandler}
             name={KeyManagement.DELETE}
             icon={<FiTrash2 />}
           />

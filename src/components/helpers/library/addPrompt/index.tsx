@@ -94,6 +94,7 @@ const AddNewPrompt: React.FC<{
       user_message: userMessage,
       system_message: systemMessage,
       is_public: false,
+      published: true,
       sample_output: promptOutput,
       tags,
     };

@@ -2,9 +2,10 @@ import React from 'react';
 import { Heading, Text } from 'components/common';
 import { KeyManagement } from 'utils/constants';
 import CreateKeyModal from './CreateKeyModal';
+import { CreateKeyModal as KeyModal } from 'middleware/api/types';
 
 interface KeyHeaderProps {
-  onCreateKey: () => Promise<boolean>;
+  onCreateKey: (key: KeyModal) => Promise<any>;
 }
 
 const KeyHeader: React.FC<KeyHeaderProps> = ({ onCreateKey }) => {
