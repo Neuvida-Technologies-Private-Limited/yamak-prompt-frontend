@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -25,9 +26,11 @@ const root = ReactDOM.createRoot(
 
   if (csrfToken) {
     root.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <GoogleOAuthProvider clientId="182537441052-jilf55tujmbnhrf1dkl5pi039pv33fb4.apps.googleusercontent.com">
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </GoogleOAuthProvider>
     );
   } else {
     root.render(<div>Loading...</div>); //any custom loader will replace this
