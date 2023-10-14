@@ -29,19 +29,50 @@ const AddNewPrompt: React.FC<{
     promptOutput,
     promptOutputError,
     tags,
-    tagsError,
   } = state;
 
   const addPromptHandler: React.MouseEventHandler = () => {
     setShowModal(prev => !prev);
   };
 
-  const handleInputChange = (fieldName: string, value: string) => {
+  function titleHandler(value: string) {
     setState(old => ({
       ...old,
-      [fieldName]: value,
+      title: value,
+      titleError: value === '' ? LibraryAddPrompt.NoTitleMessage : '',
     }));
-  };
+  }
+
+  function userMessageHandler(value: string) {
+    setState(old => ({
+      ...old,
+      userMessage: value,
+      userMessageError: value === '' ? LibraryAddPrompt.NoUserMessage : '',
+    }));
+  }
+
+  function systemMessageHandler(value: string) {
+    setState(old => ({
+      ...old,
+      systemMessage: value,
+      systemMessageError: value === '' ? LibraryAddPrompt.NoSystemMessage : '',
+    }));
+  }
+
+  function sampleOutputHandler(value: string) {
+    setState(old => ({
+      ...old,
+      promptOutput: value,
+      promptOutputError: value === '' ? LibraryAddPrompt.NoSampleOutput : '',
+    }));
+  }
+
+  function tagsHandler(value: string) {
+    setState(old => ({
+      ...old,
+      tags: value,
+    }));
+  }
 
   async function submitHandler(event: React.FormEvent) {
     event.preventDefault();
@@ -54,24 +85,21 @@ const AddNewPrompt: React.FC<{
         ? LibraryAddPrompt.NoSystemMessage
         : '',
       promptOutputError: !promptOutput ? LibraryAddPrompt.NoSampleOutput : '',
-      tagsError: !tags ? LibraryAddPrompt.NoTags : '',
     }));
 
-    if (!title || !userMessage || !systemMessage || !promptOutput || !tags)
-      return;
+    if (!title || !userMessage || !systemMessage || !promptOutput) return;
 
     const prompt = {
       title,
       user_message: userMessage,
       system_message: systemMessage,
       is_public: false,
-      liked_by_user: true,
+      published: true,
       sample_output: promptOutput,
       tags,
     };
 
     const res = await onAddPrompt?.(JSON.stringify(prompt));
-
     message.success(res.data);
     setShowModal(false);
     resetState();
@@ -112,9 +140,7 @@ const AddNewPrompt: React.FC<{
                   id={Library.NewPromptTitle}
                   name={Library.NewPromptTitle}
                   value={title}
-                  onChange={value =>
-                    handleInputChange(Library.NewPromptTitle, value)
-                  }
+                  onChange={titleHandler}
                   variant={InputVariants.Filled}
                   error={titleError}
                 />
@@ -130,9 +156,7 @@ const AddNewPrompt: React.FC<{
                   id={Library.UserMessageTitle}
                   name={Library.UserMessageTitle}
                   value={userMessage}
-                  onChange={value =>
-                    handleInputChange(Library.UserMessageTitle, value)
-                  }
+                  onChange={userMessageHandler}
                   variant={InputVariants.Filled}
                   error={userMessageError}
                 />
@@ -149,9 +173,7 @@ const AddNewPrompt: React.FC<{
                   id={Library.SystemMessageTitle}
                   name={Library.SystemMessageTitle}
                   value={systemMessage}
-                  onChange={value =>
-                    handleInputChange(Library.SystemMessageTitle, value)
-                  }
+                  onChange={systemMessageHandler}
                   variant={InputVariants.Filled}
                   error={systemMessageError}
                 />
@@ -169,12 +191,7 @@ const AddNewPrompt: React.FC<{
                   name={Library.WritePromptTitle}
                   value={promptOutput}
                   variant={TextAreaVariants.FILLED}
-                  onChange={event =>
-                    handleInputChange(
-                      Library.WritePromptTitle,
-                      event.target.value
-                    )
-                  }
+                  onChange={event => sampleOutputHandler(event.target.value)}
                   error={promptOutputError}
                 />
               </div>
@@ -190,11 +207,8 @@ const AddNewPrompt: React.FC<{
                   id={Library.TagsTitle}
                   name={Library.TagsTitle}
                   value={tags}
-                  onChange={value =>
-                    handleInputChange(Library.TagsTitle, value)
-                  }
+                  onChange={tagsHandler}
                   variant={InputVariants.Filled}
-                  error={tagsError}
                 />
               </div>
             </div>

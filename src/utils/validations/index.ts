@@ -28,7 +28,7 @@ export const isKeyDescriptionValidated = (description: string) => {
 };
 export const isKeyValidated = (key: string) => {
   if (key === '') {
-    return 'Key is required!';
+    return 'Valid key is required!';
   } else {
     return '';
   }
