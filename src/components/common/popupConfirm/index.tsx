@@ -1,4 +1,4 @@
-import react, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { message, Popconfirm } from 'antd';
 import { TooltipPlacement } from 'antd/es/tooltip';
 

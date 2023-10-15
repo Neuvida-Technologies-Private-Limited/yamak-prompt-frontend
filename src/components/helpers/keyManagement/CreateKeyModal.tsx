@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { message } from 'antd';
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { Button, Input, Modal, Select } from 'components/common';
 import { KeyManagement, InputVariants, ButtonVariants } from 'utils/constants';
@@ -15,13 +13,14 @@ import {
   isKeyValidated,
   isLLMProviderValidated,
 } from 'utils/validations';
+import { CreateKeyModal as KeyModal } from 'middleware/api/types';
 
 interface OptionItems {
   value: string;
   label: string;
 }
 interface CreateKeyModalProps {
-  createKey: () => Promise<boolean>;
+  createKey: (key: KeyModal) => Promise<any>;
 }
 
 const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
@@ -37,25 +36,45 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
     descriptionError,
     api_keyError,
     providerError,
+    isApiKeyValid,
   } = state;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [options, setOptions] = useState<OptionItems[]>([]);
 
-  const handleInputChange = (fieldName: string, value: string) => {
+  const addKeyButtonHandler = () => {
+    setShowModal(prev => !prev);
+  };
+
+  function titleChangeHandler(value: string) {
     setState(old => ({
       ...old,
-      [fieldName]: value,
+      title: value,
+      titleError: isKeyTitleValidated(value),
     }));
-  };
+  }
+
+  function descriptionChangeHandler(value: string) {
+    setState(old => ({
+      ...old,
+      description: value,
+      descriptionError: isKeyDescriptionValidated(value),
+    }));
+  }
+
+  function apiKeyChangeHandler(value: string) {
+    setState(old => ({
+      ...old,
+      api_key: value,
+      api_keyError: isKeyValidated(value),
+    }));
+  }
+
   const handleSelectChange = (value: string) => {
     setState(old => ({
       ...old,
       provider: value,
       providerError: isLLMProviderValidated(value),
     }));
-  };
-  const addKeyButtonHandler = () => {
-    setShowModal(prev => !prev);
   };
 
   const inputFields = [
@@ -65,8 +84,8 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       name: KeyManagement.KEY_TITLE,
       placeholder: KeyManagement.TITLE_PLACEHOLDER,
       value: title,
-      onChange: (value: string) =>
-        handleInputChange(KeyManagement.KEY_TITLE, value),
+      disabled: false,
+      onChange: titleChangeHandler,
       error: titleError,
     },
     {
@@ -75,8 +94,8 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       name: KeyManagement.KEY_DESCRIPTION,
       placeholder: KeyManagement.DESCRIPTION_PLACEHOLDER,
       value: description,
-      onChange: (value: string) =>
-        handleInputChange(KeyManagement.KEY_DESCRIPTION, value),
+      disabled: false,
+      onChange: descriptionChangeHandler,
       error: descriptionError,
     },
     {
@@ -85,50 +104,62 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       name: KeyManagement.API_KEY,
       placeholder: KeyManagement.SK_PLACEHOLDER,
       value: api_key,
-      onChange: (value: string) =>
-        handleInputChange(KeyManagement.API_KEY, value),
+      disabled: isApiKeyValid,
+      onChange: apiKeyChangeHandler,
       error: api_keyError,
     },
   ];
 
-  //API call to get all LLM Providers
   const getLLMProviderList = async () => {
     try {
       const res = await getLLMProviders();
-      //modifying API data
-      if (Array.isArray(res)) {
-        const providerSelectOptions = res.map((item: string) => ({
-          value: item,
-          label: item,
-        }));
-        setOptions(providerSelectOptions);
-      }
-    } catch (error: any) {
-      toast.error('error in getting llm provider');
+      const providerSelectOptions = res.map((item: string) => ({
+        value: item,
+        label: item,
+      }));
+      setOptions(providerSelectOptions);
+    } catch (err: any) {
+      message.error(err.error);
     }
   };
-  //API to test key connection
+
   const handleKeyConnection = async () => {
     const testConnectionParams = {
       api_key,
       provider,
     };
-    if (isKeyValidated(api_key) === '') {
-      try {
-        const res = await testConnection(testConnectionParams);
-        message.success(res);
-      } catch (error: any) {
-        message.error(error.error);
+    try {
+      if (!api_key) {
+        setState(old => ({ ...old, api_keyError: isKeyValidated(api_key) }));
+        return;
       }
-    } else {
+
+      if (!provider) {
+        setState(old => ({
+          ...old,
+          providerError: isLLMProviderValidated(provider),
+        }));
+        return;
+      }
+
+      const res = await testConnection(testConnectionParams);
+      message.success(res);
+      setState(old => ({ ...old, isApiKeyValid: true, api_keyError: '' }));
+    } catch (error: any) {
       setState(old => ({
         ...old,
-        api_keyError: isKeyValidated(api_key),
+        isApiKeyValid: false,
+        api_keyError: 'Valid key is required',
       }));
     }
   };
-  //API call to create Key
+
   const handleSubmit = async () => {
+    if (!isApiKeyValid) {
+      message.error('Please validate key before submitting');
+      return;
+    }
+
     setState(old => ({
       ...old,
       isLoading: true,
@@ -138,15 +169,23 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       providerError: isLLMProviderValidated(provider),
     }));
 
-    if (!IsCreateKeyFormValidated(title, description, api_key, provider)) {
+    if (!IsCreateKeyFormValidated(title, description, api_key, provider))
       return;
-    }
 
-    if (await createKey()) {
+    const keyObj: KeyModal = {
+      title,
+      description,
+      api_key,
+      provider,
+    };
+
+    try {
+      await createKey(keyObj);
+      message.success(`Key created successfully`);
       setShowModal(false);
       resetState();
-    } else {
-      toast.error('Error in creating key or token expired, Login again !');
+    } catch (err: any) {
+      message.error(err.error);
     }
   };
 
@@ -157,7 +196,6 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
   return (
     <>
       <Button
-        size={'small'}
         variant={ButtonVariants.PRIMARY}
         onClick={addKeyButtonHandler}
         name={KeyManagement.ADD_KEY_BUTTON}
@@ -197,6 +235,7 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
                     value={input.value}
                     variant={InputVariants.Filled}
                     error={input.error}
+                    disabled={input.disabled}
                   />
                 </div>
               ))}

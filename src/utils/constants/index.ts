@@ -159,7 +159,7 @@ export enum Library {
   WritePromptPlaceholder = 'Prompt sample output',
   SelectTagPlaceholder = 'Select Tag',
   TagsTitle = 'tags',
-  TagsPlaceholder = 'Enter tags (comma seperated)',
+  TagsPlaceholder = 'Enter tags (optional)',
   SearchLibrary = 'Search prompts...',
   NoSearchLibrary = 'No items to search...',
   CardHeading = 'Human Written | 100% Unique | SEO Optimized Article',
