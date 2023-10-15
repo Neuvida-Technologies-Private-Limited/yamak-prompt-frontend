@@ -4,11 +4,11 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
 import { CSRF_TOKEN } from 'middleware/api/auth-api';
 import { GetStorage } from 'middleware/cache';
 import { TOKENS } from 'utils/constants';
-
-const id = `${process.env.REACT_APP_GOOGLE_CLIENT_ID}`;
+import { GOOGLE_CLIENT_ID } from 'utils/globalVariables/env';
 
 const GET_CSRF_TOKEN = async () => {
   try {
@@ -28,7 +28,7 @@ const root = ReactDOM.createRoot(
 
   if (csrfToken) {
     root.render(
-      <GoogleOAuthProvider clientId={id}>
+      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         <React.StrictMode>
           <App />
         </React.StrictMode>

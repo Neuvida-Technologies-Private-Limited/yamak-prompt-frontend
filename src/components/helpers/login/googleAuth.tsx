@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
+import { ToastContainer, toast } from 'react-toastify';
 import { useGoogleLogin } from '@react-oauth/google';
 
 import { Button } from 'components/common';
-import { ButtonVariants, LoginConst } from 'utils/constants';
+import { ButtonSizes, ButtonVariants, LoginConst } from 'utils/constants';
 import { GoogleGetProfile, SSOLogIn } from 'middleware/api';
 
 type TokenResponse = any;
@@ -20,7 +21,9 @@ const GoogleAuth = () => {
     onSuccess: (codeResponse: CodeResponse) => {
       GoogleLogin(codeResponse);
     },
-    onError: error => console.log('Login Failed:', error),
+    onError: (
+      error: Pick<TokenResponse, 'error' | 'error_description' | 'error_uri'>
+    ) => toast.error('Unable to login with this account', error.error),
   });
 
   const GoogleLogin = async (codeResponse: CodeResponse) => {
@@ -37,20 +40,20 @@ const GoogleAuth = () => {
         navigate('/home');
       }
     } catch (error: any) {
-      console.log(error);
+      toast.error(error);
     }
   };
 
   return (
     <div className="flex justify-center w-full">
       <Button
-        size={'middle'}
-        type={'default'}
+        size={ButtonSizes.MIDDLE}
         onClick={() => googleAuth()}
         icon={<FcGoogle />}
         name={LoginConst.SignIn}
         variant={ButtonVariants.OUTLINED}
       />
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };
