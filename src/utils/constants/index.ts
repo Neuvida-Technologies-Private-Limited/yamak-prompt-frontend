@@ -123,6 +123,7 @@ export enum Workspace {
   Publish = 'Publish',
   System = 'System: ',
   Sample = 'Sample Answer',
+  NoVariables = 'No variables added yet',
 }
 
 export enum KeyManagement {

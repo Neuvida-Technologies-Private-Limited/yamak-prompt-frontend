@@ -1,16 +1,34 @@
-import { HiPlus } from 'react-icons/hi';
 import { useRecoilState } from 'recoil';
 
 import { Button, TextArea } from 'components/common';
 import { ButtonVariants, TextAreaVariants, Workspace } from 'utils/constants';
 import { generateOutputState } from 'middleware/state';
+import { AddVariables } from 'components/helpers';
+import { useState } from 'react';
 
 interface CompletionInputsProps {}
 
 const CompletionInputs: React.FC<CompletionInputsProps> = () => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
+  const [userInput, setUserInput] = useState('');
 
   const { system_message, user_message } = outputState;
+
+  const [variables, setVariables] = useState({});
+
+  // Function to handle variable additions and updates
+  const handleVariableUpdate = (
+    variableName: string,
+    variableValue: string
+  ) => {
+    setVariables({ ...variables, [variableName]: variableValue });
+  };
+
+  const replaceVariablePlaceholders = (message: string, variables: any) => {
+    return message.replace(/{{(.*?)}}/g, (match, variableName) => {
+      return variables[variableName] || match;
+    });
+  };
 
   const handleSystemMessageChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -26,9 +44,14 @@ const CompletionInputs: React.FC<CompletionInputsProps> = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const UserMessage = event.target.value;
+    setUserInput(UserMessage);
+    const userMessageWithVariables = replaceVariablePlaceholders(
+      UserMessage,
+      variables
+    );
     setOutputState(old => ({
       ...old,
-      user_message: UserMessage,
+      user_message: userMessageWithVariables,
     }));
   };
 
@@ -46,7 +69,7 @@ const CompletionInputs: React.FC<CompletionInputsProps> = () => {
       placeholder:
         'Classify the following {{text 1}} into one of the following: Positive sentiment Negative sentiment Neutral sentiment Text: """ {{ text 2}} """',
       onChange: handleUserMessageChange,
-      value: user_message,
+      value: userInput,
     },
   ];
 
@@ -70,13 +93,7 @@ const CompletionInputs: React.FC<CompletionInputsProps> = () => {
           />
         </div>
       ))}
-      <Button
-        size="small"
-        name={Workspace.AddVariable}
-        icon={<HiPlus />}
-        onClick={() => {}}
-        variant={ButtonVariants.OUTLINED}
-      />
+      <AddVariables onAddVariable={handleVariableUpdate} />
     </div>
   );
 };

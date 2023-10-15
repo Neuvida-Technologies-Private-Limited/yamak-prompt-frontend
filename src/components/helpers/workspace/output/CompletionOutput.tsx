@@ -50,7 +50,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
                 strings: output,
                 autoStart: true,
                 loop: false,
-                delay: 50,
+                delay: 10,
               }}
             />
           ) : (
