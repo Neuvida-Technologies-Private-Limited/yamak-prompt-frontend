@@ -22,10 +22,10 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
       title,
     }));
   };
-  const handleLabelsChange = (tags: string[]) => {
+  const handleLabelsChange = (tags: string) => {
     setOutputState(old => ({
       ...old,
-      tags: [...tags],
+      tags: tags,
     }));
   };
 

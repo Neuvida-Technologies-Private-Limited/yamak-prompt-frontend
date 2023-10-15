@@ -39,7 +39,7 @@ export const generateOutputState = atom({
     is_public: false,
     bookmarked: false,
     prompt_type: 'Completion',
-    tags: [] as string[],
+    tags: '',
     parameters: {
       temperature: 1.0,
       max_tokens: 256,
@@ -62,7 +62,7 @@ export const generateChatOutputState = atom({
     is_public: false,
     bookmarked: false,
     prompt_type: 'Chat',
-    tags: [] as string[],
+    tags: '',
     output: '',
   },
 });
