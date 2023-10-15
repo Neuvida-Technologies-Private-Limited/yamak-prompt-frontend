@@ -76,6 +76,9 @@ const Index: React.FC = () => {
     SetStorage(TOKENS.REFRESH_TOKEN, '');
     navigate('/');
   };
+  const handleFeedback = () => {
+    window.location.href = 'https://forms.gle/BMLEm7QYyngN3yXdA';
+  };
 
   return (
     <Sider
@@ -107,7 +110,11 @@ const Index: React.FC = () => {
         defaultSelectedKeys={[pathname]}
         mode="inline"
         onClick={item => {
-          navigate(item.key);
+          if (item.key === Paths.Feedback) {
+            handleFeedback();
+          } else {
+            navigate(item.key);
+          }
         }}
         className="font-raleway text-xs"
       >
