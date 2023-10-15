@@ -1,3 +1,7 @@
+export const isInputValidated = (input: string, errorMessage: string) => {
+  return input === '' ? errorMessage : '';
+};
+
 export const isUsernameValidated = (username: string) => {
   if (username === '') {
     return 'Username is required!';

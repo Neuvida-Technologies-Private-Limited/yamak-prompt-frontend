@@ -172,11 +172,11 @@ export enum Library {
 }
 
 export enum LibraryAddPrompt {
-  NoTitleMessage = 'Title is required',
-  NoUserMessage = 'User message is required',
-  NoSystemMessage = 'System message is required',
-  NoSampleOutput = 'Prompt output is required',
-  NoTags = 'Tags are required',
+  NO_TITLE_MESSAGE = 'Title is required',
+  NO_USER_MESSAGE = 'User message is required',
+  NO_SYSTEM_MESSAGE = 'System message is required',
+  NO_PROMPT_OUTPUT = 'Prompt output is required',
+  NO_TAGS = 'Tags are required',
 }
 
 export enum LibraryCard {

@@ -118,7 +118,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
   return (
     <>
       <div
-        className="flex flex-col bg-white p-4 rounded-2xl shadow cursor-pointer transition-all duration-300 hover:shadow-md hover:-translate-y-1"
+        className="flex flex-col bg-white p-4 rounded-2xl shadow cursor-pointer h-auto transition-all duration-300 hover:shadow-md hover:-translate-y-1"
         onClick={promptInfoHandler}
       >
         <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between gap-4 items-center mb-4">
