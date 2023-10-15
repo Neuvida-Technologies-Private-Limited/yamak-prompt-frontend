@@ -12,6 +12,7 @@ interface ModalProps {
   className?: string;
   children?: React.ReactNode | any;
   footer?: React.ReactNode | any | undefined;
+  closeIcon?: boolean;
 }
 
 const index: React.FC<ModalProps> = ({
@@ -25,6 +26,7 @@ const index: React.FC<ModalProps> = ({
   className,
   children,
   footer,
+  closeIcon,
 }) => {
   return (
     <Modal
@@ -37,6 +39,7 @@ const index: React.FC<ModalProps> = ({
       cancelText={cancelText}
       className={`font-poppins flex flex-start ${className}`}
       footer={footer}
+      closeIcon={closeIcon}
     >
       {children}
     </Modal>

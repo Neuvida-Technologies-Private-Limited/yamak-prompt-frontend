@@ -81,7 +81,7 @@ const KeyManagment: React.FC = () => {
   }, [getKeys, pagination.currentPage]);
 
   return (
-    <div className="flex flex-col gap-5 font-poppins p-6 h-screen overflow-y-scroll">
+    <div className="flex flex-col gap-5 font-poppins p-6">
       <KeyHeader onCreateKey={createKeyHandler} />
       <KeysGrid onDeleteKey={deleteKeyHandler} />
     </div>

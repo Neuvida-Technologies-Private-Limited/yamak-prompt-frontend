@@ -107,7 +107,7 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
         }}
         okText={'Yes'}
         cancelText="No"
-        className="keyManagement"
+        closeIcon={false}
       />
       <UpdateModal
         showModal={showUpdateModal}

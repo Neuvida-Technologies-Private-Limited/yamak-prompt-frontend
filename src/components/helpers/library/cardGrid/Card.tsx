@@ -32,7 +32,8 @@ const LibraryCard: React.FC<CardItemProps> = ({
   onPromptInfo,
   onUpdatePrompt,
 }) => {
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [promptInfoModal, showPromptInfoModal] = useState<boolean>(false);
+  const [deletePromptModal, showDeleteModal] = useState(false);
   const [isFavourite, setIsFavourite] = useState(favourite);
   const [isLiked, setisLiked] = useState<null | boolean>(function () {
     if (liked_by_user === null) return null;
@@ -46,7 +47,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
   });
 
   const promptInfoHandler: React.MouseEventHandler = () => {
-    setShowModal(prev => !prev);
+    showPromptInfoModal(prev => !prev);
   };
 
   function importPromptHandler(event: React.MouseEvent) {
@@ -107,10 +108,11 @@ const LibraryCard: React.FC<CardItemProps> = ({
   async function deleteHandler(event: React.MouseEvent) {
     event.stopPropagation();
 
-    if (window.confirm('Are you sure?')) {
+    try {
       await onDeletePrompt(uuid);
       message.success(Card.Deleted);
-    }
+      showDeleteModal(false);
+    } catch (err: any) {}
   }
 
   return (
@@ -188,7 +190,10 @@ const LibraryCard: React.FC<CardItemProps> = ({
             variant={ButtonVariants.OUTLINED_LIGHT}
             name={Card.ButtonDelete}
             icon={<BsTrash />}
-            onClick={deleteHandler}
+            onClick={event => {
+              event.stopPropagation();
+              showDeleteModal(true);
+            }}
           />
         </div>
       </div>
@@ -196,13 +201,24 @@ const LibraryCard: React.FC<CardItemProps> = ({
         key={uuid}
         title={title}
         centered={true}
-        isOpen={showModal}
-        cancelModalHandler={() => setShowModal(false)}
+        isOpen={promptInfoModal}
+        cancelText=""
+        cancelModalHandler={() => showPromptInfoModal(false)}
         sumbitHandler={() => {}}
         okText={Library.CardButtonName}
       >
         <ModalContent key={uuid} id={uuid} onPromptInfo={onPromptInfo} />
       </Modal>
+      <Modal
+        title={'Are you sure you want to delete this prompt?'}
+        centered={true}
+        isOpen={deletePromptModal}
+        cancelModalHandler={() => showDeleteModal(false)}
+        sumbitHandler={deleteHandler}
+        okText="Yes"
+        cancelText="No"
+        closeIcon={false}
+      />
     </>
   );
 };

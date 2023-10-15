@@ -155,11 +155,6 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
   };
 
   const handleSubmit = async () => {
-    if (!isApiKeyValid) {
-      message.error('Please validate key before submitting');
-      return;
-    }
-
     setState(old => ({
       ...old,
       isLoading: true,
@@ -168,6 +163,11 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
       api_keyError: isKeyValidated(api_key),
       providerError: isLLMProviderValidated(provider),
     }));
+
+    if (!isApiKeyValid) {
+      message.error('Please validate key before submitting');
+      return;
+    }
 
     if (!IsCreateKeyFormValidated(title, description, api_key, provider))
       return;
@@ -212,7 +212,6 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
         }}
         okText={KeyManagement.OK}
         cancelText="Cancel"
-        className="keyManagement"
       >
         <div className="flex flex-col">
           <p className="text-gray400 pb-3">{KeyManagement.SUB_HEAD}</p>
@@ -256,9 +255,8 @@ const CreateKeyModal: React.FC<CreateKeyModalProps> = ({ createKey }) => {
             </div>
             <div className="flex justify-end w-full mt-4">
               <Button
-                size={undefined}
                 variant={ButtonVariants.SECONDARY_LINK}
-                name={KeyManagement.TestConnection}
+                name={KeyManagement.VALIDATE_KEY}
                 onClick={handleKeyConnection}
               />
             </div>
