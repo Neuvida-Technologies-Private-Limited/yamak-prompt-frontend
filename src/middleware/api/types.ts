@@ -42,7 +42,7 @@ export type GenerateOutputModal = {
   is_public: string | any;
   bookmarked: string | any;
   prompt_type: string | any;
-  tags: string[];
+  tags: string;
   parameters: {
     temperature: number;
     max_tokens: number;

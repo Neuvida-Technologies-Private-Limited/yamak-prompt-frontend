@@ -20,10 +20,10 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
     }));
   };
 
-  const handleLabelsChange = (tags: string[]) => {
+  const handleLabelsChange = (tags: string) => {
     setChatOutputState(old => ({
       ...old,
-      tags: [...tags],
+      tags: tags,
     }));
   };
 

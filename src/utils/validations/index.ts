@@ -1,3 +1,5 @@
+import Password from 'antd/es/input/Password';
+
 export const isUsernameValidated = (username: string) => {
   if (username === '') {
     return 'Username is required!';
@@ -10,6 +12,16 @@ export const isPasswordValidated = (password: string) => {
     return 'Password is required!';
   } else {
     return '';
+  }
+};
+export const isLoginFormValidated = (username: string, password: string) => {
+  if (
+    isUsernameValidated(username) === '' &&
+    isPasswordValidated(password) === ''
+  ) {
+    return true;
+  } else {
+    return false;
   }
 };
 export const isKeyTitleValidated = (title: string) => {

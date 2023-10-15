@@ -6,7 +6,11 @@ import { Button, Heading, Input } from 'components/common';
 import { LogIn } from 'middleware/api/auth-api';
 import { LoginConst } from 'utils/constants';
 import { loginState } from 'middleware/state';
-import { isUsernameValidated, isPasswordValidated } from 'utils/validations';
+import {
+  isUsernameValidated,
+  isPasswordValidated,
+  isLoginFormValidated,
+} from 'utils/validations';
 import { GoogleAuth } from 'components/helpers';
 
 const handleClick = () => {};
@@ -74,6 +78,10 @@ const Login = () => {
       password,
     };
 
+    if (!isLoginFormValidated(username, password)) {
+      return;
+    }
+
     try {
       await LogIn(loginParams);
       navigate('/home');
@@ -110,6 +118,8 @@ const Login = () => {
             {LoginConst.Login_Desc}
           </p>
 
+          <GoogleAuth />
+
           <form
             className="flex flex-col font-poppins border rounded-lg w-full border-gray00 p-4 h-full"
             action="#"
@@ -140,7 +150,6 @@ const Login = () => {
             />
           </form>
           {/* Google button  */}
-          <GoogleAuth />
         </div>
       </div>
       <ToastContainer />
