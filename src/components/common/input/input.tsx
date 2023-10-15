@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 type Variant = 'filled' | 'outlined' | 'default';
 
@@ -14,6 +15,7 @@ interface InputProps {
   error?: string;
   variant: Variant;
   disabled?: boolean;
+  maxLength?: number;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -28,13 +30,22 @@ const Input: React.FC<InputProps> = ({
   variant,
   error,
   disabled,
+  maxLength,
 }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   };
-  const errorClassName = error ? 'border-error focus:ring-error' : 'mb-4';
 
-  return variant === 'filled' ? (
+  const rootClassName = classNames(
+    'transition-all block rounded-lg focus:outline-0 sm:text-sm sm:leading-6 mb-1 font-poppins text-black placeholder:text-gray200',
+    {
+      'w-full bg-gray50 p-2 px-3': variant === 'filled',
+      'border-2 border-gray400': variant === 'outlined',
+    },
+    className
+  );
+
+  return (
     <>
       <input
         id={id}
@@ -42,54 +53,17 @@ const Input: React.FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         required={required}
-        className={`${className} ${errorClassName} transition-all block rounded-lg w-full focus:outline-0 none text-black placeholder:text-gray200 bg-gray50 p-2 px-3 sm:text-sm sm:leading-6 font-poppins`}
+        className={rootClassName}
         value={value}
         onChange={handleChange}
         disabled={disabled}
+        maxLength={maxLength}
       />
-      <div>
-        <label className="font-poppins text-xs text-error font-semibold transition-all">
-          {error}
-        </label>
-      </div>
+      <label className="font-poppins text-xs text-error font-semibold transition-all">
+        {error}
+      </label>
     </>
-  ) : variant === 'outlined' ? (
-    <>
-      <input
-        id={id}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        className={`${className} ${errorClassName} transition-all block rounded-lg text-black focus:outline-0 placeholder:text-gray200 border-2 border-gray400 sm:text-sm sm:leading-6 font-poppins`}
-        value={value}
-        onChange={handleChange}
-      />
-      <div>
-        <label className="font-poppins text-xs text-error font-semibold transition-all">
-          {error}
-        </label>
-      </div>
-    </>
-  ) : variant === 'default' ? (
-    <>
-      <input
-        id={id}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        className={`${className} ${errorClassName} transition-all block rounded-lg text-black placeholder:text-gray200 sm:text-sm sm:leading-6 font-poppins focus:outline-0`}
-        value={value}
-        onChange={handleChange}
-      />
-      <div>
-        <label className="font-poppins text-xs text-error font-semibold transition-all">
-          {error}
-        </label>
-      </div>
-    </>
-  ) : null;
+  );
 };
 
 export default Input;

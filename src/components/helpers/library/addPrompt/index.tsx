@@ -13,6 +13,13 @@ import {
   TextAreaVariants,
 } from 'utils/constants';
 
+const inputsMaxLength = {
+  title: 100,
+  userMessage: 1000,
+  systemMessage: 1000,
+  sampleOutput: 1000,
+};
+
 const AddNewPrompt: React.FC<{
   onAddPrompt?: (prompt: string) => Promise<any>;
 }> = ({ onAddPrompt }) => {
@@ -129,7 +136,7 @@ const AddNewPrompt: React.FC<{
           <p className="text-gray400">{Library.SubHead}</p>
           <form action="#" method="post">
             <div className="mt-5">
-              <div className="flex flex-col">
+              <div className="mb-3">
                 <label
                   htmlFor={Library.NewPromptTitle}
                   className="pl-2 font-poppins text-gray300"
@@ -143,9 +150,10 @@ const AddNewPrompt: React.FC<{
                   onChange={titleHandler}
                   variant={InputVariants.Filled}
                   error={titleError}
+                  maxLength={inputsMaxLength.title}
                 />
               </div>
-              <div>
+              <div className="mb-3">
                 <label
                   htmlFor={Library.UserMessageTitle}
                   className="pl-2 font-poppins text-gray300"
@@ -159,9 +167,10 @@ const AddNewPrompt: React.FC<{
                   onChange={userMessageHandler}
                   variant={InputVariants.Filled}
                   error={userMessageError}
+                  maxLength={inputsMaxLength.userMessage}
                 />
               </div>
-              <div>
+              <div className="mb-3">
                 <label
                   htmlFor={Library.SystemMessageTitle}
                   className="pl-2 font-poppins text-gray300"
@@ -176,9 +185,10 @@ const AddNewPrompt: React.FC<{
                   onChange={systemMessageHandler}
                   variant={InputVariants.Filled}
                   error={systemMessageError}
+                  maxLength={inputsMaxLength.systemMessage}
                 />
               </div>
-              <div>
+              <div className="mb-3">
                 <label
                   htmlFor={Library.WritePromptTitle}
                   className="pl-2 font-poppins text-gray300"
@@ -193,6 +203,7 @@ const AddNewPrompt: React.FC<{
                   variant={TextAreaVariants.FILLED}
                   onChange={event => sampleOutputHandler(event.target.value)}
                   error={promptOutputError}
+                  maxLength={inputsMaxLength.sampleOutput}
                 />
               </div>
               <div>

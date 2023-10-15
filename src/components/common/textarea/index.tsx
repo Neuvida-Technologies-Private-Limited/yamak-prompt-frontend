@@ -35,7 +35,7 @@ const index: React.FC<TextAreaProps> = ({
   const rootClassnames = classNames(
     'border-0 !focus:outline-none !resize-none',
     {
-      'p-3 w-full bg-gray50 mb-4': variant === TextAreaVariants.FILLED,
+      'p-3 w-full bg-gray50 mb-1': variant === TextAreaVariants.FILLED,
       'bg-white': variant === TextAreaVariants.DEFAULT,
     },
     className
