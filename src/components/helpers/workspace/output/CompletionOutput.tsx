@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import Typewriter from 'typewriter-effect';
 
 import { Button, Input, Label } from 'components/common';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
@@ -11,9 +12,6 @@ interface OutputSectionProps {
 
 const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
-  const [typedOutput, setTypedOutput] = useState('');
-  const [outputIndex, setOutputIndex] = useState(0);
-
   const { title, output, tags } = outputState;
 
   const handleTitleChange = (title: string) => {
@@ -29,14 +27,6 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
     }));
   };
 
-  useEffect(() => {
-    if (output && outputIndex < output.length) {
-      const char = output.charAt(outputIndex);
-      setTypedOutput(prevTypedOutput => prevTypedOutput + char);
-      setOutputIndex(outputIndex + 1);
-    }
-  }, [output, outputIndex]);
-
   return (
     <div className="flex flex-col h-full">
       <div className="flex items-center pb-4">
@@ -49,13 +39,20 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
           className="!w-1/2 !mb-0"
           value={title}
         />
-        <Label onChange={handleLabelsChange} />
+        <Label onChange={handleLabelsChange} initialLabels={tags} />
       </div>
       <div className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full overflow-hidden">
         <label className="font-semibold pb-2">{Workspace.Output}</label>
         <div className="overflow-y-scroll h-full">
           {output ? (
-            <p className="text-black text-base">{typedOutput}</p>
+            <Typewriter
+              options={{
+                strings: output,
+                autoStart: true,
+                loop: false,
+                delay: 50,
+              }}
+            />
           ) : (
             <p className="text-gray100">{Workspace.EnterHere}</p>
           )}
