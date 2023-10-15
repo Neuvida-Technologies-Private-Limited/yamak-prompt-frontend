@@ -1,5 +1,4 @@
 import { useRecoilState } from 'recoil';
-import { message } from 'antd';
 import { toast, ToastContainer } from 'react-toastify';
 
 import {
@@ -78,7 +77,6 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
     };
 
     try {
-      message.success('Loading response');
       const res = await GenerateOutput(outputParams);
       if (res.status === 201) {
         var msg = String(res.data.prompt_output);
