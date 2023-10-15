@@ -13,6 +13,11 @@ export enum ButtonVariants {
   SECONDARY_LINK = 'secondary-link',
   DEFAULT = 'default',
 }
+export enum ButtonSizes {
+  SMALL = 'small',
+  MIDDLE = 'middle',
+  LARGE = 'large',
+}
 
 export enum TextAreaVariants {
   FILLED = 'filled',

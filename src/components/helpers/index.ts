@@ -26,3 +26,4 @@ export { default as EmptyKeyManagement } from './keyManagement/EmptyContent';
 export { default as KeysGrid } from './keyManagement/KeysGrid';
 export { default as KeyItem } from './keyManagement/KeyItem';
 export { default as KeyHeader } from './keyManagement/Header';
+export { default as GoogleAuth } from './login/googleAuth';

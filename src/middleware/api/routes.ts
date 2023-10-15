@@ -1,9 +1,12 @@
 export enum authRoutes {
   LOGIN_ROUTE = '/access/login/',
   CSRF_TOKEN_ROUTE = '/access/csrf-token/',
-  REFRESH_ACCESS_TOKEN_ROUTE = 'access/refresh/',
+  REFRESH_ACCESS_TOKEN_ROUTE = '/access/refresh/',
 }
-
+export enum SSORoutes {
+  GET_GOOGLE_PROFILE_ROUTE = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=',
+  SSO_LOGIN_ROUTE = '/access/google-sso/',
+}
 export enum keyManagementRoutes {
   LLM_PROVIDERS = '/key/llm-providers/',
   CREATE_KEY_ROUTE = '/key/create_key/',

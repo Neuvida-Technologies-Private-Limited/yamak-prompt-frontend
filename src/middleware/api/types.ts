@@ -2,6 +2,12 @@ export type LoginModel = {
   username: string;
   password: string;
 };
+export type SSOLoginModel = {
+  email: string;
+  first_name: string;
+  last_name: string;
+  access_token: string;
+};
 export type RefreshModal = {
   refresh: string;
 };
