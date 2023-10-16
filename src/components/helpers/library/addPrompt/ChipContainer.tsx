@@ -19,11 +19,15 @@ const ChipContainer = () => {
   const [input, setInput] = useState('');
   const [{ tags }, setPromptState] = useRecoilState(promptModalState);
   const [chipData, setChipData] = React.useState<ChipData[]>([]);
+  const maxChipLength = 100;
 
   function inputChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setInput(event.target.value);
 
-    if (event.target.value.at(-1) === ' ') {
+    if (
+      event.target.value.at(-1) === ' ' &&
+      event.target.value.length <= maxChipLength + 1
+    ) {
       setChipData(prev => [...prev, { key: Date.now(), label: input }]);
       setInput('');
     }
@@ -55,8 +59,8 @@ const ChipContainer = () => {
           />
         </>
       )}
-      <div className="flex mt-2">
-        {chipData.map((data, index) => {
+      <div className="flex flex-wrap mt-2">
+        {chipData.map(data => {
           return (
             <ListItem key={data.key}>
               <Chip
