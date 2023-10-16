@@ -38,8 +38,8 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   };
 
   return (
-    <div className="flex flex-col w-full justify-between pb-6 pt-2 ">
-      <div className="">
+    <div className="flex flex-col w-full justify-between pb-6 pt-2">
+      <div className="-mb-2  pr-4">
         <div className="flex items-center font-poppins mb-2">
           <h1 className="font-semibold text-base">{Workspace.History}</h1>
         </div>
@@ -52,8 +52,8 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
           variant={InputVariants.Filled}
         />
       </div>
-      <div className="flex flex-col h-5/6 max-h-5/6 overflow-y-scroll">
-        <div className="pr-2">
+      <div className="flex flex-col h-5/6 max-h-5/6 overflow-y-scroll pr-4">
+        <div className="">
           {history.length === 0 ? (
             <>
               <Heading children={Workspace.NoHistoryHead} level={4} />
