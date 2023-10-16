@@ -11,8 +11,6 @@ import { GetCurrentUser } from 'middleware/api';
 const DashboardLayout: React.FC = () => {
   const [currentUser, setCurrentUserState] = useRecoilState(currentUserState);
 
-  const { email, first_name, last_name } = currentUser;
-
   useEffect(() => {
     const getData = async () => {
       try {
@@ -28,7 +26,7 @@ const DashboardLayout: React.FC = () => {
       } catch (error) {}
     };
     getData();
-  }, [currentUser]);
+  }, [setCurrentUserState]);
 
   return (
     <Layout>
