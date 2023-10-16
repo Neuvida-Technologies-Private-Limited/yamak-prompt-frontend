@@ -2,8 +2,9 @@ import { AxiosError } from 'axios';
 import axiosClient from 'middleware/axios/axios-client/axios-client-public';
 import { LoginModel, RefreshModal } from './types';
 import { authRoutes } from './routes';
-import { GetStorage, SetStorage } from 'middleware/cache';
+import { SetStorage } from 'middleware/cache';
 import { TOKENS } from 'utils/constants';
+import axiosClientProtected from 'middleware/axios/axios-client/axios-client-protected';
 
 //CSRF Token
 export const CSRF_TOKEN = async () => {
@@ -20,7 +21,6 @@ export const CSRF_TOKEN = async () => {
       return Promise.reject(error);
     });
 };
-
 //Refresh Token
 export const REFRESH_ACCESS_TOKEN = async (model: RefreshModal) => {
   debugger;
@@ -37,7 +37,6 @@ export const REFRESH_ACCESS_TOKEN = async (model: RefreshModal) => {
     return Promise.reject(error);
   }
 };
-
 // login
 export const LogIn = async (model: LoginModel) => {
   await axiosClient
@@ -55,4 +54,15 @@ export const LogIn = async (model: LoginModel) => {
     .catch((error: AxiosError) => {
       return Promise.reject(error);
     });
+};
+//Current User
+export const GetCurrentUser = async () => {
+  try {
+    const res: any = await axiosClientProtected.get(
+      authRoutes.CURRENT_USER_ROUTE
+    );
+    return res;
+  } catch (error: any) {
+    return error;
+  }
 };

@@ -48,12 +48,6 @@ const items: LinkItem[] = [
     icon: <FiSend />,
     disabled: true,
   },
-  {
-    key: Paths.TestCases,
-    label: SidebarConst.TestCases,
-    icon: <BsHddStack />,
-    disabled: true,
-  },
   { key: Paths.Help, label: SidebarConst.Help, icon: <FiHeadphones /> },
   {
     key: Paths.Feedback,
@@ -72,6 +66,9 @@ const App: React.FC = () => {
     SetStorage(TOKENS.ACCESS_TOKEN, '');
     SetStorage(TOKENS.REFRESH_TOKEN, '');
     navigate('/');
+  };
+  const handleFeedback = () => {
+    window.location.href = 'https://forms.gle/BMLEm7QYyngN3yXdA';
   };
 
   const showDrawer = () => {
@@ -104,7 +101,11 @@ const App: React.FC = () => {
           defaultSelectedKeys={[pathname]}
           mode="inline"
           onClick={item => {
-            navigate(item.key);
+            if (item.key === Paths.Feedback) {
+              handleFeedback();
+            } else {
+              navigate(item.key);
+            }
             setOpen(false);
           }}
           className="font-raleway text-xs"
