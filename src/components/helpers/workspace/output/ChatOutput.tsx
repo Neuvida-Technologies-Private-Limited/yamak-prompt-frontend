@@ -87,9 +87,6 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
             name={'Bookmark'}
           />
         </div>
-        <div className="font-poppins text-xs text-primary700 p-2 border-2 border-primary700 rounded-2xl">
-          {Workspace.CharacterLimit}
-        </div>
       </div>
     </div>
   );

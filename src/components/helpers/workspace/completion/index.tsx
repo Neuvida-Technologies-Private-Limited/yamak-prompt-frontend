@@ -1,4 +1,5 @@
 import { useRecoilState } from 'recoil';
+import { message } from 'antd';
 import { toast, ToastContainer } from 'react-toastify';
 
 import {
@@ -61,6 +62,11 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
   const generateOutput = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
+    if (system_message === '' || user_message === '' || title === '') {
+      message.error('Field/Fields Empty');
+      return;
+    }
+
     const outputParams = {
       workspace: id,
       system_message,
@@ -111,15 +117,15 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
   return (
     <div className="em:flex em:flex-row h-full sm:grid md:grid-col-2 sm:grid-col-1">
       {isDekstopView ? (
-        <div className="lg:w-1/5 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden">
+        <div className="lg:w-1/5 pt-4 pr-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden h-full">
           <WorkspaceHistory onHistorySearch={onHistorySearch} id={id} />
         </div>
       ) : null}
 
-      <div className="lg:w-2/6 py-6 px-4 col-span-1">
+      <div className="lg:w-2/6 py-6 px-4 col-span-1 h-full">
         <WorkspaceCompletionInputs />
       </div>
-      <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2">
+      <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2 h-full">
         <WorkspaceCompletionOutput generateOutput={generateOutput} />
       </div>
       <ToastContainer autoClose={3000} />

@@ -74,17 +74,17 @@ const CompletionInputs: React.FC<CompletionInputsProps> = () => {
   ];
 
   return (
-    <div className="flex flex-col items-start gap-4">
+    <div className="flex flex-col items-start gap-4 overflow-hidden h-full">
       {WorkspaceCompletionInputs.map((item, index) => (
         <div
           key={`input-section-item-${index}`}
-          className="flex flex-col font-poppins border rounded-lg p-4 w-full"
+          className="flex flex-col font-poppins border rounded-lg h-full w-full"
         >
-          <label className="font-semibold pb-2">{item.label}</label>
+          <label className="font-semibold p-2">{item.label}</label>
           <TextArea
             id={item.id}
             name={item.placeholder}
-            rows={5}
+            rows={4}
             placeholder={item.placeholder}
             maxLength={0}
             variant={TextAreaVariants.DEFAULT}
@@ -93,7 +93,9 @@ const CompletionInputs: React.FC<CompletionInputsProps> = () => {
           />
         </div>
       ))}
-      <AddVariables onAddVariable={handleVariableUpdate} />
+      <div className="h-full w-full overflow-hidden">
+        <AddVariables onAddVariable={handleVariableUpdate} />
+      </div>
     </div>
   );
 };

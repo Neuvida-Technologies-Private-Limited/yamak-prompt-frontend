@@ -35,7 +35,7 @@ const DashboardLayout: React.FC = () => {
       <MobileNavbar />
       <Layout hasSider>
         <DesktopSidebar />
-        <Content className="bg-white">
+        <Content className="bg-white !max-h-screen">
           <Outlet />
         </Content>
       </Layout>
