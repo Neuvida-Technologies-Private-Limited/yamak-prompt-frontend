@@ -2,6 +2,12 @@ export type LoginModel = {
   username: string;
   password: string;
 };
+export type SSOLoginModel = {
+  email: string;
+  first_name: string;
+  last_name: string;
+  access_token: string;
+};
 export type RefreshModal = {
   refresh: string;
 };
@@ -36,7 +42,7 @@ export type GenerateOutputModal = {
   is_public: string | any;
   bookmarked: string | any;
   prompt_type: string | any;
-  tags: string[];
+  tags: string;
   parameters: {
     temperature: number;
     max_tokens: number;

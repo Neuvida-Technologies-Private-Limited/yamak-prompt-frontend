@@ -16,6 +16,16 @@ export const isPasswordValidated = (password: string) => {
     return '';
   }
 };
+export const isLoginFormValidated = (username: string, password: string) => {
+  if (
+    isUsernameValidated(username) === '' &&
+    isPasswordValidated(password) === ''
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};
 export const isKeyTitleValidated = (title: string) => {
   if (title === '') {
     return 'Title is required!';

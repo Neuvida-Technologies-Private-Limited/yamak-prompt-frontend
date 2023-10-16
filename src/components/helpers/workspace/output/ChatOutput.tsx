@@ -20,10 +20,10 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
     }));
   };
 
-  const handleLabelsChange = (tags: string[]) => {
+  const handleLabelsChange = (tags: string) => {
     setChatOutputState(old => ({
       ...old,
-      tags: [...tags],
+      tags: tags,
     }));
   };
 
@@ -86,9 +86,6 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
             onClick={() => {}}
             name={'Bookmark'}
           />
-        </div>
-        <div className="font-poppins text-xs text-primary700 p-2 border-2 border-primary700 rounded-2xl">
-          {Workspace.CharacterLimit}
         </div>
       </div>
     </div>

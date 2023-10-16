@@ -41,6 +41,7 @@ const Input: React.FC<InputProps> = ({
     {
       'w-full bg-gray50 p-2 px-3': variant === 'filled',
       'border-2 border-gray400': variant === 'outlined',
+      'bg-transparent !mb-0 px-2': variant === 'default',
     },
     className
   );

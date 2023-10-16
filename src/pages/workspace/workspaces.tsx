@@ -97,8 +97,8 @@ const Index = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
-      <div className="grid items-center p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1 gap-4">
+    <div className="flex flex-col h-full">
+      <div className="max-h-full grid items-center p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1 gap-4">
         <div className="flex sm:justify-center md:justify-start items-center">
           <h1 className="sm:text-xl md:text-2xl font-poppins font-semibold pr-3">
             {title}
@@ -122,7 +122,7 @@ const Index = () => {
           <PublishPromptModal />
         </div>
       </div>
-      <div className="flex px-8 py-2 border-b-4 border-gray50 items-center justify-between">
+      <div className="max-h-full flex px-8 py-2 border-b-4 border-gray50 items-center justify-between">
         {/* Tab Switcher starts */}
         <Tabs tabs={tabs} currentTab={currentTab} onTabClick={handleTabClick} />
         {/* Tab Switcher ends */}
@@ -139,8 +139,8 @@ const Index = () => {
           <WorkspaceParameters />
         </div>
       </div>
-      <div className="h-full">
-        <div className=" px-4 h-full ">
+      <div className="max-h-full h-full overflow-y-scroll">
+        <div className=" px-4 h-full">
           {tabs.map(tab => (
             <>{currentTab === tab.id && <>{tab.content}</>}</>
           ))}

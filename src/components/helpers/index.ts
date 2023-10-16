@@ -21,9 +21,11 @@ export { default as WorkspaceChat } from './workspace/chat';
 export { default as WorkspaceCompletion } from './workspace/completion';
 export { default as UpdateModal } from './workspace/modals/update';
 export { default as PublishPromptModal } from './workspace/modals/publishPrompt';
+export { default as AddVariables } from './workspace/addVariables';
 
 export { default as CreateKeyModal } from './keyManagement/CreateKeyModal';
 export { default as EmptyKeyManagement } from './keyManagement/EmptyContent';
 export { default as KeysGrid } from './keyManagement/KeysGrid';
 export { default as KeyItem } from './keyManagement/KeyItem';
 export { default as KeyHeader } from './keyManagement/Header';
+export { default as GoogleAuth } from './login/googleAuth';

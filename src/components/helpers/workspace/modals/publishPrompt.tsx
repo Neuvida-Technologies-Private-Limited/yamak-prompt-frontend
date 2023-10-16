@@ -17,7 +17,6 @@ const PublishPrompt: React.FC<PublishPromptProps> = ({}) => {
   const { systemMessage, userMessage, heading, uuid, is_public } = publishState;
 
   const handlePublishPrompt = async (uuid: string, is_public: boolean) => {
-    debugger;
     const publishPromptParams = {
       uuid,
       is_public,

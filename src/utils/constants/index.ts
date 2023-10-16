@@ -13,6 +13,11 @@ export enum ButtonVariants {
   SECONDARY_LINK = 'secondary-link',
   DEFAULT = 'default',
 }
+export enum ButtonSizes {
+  SMALL = 'small',
+  MIDDLE = 'middle',
+  LARGE = 'large',
+}
 
 export enum TextAreaVariants {
   FILLED = 'filled',
@@ -100,7 +105,7 @@ export enum Workspace {
   Prompt = 'Prompt Title',
   Date = '1 day ago',
   Time = '6.23 pm',
-  SearchHistory = 'Search History',
+  SearchHistory = '🔍 Search History',
   Search = 'search',
   ShowBookmarked = 'Show Bookmarked',
   ShowPublished = 'Show Published',
@@ -118,6 +123,9 @@ export enum Workspace {
   Publish = 'Publish',
   System = 'System: ',
   Sample = 'Sample Answer',
+  NoVariables = 'No variables added yet',
+  NoHistoryHead = 'No previous versions available',
+  NoHistoryPara = 'Whenever you update your prompt in the right panel a history is generated here',
 }
 
 export enum KeyManagement {

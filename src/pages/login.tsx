@@ -2,12 +2,16 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FcGoogle } from 'react-icons/fc';
 import { Button, Heading, Input } from 'components/common';
 import { LogIn } from 'middleware/api/auth-api';
 import { LoginConst } from 'utils/constants';
 import { loginState } from 'middleware/state';
-import { isUsernameValidated, isPasswordValidated } from 'utils/validations';
+import {
+  isUsernameValidated,
+  isPasswordValidated,
+  isLoginFormValidated,
+} from 'utils/validations';
+import { GoogleAuth } from 'components/helpers';
 
 const handleClick = () => {};
 
@@ -74,6 +78,10 @@ const Login = () => {
       password,
     };
 
+    if (!isLoginFormValidated(username, password)) {
+      return;
+    }
+
     try {
       await LogIn(loginParams);
       navigate('/home');
@@ -91,7 +99,7 @@ const Login = () => {
 
   return (
     <div className="flex md:h-screen items-center justify-center">
-      <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:w-3/5 em:w-4/5 sm:w-full m-4 md:h-2/3 border">
+      <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:w-3/5 em:w-4/5 sm:w-full m-4 border">
         <div className="flex flex-col items-center justify-start m-4 rounded-xl bg-primary sm:order-2 md:order-1">
           <img src="/assets/images/loginBanner.svg" alt="" className=" w-4/5" />
           <div className="flex justify-center font-poppins text-center text-gray50 sm:px-4 em:px-12 w-full">
@@ -109,6 +117,8 @@ const Login = () => {
           <p className="font-poppins text-gray400 sm:text-center md:text-start">
             {LoginConst.Login_Desc}
           </p>
+
+          <GoogleAuth />
 
           <form
             className="flex flex-col font-poppins border rounded-lg w-full border-gray00 p-4 h-full"
@@ -140,15 +150,6 @@ const Login = () => {
             />
           </form>
           {/* Google button  */}
-          {/* <Button
-            size={undefined}
-            type={'default'}
-            shape={undefined}
-            onClick={handleClick}
-            icon={<FcGoogle />}
-            name={LoginConst.SignIn}
-            className="em:px-12 sm:px-4 em:h-12 sm:text-sm em:text-lg text-gray500 font-medium border-2 rounded-lg"
-          /> */}
         </div>
       </div>
       <ToastContainer />

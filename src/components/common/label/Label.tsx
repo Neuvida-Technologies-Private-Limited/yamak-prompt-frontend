@@ -4,32 +4,33 @@ import { LabelType } from 'types';
 import { ButtonVariants, Label as LabelConst } from 'utils/constants';
 
 interface LabelProps {
-  initialLabels?: LabelType[] | undefined;
+  initialLabels?: string;
   noLabelsMessage?: string;
   className?: string;
-  onChange?: (labels: string[]) => void;
+  onChange?: (labels: string) => void;
 }
 
 const Label: React.FC<LabelProps> = ({
-  initialLabels = [],
+  initialLabels = '',
   noLabelsMessage = LabelConst.NO_LABELS_MESSAGE,
   className,
   onChange,
 }) => {
-  const [labels, setLabels] = useState(initialLabels);
+  const [labels, setLabels] = useState<string>(initialLabels || '');
   const [showInput, setShowInput] = useState(false);
   const [text, setText] = useState('');
 
   function submitHandler(event: React.FormEvent) {
     event.preventDefault();
     const newLabel = { id: crypto.randomUUID(), text };
-    setLabels(prev => [...prev, newLabel]);
+    setLabels(
+      prevLabels => prevLabels + (prevLabels ? ',' : '') + newLabel.text
+    );
     setText('');
     setShowInput(false);
 
     if (onChange) {
-      const newTexts = labels.map(label => label.text);
-      onChange([...newTexts, newLabel.text]);
+      onChange(labels + (labels ? ',' : '') + newLabel.text);
     }
   }
 
@@ -43,12 +44,12 @@ const Label: React.FC<LabelProps> = ({
             {noLabelsMessage}
           </p>
         ) : (
-          labels.map(label => (
+          labels.split(',').map((label, index) => (
             <button
-              key={label.id}
+              key={index}
               className="border border-primary900 text-primary600 rounded-3xl p-2 text-xs"
             >
-              {label.text}
+              {label}
             </button>
           ))
         )}

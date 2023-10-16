@@ -20,7 +20,7 @@ const Text: React.FC<Props> = ({
   return (
     <p
       className={classNames(
-        'text-gray900 text-sm leading-6',
+        'text-gray900 text-sm leading-6 font-poppins',
         {
           'lg:leading-[27px] text-18px lg:text-20px':
             variant === TextVariants.LARGE,

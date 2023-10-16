@@ -39,7 +39,6 @@ const Chat = () => {
       };
       message.success('Loading response');
       const res = await GenerateOutput(requestObj);
-      console.log(res);
       const output = res.data.prompt_output.join('. ');
       setChatOutputState(old => ({ ...old, output, user_message: '' }));
     } catch (err) {}
