@@ -60,7 +60,7 @@ const ModalContent: React.FC<ContentProps> = ({ id, onPromptInfo }) => {
           {modalContent.data.user_message || ModalConst.NoUserMessage}
         </Text>
       </div>
-      <div>
+      <div className="mb-8">
         <Heading level={5}>Sample Answer</Heading>
         <Text variant={TextVariants.SMALL} className="text-secondary">
           {modalContent.data.sample_output || ModalConst.NoSampleOutput}

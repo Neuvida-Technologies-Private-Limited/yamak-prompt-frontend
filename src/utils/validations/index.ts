@@ -1,4 +1,6 @@
-import Password from 'antd/es/input/Password';
+export const isInputValidated = (input: string, errorMessage: string) => {
+  return input === '' ? errorMessage : '';
+};
 
 export const isUsernameValidated = (username: string) => {
   if (username === '') {

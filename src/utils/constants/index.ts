@@ -145,7 +145,7 @@ export enum KeyManagement {
   DELETE = 'Delete',
   POPUP_TITLE = 'Delete the key',
   POPUP_DESCRIPTION = 'Are you sure to delete this key?',
-  TestConnection = 'Test Connection',
+  VALIDATE_KEY = 'Validate Key',
   EMPTY_SCREEN_TEXT = 'Click on the "Add New Key" button to get started',
   SUCCESS = 'Key Deleted Successfully',
 }
@@ -158,13 +158,13 @@ export enum Library {
   OkText = 'Add Prompt',
   SubHead = 'Fill in the details of your prompt',
   NewPromptTitle = 'title',
-  TitlePlaceholder = 'Prompt title',
+  TitlePlaceholder = 'Prompt title - 100 chars',
   UserMessageTitle = 'userMessage',
-  UserMessagePlaceholder = 'User message',
+  UserMessagePlaceholder = 'User message - 1000 chars',
   SystemMessageTitle = 'systemMessage',
-  SystemMessagePlaceholder = 'System message',
+  SystemMessagePlaceholder = 'System message - 1000 chars',
   WritePromptTitle = 'promptOutput',
-  WritePromptPlaceholder = 'Prompt sample output',
+  WritePromptPlaceholder = 'Prompt sample output - 1000 chars',
   SelectTagPlaceholder = 'Select Tag',
   TagsTitle = 'tags',
   TagsPlaceholder = 'Enter tags (optional)',
@@ -180,11 +180,11 @@ export enum Library {
 }
 
 export enum LibraryAddPrompt {
-  NoTitleMessage = 'Title is required',
-  NoUserMessage = 'User message is required',
-  NoSystemMessage = 'System message is required',
-  NoSampleOutput = 'Prompt output is required',
-  NoTags = 'Tags are required',
+  NO_TITLE_MESSAGE = 'Title is required',
+  NO_USER_MESSAGE = 'User message is required',
+  NO_SYSTEM_MESSAGE = 'System message is required',
+  NO_PROMPT_OUTPUT = 'Prompt output is required',
+  NO_TAGS = 'Tags are required',
 }
 
 export enum LibraryCard {

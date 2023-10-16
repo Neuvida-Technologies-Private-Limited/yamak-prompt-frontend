@@ -5,6 +5,7 @@ export { default as LibraryHeader } from './library/header';
 export { default as HeadingArea } from './library/header/HeadingArea';
 export { default as TabsArea } from './library/header/TabsArea';
 export { default as SearchArea } from './library/header/SearchArea';
+export { default as ChipContainer } from './library/addPrompt/ChipContainer';
 
 export { default as WorkspaceCard } from './workspace/cardGrid/Card';
 export { default as WordspaceCardGrid } from './workspace/cardGrid/index';

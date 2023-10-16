@@ -12,6 +12,15 @@ import {
   ButtonVariants,
   TextAreaVariants,
 } from 'utils/constants';
+import ChipContainer from './ChipContainer';
+import { isInputValidated } from 'utils/validations';
+
+const inputsMaxLength = {
+  title: 100,
+  userMessage: 1000,
+  systemMessage: 1000,
+  sampleOutput: 1000,
+};
 
 const AddNewPrompt: React.FC<{
   onAddPrompt?: (prompt: string) => Promise<any>;
@@ -39,7 +48,7 @@ const AddNewPrompt: React.FC<{
     setState(old => ({
       ...old,
       title: value,
-      titleError: value === '' ? LibraryAddPrompt.NoTitleMessage : '',
+      titleError: isInputValidated(value, LibraryAddPrompt.NO_TITLE_MESSAGE),
     }));
   }
 
@@ -47,7 +56,10 @@ const AddNewPrompt: React.FC<{
     setState(old => ({
       ...old,
       userMessage: value,
-      userMessageError: value === '' ? LibraryAddPrompt.NoUserMessage : '',
+      userMessageError: isInputValidated(
+        value,
+        LibraryAddPrompt.NO_USER_MESSAGE
+      ),
     }));
   }
 
@@ -55,7 +67,10 @@ const AddNewPrompt: React.FC<{
     setState(old => ({
       ...old,
       systemMessage: value,
-      systemMessageError: value === '' ? LibraryAddPrompt.NoSystemMessage : '',
+      systemMessageError: isInputValidated(
+        value,
+        LibraryAddPrompt.NO_SYSTEM_MESSAGE
+      ),
     }));
   }
 
@@ -63,14 +78,10 @@ const AddNewPrompt: React.FC<{
     setState(old => ({
       ...old,
       promptOutput: value,
-      promptOutputError: value === '' ? LibraryAddPrompt.NoSampleOutput : '',
-    }));
-  }
-
-  function tagsHandler(value: string) {
-    setState(old => ({
-      ...old,
-      tags: value,
+      promptOutputError: isInputValidated(
+        value,
+        LibraryAddPrompt.NO_PROMPT_OUTPUT
+      ),
     }));
   }
 
@@ -79,12 +90,19 @@ const AddNewPrompt: React.FC<{
 
     setState(old => ({
       ...old,
-      titleError: !title ? LibraryAddPrompt.NoTitleMessage : '',
-      userMessageError: !userMessage ? LibraryAddPrompt.NoUserMessage : '',
-      systemMessageError: !systemMessage
-        ? LibraryAddPrompt.NoSystemMessage
-        : '',
-      promptOutputError: !promptOutput ? LibraryAddPrompt.NoSampleOutput : '',
+      titleError: isInputValidated(title, LibraryAddPrompt.NO_TITLE_MESSAGE),
+      userMessageError: isInputValidated(
+        userMessage,
+        LibraryAddPrompt.NO_USER_MESSAGE
+      ),
+      systemMessageError: isInputValidated(
+        systemMessage,
+        LibraryAddPrompt.NO_SYSTEM_MESSAGE
+      ),
+      promptOutputError: isInputValidated(
+        promptOutput,
+        LibraryAddPrompt.NO_PROMPT_OUTPUT
+      ),
     }));
 
     if (!title || !userMessage || !systemMessage || !promptOutput) return;
@@ -129,7 +147,7 @@ const AddNewPrompt: React.FC<{
           <p className="text-gray400">{Library.SubHead}</p>
           <form action="#" method="post">
             <div className="mt-5">
-              <div className="flex flex-col">
+              <div className="mb-3">
                 <label
                   htmlFor={Library.NewPromptTitle}
                   className="pl-2 font-poppins text-gray300"
@@ -143,9 +161,10 @@ const AddNewPrompt: React.FC<{
                   onChange={titleHandler}
                   variant={InputVariants.Filled}
                   error={titleError}
+                  maxLength={inputsMaxLength.title}
                 />
               </div>
-              <div>
+              <div className="mb-3">
                 <label
                   htmlFor={Library.UserMessageTitle}
                   className="pl-2 font-poppins text-gray300"
@@ -159,9 +178,10 @@ const AddNewPrompt: React.FC<{
                   onChange={userMessageHandler}
                   variant={InputVariants.Filled}
                   error={userMessageError}
+                  maxLength={inputsMaxLength.userMessage}
                 />
               </div>
-              <div>
+              <div className="mb-3">
                 <label
                   htmlFor={Library.SystemMessageTitle}
                   className="pl-2 font-poppins text-gray300"
@@ -176,9 +196,10 @@ const AddNewPrompt: React.FC<{
                   onChange={systemMessageHandler}
                   variant={InputVariants.Filled}
                   error={systemMessageError}
+                  maxLength={inputsMaxLength.systemMessage}
                 />
               </div>
-              <div>
+              <div className="mb-3">
                 <label
                   htmlFor={Library.WritePromptTitle}
                   className="pl-2 font-poppins text-gray300"
@@ -193,24 +214,10 @@ const AddNewPrompt: React.FC<{
                   variant={TextAreaVariants.FILLED}
                   onChange={event => sampleOutputHandler(event.target.value)}
                   error={promptOutputError}
+                  maxLength={inputsMaxLength.sampleOutput}
                 />
               </div>
-              <div>
-                <label
-                  htmlFor={Library.TagsTitle}
-                  className="pl-2 font-poppins text-gray300"
-                >
-                  {Library.TagsPlaceholder}
-                </label>
-
-                <Input
-                  id={Library.TagsTitle}
-                  name={Library.TagsTitle}
-                  value={tags}
-                  onChange={tagsHandler}
-                  variant={InputVariants.Filled}
-                />
-              </div>
+              <ChipContainer />
             </div>
           </form>
         </div>

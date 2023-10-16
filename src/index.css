@@ -102,20 +102,10 @@
 }
 .ant-modal-footer {
   display: flex !important;
-  flex-direction: row-reverse;
   align-items: center !important;
   justify-content: space-between;
 }
 
-.ant-modal-footer .ant-btn-default {
-  display: none !important;
-}
-.keyManagement .ant-modal-footer .ant-btn-default {
-  display: block !important;
-  border: 2px solid var(--black);
-  font-family: 'Poppins';
-  font-weight: 600;
-}
 .ant-modal .ant-modal-footer .ant-btn + .ant-btn {
   background-color: var(--primary-color) !important;
   font-family: 'Poppins', serif;
