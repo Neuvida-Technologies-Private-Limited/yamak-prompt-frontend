@@ -9,7 +9,7 @@ interface DraftProps {
 
 const drafts: React.FC<DraftProps> = ({ title }) => {
   return (
-    <div className="flex justify-between h-fit py-4 px-2">
+    <div className="flex justify-between h-fit py-3">
       <div className="flex flex-col font-poppins text-base">
         <h4 className="text-gray700 font-medium">{title}</h4>
       </div>

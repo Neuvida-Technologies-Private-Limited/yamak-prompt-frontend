@@ -5,7 +5,7 @@ import { IoListCircleOutline } from 'react-icons/io5';
 
 import Draft from './drafts';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
-import { Button, Input } from 'components/common';
+import { Button, Heading, Input, Text } from 'components/common';
 import { GetWorkspaceHistory } from 'middleware/api';
 import { searchHistoryState, workspaceHistoryState } from 'middleware/state';
 
@@ -38,11 +38,10 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   };
 
   return (
-    <div className="flex flex-col pl-4 w-full justify-between py-6">
-      <div className="h-1/6">
-        <div className="flex justify-between items-center font-poppins mb-4">
+    <div className="flex flex-col w-full justify-between pb-6 pt-2 ">
+      <div className="">
+        <div className="flex items-center font-poppins mb-2">
           <h1 className="font-semibold text-base">{Workspace.History}</h1>
-          <IoListCircleOutline size={25} />
         </div>
         <Input
           id={Workspace.SearchHistory}
@@ -53,17 +52,23 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
           variant={InputVariants.Filled}
         />
       </div>
-      <div className="flex flex-col h-5/6">
-        <div className="overflow-y-scroll pr-2 h-full">
+      <div className="flex flex-col h-5/6 max-h-5/6 overflow-y-scroll">
+        <div className="pr-2">
           {history.length === 0 ? (
-            <p>no history!</p>
+            <>
+              <Heading children={Workspace.NoHistoryHead} level={4} />
+              <Text children={Workspace.NoHistoryPara} />
+            </>
           ) : (
             history.map((item, index) => (
               <Draft key={`draft-item-${index}`} title={item.title} />
             ))
           )}
         </div>
-        <div className="flex justify-center gap-4 mt-4 flex-wrap">
+
+        {/* filters */}
+
+        {/* <div className="flex justify-center gap-4 mt-4 flex-wrap">
           <Button
             size={'large'}
             variant={ButtonVariants.SECONDARY}
@@ -77,7 +82,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
             className="!bg-gray200 !text-gray700"
             icon={<FiUploadCloud />}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

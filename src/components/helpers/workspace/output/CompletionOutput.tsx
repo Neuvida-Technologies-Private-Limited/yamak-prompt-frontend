@@ -28,7 +28,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col max-h-full h-full">
       <div className="flex items-center pb-4">
         <Input
           id={Workspace.PromptTitle}
@@ -41,9 +41,9 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
         />
         <Label onChange={handleLabelsChange} initialLabels={tags} />
       </div>
-      <div className="flex flex-col font-poppins border rounded-lg border-gray200 p-4 h-full overflow-hidden">
+      <div className="flex flex-col p-4 font-poppins border rounded-lg border-gray200 bg-white overflow-y-scroll h-full">
         <label className="font-semibold pb-2">{Workspace.Output}</label>
-        <div className="overflow-y-scroll h-full">
+        <div className="h-full">
           {output ? (
             <Typewriter
               options={{
@@ -72,9 +72,6 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
             onClick={() => {}}
             name={'Bookmark'}
           />
-        </div>
-        <div className="font-poppins text-xs text-primary700 p-2 border-2 border-primary700 rounded-2xl">
-          {Workspace.CharacterLimit}
         </div>
       </div>
     </div>

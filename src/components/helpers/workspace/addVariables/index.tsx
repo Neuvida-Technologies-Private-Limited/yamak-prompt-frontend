@@ -46,7 +46,7 @@ const AddVariable: React.FC<AddVariableProps> = ({ onAddVariable }) => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full py-2">
       <Button
         size={ButtonSizes.SMALL}
         name={Workspace.AddVariable}
@@ -54,7 +54,7 @@ const AddVariable: React.FC<AddVariableProps> = ({ onAddVariable }) => {
         onClick={handleAddRow}
         variant={ButtonVariants.OUTLINED}
       />
-      <div className="mt-2">
+      <div className="mt-2 h-full overflow-y-scroll">
         {variableRows.length === 0 ? (
           <Text variant={TextVariants.SMALL} children={Workspace.NoVariables} />
         ) : (
