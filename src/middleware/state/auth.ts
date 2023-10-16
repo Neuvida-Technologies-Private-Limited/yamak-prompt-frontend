@@ -11,3 +11,11 @@ export const loginState = atom({
     passwordError: '',
   },
 });
+export const currentUserState = atom({
+  key: 'currentUser-state',
+  default: {
+    email: '',
+    first_name: '',
+    last_name: '',
+  },
+});

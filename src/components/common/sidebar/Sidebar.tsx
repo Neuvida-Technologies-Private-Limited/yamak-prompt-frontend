@@ -15,6 +15,8 @@ import { Layout, Menu } from 'antd';
 //constants
 import { Paths, SidebarConst, TOKENS } from 'utils/constants';
 import { SetStorage } from 'middleware/cache';
+import { useRecoilState } from 'recoil';
+import { currentUserState } from 'middleware/state';
 
 interface LinkItem {
   label: React.ReactNode;
@@ -23,52 +25,56 @@ interface LinkItem {
   disabled?: boolean;
 }
 
-const items: LinkItem[] = [
-  {
-    key: Paths.Home,
-    label: SidebarConst.Library,
-    icon: <GoStack />,
-  },
-  {
-    key: Paths.Workspace,
-    label: SidebarConst.Workspace,
-    icon: <FiLayout />,
-  },
-  {
-    key: Paths.KeyManagement,
-    label: SidebarConst.KeyManagement,
-    icon: <FiKey />,
-  },
-  {
-    key: Paths.Deployment,
-    label: SidebarConst.Deployment,
-    icon: <FiSend />,
-    disabled: true,
-  },
-  {
-    key: Paths.TestCases,
-    label: SidebarConst.TestCases,
-    icon: <BsHddStack />,
-    disabled: true,
-  },
-  {
-    key: Paths.Feedback,
-    label: SidebarConst.Feedback,
-    icon: <MdOutlineSubject />,
-  },
-  {
-    key: Paths.Profile,
-    label: SidebarConst.Profile,
-    icon: <AiOutlineUser />,
-  },
-];
-
 const { Sider } = Layout;
 
 const Index: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
+  const [currentUser, setCurrentUserState] = useRecoilState(currentUserState);
+
+  const { email, first_name, last_name } = currentUser;
+
+  const items: LinkItem[] = [
+    {
+      key: Paths.Home,
+      label: SidebarConst.Library,
+      icon: <GoStack />,
+    },
+    {
+      key: Paths.Workspace,
+      label: SidebarConst.Workspace,
+      icon: <FiLayout />,
+    },
+    {
+      key: Paths.KeyManagement,
+      label: SidebarConst.KeyManagement,
+      icon: <FiKey />,
+    },
+    {
+      key: Paths.Deployment,
+      label: SidebarConst.Deployment,
+      icon: <FiSend />,
+      disabled: true,
+    },
+    {
+      key: Paths.TestCases,
+      label: SidebarConst.TestCases,
+      icon: <BsHddStack />,
+      disabled: true,
+    },
+    {
+      key: Paths.Feedback,
+      label: SidebarConst.Feedback,
+      icon: <MdOutlineSubject />,
+    },
+    {
+      key: Paths.Profile,
+      label: `${first_name + ' ' + last_name}`,
+      icon: <AiOutlineUser />,
+      disabled: true,
+    },
+  ];
 
   const handleLogout = () => {
     // Remove the access token from local storage

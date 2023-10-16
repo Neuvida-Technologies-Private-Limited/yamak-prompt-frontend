@@ -2,6 +2,7 @@ export enum authRoutes {
   LOGIN_ROUTE = '/access/login/',
   CSRF_TOKEN_ROUTE = '/access/csrf-token/',
   REFRESH_ACCESS_TOKEN_ROUTE = '/access/refresh/',
+  CURRENT_USER_ROUTE = '/access/current-user/',
 }
 export enum SSORoutes {
   GET_GOOGLE_PROFILE_ROUTE = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=',
