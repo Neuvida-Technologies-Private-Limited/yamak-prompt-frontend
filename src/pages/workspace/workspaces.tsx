@@ -139,7 +139,7 @@ const Index = () => {
           <WorkspaceParameters />
         </div>
       </div>
-      <div className="max-h-full overflow-y-scroll">
+      <div className="max-h-full h-full overflow-y-scroll">
         <div className=" px-4 h-full">
           {tabs.map(tab => (
             <>{currentTab === tab.id && <>{tab.content}</>}</>
