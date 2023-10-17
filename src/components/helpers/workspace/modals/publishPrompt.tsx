@@ -32,6 +32,9 @@ const PublishPrompt: React.FC<PublishPromptProps> = ({
   const sumbitHandler = async () => {
     try {
       const res = await onPublishPrompt(uuid, is_public);
+      if (res === 201) {
+        setShowModal(false);
+      }
     } catch (error) {}
   };
 
