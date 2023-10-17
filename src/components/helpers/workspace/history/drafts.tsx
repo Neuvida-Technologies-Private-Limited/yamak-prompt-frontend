@@ -2,7 +2,7 @@ import { Button, Tooltip } from 'components/common';
 import React from 'react';
 import { FiBookmark, FiUploadCloud } from 'react-icons/fi';
 
-import { ButtonSizes, ButtonVariants, Workspace } from 'utils/constants';
+import { ButtonSizes, ButtonVariants } from 'utils/constants';
 
 interface DraftProps {
   title: string;
@@ -17,12 +17,12 @@ const drafts: React.FC<DraftProps> = ({ title }) => {
     console.log('History clicked');
   };
   return (
-    <div className="flex justify-between h-fit py-3">
+    <div className="flex justify-between h-fit py-3 border-b mb-2 p-2 transition hover:shadow">
       <div
         className="flex flex-col font-poppins text-base cursor-pointer w-full"
         onClick={handleHistory}
       >
-        <h4 className="text-gray700 font-medium hover:text-primary transition ease-in-out">
+        <h4 className="text-gray700 font-medium hover:text-primary transition ease-in-out truncate">
           {title}
         </h4>
       </div>

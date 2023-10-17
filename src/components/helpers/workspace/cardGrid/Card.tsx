@@ -4,10 +4,10 @@ import { BsThreeDots } from 'react-icons/bs';
 import { useResetRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
 
-import { Dropdown, Modal } from 'components/common';
+import { Dropdown } from 'components/common';
 import { Workspace } from 'utils/constants';
 import { generateOutputState, publishPromptState } from 'middleware/state';
-import { UpdateModal } from 'components/helpers';
+import { DeleteModal, UpdateModal } from 'components/helpers';
 
 interface WorkspaceCardProps {
   heading: string;
@@ -40,11 +40,7 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
     resetPublishPromptState();
   };
 
-  const handleDeleteWorkspace = async (event: {
-    preventDefault: () => void;
-  }) => {
-    event.preventDefault();
-
+  const handleDeleteWorkspace = async () => {
     try {
       if (await onDelete(id)) {
         setShowModal(false);
@@ -97,17 +93,10 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
           </p>
         </div>
       </div>
-      <Modal
-        title={'Do you want to delete this workspace?'}
-        centered={true}
-        isOpen={showModal}
-        sumbitHandler={handleDeleteWorkspace}
-        cancelModalHandler={() => {
-          setShowModal(false);
-        }}
-        okText={'Yes'}
-        cancelText="No"
-        closeIcon={false}
+      <DeleteModal
+        showModal={showModal}
+        onDelete={handleDeleteWorkspace}
+        setShowModal={setShowModal}
       />
       <UpdateModal
         showModal={showUpdateModal}

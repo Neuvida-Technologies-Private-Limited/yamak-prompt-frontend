@@ -6,7 +6,7 @@ import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
-import { getSearchWorkspaceHistory, getWorkspace } from 'middleware/api';
+import { getWorkspace } from 'middleware/api';
 import {
   WorkspaceParameters,
   WorkspaceChat,
@@ -15,21 +15,30 @@ import {
 } from 'components/helpers';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Input, Tabs } from 'components/common';
-import {
-  generateOutputState,
-  workspaceHistoryState,
-  workspaceInfoState,
-} from 'middleware/state';
-import { message } from 'antd';
+import { generateOutputState, workspaceInfoState } from 'middleware/state';
 
 const handleClick = () => {};
 const handleChange = () => {};
+
+const tabs = [
+  {
+    id: '1',
+    tabTitle: Workspace.Chat,
+    content: <WorkspaceChat />,
+    icon: <HiOutlineChatAlt2 />,
+  },
+  {
+    id: '2',
+    tabTitle: Workspace.Completion,
+    content: <WorkspaceCompletion />,
+    icon: <BsCheck2Circle />,
+  },
+];
 
 const Index = () => {
   const [currentTab, setCurrentTab] = useState<string | null>('2');
 
   const [{ title }, setWorkspaceData] = useRecoilState(workspaceInfoState);
-  const [, setWorkspaceHistory] = useRecoilState(workspaceHistoryState);
   const resetOutputState = useResetRecoilState(generateOutputState);
 
   const id = useLocation().pathname.split('/').at(-1);
@@ -38,8 +47,6 @@ const Index = () => {
     async function () {
       try {
         const res = await getWorkspace(id);
-        console.log(res);
-
         setWorkspaceData(old => ({
           ...old,
           id: res.id,
@@ -56,39 +63,9 @@ const Index = () => {
     [setWorkspaceData, id]
   );
 
-  const searchHistoryHandler = useCallback(
-    async function (input: string, id: string) {
-      try {
-        const res = await getSearchWorkspaceHistory(id, input);
-        setWorkspaceHistory(old => ({
-          ...old,
-          history: Array.isArray(res.results) ? res.results : [],
-        }));
-      } catch (err: any) {
-        message.error(err.error);
-      }
-    },
-    [setWorkspaceHistory]
-  );
-
   useEffect(() => {
     getWorkspaceData();
   }, [getWorkspaceData]);
-
-  const tabs = [
-    {
-      id: '1',
-      tabTitle: Workspace.Chat,
-      content: <WorkspaceChat />,
-      icon: <HiOutlineChatAlt2 />,
-    },
-    {
-      id: '2',
-      tabTitle: Workspace.Completion,
-      content: <WorkspaceCompletion onHistorySearch={searchHistoryHandler} />,
-      icon: <BsCheck2Circle />,
-    },
-  ];
 
   const handleTabClick = (tabId: string) => {
     setCurrentTab(tabId);
@@ -102,7 +79,6 @@ const Index = () => {
             {title}
           </h1>
           <Button
-            size={undefined}
             variant={ButtonVariants.PRIMARY}
             icon={<HiPlus />}
             onClick={handleClick}
@@ -111,7 +87,6 @@ const Index = () => {
         </div>
         <div className="flex gap-2 md:justify-end sm:justify-center items-center">
           <Button
-            size={undefined}
             variant={ButtonVariants.PRIMARY_LIGHT}
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}

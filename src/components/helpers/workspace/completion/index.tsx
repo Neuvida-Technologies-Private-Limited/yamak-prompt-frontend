@@ -1,3 +1,5 @@
+import { useCallback, useEffect } from 'react';
+
 import { useRecoilState } from 'recoil';
 import { message } from 'antd';
 import { toast, ToastContainer } from 'react-toastify';
@@ -10,28 +12,27 @@ import {
 import {
   generateOutputState,
   publishPromptState,
-  searchHistoryState,
   workspaceHistoryPaginationState,
   workspaceHistoryState,
   workspaceInfoState,
 } from 'middleware/state';
-import { GenerateOutput, GetWorkspaceHistory } from 'middleware/api';
-import { useCallback, useEffect } from 'react';
+import {
+  GenerateOutput,
+  GetWorkspaceHistory,
+  getSearchWorkspaceHistory,
+} from 'middleware/api';
 import { ITEMS_PER_PAGE } from 'utils/constants';
 
-interface CompletionProps {
-  onHistorySearch: (input: string, id: string) => void;
-}
+interface CompletionProps {}
 
-const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
+const Completion: React.FC<CompletionProps> = () => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
   const [, setPublishState] = useRecoilState(publishPromptState);
   const [{ id }] = useRecoilState(workspaceInfoState);
   const [, setWorkspaceHistoryState] = useRecoilState(workspaceHistoryState);
-  const [{ currentPage }, setHistoryPagination] = useRecoilState(
+  const [{ currentPage, query }, setHistoryPagination] = useRecoilState(
     workspaceHistoryPaginationState
   );
-  const [searchInput] = useRecoilState(searchHistoryState);
 
   const isDekstopView = window.innerWidth >= 768;
 
@@ -47,9 +48,9 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
   } = outputState;
 
   const getHistory = useCallback(
-    async function (ID: string, currentPage: number) {
+    async function (currentPage: number) {
       try {
-        const res = await GetWorkspaceHistory(ID, currentPage);
+        const res = await GetWorkspaceHistory(id, currentPage);
 
         setHistoryPagination(old => ({
           ...old,
@@ -67,7 +68,7 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
         toast.error(error.error);
       }
     },
-    [setWorkspaceHistoryState, setHistoryPagination]
+    [id, setWorkspaceHistoryState, setHistoryPagination]
   );
 
   const generateOutput = async (event: { preventDefault: () => void }) => {
@@ -101,7 +102,7 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
         var uuid = String(res.data.uuid);
         var UM = String(res.data.user_message);
         var SM = String(res.data.system_message);
-        await getHistory(id, currentPage);
+        await getHistory(currentPage);
       } else {
         toast.error('Error in generating Output');
       }
@@ -121,15 +122,48 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
     }));
   };
 
+  const searchHistoryHandler = useCallback(
+    async function (input: string) {
+      try {
+        const res = await getSearchWorkspaceHistory(id, currentPage, input);
+        setHistoryPagination(old => ({
+          ...old,
+          count: res.count,
+          hasNext: res.next,
+          hasPrevious: res.previous,
+          totalPages: Math.ceil(res.count / ITEMS_PER_PAGE),
+        }));
+        setWorkspaceHistoryState(old => ({
+          ...old,
+          history: res.results,
+        }));
+      } catch (err: any) {
+        console.log(err);
+        message.error('ERRORRRRRRR');
+      }
+    },
+    [setWorkspaceHistoryState, setHistoryPagination, id, currentPage]
+  );
+
   useEffect(() => {
-    getHistory(id, currentPage);
-  }, [id, getHistory, currentPage]);
+    async function getHistoryOnLoad() {
+      try {
+        if (query.length === 0) {
+          await getHistory(currentPage);
+        } else {
+          await searchHistoryHandler(query);
+        }
+      } catch (err: any) {}
+    }
+
+    getHistoryOnLoad();
+  }, [getHistory, currentPage, searchHistoryHandler, query]);
 
   return (
     <div className="em:flex em:flex-row h-full sm:grid md:grid-col-2 sm:grid-col-1">
       {isDekstopView ? (
         <div className="lg:w-1/5 pt-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden h-full">
-          <WorkspaceHistory onHistorySearch={onHistorySearch} id={id} />
+          <WorkspaceHistory onHistorySearch={searchHistoryHandler} />
         </div>
       ) : null}
 
