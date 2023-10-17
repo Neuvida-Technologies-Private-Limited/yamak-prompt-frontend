@@ -38,7 +38,6 @@ const Index = () => {
     async function () {
       try {
         const res = await getWorkspace(id);
-        console.log(res);
 
         setWorkspaceData(old => ({
           ...old,

@@ -126,6 +126,8 @@ export enum Workspace {
   NoVariables = 'No variables added yet',
   NoHistoryHead = 'No previous versions available',
   NoHistoryPara = 'Whenever you update your prompt in the right panel a history is generated here',
+  BookmarkedSuccess = 'Bookmarked Successfully',
+  UnbookmarkedSuccess = 'Unbookmarked Successfully',
 }
 
 export enum KeyManagement {

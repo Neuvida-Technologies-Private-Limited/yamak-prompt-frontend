@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRecoilState } from 'recoil';
+import { message } from 'antd';
 import Typewriter from 'typewriter-effect';
 
 import { Button, Input, Label } from 'components/common';
@@ -8,11 +9,15 @@ import { generateOutputState } from 'middleware/state';
 
 interface OutputSectionProps {
   generateOutput: (event: { preventDefault: () => void }) => Promise<void>;
+  onUpdatePrompt: (update: any, id: string) => Promise<any>;
 }
 
-const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
+const OutputSection: React.FC<OutputSectionProps> = ({
+  generateOutput,
+  onUpdatePrompt,
+}) => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
-  const { title, output, tags } = outputState;
+  const { title, output, tags, uuid, bookmarked } = outputState;
 
   const handleTitleChange = (title: string) => {
     setOutputState(old => ({
@@ -26,6 +31,24 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
       tags: tags,
     }));
   };
+
+  async function handleBookmark(event: React.MouseEvent) {
+    event.stopPropagation();
+    setOutputState(old => ({
+      ...old,
+      bookmarked: !bookmarked,
+    }));
+    const updateObj = {
+      bookmarked: !bookmarked,
+    };
+    const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
+
+    if (res.status !== 200) return message.error(res.error);
+
+    message.success(
+      bookmarked ? Workspace.UnbookmarkedSuccess : Workspace.BookmarkedSuccess
+    );
+  }
 
   return (
     <div className="flex flex-col max-h-full h-full">
@@ -69,8 +92,9 @@ const OutputSection: React.FC<OutputSectionProps> = ({ generateOutput }) => {
           <Button
             variant={ButtonVariants.PRIMARY_LIGHT}
             size="small"
-            onClick={() => {}}
+            onClick={handleBookmark}
             name={'Bookmark'}
+            disabled={!output}
           />
         </div>
       </div>
