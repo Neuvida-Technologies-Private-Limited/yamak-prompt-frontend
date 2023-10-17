@@ -1,18 +1,46 @@
-import { Button, Tooltip } from 'components/common';
-import React from 'react';
+import React, { useState } from 'react';
+
+import { message } from 'antd';
 import { FiBookmark, FiUploadCloud } from 'react-icons/fi';
 
+import { Button, Tooltip } from 'components/common';
 import { ButtonSizes, ButtonVariants, Workspace } from 'utils/constants';
 
 interface DraftProps {
   title: string;
+  onUpdatePrompt: (update: any, id: string) => Promise<any>;
+  uuid: string;
+  bookmarked: boolean;
 }
 
-const drafts: React.FC<DraftProps> = ({ title }) => {
+const Drafts: React.FC<DraftProps> = ({
+  title,
+  onUpdatePrompt,
+  uuid,
+  bookmarked,
+}) => {
+  const [isBookmark, setIsBookmark] = useState(bookmarked);
+
+  async function handleBookmark(event: React.MouseEvent) {
+    event.stopPropagation();
+    setIsBookmark(prev => !prev);
+    const updateObj = {
+      bookmarked: !isBookmark,
+    };
+    const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
+
+    if (res.status !== 200) return message.error(res.error);
+
+    message.success(
+      isBookmark ? Workspace.UnbookmarkedSuccess : Workspace.BookmarkedSuccess
+    );
+  }
+
   const handleClick = (event: React.MouseEvent) => {
     event.preventDefault();
     console.log('Bookmark clicked');
   };
+
   const handleHistory: React.MouseEventHandler = () => {
     console.log('History clicked');
   };
@@ -33,7 +61,7 @@ const drafts: React.FC<DraftProps> = ({ title }) => {
               variant={ButtonVariants.SECONDARY}
               icon={<FiBookmark />}
               size={ButtonSizes.SMALL}
-              onClick={handleClick}
+              onClick={handleBookmark}
             />
           }
           title={'Bookmark'}
@@ -57,4 +85,4 @@ const drafts: React.FC<DraftProps> = ({ title }) => {
   );
 };
 
-export default drafts;
+export default Drafts;

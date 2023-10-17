@@ -79,6 +79,7 @@ export type WorkspaceHistoryType = {
   title: string;
   bookmarked: boolean;
   is_public: boolean;
+  uuid: string;
 };
 
 export type OptionItems = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { message } from 'antd';
 import Typewriter from 'typewriter-effect';
@@ -10,14 +10,18 @@ import { generateOutputState } from 'middleware/state';
 interface OutputSectionProps {
   generateOutput: (event: { preventDefault: () => void }) => Promise<void>;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
+  bookmarked: boolean;
 }
 
 const OutputSection: React.FC<OutputSectionProps> = ({
   generateOutput,
   onUpdatePrompt,
+  bookmarked,
 }) => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
-  const { title, output, tags, uuid, bookmarked } = outputState;
+  const [isBookmark, setIsBookmark] = useState(bookmarked);
+
+  const { title, output, tags, uuid } = outputState;
 
   const handleTitleChange = (title: string) => {
     setOutputState(old => ({
@@ -34,19 +38,16 @@ const OutputSection: React.FC<OutputSectionProps> = ({
 
   async function handleBookmark(event: React.MouseEvent) {
     event.stopPropagation();
-    setOutputState(old => ({
-      ...old,
-      bookmarked: !bookmarked,
-    }));
+    setIsBookmark(prev => !prev);
     const updateObj = {
-      bookmarked: !bookmarked,
+      bookmarked: !isBookmark,
     };
     const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
 
     if (res.status !== 200) return message.error(res.error);
 
     message.success(
-      bookmarked ? Workspace.UnbookmarkedSuccess : Workspace.BookmarkedSuccess
+      isBookmark ? Workspace.UnbookmarkedSuccess : Workspace.BookmarkedSuccess
     );
   }
 
