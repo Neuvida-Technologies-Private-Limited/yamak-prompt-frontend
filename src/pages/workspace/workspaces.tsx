@@ -1,57 +1,31 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { useRecoilState, useResetRecoilState } from 'recoil';
+import { message } from 'antd';
 
-import {
-  PublishPromptWorkspace,
-  getSearchWorkspaceHistory,
-  getWorkspace,
-} from 'middleware/api';
+import { PublishPromptWorkspace, getWorkspace } from 'middleware/api';
 import {
   WorkspaceParameters,
   WorkspaceChat,
   WorkspaceCompletion,
   PublishPromptModal,
 } from 'components/helpers';
-import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
+import { Workspace, ButtonVariants } from 'utils/constants';
 import {
   generateOutputState,
   publishPromptState,
-  workspaceHistoryState,
   workspaceInfoState,
 } from 'middleware/state';
-import { Button, Input, Tabs } from 'components/common';
-
-// const handleClick = () => {};
-// const handleChange = () => {};
-
-// const tabs = [
-//   {
-//     id: '1',
-//     tabTitle: Workspace.Chat,
-//     content: <WorkspaceChat />,
-//     icon: <HiOutlineChatAlt2 />,
-//   },
-//   {
-//     id: '2',
-//     tabTitle: Workspace.Completion,
-//     content: <WorkspaceCompletion />,
-//     icon: <BsCheck2Circle />,
-//   },
-// ];
-
-import { message } from 'antd';
+import { Button, Tabs } from 'components/common';
 
 const Index = () => {
   const [currentTab, setCurrentTab] = useState<string | null>('2');
   const [showModal, setShowModal] = useState(false);
 
   const [{ title }, setWorkspaceData] = useRecoilState(workspaceInfoState);
-  const [, setWorkspaceHistory] = useRecoilState(workspaceHistoryState);
   const [publishState] = useRecoilState(publishPromptState);
 
   const { systemMessage, userMessage, heading, uuid, is_public } = publishState;
@@ -82,7 +56,7 @@ const Index = () => {
           user_uuid: res.user_uuid,
         }));
       } catch (err: any) {
-        toast.error(err.error);
+        message.error(err.error);
       }
     },
     [setWorkspaceData, id]
@@ -105,7 +79,7 @@ const Index = () => {
         return;
       }
     } catch (error: any) {
-      toast.error(error);
+      message.error(error);
     }
   };
 
@@ -188,7 +162,6 @@ const Index = () => {
           ))}
         </div>
       </div>
-      <ToastContainer autoClose={3000} />
     </div>
   );
 };

@@ -2,10 +2,10 @@ import { message } from 'antd';
 import { WorkspaceChatInputs, WorkspaceChatOutput } from 'components/helpers';
 import { GenerateOutput } from 'middleware/api';
 import { generateChatOutputState, workspaceInfoState } from 'middleware/state';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 const Chat = () => {
-  const isDekstopView = window.innerWidth >= 768;
+  // const isDekstopView = window.innerWidth >= 768;
   const [chatOutputState, setChatOutputState] = useRecoilState(
     generateChatOutputState
   );
@@ -37,10 +37,17 @@ const Chat = () => {
           max_tokens: 50,
         },
       };
-      message.success('Loading response');
+
+      if (!system_message || !title || !user_message) return;
+
+      message.success('Loading respones');
       const res = await GenerateOutput(requestObj);
       const output = res.data.prompt_output.join('. ');
-      setChatOutputState(old => ({ ...old, output, user_message: '' }));
+      setChatOutputState(old => ({
+        ...old,
+        chats: [{ user_message, output }, ...chatOutputState.chats],
+        user_message: '',
+      }));
     } catch (err) {}
   }
 

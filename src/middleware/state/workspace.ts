@@ -1,5 +1,10 @@
 import { atom } from 'recoil';
-import { OptionItems, WorkspaceDetailsType, WorkspaceHistoryType } from 'types';
+import {
+  OptionItems,
+  WorkspaceChatOutputs,
+  WorkspaceDetailsType,
+  WorkspaceHistoryType,
+} from 'types';
 
 // workspace dashboard
 export const keyOptionsState = atom({
@@ -88,6 +93,7 @@ export const generateChatOutputState = atom({
     prompt_type: 'Chat',
     tags: '',
     output: '',
+    chats: [] as WorkspaceChatOutputs[],
   },
 });
 
