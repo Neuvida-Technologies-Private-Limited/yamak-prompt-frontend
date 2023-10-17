@@ -15,7 +15,11 @@ import {
   workspaceHistoryState,
   workspaceInfoState,
 } from 'middleware/state';
-import { GenerateOutput, GetWorkspaceHistory } from 'middleware/api';
+import {
+  GenerateOutput,
+  GetWorkspaceHistory,
+  updatePromptInfo,
+} from 'middleware/api';
 import { useCallback, useEffect } from 'react';
 import { ITEMS_PER_PAGE } from 'utils/constants';
 
@@ -111,6 +115,7 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
     setOutputState(old => ({
       ...old,
       output: msg,
+      uuid: uuid,
     }));
     setPublishState(old => ({
       ...old,
@@ -119,6 +124,15 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
       userMessage: UM,
       systemMessage: SM,
     }));
+  };
+
+  const updatePromptHandler = async function (update: any, id: string) {
+    try {
+      const res = await updatePromptInfo(update, id);
+      return res;
+    } catch (err: any) {
+      message.error(err.message);
+    }
   };
 
   useEffect(() => {
@@ -137,7 +151,10 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
         <WorkspaceCompletionInputs />
       </div>
       <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2 h-full">
-        <WorkspaceCompletionOutput generateOutput={generateOutput} />
+        <WorkspaceCompletionOutput
+          generateOutput={generateOutput}
+          onUpdatePrompt={updatePromptHandler}
+        />
       </div>
       <ToastContainer autoClose={3000} />
     </div>
