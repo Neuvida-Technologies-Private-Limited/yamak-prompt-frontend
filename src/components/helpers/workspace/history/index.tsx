@@ -25,8 +25,8 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
 
     if (input.length === 0) return;
 
-    onHistorySearch(input);
     setSearchInput(old => ({ ...old, query: input, currentPage: 1 }));
+    onHistorySearch(input);
   };
 
   useEffect(() => {

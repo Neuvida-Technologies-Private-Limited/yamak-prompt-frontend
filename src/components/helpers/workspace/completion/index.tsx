@@ -29,7 +29,9 @@ const Completion: React.FC<CompletionProps> = () => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
   const [, setPublishState] = useRecoilState(publishPromptState);
   const [{ id }] = useRecoilState(workspaceInfoState);
-  const [, setWorkspaceHistoryState] = useRecoilState(workspaceHistoryState);
+  const [{ history }, setWorkspaceHistoryState] = useRecoilState(
+    workspaceHistoryState
+  );
   const [{ currentPage, query }, setHistoryPagination] = useRecoilState(
     workspaceHistoryPaginationState
   );
@@ -125,6 +127,8 @@ const Completion: React.FC<CompletionProps> = () => {
   const searchHistoryHandler = useCallback(
     async function (input: string) {
       try {
+        if (history.length === 0) return;
+
         const res = await getSearchWorkspaceHistory(id, currentPage, input);
         setHistoryPagination(old => ({
           ...old,
@@ -137,12 +141,15 @@ const Completion: React.FC<CompletionProps> = () => {
           ...old,
           history: res.results,
         }));
-      } catch (err: any) {
-        console.log(err);
-        message.error('ERRORRRRRRR');
-      }
+      } catch (err: any) {}
     },
-    [setWorkspaceHistoryState, setHistoryPagination, id, currentPage]
+    [
+      setWorkspaceHistoryState,
+      setHistoryPagination,
+      id,
+      currentPage,
+      history.length,
+    ]
   );
 
   useEffect(() => {
