@@ -20,12 +20,15 @@ import {
   GenerateOutput,
   GetWorkspaceHistory,
   getSearchWorkspaceHistory,
+  updatePromptInfo,
 } from 'middleware/api';
 import { ITEMS_PER_PAGE } from 'utils/constants';
 
-interface CompletionProps {}
+interface CompletionProps {
+  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
+}
 
-const Completion: React.FC<CompletionProps> = () => {
+const Completion: React.FC<CompletionProps> = ({ onPublishPrompt }) => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
   const [, setPublishState] = useRecoilState(publishPromptState);
   const [{ id }] = useRecoilState(workspaceInfoState);
@@ -114,6 +117,8 @@ const Completion: React.FC<CompletionProps> = () => {
     setOutputState(old => ({
       ...old,
       output: msg,
+      uuid: uuid,
+      bookmarked: bookmarked,
     }));
     setPublishState(old => ({
       ...old,
@@ -130,6 +135,7 @@ const Completion: React.FC<CompletionProps> = () => {
         if (history.length === 0) return;
 
         const res = await getSearchWorkspaceHistory(id, currentPage, input);
+
         setHistoryPagination(old => ({
           ...old,
           count: res.count,
@@ -152,6 +158,16 @@ const Completion: React.FC<CompletionProps> = () => {
     ]
   );
 
+  const updatePromptHandler = async function (update: any, uuid: string) {
+    try {
+      const res = await updatePromptInfo(update, uuid);
+      getHistory(currentPage);
+      return res;
+    } catch (err: any) {
+      message.error(err.message);
+    }
+  };
+
   useEffect(() => {
     async function getHistoryOnLoad() {
       try {
@@ -170,7 +186,11 @@ const Completion: React.FC<CompletionProps> = () => {
     <div className="em:flex em:flex-row h-full sm:grid md:grid-col-2 sm:grid-col-1">
       {isDekstopView ? (
         <div className="lg:w-1/5 pt-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden h-full">
-          <WorkspaceHistory onHistorySearch={searchHistoryHandler} />
+          <WorkspaceHistory
+            onHistorySearch={searchHistoryHandler}
+            onUpdatePrompt={updatePromptHandler}
+            onPublishPrompt={onPublishPrompt}
+          />
         </div>
       ) : null}
 
@@ -178,7 +198,11 @@ const Completion: React.FC<CompletionProps> = () => {
         <WorkspaceCompletionInputs />
       </div>
       <div className="lg:w-3/6 pt-6 pl-4 md:col-span-2 h-full">
-        <WorkspaceCompletionOutput generateOutput={generateOutput} />
+        <WorkspaceCompletionOutput
+          generateOutput={generateOutput}
+          onUpdatePrompt={updatePromptHandler}
+          bookmarked={bookmarked}
+        />
       </div>
       <ToastContainer autoClose={3000} />
     </div>

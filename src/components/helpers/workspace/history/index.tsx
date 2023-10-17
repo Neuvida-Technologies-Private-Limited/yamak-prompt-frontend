@@ -11,23 +11,27 @@ import {
 
 interface CompletionHistoryProps {
   onHistorySearch: (input: string) => void;
+  onUpdatePrompt: (update: any, id: string) => Promise<any>;
+  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
 }
 
 const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   onHistorySearch,
+  onUpdatePrompt,
+  onPublishPrompt,
 }) => {
-  const [{ history }] = useRecoilState(workspaceHistoryState);
+  const [workspaceHistory] = useRecoilState(workspaceHistoryState);
   const [, setSearchInput] = useRecoilState(workspaceHistoryPaginationState);
   const [input, setInput] = useState('');
 
-  const formSubmitHandler = (event: React.FormEvent) => {
+  const { history } = workspaceHistory;
+
+  function formSubmitHandler(event: React.FormEvent) {
     event.preventDefault();
-
-    if (input.length === 0) return;
-
+    if (input === '') return;
     setSearchInput(old => ({ ...old, query: input, currentPage: 1 }));
     onHistorySearch(input);
-  };
+  }
 
   useEffect(() => {
     if (input === '') {
@@ -62,7 +66,16 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
             </>
           ) : (
             history.map((item, index) => (
-              <Draft key={`draft-item-${index}`} title={item.title} />
+              <Draft
+                key={`draft-item-${index}`}
+                title={item.title}
+                onUpdatePrompt={onUpdatePrompt}
+                onPublishPrompt={onPublishPrompt}
+                uuid={item.uuid}
+                bookmarked={item.bookmarked}
+                systemMessage={item.system_message}
+                userMessage={item.user_message}
+              />
             ))
           )}
         </div>

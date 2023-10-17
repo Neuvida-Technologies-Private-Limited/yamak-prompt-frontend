@@ -1,18 +1,49 @@
-import { Button, Tooltip } from 'components/common';
-import React from 'react';
+import React, { useState } from 'react';
+
+import { message } from 'antd';
 import { FiBookmark, FiUploadCloud } from 'react-icons/fi';
 
-import { ButtonSizes, ButtonVariants } from 'utils/constants';
+import { Button, Tooltip } from 'components/common';
+import { ButtonSizes, ButtonVariants, Workspace } from 'utils/constants';
+import { PublishPromptModal } from 'components/helpers';
 
 interface DraftProps {
   title: string;
+  onUpdatePrompt: (update: any, id: string) => Promise<any>;
+  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
+  systemMessage: string;
+  userMessage: string;
+  uuid: string;
+  bookmarked: boolean;
 }
 
-const drafts: React.FC<DraftProps> = ({ title }) => {
-  const handleClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-    console.log('Bookmark clicked');
-  };
+const Drafts: React.FC<DraftProps> = ({
+  title,
+  onUpdatePrompt,
+  onPublishPrompt,
+  uuid,
+  bookmarked,
+  systemMessage,
+  userMessage,
+}) => {
+  const [isBookmark, setIsBookmark] = useState(bookmarked);
+  const [showModal, setShowModal] = useState(false);
+
+  async function handleBookmark(event: React.MouseEvent) {
+    event.stopPropagation();
+    setIsBookmark(prev => !prev);
+    const updateObj = {
+      bookmarked: !isBookmark,
+    };
+    const res: any = await onUpdatePrompt(JSON.stringify(updateObj), uuid);
+
+    if (res.status !== 200) return message.error(res.error);
+
+    message.success(
+      isBookmark ? Workspace.UnbookmarkedSuccess : Workspace.BookmarkedSuccess
+    );
+  }
+
   const handleHistory: React.MouseEventHandler = () => {
     console.log('History clicked');
   };
@@ -33,7 +64,7 @@ const drafts: React.FC<DraftProps> = ({ title }) => {
               variant={ButtonVariants.SECONDARY}
               icon={<FiBookmark />}
               size={ButtonSizes.SMALL}
-              onClick={handleClick}
+              onClick={handleBookmark}
             />
           }
           title={'Bookmark'}
@@ -46,15 +77,25 @@ const drafts: React.FC<DraftProps> = ({ title }) => {
               variant={ButtonVariants.OUTLINED_LIGHT}
               icon={<FiUploadCloud />}
               size={ButtonSizes.SMALL}
-              onClick={handleClick}
+              onClick={() => setShowModal(true)}
             />
           }
           title={'Publish'}
           color="white"
         />
       </div>
+      <PublishPromptModal
+        onPublishPrompt={onPublishPrompt}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        is_public={false}
+        systemMessage={systemMessage}
+        userMessage={userMessage}
+        uuid={uuid}
+        heading={title}
+      />
     </div>
   );
 };
 
-export default drafts;
+export default Drafts;

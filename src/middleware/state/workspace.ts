@@ -72,6 +72,7 @@ export const generateOutputState = atom({
       logit_bias: 0,
     },
     output: '',
+    uuid: '',
   },
 });
 
