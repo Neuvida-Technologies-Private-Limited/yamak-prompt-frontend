@@ -26,21 +26,19 @@ const handleClick = () => {};
 const handleChange = () => {};
 
 const Index = () => {
-  const [workspaceData, setWorkspaceData] = useRecoilState(workspaceInfoState);
-  const [workspaceHistory, setWorkspaceHistory] = useRecoilState(
-    workspaceHistoryState
-  );
+  const [currentTab, setCurrentTab] = useState<string | null>('2');
+
+  const [{ title }, setWorkspaceData] = useRecoilState(workspaceInfoState);
+  const [, setWorkspaceHistory] = useRecoilState(workspaceHistoryState);
   const resetOutputState = useResetRecoilState(generateOutputState);
 
-  const { id, title } = workspaceData;
-
-  const [currentTab, setCurrentTab] = useState<string | null>('2');
-  const Id = useLocation().pathname.split('/').at(-1);
+  const id = useLocation().pathname.split('/').at(-1);
 
   const getWorkspaceData = useCallback(
     async function () {
       try {
-        const res = await getWorkspace(Id);
+        const res = await getWorkspace(id);
+        console.log(res);
 
         setWorkspaceData(old => ({
           ...old,
@@ -55,7 +53,7 @@ const Index = () => {
         toast.error(err.error);
       }
     },
-    [setWorkspaceData]
+    [setWorkspaceData, id]
   );
 
   const searchHistoryHandler = useCallback(
@@ -75,7 +73,7 @@ const Index = () => {
 
   useEffect(() => {
     getWorkspaceData();
-  }, [id]);
+  }, [getWorkspaceData]);
 
   const tabs = [
     {

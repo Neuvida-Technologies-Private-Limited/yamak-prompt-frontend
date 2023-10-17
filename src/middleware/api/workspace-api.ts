@@ -58,10 +58,13 @@ export const GenerateOutput = async (modal: GenerateOutputModal) => {
     return error;
   }
 };
-export const GetWorkspaceHistory = async (id: string | undefined) => {
+export const GetWorkspaceHistory = async (
+  id: string | undefined,
+  page: number
+) => {
   try {
     const response = await axiosClientProtected.get(
-      `${workspaceRoutes.GET_WORKSPACE_HISTORY_ROUTE}/${id}/`
+      `${workspaceRoutes.GET_WORKSPACE_HISTORY_ROUTE}/${id}/?page=${page}`
     );
     return response;
   } catch (error: any) {

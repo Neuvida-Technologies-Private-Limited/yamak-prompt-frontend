@@ -11,27 +11,29 @@ import {
   generateOutputState,
   publishPromptState,
   searchHistoryState,
+  workspaceHistoryPaginationState,
   workspaceHistoryState,
   workspaceInfoState,
 } from 'middleware/state';
 import { GenerateOutput, GetWorkspaceHistory } from 'middleware/api';
 import { useCallback, useEffect } from 'react';
+import { ITEMS_PER_PAGE } from 'utils/constants';
 
 interface CompletionProps {
   onHistorySearch: (input: string, id: string) => void;
 }
 
 const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
-  const isDekstopView = window.innerWidth >= 768;
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
-  const [publishState, setPublishState] = useRecoilState(publishPromptState);
-  const [workspaceData, setWorkspaceData] = useRecoilState(workspaceInfoState);
-
-  const [workspaceHistory, setWorkspaceHistoryState] = useRecoilState(
-    workspaceHistoryState
+  const [, setPublishState] = useRecoilState(publishPromptState);
+  const [{ id }] = useRecoilState(workspaceInfoState);
+  const [, setWorkspaceHistoryState] = useRecoilState(workspaceHistoryState);
+  const [{ currentPage }, setHistoryPagination] = useRecoilState(
+    workspaceHistoryPaginationState
   );
   const [searchInput] = useRecoilState(searchHistoryState);
-  const { id } = workspaceData;
+
+  const isDekstopView = window.innerWidth >= 768;
 
   const {
     system_message,
@@ -45,18 +47,27 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
   } = outputState;
 
   const getHistory = useCallback(
-    async function (ID: string) {
+    async function (ID: string, currentPage: number) {
       try {
-        const res = await GetWorkspaceHistory(ID);
+        const res = await GetWorkspaceHistory(ID, currentPage);
+
+        setHistoryPagination(old => ({
+          ...old,
+          count: res.data.count,
+          hasNext: res.data.next,
+          hasPrevious: res.data.previous,
+          totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
+        }));
+
         setWorkspaceHistoryState(old => ({
           ...old,
-          history: Array.isArray(res.data) ? res.data : [],
+          history: res.data.results,
         }));
       } catch (error: any) {
         toast.error(error.error);
       }
     },
-    [setWorkspaceHistoryState]
+    [setWorkspaceHistoryState, setHistoryPagination]
   );
 
   const generateOutput = async (event: { preventDefault: () => void }) => {
@@ -90,7 +101,7 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
         var uuid = String(res.data.uuid);
         var UM = String(res.data.user_message);
         var SM = String(res.data.system_message);
-        await getHistory(id);
+        await getHistory(id, currentPage);
       } else {
         toast.error('Error in generating Output');
       }
@@ -111,8 +122,8 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
   };
 
   useEffect(() => {
-    getHistory(id);
-  }, [id]);
+    getHistory(id, currentPage);
+  }, [id, getHistory, currentPage]);
 
   return (
     <div className="em:flex em:flex-row h-full sm:grid md:grid-col-2 sm:grid-col-1">
