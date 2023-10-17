@@ -6,24 +6,24 @@ import { IoListCircleOutline } from 'react-icons/io5';
 import Draft from './drafts';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Heading, Input, Pagination, Text } from 'components/common';
-import { GetWorkspaceHistory } from 'middleware/api';
 import { searchHistoryState, workspaceHistoryState } from 'middleware/state';
 
 interface CompletionHistoryProps {
   onHistorySearch: (input: string, id: string) => void;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
+  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
   id: string;
 }
 
 const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   onHistorySearch,
   onUpdatePrompt,
+  onPublishPrompt,
   id,
 }) => {
   const [workspaceHistory] = useRecoilState(workspaceHistoryState);
-  const [searchInput, setSearchInput] = useRecoilState(searchHistoryState);
+  const [, setSearchInput] = useRecoilState(searchHistoryState);
 
-  const { input } = searchInput;
   const { history } = workspaceHistory;
 
   const handleHistorySearchChange = (input: string) => {
@@ -62,8 +62,11 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
                 key={`draft-item-${index}`}
                 title={item.title}
                 onUpdatePrompt={onUpdatePrompt}
+                onPublishPrompt={onPublishPrompt}
                 uuid={item.uuid}
                 bookmarked={item.bookmarked}
+                systemMessage={item.system_message}
+                userMessage={item.user_message}
               />
             ))
           )}

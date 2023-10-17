@@ -80,6 +80,8 @@ export type WorkspaceHistoryType = {
   bookmarked: boolean;
   is_public: boolean;
   uuid: string;
+  user_message: string;
+  system_message: string;
 };
 
 export type OptionItems = {

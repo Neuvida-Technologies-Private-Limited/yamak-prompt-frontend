@@ -25,9 +25,13 @@ import { ITEMS_PER_PAGE } from 'utils/constants';
 
 interface CompletionProps {
   onHistorySearch: (input: string, id: string) => void;
+  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
 }
 
-const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
+const Completion: React.FC<CompletionProps> = ({
+  onHistorySearch,
+  onPublishPrompt,
+}) => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
   const [, setPublishState] = useRecoilState(publishPromptState);
   const [{ id }] = useRecoilState(workspaceInfoState);
@@ -149,6 +153,7 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
             onHistorySearch={onHistorySearch}
             id={id}
             onUpdatePrompt={updatePromptHandler}
+            onPublishPrompt={onPublishPrompt}
           />
         </div>
       ) : null}
