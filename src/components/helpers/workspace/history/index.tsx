@@ -11,16 +11,13 @@ import { searchHistoryState, workspaceHistoryState } from 'middleware/state';
 
 interface CompletionHistoryProps {
   onHistorySearch: (input: string, id: string) => void;
+  onUpdatePrompt: (update: any, id: string) => Promise<any>;
   id: string;
 }
 
-// later these will come from API
-
-const handleChange = () => {};
-const handleClick = () => {};
-
 const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   onHistorySearch,
+  onUpdatePrompt,
   id,
 }) => {
   const [workspaceHistory] = useRecoilState(workspaceHistoryState);
@@ -61,7 +58,13 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
             </>
           ) : (
             history.map((item, index) => (
-              <Draft key={`draft-item-${index}`} title={item.title} />
+              <Draft
+                key={`draft-item-${index}`}
+                title={item.title}
+                onUpdatePrompt={onUpdatePrompt}
+                uuid={item.uuid}
+                bookmarked={item.bookmarked}
+              />
             ))
           )}
         </div>

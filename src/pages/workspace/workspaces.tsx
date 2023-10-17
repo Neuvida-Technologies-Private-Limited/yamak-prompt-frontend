@@ -22,9 +22,6 @@ import {
 } from 'middleware/state';
 import { message } from 'antd';
 
-const handleClick = () => {};
-const handleChange = () => {};
-
 const Index = () => {
   const [currentTab, setCurrentTab] = useState<string | null>('2');
 
@@ -33,6 +30,8 @@ const Index = () => {
   const resetOutputState = useResetRecoilState(generateOutputState);
 
   const id = useLocation().pathname.split('/').at(-1);
+
+  const handleClick = () => {};
 
   const getWorkspaceData = useCallback(
     async function () {
@@ -124,15 +123,6 @@ const Index = () => {
         <Tabs tabs={tabs} currentTab={currentTab} onTabClick={handleTabClick} />
         {/* Tab Switcher ends */}
         <div className="flex py-2 justify-center items-center gap-2">
-          <Input
-            id={Workspace.SearchPrompt}
-            name={Workspace.SearchPrompt}
-            placeholder={Workspace.SearchPrompt}
-            onChange={handleChange}
-            className="!mb-0 sm:hidden md:block"
-            type="search"
-            variant={InputVariants.Filled}
-          />
           <WorkspaceParameters />
         </div>
       </div>

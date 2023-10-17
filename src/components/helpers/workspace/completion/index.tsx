@@ -116,6 +116,7 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
       ...old,
       output: msg,
       uuid: uuid,
+      bookmarked: bookmarked,
     }));
     setPublishState(old => ({
       ...old,
@@ -126,9 +127,10 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
     }));
   };
 
-  const updatePromptHandler = async function (update: any, id: string) {
+  const updatePromptHandler = async function (update: any, uuid: string) {
     try {
-      const res = await updatePromptInfo(update, id);
+      const res = await updatePromptInfo(update, uuid);
+      getHistory(id, currentPage);
       return res;
     } catch (err: any) {
       message.error(err.message);
@@ -143,7 +145,11 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
     <div className="em:flex em:flex-row h-full sm:grid md:grid-col-2 sm:grid-col-1">
       {isDekstopView ? (
         <div className="lg:w-1/5 pt-4 border-r-4 border-gray50 col-span-1 md:flex sm:hidden h-full">
-          <WorkspaceHistory onHistorySearch={onHistorySearch} id={id} />
+          <WorkspaceHistory
+            onHistorySearch={onHistorySearch}
+            id={id}
+            onUpdatePrompt={updatePromptHandler}
+          />
         </div>
       ) : null}
 
@@ -154,6 +160,7 @@ const Completion: React.FC<CompletionProps> = ({ onHistorySearch }) => {
         <WorkspaceCompletionOutput
           generateOutput={generateOutput}
           onUpdatePrompt={updatePromptHandler}
+          bookmarked={bookmarked}
         />
       </div>
       <ToastContainer autoClose={3000} />
