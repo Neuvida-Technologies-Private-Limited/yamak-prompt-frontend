@@ -1,38 +1,31 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { useRecoilState, useResetRecoilState } from 'recoil';
+import { message } from 'antd';
 
-import {
-  PublishPromptWorkspace,
-  getSearchWorkspaceHistory,
-  getWorkspace,
-} from 'middleware/api';
+import { PublishPromptWorkspace, getWorkspace } from 'middleware/api';
 import {
   WorkspaceParameters,
   WorkspaceChat,
   WorkspaceCompletion,
   PublishPromptModal,
 } from 'components/helpers';
-import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
-import { Button, Input, Tabs } from 'components/common';
+import { Workspace, ButtonVariants } from 'utils/constants';
 import {
   generateOutputState,
   publishPromptState,
-  workspaceHistoryState,
   workspaceInfoState,
 } from 'middleware/state';
-import { message } from 'antd';
+import { Button, Tabs } from 'components/common';
 
 const Index = () => {
   const [currentTab, setCurrentTab] = useState<string | null>('2');
   const [showModal, setShowModal] = useState(false);
 
   const [{ title }, setWorkspaceData] = useRecoilState(workspaceInfoState);
-  const [, setWorkspaceHistory] = useRecoilState(workspaceHistoryState);
   const [publishState] = useRecoilState(publishPromptState);
 
   const { systemMessage, userMessage, heading, uuid, is_public } = publishState;
@@ -53,7 +46,6 @@ const Index = () => {
     async function () {
       try {
         const res = await getWorkspace(id);
-
         setWorkspaceData(old => ({
           ...old,
           id: res.id,
@@ -64,25 +56,10 @@ const Index = () => {
           user_uuid: res.user_uuid,
         }));
       } catch (err: any) {
-        toast.error(err.error);
-      }
-    },
-    [setWorkspaceData, id]
-  );
-
-  const searchHistoryHandler = useCallback(
-    async function (input: string, id: string) {
-      try {
-        const res = await getSearchWorkspaceHistory(id, input);
-        setWorkspaceHistory(old => ({
-          ...old,
-          history: Array.isArray(res.results) ? res.results : [],
-        }));
-      } catch (err: any) {
         message.error(err.error);
       }
     },
-    [setWorkspaceHistory]
+    [setWorkspaceData, id]
   );
 
   const handlePublishPrompt = async (uuid: string, is_public: boolean) => {
@@ -102,7 +79,7 @@ const Index = () => {
         return;
       }
     } catch (error: any) {
-      toast.error(error);
+      message.error(error);
     }
   };
 
@@ -120,12 +97,7 @@ const Index = () => {
     {
       id: '2',
       tabTitle: Workspace.Completion,
-      content: (
-        <WorkspaceCompletion
-          onHistorySearch={searchHistoryHandler}
-          onPublishPrompt={handlePublishPrompt}
-        />
-      ),
+      content: <WorkspaceCompletion onPublishPrompt={handlePublishPrompt} />,
       icon: <BsCheck2Circle />,
     },
   ];
@@ -142,7 +114,6 @@ const Index = () => {
             {title}
           </h1>
           <Button
-            size={undefined}
             variant={ButtonVariants.PRIMARY}
             icon={<HiPlus />}
             onClick={handleClick}
@@ -151,7 +122,6 @@ const Index = () => {
         </div>
         <div className="flex gap-2 md:justify-end sm:justify-center items-center">
           <Button
-            size={undefined}
             variant={ButtonVariants.PRIMARY_LIGHT}
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
@@ -192,7 +162,6 @@ const Index = () => {
           ))}
         </div>
       </div>
-      <ToastContainer autoClose={3000} />
     </div>
   );
 };

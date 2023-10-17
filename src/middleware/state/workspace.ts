@@ -1,5 +1,18 @@
 import { atom } from 'recoil';
-import { OptionItems, WorkspaceDetailsType, WorkspaceHistoryType } from 'types';
+import {
+  OptionItems,
+  WorkspaceChatOutputs,
+  WorkspaceDetailsType,
+  WorkspaceHistoryType,
+} from 'types';
+
+// workspace dashboard
+export const keyOptionsState = atom({
+  key: 'keyOptions-state',
+  default: {
+    options: [] as OptionItems[],
+  },
+});
 
 export const workspaceState = atom({
   key: 'workspace-state',
@@ -7,6 +20,21 @@ export const workspaceState = atom({
     workspace_details: [] as WorkspaceDetailsType[],
   },
 });
+
+export const workspacePaginationState = atom({
+  key: 'workspace-pagination-state',
+  default: {
+    currentPage: 1,
+    count: 0,
+    itemsPerPage: 10,
+    hasNext: null,
+    hasPrevious: null,
+    query: '',
+    totalPages: 0,
+  },
+});
+
+// workspaces
 export const workspaceInfoState = atom({
   key: 'workspaceInfo-state',
   default: {
@@ -65,6 +93,7 @@ export const generateChatOutputState = atom({
     prompt_type: 'Chat',
     tags: '',
     output: '',
+    chats: [] as WorkspaceChatOutputs[],
   },
 });
 
@@ -83,31 +112,6 @@ export const workspaceHistoryState = atom({
   key: 'workspaceHistory-state',
   default: {
     history: [] as WorkspaceHistoryType[],
-  },
-});
-export const keyOptionsState = atom({
-  key: 'keyOptions-state',
-  default: {
-    options: [] as OptionItems[],
-  },
-});
-export const searchHistoryState = atom({
-  key: 'searchHistory-State',
-  default: {
-    input: '',
-  },
-});
-
-export const workspacePaginationState = atom({
-  key: 'workspace-pagination-state',
-  default: {
-    currentPage: 1,
-    count: 0,
-    itemsPerPage: 10,
-    hasNext: null,
-    hasPrevious: null,
-    query: '',
-    totalPages: 0,
   },
 });
 

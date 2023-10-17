@@ -1,38 +1,43 @@
-import React, { useEffect } from 'react';
-import { FiBookmark, FiUploadCloud } from 'react-icons/fi';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { IoListCircleOutline } from 'react-icons/io5';
 
 import Draft from './drafts';
-import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
-import { Button, Heading, Input, Pagination, Text } from 'components/common';
-import { searchHistoryState, workspaceHistoryState } from 'middleware/state';
+import { Workspace, InputVariants } from 'utils/constants';
+import { Heading, Input, Pagination, Text } from 'components/common';
+import {
+  workspaceHistoryPaginationState,
+  workspaceHistoryState,
+} from 'middleware/state';
 
 interface CompletionHistoryProps {
-  onHistorySearch: (input: string, id: string) => void;
+  onHistorySearch: (input: string) => void;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
   onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
-  id: string;
 }
 
 const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   onHistorySearch,
   onUpdatePrompt,
   onPublishPrompt,
-  id,
 }) => {
   const [workspaceHistory] = useRecoilState(workspaceHistoryState);
-  const [, setSearchInput] = useRecoilState(searchHistoryState);
+  const [, setSearchInput] = useRecoilState(workspaceHistoryPaginationState);
+  const [input, setInput] = useState('');
 
   const { history } = workspaceHistory;
 
-  const handleHistorySearchChange = (input: string) => {
-    // update the email value
-    setSearchInput(old => ({
-      ...old,
-      input,
-    }));
-  };
+  function formSubmitHandler(event: React.FormEvent) {
+    event.preventDefault();
+    if (input === '') return;
+    setSearchInput(old => ({ ...old, query: input, currentPage: 1 }));
+    onHistorySearch(input);
+  }
+
+  useEffect(() => {
+    if (input === '') {
+      setSearchInput(old => ({ ...old, query: '' }));
+    }
+  }, [setSearchInput, input]);
 
   return (
     <div className="flex flex-col w-full pb-6 pt-2">
@@ -40,17 +45,20 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
         <div className="flex items-center font-poppins mb-2">
           <h1 className="font-semibold text-base">{Workspace.History}</h1>
         </div>
-        <Input
-          id={Workspace.SearchHistory}
-          name={Workspace.SearchHistory}
-          placeholder={Workspace.SearchHistory}
-          type={Workspace.Search}
-          onChange={handleHistorySearchChange}
-          variant={InputVariants.Filled}
-        />
+        <form onSubmit={formSubmitHandler}>
+          <Input
+            id={Workspace.SearchHistory}
+            name={Workspace.SearchHistory}
+            placeholder={Workspace.SearchHistory}
+            type={Workspace.Search}
+            value={input}
+            onChange={setInput}
+            variant={InputVariants.Filled}
+          />
+        </form>
       </div>
-      <div className="flex flex-col justify-between h-5/6 max-h-5/6 overflow-y-scroll pr-4 mt-8">
-        <div className="">
+      <div className="flex flex-col justify-between pr-4">
+        <div className="mt-4 mb-4">
           {history.length === 0 ? (
             <>
               <Heading children={Workspace.NoHistoryHead} level={4} />

@@ -84,6 +84,11 @@ export type WorkspaceHistoryType = {
   system_message: string;
 };
 
+export type WorkspaceChatOutputs = {
+  user_message: string;
+  output: string;
+};
+
 export type OptionItems = {
   value: any;
   label: any;

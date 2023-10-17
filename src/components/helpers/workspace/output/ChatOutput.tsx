@@ -1,4 +1,4 @@
-import { Button, Input, Label } from 'components/common';
+import { Button, Input, Label, Text } from 'components/common';
 import { generateChatOutputState } from 'middleware/state';
 import { useRecoilState } from 'recoil';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
@@ -45,18 +45,30 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
           />
           <Label onChange={handleLabelsChange} />
         </div>
-        <div className="font-poppins flex flex-col gap-4 w-full border rounded-lg h-[30rem] overflow-y-scroll">
-          <div className="flex flex-col gap-2 border-b-2 p-4">
-            <h4 className="font-semibold text-gray700">Assistant</h4>
-            <Typewriter
-              options={{
-                strings: chatOutputState.output,
-                autoStart: true,
-                loop: false,
-                delay: 50,
-              }}
-            />
-          </div>
+        <div className="font-poppins flex flex-col w-full border rounded-lg h-[30rem] overflow-y-scroll">
+          {chatOutputState.chats.length === 0 ? (
+            <div className="p-4">
+              <p className="text-gray700">Start chatting...</p>
+            </div>
+          ) : (
+            chatOutputState.chats.map((chat, index) => (
+              <div
+                key={`chat-output-${index}`}
+                className={`flex flex-col gap-4 p-4 border-b text-gray700 ${
+                  index % 2 === 0 ? '' : 'bg-gray50'
+                }`}
+              >
+                <div>
+                  <h4 className="font-semibold text-gray900 mb-2">User</h4>
+                  <Text children={chat.user_message} />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray900 mb-2">Assistant</h4>
+                  <Text children={chat.output} />
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
       <div className="flex flex-col gap-2">
