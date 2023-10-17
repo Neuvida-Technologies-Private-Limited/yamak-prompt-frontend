@@ -8,48 +8,42 @@ import { toast } from 'react-toastify';
 import { PublishPromptWorkspace } from 'middleware/api';
 import { message } from 'antd';
 
-interface PublishPromptProps {}
+interface PublishPromptProps {
+  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
+  showModal: boolean;
+  is_public: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  systemMessage: string;
+  userMessage: string;
+  uuid: string;
+  heading: string;
+}
 
-const PublishPrompt: React.FC<PublishPromptProps> = ({}) => {
-  const [showModal, setShowModal] = useState(false);
-  const [publishState, setPublishState] = useRecoilState(publishPromptState);
-
-  const { systemMessage, userMessage, heading, uuid, is_public } = publishState;
-
-  const handlePublishPrompt = async (uuid: string, is_public: boolean) => {
-    const publishPromptParams = {
-      uuid,
-      is_public,
-    };
-
+const PublishPrompt: React.FC<PublishPromptProps> = ({
+  onPublishPrompt,
+  showModal,
+  setShowModal,
+  is_public,
+  systemMessage,
+  userMessage,
+  uuid,
+  heading,
+}) => {
+  const sumbitHandler = async () => {
     try {
-      const res = await PublishPromptWorkspace(publishPromptParams);
-
-      if (res.status === 201) {
-        message.success(res.data);
-        setShowModal(false);
-      } else {
-        message.error(res.error);
-      }
-    } catch (error: any) {
-      toast.error(error);
-    }
+      const res = await onPublishPrompt(uuid, is_public);
+    } catch (error) {}
   };
+
   return (
     <div>
-      <Button
-        size={undefined}
-        variant={ButtonVariants.OUTLINED}
-        name={Workspace.PublishPrompt}
-        onClick={() => setShowModal(true)}
-      />
       <Modal
         title={Workspace.PublishPrompt}
         centered={true}
         isOpen={showModal}
         cancelModalHandler={() => setShowModal(false)}
         okText={Workspace.Publish}
-        sumbitHandler={() => handlePublishPrompt(uuid, is_public)}
+        sumbitHandler={sumbitHandler}
         className="keyManagement"
       >
         <>

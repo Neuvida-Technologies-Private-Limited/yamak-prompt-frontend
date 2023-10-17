@@ -6,7 +6,11 @@ import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
-import { getSearchWorkspaceHistory, getWorkspace } from 'middleware/api';
+import {
+  PublishPromptWorkspace,
+  getSearchWorkspaceHistory,
+  getWorkspace,
+} from 'middleware/api';
 import {
   WorkspaceParameters,
   WorkspaceChat,
@@ -17,6 +21,7 @@ import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Button, Input, Tabs } from 'components/common';
 import {
   generateOutputState,
+  publishPromptState,
   workspaceHistoryState,
   workspaceInfoState,
 } from 'middleware/state';
@@ -24,14 +29,25 @@ import { message } from 'antd';
 
 const Index = () => {
   const [currentTab, setCurrentTab] = useState<string | null>('2');
+  const [showModal, setShowModal] = useState(false);
 
   const [{ title }, setWorkspaceData] = useRecoilState(workspaceInfoState);
   const [, setWorkspaceHistory] = useRecoilState(workspaceHistoryState);
+  const [publishState] = useRecoilState(publishPromptState);
+
+  const { systemMessage, userMessage, heading, uuid, is_public } = publishState;
+
   const resetOutputState = useResetRecoilState(generateOutputState);
+  const resetPublishState = useResetRecoilState(publishPromptState);
 
   const id = useLocation().pathname.split('/').at(-1);
 
   const handleClick = () => {};
+
+  const handleReset = () => {
+    resetOutputState();
+    resetPublishState();
+  };
 
   const getWorkspaceData = useCallback(
     async function () {
@@ -69,6 +85,27 @@ const Index = () => {
     [setWorkspaceHistory]
   );
 
+  const handlePublishPrompt = async (uuid: string, is_public: boolean) => {
+    const publishPromptParams = {
+      uuid,
+      is_public,
+    };
+
+    try {
+      const res = await PublishPromptWorkspace(publishPromptParams);
+
+      if (res.status === 201) {
+        message.success(res.data);
+        return res.status;
+      } else {
+        message.error(res.error);
+        return;
+      }
+    } catch (error: any) {
+      toast.error(error);
+    }
+  };
+
   useEffect(() => {
     getWorkspaceData();
   }, [getWorkspaceData]);
@@ -83,7 +120,12 @@ const Index = () => {
     {
       id: '2',
       tabTitle: Workspace.Completion,
-      content: <WorkspaceCompletion onHistorySearch={searchHistoryHandler} />,
+      content: (
+        <WorkspaceCompletion
+          onHistorySearch={searchHistoryHandler}
+          onPublishPrompt={handlePublishPrompt}
+        />
+      ),
       icon: <BsCheck2Circle />,
     },
   ];
@@ -113,9 +155,26 @@ const Index = () => {
             variant={ButtonVariants.PRIMARY_LIGHT}
             icon={<HiOutlineRefresh />}
             name={Workspace.Reset}
-            onClick={resetOutputState}
+            onClick={handleReset}
           />
-          <PublishPromptModal />
+          <div>
+            <Button
+              size={undefined}
+              variant={ButtonVariants.OUTLINED}
+              name={Workspace.PublishPrompt}
+              onClick={() => setShowModal(true)}
+            />
+          </div>
+          <PublishPromptModal
+            onPublishPrompt={handlePublishPrompt}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            systemMessage={systemMessage}
+            userMessage={userMessage}
+            heading={heading}
+            uuid={uuid}
+            is_public={is_public}
+          />
         </div>
       </div>
       <div className="max-h-full flex px-8 py-2 border-b-4 border-gray50 items-center justify-between">

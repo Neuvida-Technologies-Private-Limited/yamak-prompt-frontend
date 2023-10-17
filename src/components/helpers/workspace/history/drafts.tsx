@@ -5,10 +5,14 @@ import { FiBookmark, FiUploadCloud } from 'react-icons/fi';
 
 import { Button, Tooltip } from 'components/common';
 import { ButtonSizes, ButtonVariants, Workspace } from 'utils/constants';
+import { PublishPromptModal } from 'components/helpers';
 
 interface DraftProps {
   title: string;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
+  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
+  systemMessage: string;
+  userMessage: string;
   uuid: string;
   bookmarked: boolean;
 }
@@ -16,10 +20,14 @@ interface DraftProps {
 const Drafts: React.FC<DraftProps> = ({
   title,
   onUpdatePrompt,
+  onPublishPrompt,
   uuid,
   bookmarked,
+  systemMessage,
+  userMessage,
 }) => {
   const [isBookmark, setIsBookmark] = useState(bookmarked);
+  const [showModal, setShowModal] = useState(false);
 
   async function handleBookmark(event: React.MouseEvent) {
     event.stopPropagation();
@@ -35,11 +43,6 @@ const Drafts: React.FC<DraftProps> = ({
       isBookmark ? Workspace.UnbookmarkedSuccess : Workspace.BookmarkedSuccess
     );
   }
-
-  const handleClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-    console.log('Bookmark clicked');
-  };
 
   const handleHistory: React.MouseEventHandler = () => {
     console.log('History clicked');
@@ -74,13 +77,23 @@ const Drafts: React.FC<DraftProps> = ({
               variant={ButtonVariants.OUTLINED_LIGHT}
               icon={<FiUploadCloud />}
               size={ButtonSizes.SMALL}
-              onClick={handleClick}
+              onClick={() => setShowModal(true)}
             />
           }
           title={'Publish'}
           color="white"
         />
       </div>
+      <PublishPromptModal
+        onPublishPrompt={onPublishPrompt}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        is_public={false}
+        systemMessage={systemMessage}
+        userMessage={userMessage}
+        uuid={uuid}
+        heading={title}
+      />
     </div>
   );
 };
