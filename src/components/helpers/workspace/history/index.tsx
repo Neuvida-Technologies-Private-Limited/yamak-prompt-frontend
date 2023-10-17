@@ -5,7 +5,7 @@ import { IoListCircleOutline } from 'react-icons/io5';
 
 import Draft from './drafts';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
-import { Button, Heading, Input, Text } from 'components/common';
+import { Button, Heading, Input, Pagination, Text } from 'components/common';
 import { GetWorkspaceHistory } from 'middleware/api';
 import { searchHistoryState, workspaceHistoryState } from 'middleware/state';
 
@@ -38,7 +38,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   };
 
   return (
-    <div className="flex flex-col w-full justify-between pb-6 pt-2">
+    <div className="flex flex-col w-full pb-6 pt-2">
       <div className="-mb-2  pr-4">
         <div className="flex items-center font-poppins mb-2">
           <h1 className="font-semibold text-base">{Workspace.History}</h1>
@@ -52,7 +52,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
           variant={InputVariants.Filled}
         />
       </div>
-      <div className="flex flex-col h-5/6 max-h-5/6 overflow-y-scroll pr-4">
+      <div className="flex flex-col justify-between h-5/6 max-h-5/6 overflow-y-scroll pr-4 mt-8">
         <div className="">
           {history.length === 0 ? (
             <>
@@ -65,6 +65,8 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
             ))
           )}
         </div>
+
+        <Pagination type="workspace-history" />
 
         {/* filters */}
 

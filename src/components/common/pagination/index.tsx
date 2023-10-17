@@ -7,11 +7,14 @@ import {
   libraryFavouritePaginationState,
   libraryState,
 } from 'middleware/state/library';
-import { keyPaginationState } from 'middleware/state';
+import {
+  keyPaginationState,
+  workspaceHistoryPaginationState,
+} from 'middleware/state';
 import { workspacePaginationState } from 'middleware/state';
 
 interface PaginationProps {
-  type: 'library' | 'workspace' | 'key-management';
+  type: 'library' | 'workspace' | 'key-management' | 'workspace-history';
 }
 
 const Pagination: React.FC<PaginationProps> = ({ type }) => {
@@ -33,6 +36,10 @@ const Pagination: React.FC<PaginationProps> = ({ type }) => {
 
     case 'workspace':
       state = workspacePaginationState;
+      break;
+
+    case 'workspace-history':
+      state = workspaceHistoryPaginationState;
       break;
   }
 
