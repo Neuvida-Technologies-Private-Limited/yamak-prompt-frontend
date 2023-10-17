@@ -40,7 +40,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   }, [setSearchInput, input]);
 
   return (
-    <div className="flex flex-col w-full pb-6 pt-2">
+    <div className="flex flex-col w-full h-full overflow-y-hidden justify-between pb-6 pt-2">
       <div className="-mb-2  pr-4">
         <div className="flex items-center font-poppins mb-2">
           <h1 className="font-semibold text-base">{Workspace.History}</h1>
@@ -57,7 +57,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
           />
         </form>
       </div>
-      <div className="flex flex-col justify-between pr-4">
+      <div className="flex flex-col h-full overflow-y-scroll pr-4">
         <div className="mt-4 mb-4">
           {history.length === 0 ? (
             <>
@@ -80,8 +80,6 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
           )}
         </div>
 
-        <Pagination type="workspace-history" />
-
         {/* filters */}
 
         {/* <div className="flex justify-center gap-4 mt-4 flex-wrap">
@@ -100,6 +98,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
           />
         </div> */}
       </div>
+      <Pagination type="workspace-history" />
     </div>
   );
 };

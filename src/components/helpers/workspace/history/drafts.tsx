@@ -48,12 +48,12 @@ const Drafts: React.FC<DraftProps> = ({
     console.log('History clicked');
   };
   return (
-    <div className="flex justify-between h-fit py-3 border-b mb-2 p-2 transition hover:shadow">
+    <div className="flex justify-between h-fit w-full py-3 border-b mb-2 p-2 transition hover:shadow">
       <div
         className="flex flex-col font-poppins text-base cursor-pointer w-full"
         onClick={handleHistory}
       >
-        <h4 className="text-gray700 font-medium hover:text-primary transition ease-in-out truncate">
+        <h4 className="text-gray700 font-medium hover:text-primary transition ease-in-out">
           {title}
         </h4>
       </div>

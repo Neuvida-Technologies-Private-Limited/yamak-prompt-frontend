@@ -65,7 +65,7 @@ const Pagination: React.FC<PaginationProps> = ({ type }) => {
   }
 
   return (
-    <div className="flex gap-4 self-center py-4">
+    <div className="flex gap-2 self-center py-4">
       <Button
         disabled={hasPrevious ? false : true}
         variant={ButtonVariants.OUTLINED_LIGHT}
