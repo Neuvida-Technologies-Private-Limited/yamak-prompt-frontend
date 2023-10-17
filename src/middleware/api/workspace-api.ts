@@ -95,12 +95,13 @@ export const PublishPromptWorkspace = async (modal: PublishPromptModal) => {
 };
 export const getSearchWorkspaceHistory = async (
   id: string,
+  page: number,
   input: string,
   controller?: AbortController
 ) => {
   try {
     const res = await axiosClientProtected.get(
-      `${workspaceRoutes.SEARCH_HISTORY_ROUTE}${id}/&q=${input}`,
+      `${workspaceRoutes.SEARCH_HISTORY_ROUTE}${id}/?page=${page}&q=${input}`,
       { signal: controller?.signal }
     );
     return res.data;
