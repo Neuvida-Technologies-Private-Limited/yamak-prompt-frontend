@@ -50,17 +50,17 @@ const PublishPrompt: React.FC<PublishPromptProps> = ({
       const res = await PublishPromptWorkspace(publishPromptParams);
 
       if (res.status === 201) {
-        const res = await GetWorkspaceHistory(id, currentPage);
+        const response = await GetWorkspaceHistory(id, currentPage);
         setHistoryPagination(old => ({
           ...old,
-          count: res.data.count,
-          hasNext: res.data.next,
-          hasPrevious: res.data.previous,
-          totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
+          count: response.data.count,
+          hasNext: response.data.next,
+          hasPrevious: response.data.previous,
+          totalPages: Math.ceil(response.data.count / ITEMS_PER_PAGE),
         }));
         setWorkspaceHistoryState(old => ({
           ...old,
-          history: res.data.results,
+          history: response.data.results,
         }));
         message.success(res.data);
         setShowModal(false);
