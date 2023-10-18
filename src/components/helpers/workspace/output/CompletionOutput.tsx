@@ -101,7 +101,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({
             size={ButtonSizes.SMALL}
             onClick={handleBookmark}
             name={'Bookmark'}
-            disabled={!output}
+            disabled={output.length === 0 ? true : false}
           />
         </div>
       </div>
