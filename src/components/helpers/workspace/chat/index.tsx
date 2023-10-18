@@ -1,14 +1,20 @@
+import { useRecoilState } from 'recoil';
 import { message } from 'antd';
+
 import { WorkspaceChatInputs, WorkspaceChatOutput } from 'components/helpers';
 import { GenerateOutput } from 'middleware/api';
-import { generateChatOutputState, workspaceInfoState } from 'middleware/state';
-import { useRecoilState } from 'recoil';
+import {
+  generateChatOutputState,
+  workspaceInfoState,
+  workspaceChatOutputs,
+} from 'middleware/state';
 
 const Chat = () => {
   // const isDekstopView = window.innerWidth >= 768;
   const [chatOutputState, setChatOutputState] = useRecoilState(
     generateChatOutputState
   );
+  const [chatOutputs, setChatOutputs] = useRecoilState(workspaceChatOutputs);
   const [{ id }] = useRecoilState(workspaceInfoState);
 
   const {
@@ -33,21 +39,24 @@ const Chat = () => {
         prompt_type,
         tags,
         parameters: {
-          temperature: 1.0,
-          max_tokens: 50,
+          temperature: chatOutputState.parameters.temperature,
+          max_tokens: chatOutputState.parameters.max_tokens,
         },
       };
 
       if (!system_message || !title || !user_message) return;
 
-      message.success('Loading respones');
+      setChatOutputs(old => ({ ...old, isLoading: true }));
+
       const res = await GenerateOutput(requestObj);
       const output = res.data.prompt_output.join('. ');
-      setChatOutputState(old => ({
+
+      setChatOutputs(old => ({ ...old, isLoading: false }));
+      setChatOutputs(old => ({
         ...old,
-        chats: [{ user_message, output }, ...chatOutputState.chats],
-        user_message: '',
+        chats: [{ user_message, output }, ...chatOutputs.chats],
       }));
+      setChatOutputState(old => ({ ...old, user_message: '' }));
     } catch (err) {}
   }
 
