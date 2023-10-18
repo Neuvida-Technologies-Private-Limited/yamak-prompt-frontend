@@ -61,6 +61,7 @@ export const createWorkspaceState = atom({
 export const generateOutputState = atom({
   key: 'generateOutput-state',
   default: {
+    isLoading: false,
     workspace: '',
     system_message: '',
     user_message: '',
@@ -77,7 +78,7 @@ export const generateOutputState = atom({
       presence_penalty: 0.0,
       logit_bias: 0,
     },
-    output: '',
+    output: [],
     uuid: '',
   },
 });
@@ -85,6 +86,7 @@ export const generateOutputState = atom({
 export const generateChatOutputState = atom({
   key: 'generate-chat-output-state',
   default: {
+    isLoading: false,
     workspace: '',
     system_message: '',
     user_message: '',
@@ -142,5 +144,11 @@ export const workspaceHistoryPaginationState = atom({
     hasPrevious: null,
     query: '',
     totalPages: 0,
+  },
+});
+export const variableUserInputState = atom({
+  key: 'variableUserInput-state',
+  default: {
+    userInput: '',
   },
 });

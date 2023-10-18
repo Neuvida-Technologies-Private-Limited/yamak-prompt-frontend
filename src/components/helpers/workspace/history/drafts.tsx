@@ -1,33 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { message } from 'antd';
-import { FiBookmark, FiUploadCloud } from 'react-icons/fi';
+import { MdOutlineBookmark, MdOutlineBookmarkBorder } from 'react-icons/md';
+import { useRecoilState } from 'recoil';
+import { RiUploadCloudFill, RiUploadCloudLine } from 'react-icons/ri';
 
 import { Button, Tooltip } from 'components/common';
 import { ButtonSizes, ButtonVariants, Workspace } from 'utils/constants';
 import { PublishPromptModal } from 'components/helpers';
+import { generateOutputState, variableUserInputState } from 'middleware/state';
 
 interface DraftProps {
   title: string;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
-  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
   systemMessage: string;
   userMessage: string;
   uuid: string;
   bookmarked: boolean;
+  published: boolean;
+  output: [];
 }
 
 const Drafts: React.FC<DraftProps> = ({
   title,
   onUpdatePrompt,
-  onPublishPrompt,
   uuid,
   bookmarked,
   systemMessage,
   userMessage,
+  published,
+  output,
 }) => {
   const [isBookmark, setIsBookmark] = useState(bookmarked);
+  const [isPublished, setIsPublished] = useState(published);
   const [showModal, setShowModal] = useState(false);
+  const [outputState, setOutputState] = useRecoilState(generateOutputState);
+  const [{ userInput }, setUserInput] = useRecoilState(variableUserInputState);
+
+  const {} = outputState;
 
   async function handleBookmark(event: React.MouseEvent) {
     event.stopPropagation();
@@ -45,15 +55,31 @@ const Drafts: React.FC<DraftProps> = ({
   }
 
   const handleHistory: React.MouseEventHandler = () => {
-    console.log('History clicked');
+    setOutputState(old => ({
+      ...old,
+      system_message: systemMessage,
+      user_message: userMessage,
+      title: title,
+      output: output,
+    }));
+    setUserInput({ userInput: userMessage });
   };
+
+  useEffect(() => {
+    setIsBookmark(bookmarked);
+  }, [bookmarked]);
+
+  useEffect(() => {
+    setIsPublished(published);
+  }, [published]);
+
   return (
-    <div className="flex justify-between h-fit py-3 border-b mb-2 p-2 transition hover:shadow">
+    <div className="flex justify-between h-fit w-full py-3 border-b mb-2 p-2 transition hover:shadow">
       <div
         className="flex flex-col font-poppins text-base cursor-pointer w-full"
         onClick={handleHistory}
       >
-        <h4 className="text-gray700 font-medium hover:text-primary transition ease-in-out truncate">
+        <h4 className="text-gray700 font-medium hover:text-primary transition ease-in-out">
           {title}
         </h4>
       </div>
@@ -62,30 +88,31 @@ const Drafts: React.FC<DraftProps> = ({
           element={
             <Button
               variant={ButtonVariants.SECONDARY}
-              icon={<FiBookmark />}
+              icon={
+                isBookmark ? <MdOutlineBookmark /> : <MdOutlineBookmarkBorder />
+              }
               size={ButtonSizes.SMALL}
               onClick={handleBookmark}
             />
           }
-          title={'Bookmark'}
+          title={isBookmark ? 'UnBookmark' : 'Bookmark'}
           color="white"
         />
-
         <Tooltip
           element={
             <Button
               variant={ButtonVariants.OUTLINED_LIGHT}
-              icon={<FiUploadCloud />}
+              icon={isPublished ? <RiUploadCloudFill /> : <RiUploadCloudLine />}
               size={ButtonSizes.SMALL}
               onClick={() => setShowModal(true)}
+              disabled={isPublished ? true : false}
             />
           }
-          title={'Publish'}
+          title={isPublished ? 'Published' : 'Publish'}
           color="white"
         />
       </div>
       <PublishPromptModal
-        onPublishPrompt={onPublishPrompt}
         showModal={showModal}
         setShowModal={setShowModal}
         is_public={false}

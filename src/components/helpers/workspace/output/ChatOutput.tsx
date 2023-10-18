@@ -5,7 +5,6 @@ import {
 } from 'middleware/state';
 import { useRecoilState } from 'recoil';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
-import Typewriter from 'typewriter-effect';
 
 interface ChatOutputProps {
   onSubmit: () => Promise<void>;

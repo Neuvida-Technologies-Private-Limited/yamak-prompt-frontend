@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
-
-import { Button, Heading, Modal, Text } from 'components/common';
-import { Workspace, ButtonVariants, TextVariants } from 'utils/constants';
-import { publishPromptState } from 'middleware/state';
-import { toast } from 'react-toastify';
-import { PublishPromptWorkspace } from 'middleware/api';
 import { message } from 'antd';
 
+import { Heading, Modal, Text } from 'components/common';
+import { Workspace, TextVariants, ITEMS_PER_PAGE } from 'utils/constants';
+import { GetWorkspaceHistory, PublishPromptWorkspace } from 'middleware/api';
+import { useRecoilState } from 'recoil';
+import {
+  workspaceHistoryPaginationState,
+  workspaceHistoryState,
+  workspaceInfoState,
+} from 'middleware/state';
+
 interface PublishPromptProps {
-  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
   showModal: boolean;
   is_public: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,7 +22,6 @@ interface PublishPromptProps {
 }
 
 const PublishPrompt: React.FC<PublishPromptProps> = ({
-  onPublishPrompt,
   showModal,
   setShowModal,
   is_public,
@@ -29,10 +30,47 @@ const PublishPrompt: React.FC<PublishPromptProps> = ({
   uuid,
   heading,
 }) => {
-  const sumbitHandler = async () => {
+  const [{ id }] = useRecoilState(workspaceInfoState);
+  const [{ currentPage }, setHistoryPagination] = useRecoilState(
+    workspaceHistoryPaginationState
+  );
+  const [{ history }, setWorkspaceHistoryState] = useRecoilState(
+    workspaceHistoryState
+  );
+
+  const handlePublishPrompt = async (uuid: string, is_public: boolean) => {
+    const publishPromptParams = {
+      uuid,
+      is_public,
+    };
+    if (uuid === '') {
+      return;
+    }
     try {
-      const res = await onPublishPrompt(uuid, is_public);
-    } catch (error) {}
+      const res = await PublishPromptWorkspace(publishPromptParams);
+
+      if (res.status === 201) {
+        const response = await GetWorkspaceHistory(id, currentPage);
+        setHistoryPagination(old => ({
+          ...old,
+          count: response.data.count,
+          hasNext: response.data.next,
+          hasPrevious: response.data.previous,
+          totalPages: Math.ceil(response.data.count / ITEMS_PER_PAGE),
+        }));
+        setWorkspaceHistoryState(old => ({
+          ...old,
+          history: response.data.results,
+        }));
+        message.success(res.data);
+        setShowModal(false);
+      } else {
+        message.error(res.error);
+        return;
+      }
+    } catch (error: any) {
+      message.error(error);
+    }
   };
 
   return (
@@ -43,7 +81,7 @@ const PublishPrompt: React.FC<PublishPromptProps> = ({
         isOpen={showModal}
         cancelModalHandler={() => setShowModal(false)}
         okText={Workspace.Publish}
-        sumbitHandler={sumbitHandler}
+        sumbitHandler={() => handlePublishPrompt(uuid, is_public)}
         className="keyManagement"
       >
         <>

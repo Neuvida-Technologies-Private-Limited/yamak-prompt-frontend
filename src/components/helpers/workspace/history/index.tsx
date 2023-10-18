@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Draft from './drafts';
 import { Workspace, InputVariants } from 'utils/constants';
@@ -12,15 +12,17 @@ import {
 interface CompletionHistoryProps {
   onHistorySearch: (input: string) => void;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
-  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
+  getHistory: (currentPage: number) => Promise<void>;
+  currentPage: number;
 }
 
 const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   onHistorySearch,
   onUpdatePrompt,
-  onPublishPrompt,
+  getHistory,
+  currentPage,
 }) => {
-  const [workspaceHistory] = useRecoilState(workspaceHistoryState);
+  const workspaceHistory = useRecoilValue(workspaceHistoryState);
   const [, setSearchInput] = useRecoilState(workspaceHistoryPaginationState);
   const [input, setInput] = useState('');
 
@@ -39,8 +41,18 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
     }
   }, [setSearchInput, input]);
 
+  useEffect(() => {
+    async function onHistoryChange() {
+      try {
+        await getHistory(currentPage);
+      } catch (error) {}
+    }
+
+    onHistoryChange();
+  }, [getHistory, currentPage]);
+
   return (
-    <div className="flex flex-col w-full pb-6 pt-2">
+    <div className="flex flex-col w-full h-full overflow-y-hidden justify-between pb-2 pt-2">
       <div className="-mb-2  pr-4">
         <div className="flex items-center font-poppins mb-2">
           <h1 className="font-semibold text-base">{Workspace.History}</h1>
@@ -57,7 +69,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
           />
         </form>
       </div>
-      <div className="flex flex-col justify-between pr-4">
+      <div className="flex flex-col h-full overflow-y-scroll pr-4">
         <div className="mt-4 mb-4">
           {history.length === 0 ? (
             <>
@@ -67,20 +79,19 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
           ) : (
             history.map((item, index) => (
               <Draft
-                key={`draft-item-${index}`}
+                key={item.uuid}
                 title={item.title}
                 onUpdatePrompt={onUpdatePrompt}
-                onPublishPrompt={onPublishPrompt}
                 uuid={item.uuid}
                 bookmarked={item.bookmarked}
                 systemMessage={item.system_message}
                 userMessage={item.user_message}
+                published={item.published}
+                output={item.prompt_output}
               />
             ))
           )}
         </div>
-
-        <Pagination type="workspace-history" />
 
         {/* filters */}
 
@@ -100,6 +111,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
           />
         </div> */}
       </div>
+      <Pagination type="workspace-history" />
     </div>
   );
 };

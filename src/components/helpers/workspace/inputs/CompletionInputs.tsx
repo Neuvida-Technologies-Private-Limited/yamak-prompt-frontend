@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil';
 
 import { Button, TextArea } from 'components/common';
 import { ButtonVariants, TextAreaVariants, Workspace } from 'utils/constants';
-import { generateOutputState } from 'middleware/state';
+import { generateOutputState, variableUserInputState } from 'middleware/state';
 import { AddVariables } from 'components/helpers';
 import { useState } from 'react';
 
@@ -10,11 +10,10 @@ interface CompletionInputsProps {}
 
 const CompletionInputs: React.FC<CompletionInputsProps> = () => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
-  const [userInput, setUserInput] = useState('');
+  const [{ userInput }, setUserInput] = useRecoilState(variableUserInputState);
+  const [variables, setVariables] = useState({});
 
   const { system_message, user_message } = outputState;
-
-  const [variables, setVariables] = useState({});
 
   // Function to handle variable additions and updates
   const handleVariableUpdate = (
@@ -44,7 +43,7 @@ const CompletionInputs: React.FC<CompletionInputsProps> = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const UserMessage = event.target.value;
-    setUserInput(UserMessage);
+    setUserInput({ userInput: UserMessage });
     const userMessageWithVariables = replaceVariablePlaceholders(
       UserMessage,
       variables
