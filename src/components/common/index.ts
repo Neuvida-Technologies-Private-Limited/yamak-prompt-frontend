@@ -17,3 +17,4 @@ export { default as Slider } from './slider';
 export { default as Tabs } from './tabs';
 export { default as Label } from './label/Label';
 export { default as PopupConfirm } from './popupConfirm';
+export { default as Spinner } from './spinner';

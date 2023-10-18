@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Button } from '..';
-import { LabelType } from 'types';
 import { ButtonVariants, Label as LabelConst } from 'utils/constants';
 
 interface LabelProps {

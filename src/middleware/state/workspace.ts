@@ -44,6 +44,7 @@ export const workspaceInfoState = atom({
     last_modified: '',
     timestamp: '',
     user_uuid: '',
+    activeTab: '2',
   },
 });
 
@@ -92,7 +93,23 @@ export const generateChatOutputState = atom({
     bookmarked: false,
     prompt_type: 'Chat',
     tags: '',
+    parameters: {
+      temperature: 1.0,
+      max_tokens: 256,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+      logit_bias: 0,
+    },
     output: '',
+    uuid: '',
+  },
+});
+
+export const workspaceChatOutputs = atom({
+  key: 'workspace-chat-outputs',
+  default: {
+    isLoading: false,
     chats: [] as WorkspaceChatOutputs[],
   },
 });

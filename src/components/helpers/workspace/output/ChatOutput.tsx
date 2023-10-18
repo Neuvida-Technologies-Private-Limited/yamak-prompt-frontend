@@ -1,5 +1,8 @@
-import { Button, Input, Label, Text } from 'components/common';
-import { generateChatOutputState } from 'middleware/state';
+import { Button, Input, Label, Spinner, Text } from 'components/common';
+import {
+  generateChatOutputState,
+  workspaceChatOutputs,
+} from 'middleware/state';
 import { useRecoilState } from 'recoil';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 
@@ -8,6 +11,7 @@ interface ChatOutputProps {
 }
 
 const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
+  const [chatOutputs] = useRecoilState(workspaceChatOutputs);
   const [chatOutputState, setChatOutputState] = useRecoilState(
     generateChatOutputState
   );
@@ -45,12 +49,13 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
           <Label onChange={handleLabelsChange} />
         </div>
         <div className="font-poppins flex flex-col w-full border rounded-lg h-[30rem] overflow-y-scroll">
-          {chatOutputState.chats.length === 0 ? (
+          {chatOutputs.isLoading && <Spinner />}
+          {chatOutputs.chats.length === 0 && !chatOutputs.isLoading ? (
             <div className="p-4">
               <p className="text-gray700">Start chatting...</p>
             </div>
           ) : (
-            chatOutputState.chats.map((chat, index) => (
+            chatOutputs.chats.map((chat, index) => (
               <div
                 key={`chat-output-${index}`}
                 className={`flex flex-col gap-4 p-4 border-b text-gray700 ${

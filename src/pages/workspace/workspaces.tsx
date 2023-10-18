@@ -17,23 +17,35 @@ import { Workspace, ButtonVariants } from 'utils/constants';
 import {
   generateOutputState,
   publishPromptState,
+  workspaceHistoryPaginationState,
+  workspaceHistoryState,
   workspaceInfoState,
 } from 'middleware/state';
 import { Button, Tabs } from 'components/common';
 
 const Index = () => {
-  const [currentTab, setCurrentTab] = useState<string | null>('2');
+  // const [currentTab, setCurrentTab] = useState<string | null>('2');
   const [showModal, setShowModal] = useState(false);
 
-  const [{ title }, setWorkspaceData] = useRecoilState(workspaceInfoState);
-  const [publishState] = useRecoilState(publishPromptState);
-
-  const { systemMessage, userMessage, heading, uuid, is_public } = publishState;
+  const [{ title, activeTab }, setWorkspaceData] =
+    useRecoilState(workspaceInfoState);
+  const [{ systemMessage, userMessage, heading, uuid, is_public }] =
+    useRecoilState(publishPromptState);
 
   const resetOutputState = useResetRecoilState(generateOutputState);
   const resetPublishState = useResetRecoilState(publishPromptState);
 
+  const resetWorkspaceState = useResetRecoilState(workspaceHistoryState);
+  const resetWorkspacePaginationState = useResetRecoilState(
+    workspaceHistoryPaginationState
+  );
+
   const id = useLocation().pathname.split('/').at(-1);
+
+  const handleTabClick = (tabId: string) => {
+    // setCurrentTab(tabId);
+    setWorkspaceData(old => ({ ...old, activeTab: tabId }));
+  };
 
   const handleClick = () => {};
 
@@ -81,9 +93,14 @@ const Index = () => {
     },
   ];
 
-  const handleTabClick = (tabId: string) => {
-    setCurrentTab(tabId);
-  };
+  useEffect(() => {
+    getWorkspaceData();
+
+    return () => {
+      resetWorkspaceState();
+      resetWorkspacePaginationState();
+    };
+  }, [getWorkspaceData, resetWorkspacePaginationState, resetWorkspaceState]);
 
   return (
     <div className="flex flex-col h-full">
@@ -127,7 +144,7 @@ const Index = () => {
       </div>
       <div className="max-h-full flex px-8 py-2 border-b-4 border-gray50 items-center justify-between">
         {/* Tab Switcher starts */}
-        <Tabs tabs={tabs} currentTab={currentTab} onTabClick={handleTabClick} />
+        <Tabs tabs={tabs} currentTab={activeTab} onTabClick={handleTabClick} />
         {/* Tab Switcher ends */}
         <div className="flex py-2 justify-center items-center gap-2">
           <WorkspaceParameters />
@@ -136,7 +153,7 @@ const Index = () => {
       <div className="max-h-full h-full overflow-y-scroll">
         <div className=" px-4 h-full">
           {tabs.map(tab => (
-            <>{currentTab === tab.id && <>{tab.content}</>}</>
+            <>{activeTab === tab.id && <>{tab.content}</>}</>
           ))}
         </div>
       </div>
