@@ -61,6 +61,7 @@ export const createWorkspaceState = atom({
 export const generateOutputState = atom({
   key: 'generateOutput-state',
   default: {
+    isLoading: false,
     workspace: '',
     system_message: '',
     user_message: '',
@@ -85,6 +86,7 @@ export const generateOutputState = atom({
 export const generateChatOutputState = atom({
   key: 'generate-chat-output-state',
   default: {
+    isLoading: false,
     workspace: '',
     system_message: '',
     user_message: '',

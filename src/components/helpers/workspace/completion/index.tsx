@@ -97,6 +97,8 @@ const Completion: React.FC<CompletionProps> = ({}) => {
       },
     };
 
+    setOutputState(old => ({ ...old, isLoading: true }));
+
     try {
       const res = await GenerateOutput(outputParams);
       if (res.status === 201) {
@@ -118,6 +120,8 @@ const Completion: React.FC<CompletionProps> = ({}) => {
       uuid: uuid,
       bookmarked: bookmarked,
     }));
+    setOutputState(old => ({ ...old, isLoading: false }));
+
     setPublishState(old => ({
       ...old,
       heading: hd,

@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { message } from 'antd';
 import Typewriter from 'typewriter-effect';
 
-import { Button, Input, Label } from 'components/common';
+import { Button, Input, Label, Spinner } from 'components/common';
 import {
   Workspace,
   InputVariants,
@@ -26,7 +26,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
   const [isBookmark, setIsBookmark] = useState(bookmarked);
 
-  const { title, output, tags, uuid } = outputState;
+  const { title, output, tags, uuid, isLoading } = outputState;
 
   const handleTitleChange = (title: string) => {
     setOutputState(old => ({
@@ -73,7 +73,10 @@ const OutputSection: React.FC<OutputSectionProps> = ({
       <div className="flex flex-col p-4 font-poppins border rounded-lg border-gray200 bg-white overflow-y-scroll h-full">
         <label className="font-semibold pb-2">{Workspace.Output}</label>
         <div className="h-full">
-          {output ? (
+          {isLoading && <Spinner />}
+          {!output && !isLoading ? (
+            <p className="text-gray100">{Workspace.EnterHere}</p>
+          ) : (
             <Typewriter
               options={{
                 strings: output,
@@ -82,8 +85,6 @@ const OutputSection: React.FC<OutputSectionProps> = ({
                 delay: 10,
               }}
             />
-          ) : (
-            <p className="text-gray100">{Workspace.EnterHere}</p>
           )}
         </div>
       </div>
