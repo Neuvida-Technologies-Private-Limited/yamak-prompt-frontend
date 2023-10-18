@@ -51,9 +51,9 @@ const Chat = () => {
       const res = await GenerateOutput(requestObj);
       const output = res.data.prompt_output.join('. ');
 
-      setChatOutputs(old => ({ ...old, isLoading: false }));
       setChatOutputs(old => ({
         ...old,
+        isLoading: false,
         chats: [{ user_message, output }, ...chatOutputs.chats],
       }));
       setChatOutputState(old => ({ ...old, user_message: '' }));

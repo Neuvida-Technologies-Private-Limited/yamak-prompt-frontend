@@ -12,8 +12,8 @@ interface ChatOutputProps {
 }
 
 const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
-  const [chatOutputs] = useRecoilState(workspaceChatOutputs);
-  const [chatOutputState, setChatOutputState] = useRecoilState(
+  const [{ chats, isLoading }] = useRecoilState(workspaceChatOutputs);
+  const [{ user_message }, setChatOutputState] = useRecoilState(
     generateChatOutputState
   );
 
@@ -50,13 +50,13 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
           <Label onChange={handleLabelsChange} />
         </div>
         <div className="font-poppins flex flex-col w-full border rounded-lg h-[30rem] overflow-y-scroll">
-          {chatOutputs.isLoading && <Spinner />}
-          {chatOutputs.chats.length === 0 && !chatOutputs.isLoading ? (
+          {isLoading && <Spinner />}
+          {chats.length === 0 && !isLoading ? (
             <div className="p-4">
               <p className="text-gray700">Start chatting...</p>
             </div>
           ) : (
-            chatOutputs.chats.map((chat, index) => (
+            chats.map((chat, index) => (
               <div
                 key={`chat-output-${index}`}
                 className={`flex flex-col gap-4 p-4 border-b text-gray700 ${
@@ -86,7 +86,7 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
           name={Workspace.User}
           placeholder={Workspace.EnterHere}
           onChange={handleUserMessage}
-          value={chatOutputState.user_message}
+          value={user_message}
         />
       </div>
       <div className="flex md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">

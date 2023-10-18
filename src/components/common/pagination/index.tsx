@@ -57,10 +57,12 @@ const Pagination: React.FC<PaginationProps> = ({ type }) => {
   ));
 
   function nextPageHandler() {
+    if (currentPage === totalPages) return;
     setState(old => ({ ...old, currentPage: currentPage + 1 }));
   }
 
   function previousPageHandler() {
+    if (currentPage - 1 === 0) return;
     setState(old => ({ ...old, currentPage: currentPage - 1 }));
   }
 
