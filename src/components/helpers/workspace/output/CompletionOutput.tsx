@@ -4,7 +4,12 @@ import { message } from 'antd';
 import Typewriter from 'typewriter-effect';
 
 import { Button, Input, Label } from 'components/common';
-import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
+import {
+  Workspace,
+  InputVariants,
+  ButtonVariants,
+  ButtonSizes,
+} from 'utils/constants';
 import { generateOutputState } from 'middleware/state';
 
 interface OutputSectionProps {
@@ -86,13 +91,13 @@ const OutputSection: React.FC<OutputSectionProps> = ({
         <div className="flex items-center gap-4">
           <Button
             variant={ButtonVariants.PRIMARY}
-            size="small"
+            size={ButtonSizes.SMALL}
             onClick={generateOutput}
             name={'Submit'}
           />
           <Button
             variant={ButtonVariants.PRIMARY_LIGHT}
-            size="small"
+            size={ButtonSizes.SMALL}
             onClick={handleBookmark}
             name={'Bookmark'}
             disabled={!output}

@@ -2,7 +2,6 @@ import { Button, Input, Label, Text } from 'components/common';
 import { generateChatOutputState } from 'middleware/state';
 import { useRecoilState } from 'recoil';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
-import Typewriter from 'typewriter-effect';
 
 interface ChatOutputProps {
   onSubmit: () => Promise<void>;

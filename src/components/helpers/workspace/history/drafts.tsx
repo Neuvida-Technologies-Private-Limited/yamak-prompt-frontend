@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { message } from 'antd';
-import { FiBookmark, FiUploadCloud } from 'react-icons/fi';
+import { MdOutlineBookmark, MdOutlineBookmarkBorder } from 'react-icons/md';
+import { RiUploadCloudFill, RiUploadCloudLine } from 'react-icons/ri';
 
 import { Button, Tooltip } from 'components/common';
 import { ButtonSizes, ButtonVariants, Workspace } from 'utils/constants';
@@ -10,23 +11,24 @@ import { PublishPromptModal } from 'components/helpers';
 interface DraftProps {
   title: string;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
-  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
   systemMessage: string;
   userMessage: string;
   uuid: string;
   bookmarked: boolean;
+  published: boolean;
 }
 
 const Drafts: React.FC<DraftProps> = ({
   title,
   onUpdatePrompt,
-  onPublishPrompt,
   uuid,
   bookmarked,
   systemMessage,
   userMessage,
+  published,
 }) => {
   const [isBookmark, setIsBookmark] = useState(bookmarked);
+  const [isPublished, setIsPublished] = useState(published);
   const [showModal, setShowModal] = useState(false);
 
   async function handleBookmark(event: React.MouseEvent) {
@@ -47,6 +49,15 @@ const Drafts: React.FC<DraftProps> = ({
   const handleHistory: React.MouseEventHandler = () => {
     console.log('History clicked');
   };
+
+  useEffect(() => {
+    setIsBookmark(bookmarked);
+  }, [bookmarked]);
+
+  useEffect(() => {
+    setIsPublished(published);
+  }, [published]);
+
   return (
     <div className="flex justify-between h-fit w-full py-3 border-b mb-2 p-2 transition hover:shadow">
       <div
@@ -62,30 +73,31 @@ const Drafts: React.FC<DraftProps> = ({
           element={
             <Button
               variant={ButtonVariants.SECONDARY}
-              icon={<FiBookmark />}
+              icon={
+                isBookmark ? <MdOutlineBookmark /> : <MdOutlineBookmarkBorder />
+              }
               size={ButtonSizes.SMALL}
               onClick={handleBookmark}
             />
           }
-          title={'Bookmark'}
+          title={isBookmark ? 'UnBookmark' : 'Bookmark'}
           color="white"
         />
-
         <Tooltip
           element={
             <Button
               variant={ButtonVariants.OUTLINED_LIGHT}
-              icon={<FiUploadCloud />}
+              icon={isPublished ? <RiUploadCloudFill /> : <RiUploadCloudLine />}
               size={ButtonSizes.SMALL}
               onClick={() => setShowModal(true)}
+              disabled={isPublished ? true : false}
             />
           }
-          title={'Publish'}
+          title={isPublished ? 'Published' : 'Publish'}
           color="white"
         />
       </div>
       <PublishPromptModal
-        onPublishPrompt={onPublishPrompt}
         showModal={showModal}
         setShowModal={setShowModal}
         is_public={false}
