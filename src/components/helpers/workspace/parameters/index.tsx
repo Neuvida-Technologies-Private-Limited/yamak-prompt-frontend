@@ -5,13 +5,20 @@ import { useRecoilState } from 'recoil';
 import { Button, Input, Tooltip, Modal, Slider } from 'components/common';
 import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import { Types } from './types';
-import { generateOutputState } from 'middleware/state';
+import {
+  generateChatOutputState,
+  generateOutputState,
+  workspaceInfoState,
+} from 'middleware/state';
 
 const handleChange = () => {};
 
 const Parameters: React.FC = () => {
+  const [{ activeTab }] = useRecoilState(workspaceInfoState);
   const [showModal, setShowModal] = useState(false);
-  const [outputState, setOutputState] = useRecoilState(generateOutputState);
+  const [outputState, setOutputState] = useRecoilState(
+    activeTab === '1' ? generateChatOutputState : generateOutputState
+  );
 
   const {
     parameters: {
