@@ -87,6 +87,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
                 systemMessage={item.system_message}
                 userMessage={item.user_message}
                 published={item.published}
+                output={item.prompt_output}
               />
             ))
           )}

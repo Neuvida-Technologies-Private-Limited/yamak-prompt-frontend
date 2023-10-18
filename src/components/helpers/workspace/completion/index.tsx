@@ -102,7 +102,7 @@ const Completion: React.FC<CompletionProps> = ({}) => {
     try {
       const res = await GenerateOutput(outputParams);
       if (res.status === 201) {
-        var msg = String(res.data.prompt_output);
+        var msg = res.data.prompt_output;
         var hd = String(res.data.title);
         var uuid = String(res.data.uuid);
         var UM = String(res.data.user_message);
@@ -119,8 +119,8 @@ const Completion: React.FC<CompletionProps> = ({}) => {
       output: msg,
       uuid: uuid,
       bookmarked: bookmarked,
+      isLoading: false,
     }));
-    setOutputState(old => ({ ...old, isLoading: false }));
 
     setPublishState(old => ({
       ...old,

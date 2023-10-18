@@ -78,7 +78,7 @@ export const generateOutputState = atom({
       presence_penalty: 0.0,
       logit_bias: 0,
     },
-    output: '',
+    output: [],
     uuid: '',
   },
 });
@@ -144,5 +144,11 @@ export const workspaceHistoryPaginationState = atom({
     hasPrevious: null,
     query: '',
     totalPages: 0,
+  },
+});
+export const variableUserInputState = atom({
+  key: 'variableUserInput-state',
+  default: {
+    userInput: '',
   },
 });

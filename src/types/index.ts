@@ -83,6 +83,7 @@ export type WorkspaceHistoryType = {
   user_message: string;
   system_message: string;
   published: boolean;
+  prompt_output: [];
 };
 
 export type WorkspaceChatOutputs = {

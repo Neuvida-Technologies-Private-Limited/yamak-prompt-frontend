@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import { message } from 'antd';
 import { MdOutlineBookmark, MdOutlineBookmarkBorder } from 'react-icons/md';
+import { useRecoilState } from 'recoil';
 import { RiUploadCloudFill, RiUploadCloudLine } from 'react-icons/ri';
 
 import { Button, Tooltip } from 'components/common';
 import { ButtonSizes, ButtonVariants, Workspace } from 'utils/constants';
 import { PublishPromptModal } from 'components/helpers';
+import { generateOutputState, variableUserInputState } from 'middleware/state';
 
 interface DraftProps {
   title: string;
@@ -16,6 +18,7 @@ interface DraftProps {
   uuid: string;
   bookmarked: boolean;
   published: boolean;
+  output: [];
 }
 
 const Drafts: React.FC<DraftProps> = ({
@@ -26,10 +29,15 @@ const Drafts: React.FC<DraftProps> = ({
   systemMessage,
   userMessage,
   published,
+  output,
 }) => {
   const [isBookmark, setIsBookmark] = useState(bookmarked);
   const [isPublished, setIsPublished] = useState(published);
   const [showModal, setShowModal] = useState(false);
+  const [outputState, setOutputState] = useRecoilState(generateOutputState);
+  const [{ userInput }, setUserInput] = useRecoilState(variableUserInputState);
+
+  const {} = outputState;
 
   async function handleBookmark(event: React.MouseEvent) {
     event.stopPropagation();
@@ -47,7 +55,14 @@ const Drafts: React.FC<DraftProps> = ({
   }
 
   const handleHistory: React.MouseEventHandler = () => {
-    console.log('History clicked');
+    setOutputState(old => ({
+      ...old,
+      system_message: systemMessage,
+      user_message: userMessage,
+      title: title,
+      output: output,
+    }));
+    setUserInput({ userInput: userMessage });
   };
 
   useEffect(() => {

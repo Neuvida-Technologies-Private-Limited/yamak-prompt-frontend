@@ -16,9 +16,7 @@ const handleChange = () => {};
 const Parameters: React.FC = () => {
   const [{ activeTab }] = useRecoilState(workspaceInfoState);
   const [showModal, setShowModal] = useState(false);
-  const [outputState, setOutputState] = useRecoilState(
-    activeTab === '1' ? generateChatOutputState : generateOutputState
-  );
+  const [outputState, setOutputState] = useRecoilState(generateOutputState);
 
   const {
     parameters: {

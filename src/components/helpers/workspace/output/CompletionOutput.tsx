@@ -74,12 +74,12 @@ const OutputSection: React.FC<OutputSectionProps> = ({
         <label className="font-semibold pb-2">{Workspace.Output}</label>
         <div className="h-full">
           {isLoading && <Spinner />}
-          {!output && !isLoading ? (
+          {output.length === 0 && !isLoading ? (
             <p className="text-gray100">{Workspace.EnterHere}</p>
           ) : (
             <Typewriter
               options={{
-                strings: output,
+                strings: output[0],
                 autoStart: true,
                 loop: false,
                 delay: 10,
