@@ -5,8 +5,13 @@ import { MdOutlineBookmark, MdOutlineBookmarkBorder } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 import { RiUploadCloudFill, RiUploadCloudLine } from 'react-icons/ri';
 
-import { Button, Tooltip } from 'components/common';
-import { ButtonSizes, ButtonVariants, Workspace } from 'utils/constants';
+import { Button, Heading, Tooltip, Text } from 'components/common';
+import {
+  ButtonSizes,
+  ButtonVariants,
+  TextVariants,
+  Workspace,
+} from 'utils/constants';
 import { PublishPromptModal } from 'components/helpers';
 import { generateOutputState, variableUserInputState } from 'middleware/state';
 
@@ -74,42 +79,52 @@ const Drafts: React.FC<DraftProps> = ({
   }, [published]);
 
   return (
-    <div className="flex justify-between h-fit w-full py-3 border-b mb-2 p-2 transition hover:shadow">
-      <div
-        className="flex flex-col font-poppins text-base cursor-pointer w-full"
-        onClick={handleHistory}
-      >
-        <h4 className="text-gray700 font-medium hover:text-primary transition ease-in-out">
-          {title}
-        </h4>
+    <div className="flex flex-col justify-between h-fit w-full py-3 border-b mb-2 p-2 transition hover:shadow">
+      <div className="w-full flex flex-row">
+        <div className="cursor-pointer w-full" onClick={handleHistory}>
+          <Heading level={5} children={title} />
+        </div>
+        <div className="flex items-center gap-2">
+          <Tooltip
+            element={
+              <Button
+                variant={ButtonVariants.SECONDARY}
+                icon={
+                  isBookmark ? (
+                    <MdOutlineBookmark />
+                  ) : (
+                    <MdOutlineBookmarkBorder />
+                  )
+                }
+                size={ButtonSizes.SMALL}
+                onClick={handleBookmark}
+              />
+            }
+            title={isBookmark ? Workspace.Unbookmark : Workspace.Bookmark}
+            color="white"
+          />
+          <Tooltip
+            element={
+              <Button
+                variant={ButtonVariants.OUTLINED_LIGHT}
+                icon={
+                  isPublished ? <RiUploadCloudFill /> : <RiUploadCloudLine />
+                }
+                size={ButtonSizes.SMALL}
+                onClick={() => setShowModal(true)}
+                disabled={isPublished ? true : false}
+              />
+            }
+            title={isPublished ? Workspace.Published : Workspace.Publish}
+            color="white"
+          />
+        </div>
       </div>
-      <div className="flex items-center gap-2">
-        <Tooltip
-          element={
-            <Button
-              variant={ButtonVariants.SECONDARY}
-              icon={
-                isBookmark ? <MdOutlineBookmark /> : <MdOutlineBookmarkBorder />
-              }
-              size={ButtonSizes.SMALL}
-              onClick={handleBookmark}
-            />
-          }
-          title={isBookmark ? 'UnBookmark' : 'Bookmark'}
-          color="white"
-        />
-        <Tooltip
-          element={
-            <Button
-              variant={ButtonVariants.OUTLINED_LIGHT}
-              icon={isPublished ? <RiUploadCloudFill /> : <RiUploadCloudLine />}
-              size={ButtonSizes.SMALL}
-              onClick={() => setShowModal(true)}
-              disabled={isPublished ? true : false}
-            />
-          }
-          title={isPublished ? 'Published' : 'Publish'}
-          color="white"
+      <div className="w-full">
+        <Text
+          variant={TextVariants.SMALL}
+          children={published ? Workspace.Published : ''}
+          className="!text-secondary400"
         />
       </div>
       <PublishPromptModal
