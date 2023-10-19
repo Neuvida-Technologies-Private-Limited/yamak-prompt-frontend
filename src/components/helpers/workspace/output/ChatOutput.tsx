@@ -46,7 +46,7 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
             variant={InputVariants.Filled}
             className="!w-1/2 !mb-0"
           />
-          <Label onChange={handleLabelsChange} />
+          <Label onChange={handleLabelsChange} initialLabels={''} />
         </div>
         <div className="font-poppins flex flex-col w-full border rounded-lg h-[30rem] overflow-y-scroll">
           {chatOutputs.isLoading && <Spinner />}
