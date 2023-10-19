@@ -54,7 +54,7 @@ const Chat = () => {
       setChatOutputs(old => ({
         ...old,
         isLoading: false,
-        chats: [{ user_message, output }, ...chatOutputs.chats],
+        chats: [...chatOutputs.chats, { user_message, output }],
       }));
       setChatOutputState(old => ({ ...old, user_message: '' }));
     } catch (err) {}
