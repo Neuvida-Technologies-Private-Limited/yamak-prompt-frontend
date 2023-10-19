@@ -60,11 +60,12 @@ export const GenerateOutput = async (modal: GenerateOutputModal) => {
 };
 export const GetWorkspaceHistory = async (
   id: string | undefined,
-  page: number
+  page: number,
+  type: string
 ) => {
   try {
     const response = await axiosClientProtected.get(
-      `${workspaceRoutes.GET_WORKSPACE_HISTORY_ROUTE}/${id}/?page=${page}`
+      `${workspaceRoutes.GET_WORKSPACE_HISTORY_ROUTE}/${id}/?page=${page}&prompt_type=${type}`
     );
     return response;
   } catch (error: any) {

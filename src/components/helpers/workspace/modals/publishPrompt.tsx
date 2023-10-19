@@ -50,7 +50,11 @@ const PublishPrompt: React.FC<PublishPromptProps> = ({
       const res = await PublishPromptWorkspace(publishPromptParams);
 
       if (res.status === 201) {
-        const response = await GetWorkspaceHistory(id, currentPage);
+        const response = await GetWorkspaceHistory(
+          id,
+          currentPage,
+          'completion'
+        );
         setHistoryPagination(old => ({
           ...old,
           count: response.data.count,

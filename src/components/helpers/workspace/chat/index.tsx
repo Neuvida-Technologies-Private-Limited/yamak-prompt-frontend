@@ -29,7 +29,7 @@ const Chat = () => {
 
   async function submitHandler() {
     try {
-      const requestObj = {
+      const chatOutParams = {
         workspace: id,
         system_message,
         user_message,
@@ -48,7 +48,7 @@ const Chat = () => {
 
       setChatOutputs(old => ({ ...old, isLoading: true }));
 
-      const res = await GenerateOutput(requestObj);
+      const res = await GenerateOutput(chatOutParams);
       const output = res.data.prompt_output.join('. ');
 
       setChatOutputs(old => ({
