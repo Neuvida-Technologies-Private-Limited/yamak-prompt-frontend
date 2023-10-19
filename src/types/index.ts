@@ -82,6 +82,9 @@ export type WorkspaceHistoryType = {
   uuid: string;
   user_message: string;
   system_message: string;
+  published: boolean;
+  prompt_output: [];
+  tags: [];
 };
 
 export type WorkspaceChatOutputs = {

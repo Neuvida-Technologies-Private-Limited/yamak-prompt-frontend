@@ -121,6 +121,7 @@ export enum Workspace {
   Update = 'Update',
   Delete = 'Delete',
   Publish = 'Publish',
+  Published = 'Published',
   System = 'System: ',
   Sample = 'Sample Answer',
   NoVariables = 'No variables added yet',
@@ -128,6 +129,8 @@ export enum Workspace {
   NoHistoryPara = 'Whenever you update your prompt in the right panel a history is generated here',
   BookmarkedSuccess = 'Bookmarked Successfully',
   UnbookmarkedSuccess = 'Unbookmarked Successfully',
+  Bookmark = 'Bookmark',
+  Unbookmark = 'Unbookmark',
 }
 
 export enum KeyManagement {

@@ -1,21 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '..';
 import { ButtonVariants, Label as LabelConst } from 'utils/constants';
 
 interface LabelProps {
-  initialLabels?: string;
+  initialLabels: string;
   noLabelsMessage?: string;
   className?: string;
   onChange?: (labels: string) => void;
 }
 
 const Label: React.FC<LabelProps> = ({
-  initialLabels = '',
+  initialLabels,
   noLabelsMessage = LabelConst.NO_LABELS_MESSAGE,
   className,
   onChange,
 }) => {
-  const [labels, setLabels] = useState<string>(initialLabels || '');
+  const [labels, setLabels] = useState<string>(initialLabels);
   const [showInput, setShowInput] = useState(false);
   const [text, setText] = useState('');
 
@@ -32,6 +32,10 @@ const Label: React.FC<LabelProps> = ({
       onChange(labels + (labels ? ',' : '') + newLabel.text);
     }
   }
+
+  useEffect(() => {
+    setLabels(initialLabels);
+  }, [initialLabels]);
 
   return (
     <div

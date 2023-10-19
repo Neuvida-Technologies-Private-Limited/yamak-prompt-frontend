@@ -23,7 +23,6 @@ export const CSRF_TOKEN = async () => {
 };
 //Refresh Token
 export const REFRESH_ACCESS_TOKEN = async (model: RefreshModal) => {
-  debugger;
   try {
     const res = await axiosClient.post(
       authRoutes.REFRESH_ACCESS_TOKEN_ROUTE,

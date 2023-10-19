@@ -17,6 +17,7 @@ import { Workspace, ButtonVariants } from 'utils/constants';
 import {
   generateOutputState,
   publishPromptState,
+  variableUserInputState,
   workspaceHistoryPaginationState,
   workspaceHistoryState,
   workspaceInfoState,
@@ -34,6 +35,9 @@ const Index = () => {
 
   const resetOutputState = useResetRecoilState(generateOutputState);
   const resetPublishState = useResetRecoilState(publishPromptState);
+  const resetVariableUserInputState = useResetRecoilState(
+    variableUserInputState
+  );
 
   const resetWorkspaceState = useResetRecoilState(workspaceHistoryState);
   const resetWorkspacePaginationState = useResetRecoilState(
@@ -52,6 +56,7 @@ const Index = () => {
   const handleReset = () => {
     resetOutputState();
     resetPublishState();
+    resetVariableUserInputState();
   };
 
   const getWorkspaceData = useCallback(
@@ -74,26 +79,9 @@ const Index = () => {
     [setWorkspaceData, id]
   );
 
-  const handlePublishPrompt = async (uuid: string, is_public: boolean) => {
-    const publishPromptParams = {
-      uuid,
-      is_public,
-    };
-
-    try {
-      const res = await PublishPromptWorkspace(publishPromptParams);
-
-      if (res.status === 201) {
-        message.success(res.data);
-        return res.status;
-      } else {
-        message.error(res.error);
-        return;
-      }
-    } catch (error: any) {
-      message.error(error);
-    }
-  };
+  useEffect(() => {
+    getWorkspaceData();
+  }, [getWorkspaceData]);
 
   const tabs = [
     {
@@ -105,7 +93,7 @@ const Index = () => {
     {
       id: '2',
       tabTitle: Workspace.Completion,
-      content: <WorkspaceCompletion onPublishPrompt={handlePublishPrompt} />,
+      content: <WorkspaceCompletion />,
       icon: <BsCheck2Circle />,
     },
   ];
@@ -121,7 +109,7 @@ const Index = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="max-h-full grid items-center p-8 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1 gap-4">
+      <div className="max-h-full grid items-center p-6 border-b-4 border-gray50 sm:justify-center md:justify-between md:grid-cols-2 sm:grid-cols-1 gap-4">
         <div className="flex sm:justify-center md:justify-start items-center">
           <h1 className="sm:text-xl md:text-2xl font-poppins font-semibold pr-3">
             {title}
@@ -149,7 +137,6 @@ const Index = () => {
             />
           </div>
           <PublishPromptModal
-            onPublishPrompt={handlePublishPrompt}
             showModal={showModal}
             setShowModal={setShowModal}
             systemMessage={systemMessage}

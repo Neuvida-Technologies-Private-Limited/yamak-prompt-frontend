@@ -6,7 +6,12 @@ import { Link } from 'react-router-dom';
 
 import { Dropdown } from 'components/common';
 import { Workspace } from 'utils/constants';
-import { generateOutputState, publishPromptState } from 'middleware/state';
+import {
+  generateOutputState,
+  publishPromptState,
+  workspaceHistoryPaginationState,
+  variableUserInputState,
+} from 'middleware/state';
 import { DeleteModal, UpdateModal } from 'components/helpers';
 
 interface WorkspaceCardProps {
@@ -31,13 +36,21 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
   model_key,
 }) => {
   const resetPublishPromptState = useResetRecoilState(publishPromptState);
+  const resetWorkspacePaginationState = useResetRecoilState(
+    workspaceHistoryPaginationState
+  );
   const resetOutputState = useResetRecoilState(generateOutputState);
+  const resetVariableUserInputState = useResetRecoilState(
+    variableUserInputState
+  );
   const [showModal, setShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const handleLinkClick = () => {
     resetOutputState();
     resetPublishPromptState();
+    resetVariableUserInputState();
+    resetWorkspacePaginationState();
   };
 
   const handleDeleteWorkspace = async () => {

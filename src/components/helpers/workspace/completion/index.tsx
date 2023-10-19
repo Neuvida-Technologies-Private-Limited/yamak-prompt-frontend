@@ -24,11 +24,9 @@ import {
 } from 'middleware/api';
 import { ITEMS_PER_PAGE } from 'utils/constants';
 
-interface CompletionProps {
-  onPublishPrompt: (uuid: string, is_public: boolean) => Promise<any>;
-}
+interface CompletionProps {}
 
-const Completion: React.FC<CompletionProps> = ({ onPublishPrompt }) => {
+const Completion: React.FC<CompletionProps> = ({}) => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
   const [, setPublishState] = useRecoilState(publishPromptState);
   const [{ id }] = useRecoilState(workspaceInfoState);
@@ -99,10 +97,12 @@ const Completion: React.FC<CompletionProps> = ({ onPublishPrompt }) => {
       },
     };
 
+    setOutputState(old => ({ ...old, isLoading: true }));
+
     try {
       const res = await GenerateOutput(outputParams);
       if (res.status === 201) {
-        var msg = String(res.data.prompt_output);
+        var msg = res.data.prompt_output;
         var hd = String(res.data.title);
         var uuid = String(res.data.uuid);
         var UM = String(res.data.user_message);
@@ -119,7 +119,9 @@ const Completion: React.FC<CompletionProps> = ({ onPublishPrompt }) => {
       output: msg,
       uuid: uuid,
       bookmarked: bookmarked,
+      isLoading: false,
     }));
+
     setPublishState(old => ({
       ...old,
       heading: hd,
@@ -189,7 +191,8 @@ const Completion: React.FC<CompletionProps> = ({ onPublishPrompt }) => {
           <WorkspaceHistory
             onHistorySearch={searchHistoryHandler}
             onUpdatePrompt={updatePromptHandler}
-            onPublishPrompt={onPublishPrompt}
+            getHistory={getHistory}
+            currentPage={currentPage}
           />
         </div>
       ) : null}
