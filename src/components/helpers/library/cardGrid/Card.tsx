@@ -131,7 +131,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
             name={Library.CardButtonName}
           />
         </div>
-        <div className="flex">
+        <div className="flex flex-wrap">
           {tags.map((tag, i) => (
             <Tag
               key={`prompt-card-tag-${i}`}

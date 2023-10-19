@@ -53,7 +53,7 @@ const Completion: React.FC<CompletionProps> = ({}) => {
   const getHistory = useCallback(
     async function (currentPage: number) {
       try {
-        const res = await GetWorkspaceHistory(id, currentPage);
+        const res = await GetWorkspaceHistory(id, currentPage, 'completion');
 
         setHistoryPagination(old => ({
           ...old,

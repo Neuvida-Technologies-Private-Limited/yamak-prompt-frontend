@@ -88,8 +88,15 @@ export type WorkspaceHistoryType = {
 };
 
 export type WorkspaceChatOutputs = {
+  title: string;
+  bookmarked: boolean;
+  is_public: boolean;
+  uuid: string;
   user_message: string;
-  output: string;
+  system_message: string;
+  published: boolean;
+  prompt_output: [];
+  tags: [];
 };
 
 export type OptionItems = {
