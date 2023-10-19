@@ -24,6 +24,7 @@ interface DraftProps {
   bookmarked: boolean;
   published: boolean;
   output: [];
+  tags: [];
 }
 
 const Drafts: React.FC<DraftProps> = ({
@@ -35,6 +36,7 @@ const Drafts: React.FC<DraftProps> = ({
   userMessage,
   published,
   output,
+  tags,
 }) => {
   const [isBookmark, setIsBookmark] = useState(bookmarked);
   const [isPublished, setIsPublished] = useState(published);
@@ -60,12 +62,14 @@ const Drafts: React.FC<DraftProps> = ({
   }
 
   const handleHistory: React.MouseEventHandler = () => {
+    const formattedTags = tags.map(tag => tag).join(', ');
     setOutputState(old => ({
       ...old,
       system_message: systemMessage,
       user_message: userMessage,
       title: title,
       output: output,
+      tags: formattedTags,
     }));
     setUserInput({ userInput: userMessage });
   };
