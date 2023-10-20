@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Draft from './drafts';
-import { Workspace, InputVariants, TextVariants } from 'utils/constants';
+import { Workspace, InputVariants } from 'utils/constants';
 import { Heading, Input, Pagination, Text } from 'components/common';
 import {
   workspaceHistoryPaginationState,
@@ -78,20 +78,18 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
             </>
           ) : (
             history.map((item, index) => (
-              <>
-                <Draft
-                  key={item.uuid}
-                  title={item.title}
-                  onUpdatePrompt={onUpdatePrompt}
-                  uuid={item.uuid}
-                  bookmarked={item.bookmarked}
-                  systemMessage={item.system_message}
-                  userMessage={item.user_message}
-                  published={item.published}
-                  output={item.prompt_output}
-                  tags={item.tags}
-                />
-              </>
+              <Draft
+                key={item.uuid}
+                title={item.title}
+                onUpdatePrompt={onUpdatePrompt}
+                uuid={item.uuid}
+                bookmarked={item.bookmarked}
+                systemMessage={item.system_message}
+                userMessage={item.user_message}
+                published={item.published}
+                output={item.prompt_output}
+                tags={item.tags}
+              />
             ))
           )}
         </div>

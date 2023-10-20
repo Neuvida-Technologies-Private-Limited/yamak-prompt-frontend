@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { message } from 'antd';
 
 import { Heading, Modal, Text } from 'components/common';

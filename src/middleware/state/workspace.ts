@@ -113,6 +113,12 @@ export const workspaceChatOutputs = atom({
   default: {
     isLoading: false,
     chats: [] as WorkspaceChatOutputs[],
+    currentPage: 1,
+    count: 0,
+    itemsPerPage: 10,
+    hasNext: null,
+    hasPrevious: null,
+    totalPages: 0,
   },
 });
 

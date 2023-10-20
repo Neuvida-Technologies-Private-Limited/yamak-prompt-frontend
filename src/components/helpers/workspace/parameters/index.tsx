@@ -207,7 +207,7 @@ const Parameters: React.FC = () => {
               {parametersInputs.map((items, index) => (
                 <div
                   key={`parameter-item-${index}`}
-                  className="flex sm:!flex-wrap"
+                  className="flex sm:!flex-wrap items-center"
                 >
                   <div className="em:w-1/3 sm:w-full flex items-center">
                     <label className="p-3">{items.label}</label>
