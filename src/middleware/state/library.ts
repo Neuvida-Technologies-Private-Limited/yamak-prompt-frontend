@@ -64,3 +64,10 @@ export const promptCardState = atom({
     dislikesCount: 0,
   },
 });
+export const importPromptState = atom({
+  key: 'importPrompt-state',
+  default: {
+    workspaceID: '',
+    workspaceIdError: '',
+  },
+});

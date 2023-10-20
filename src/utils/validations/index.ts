@@ -91,6 +91,13 @@ export const isWorkspaceTitleValidated = (title: string) => {
     return '';
   }
 };
+export const isWorkspaceIDValidated = (id: string) => {
+  if (id === '') {
+    return 'Workspace is required !';
+  } else {
+    return '';
+  }
+};
 export const isWorkspaceModalKeyValidated = (model_key: string) => {
   if (model_key === '') {
     return 'Model key is required!';

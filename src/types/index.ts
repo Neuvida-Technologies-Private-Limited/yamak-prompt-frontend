@@ -1,5 +1,6 @@
 export type LibraryCardItem = {
   title: string;
+  system_message: string;
   favourite: boolean;
   bookmarked: boolean;
   is_public: boolean;
@@ -7,7 +8,7 @@ export type LibraryCardItem = {
   likes_dislikes_count: { likes: number; dislikes: number };
   prompt_type: string;
   sample_output: string;
-  tags: string[];
+  tags: [];
   user_message: string;
   uuid: string;
   onDeletePrompt: (id: string) => Promise<any>;

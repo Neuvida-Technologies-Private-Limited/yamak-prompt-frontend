@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   FiKey,
@@ -29,7 +29,8 @@ const { Sider } = Layout;
 
 const Index: React.FC = () => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const [pathName, setPathName] = useState(location.pathname);
   const [collapsed, setCollapsed] = useState(false);
   const [currentUser, setCurrentUserState] = useRecoilState(currentUserState);
 
@@ -85,6 +86,9 @@ const Index: React.FC = () => {
   const handleFeedback = () => {
     window.location.href = 'https://forms.gle/BMLEm7QYyngN3yXdA';
   };
+  useEffect(() => {
+    setPathName(location.pathname);
+  }, [location.pathname]);
 
   return (
     <Sider
@@ -113,7 +117,8 @@ const Index: React.FC = () => {
         {SidebarConst.General}
       </span>
       <Menu
-        defaultSelectedKeys={[pathname]}
+        defaultSelectedKeys={[pathName]}
+        selectedKeys={[pathName]}
         mode="inline"
         onClick={item => {
           if (item.key === Paths.Feedback) {
