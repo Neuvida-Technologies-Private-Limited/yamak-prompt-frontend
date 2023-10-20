@@ -12,7 +12,10 @@ interface ChatOutputProps {
 }
 
 const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
-  const [{ chats, isLoading }] = useRecoilState(workspaceChatOutputs);
+  const [
+    { chats, isLoading, hasNext, hasPrevious, currentPage },
+    setChatOutputs,
+  ] = useRecoilState(workspaceChatOutputs);
   const [{ user_message }, setChatOutputState] = useRecoilState(
     generateChatOutputState
   );
@@ -36,6 +39,14 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
     setChatOutputState(old => ({ ...old, user_message: message }));
   };
 
+  function loadPreviousChats() {
+    setChatOutputs(old => ({ ...old, currentPage: currentPage + 1 }));
+  }
+
+  function loadLatestChats() {
+    setChatOutputs(old => ({ ...old, currentPage: currentPage - 1 }));
+  }
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chats.length]);
@@ -54,7 +65,14 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
           />
           <Label onChange={handleLabelsChange} initialLabels={''} />
         </div>
-        <div className="font-poppins flex flex-col w-full border rounded-lg h-[30rem] overflow-y-scroll">
+        <div className="font-poppins flex flex-col w-full border rounded-lg h-[30rem] overflow-y-scroll shadow">
+          {hasNext && (
+            <Button
+              variant={ButtonVariants.PRIMARY_LINK}
+              name={'Load previous messages'}
+              onClick={loadPreviousChats}
+            />
+          )}
           {chats.length === 0 && !isLoading && (
             <div className="p-4">
               <p className="text-gray700">Start chatting...</p>
@@ -79,6 +97,13 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
               </div>
             ))}
           {isLoading && <Spinner />}
+          {hasPrevious && (
+            <Button
+              variant={ButtonVariants.PRIMARY_LINK}
+              name={'Load Next messages'}
+              onClick={loadLatestChats}
+            />
+          )}
           <div ref={bottomRef}></div>
         </div>
       </div>

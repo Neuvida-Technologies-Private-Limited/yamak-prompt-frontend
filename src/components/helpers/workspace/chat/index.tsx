@@ -1,4 +1,6 @@
-import { useRecoilState } from 'recoil';
+import { useCallback, useEffect, useMemo } from 'react';
+
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { message } from 'antd';
 
 import { WorkspaceChatInputs, WorkspaceChatOutput } from 'components/helpers';
@@ -8,16 +10,17 @@ import {
   workspaceInfoState,
   workspaceChatOutputs,
 } from 'middleware/state';
-import { useCallback, useEffect } from 'react';
+import { ITEMS_PER_PAGE } from 'utils/constants';
 
 const Chat = () => {
   // const isDekstopView = window.innerWidth >= 768;
   const [chatOutputState, setChatOutputState] = useRecoilState(
     generateChatOutputState
   );
-  const [chatOutputs, setChatOutputs] = useRecoilState(workspaceChatOutputs);
-
+  const [{ chats, currentPage }, setChatOutputs] =
+    useRecoilState(workspaceChatOutputs);
   const [{ id }] = useRecoilState(workspaceInfoState);
+  const resetChatOutputs = useResetRecoilState(workspaceChatOutputs);
 
   const {
     system_message,
@@ -27,6 +30,7 @@ const Chat = () => {
     bookmarked,
     prompt_type,
     tags,
+    parameters,
   } = chatOutputState;
 
   async function submitHandler() {
@@ -41,8 +45,8 @@ const Chat = () => {
         prompt_type,
         tags,
         parameters: {
-          temperature: chatOutputState.parameters.temperature,
-          max_tokens: chatOutputState.parameters.max_tokens,
+          temperature: parameters.temperature,
+          max_tokens: parameters.max_tokens,
         },
       };
 
@@ -62,16 +66,16 @@ const Chat = () => {
       setChatOutputs(old => ({
         ...old,
         isLoading: false,
-        chats: [...chatOutputs.chats, res.data],
+        chats: [...old.chats, res.data],
       }));
       setChatOutputState(old => ({ ...old, user_message: '' }));
     } catch (err) {}
   }
 
   const getChatHistory = useCallback(
-    async function (currentPage?: number) {
+    async function (currentPage: number) {
       try {
-        const res = await GetWorkspaceHistory(id, 1, 'chat');
+        const res = await GetWorkspaceHistory(id, currentPage, 'chat');
 
         if (res.status !== 200) {
           message.error('Problem getting previous chats');
@@ -79,17 +83,22 @@ const Chat = () => {
         }
 
         const reversedResults = [...res.data.results].reverse();
-        setChatOutputs(old => ({ ...old, chats: reversedResults }));
+        setChatOutputs(old => ({
+          ...old,
+          chats: [...reversedResults],
+          count: res.data.count,
+          hasNext: res.data.next,
+          hasPrevious: res.data.previous,
+          totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
+        }));
       } catch (error: any) {}
     },
     [id, setChatOutputs]
   );
 
-  console.log(chatOutputs);
-
   useEffect(() => {
-    getChatHistory();
-  }, [getChatHistory]);
+    getChatHistory(currentPage);
+  }, [getChatHistory, currentPage]);
 
   return (
     <div className="grid sm:grid-cols-1 md:grid-cols-3 h-full gap-x-4 sm:gap-y-4 py-4">

@@ -18,6 +18,7 @@ import {
   generateOutputState,
   publishPromptState,
   variableUserInputState,
+  workspaceChatOutputs,
   workspaceHistoryPaginationState,
   workspaceHistoryState,
   workspaceInfoState,
@@ -43,6 +44,7 @@ const Index = () => {
   const resetWorkspacePaginationState = useResetRecoilState(
     workspaceHistoryPaginationState
   );
+  const resetChatOutputs = useResetRecoilState(workspaceChatOutputs);
 
   const id = useLocation().pathname.split('/').at(-1);
 
@@ -104,8 +106,15 @@ const Index = () => {
     return () => {
       resetWorkspaceState();
       resetWorkspacePaginationState();
+      resetChatOutputs();
     };
-  }, [getWorkspaceData, resetWorkspacePaginationState, resetWorkspaceState]);
+  }, [
+    getWorkspaceData,
+    resetWorkspacePaginationState,
+    resetWorkspaceState,
+    resetChatOutputs,
+    id,
+  ]);
 
   return (
     <div className="flex flex-col h-full">
