@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { message } from 'antd';
 
-import { WorkspaceChatInputs, WorkspaceChatOutput } from 'components/helpers';
+import { WorkspaceChatOutput } from 'components/helpers';
 import { GenerateOutput, GetWorkspaceHistory } from 'middleware/api';
 import {
   generateChatOutputState,
@@ -17,13 +17,11 @@ const Chat = () => {
   const [chatOutputState, setChatOutputState] = useRecoilState(
     generateChatOutputState
   );
-  const [{ chats, currentPage }, setChatOutputs] =
+  const [{ currentPage }, setChatOutputs] =
     useRecoilState(workspaceChatOutputs);
   const [{ id }] = useRecoilState(workspaceInfoState);
-  const resetChatOutputs = useResetRecoilState(workspaceChatOutputs);
 
   const {
-    system_message,
     title,
     user_message,
     is_public,

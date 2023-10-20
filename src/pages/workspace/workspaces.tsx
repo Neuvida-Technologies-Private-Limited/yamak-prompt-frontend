@@ -6,7 +6,7 @@ import { BsCheck2Circle } from 'react-icons/bs';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { message } from 'antd';
 
-import { PublishPromptWorkspace, getWorkspace } from 'middleware/api';
+import { getWorkspace } from 'middleware/api';
 import {
   WorkspaceParameters,
   WorkspaceChat,
@@ -24,6 +24,21 @@ import {
   workspaceInfoState,
 } from 'middleware/state';
 import { Button, Tabs } from 'components/common';
+
+const tabs = [
+  {
+    id: '1',
+    tabTitle: Workspace.Chat,
+    content: <WorkspaceChat />,
+    icon: <HiOutlineChatAlt2 />,
+  },
+  {
+    id: '2',
+    tabTitle: Workspace.Completion,
+    content: <WorkspaceCompletion />,
+    icon: <BsCheck2Circle />,
+  },
+];
 
 const Index = () => {
   // const [currentTab, setCurrentTab] = useState<string | null>('2');
@@ -80,25 +95,6 @@ const Index = () => {
     },
     [setWorkspaceData, id]
   );
-
-  useEffect(() => {
-    getWorkspaceData();
-  }, [getWorkspaceData]);
-
-  const tabs = [
-    {
-      id: '1',
-      tabTitle: Workspace.Chat,
-      content: <WorkspaceChat />,
-      icon: <HiOutlineChatAlt2 />,
-    },
-    {
-      id: '2',
-      tabTitle: Workspace.Completion,
-      content: <WorkspaceCompletion />,
-      icon: <BsCheck2Circle />,
-    },
-  ];
 
   useEffect(() => {
     getWorkspaceData();
