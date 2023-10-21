@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import { Variables } from 'types';
 
 import {
@@ -156,9 +156,14 @@ export const workspaceHistoryPaginationState = atom({
     totalPages: 0,
   },
 });
-export const variablesState = atom({
-  key: 'variables-state',
-  default: {
-    variableState: {} as Variables,
-  },
+export const variablesRowState = atom<
+  { variableName: string; variableValue: string }[]
+>({
+  key: 'variableRow-State',
+  default: [],
+});
+
+export const variablesRowNumberState = atom<number[]>({
+  key: 'variablesRowNumberState',
+  default: [],
 });

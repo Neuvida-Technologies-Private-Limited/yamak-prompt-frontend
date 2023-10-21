@@ -86,6 +86,7 @@ export type WorkspaceHistoryType = {
   published: boolean;
   prompt_output: [];
   tags: [];
+  variables: {};
 };
 
 export type WorkspaceChatOutputs = {

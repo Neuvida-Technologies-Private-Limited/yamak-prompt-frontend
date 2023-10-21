@@ -17,6 +17,8 @@ import { Workspace, ButtonVariants } from 'utils/constants';
 import {
   generateOutputState,
   publishPromptState,
+  variablesRowNumberState,
+  variablesRowState,
   workspaceChatOutputs,
   workspaceHistoryPaginationState,
   workspaceHistoryState,
@@ -55,6 +57,10 @@ const Index = () => {
     workspaceHistoryPaginationState
   );
   const resetChatOutputs = useResetRecoilState(workspaceChatOutputs);
+  const resetVariablesRowState = useResetRecoilState(variablesRowState);
+  const resetVariableRowNumberState = useResetRecoilState(
+    variablesRowNumberState
+  );
 
   const id = useLocation().pathname.split('/').at(-1);
 
@@ -68,6 +74,8 @@ const Index = () => {
   const handleReset = () => {
     resetOutputState();
     resetPublishState();
+    resetVariableRowNumberState();
+    resetVariablesRowState();
   };
 
   const getWorkspaceData = useCallback(
