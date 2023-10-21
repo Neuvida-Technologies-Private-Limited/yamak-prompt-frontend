@@ -9,8 +9,12 @@ import {
   TextVariants,
   Workspace,
 } from 'utils/constants';
-import { generateOutputState, variablesState } from 'middleware/state';
-import { Variables } from 'types';
+import {
+  generateOutputState,
+  variablesRowNumberState,
+  variablesRowState,
+} from 'middleware/state';
+import { message } from 'antd';
 
 interface AddVariableProps {
   // onAddVariable: (variableName: string, variableValue: string) => void;
@@ -18,11 +22,13 @@ interface AddVariableProps {
 
 const AddVariable: React.FC<AddVariableProps> = () => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
+  const [rowStates, setRowStates] = useRecoilState(variablesRowState);
+  const [variableRows, setVariableRows] = useRecoilState(
+    variablesRowNumberState
+  );
 
-  const [variableRows, setVariableRows] = useState<number[]>([]);
-  const [rowStates, setRowStates] = useState<
-    { variableName: string; variableValue: string }[]
-  >([]);
+  // const [variableRows, setVariableRows] = useState<number[]>([]);
+
   const initialRowState = { variableName: '', variableValue: '' };
 
   const { variables } = outputState;
@@ -33,20 +39,27 @@ const AddVariable: React.FC<AddVariableProps> = () => {
     setRowStates([...rowStates, initialRowState]);
   };
 
-  const handleVariableNameChange = (variableName: string, rowId: number) => {
+  const handleVariableNameChange = (value: string, rowId: number) => {
     const newStates = [...rowStates];
-    newStates[rowId].variableName = variableName;
+    newStates[rowId] = {
+      ...newStates[rowId],
+      variableName: value,
+    };
     setRowStates(newStates);
   };
 
-  const handleVariableValueChange = (variableValue: string, rowId: number) => {
+  const handleVariableValueChange = (value: string, rowId: number) => {
     const newStates = [...rowStates];
-    newStates[rowId].variableValue = variableValue;
+    newStates[rowId] = {
+      ...newStates[rowId],
+      variableValue: value,
+    };
     setRowStates(newStates);
   };
   const handleSaveVariables = () => {
     // Create a dictionary of variables from rowStates
-    const newVariables: Variables = {};
+    const newVariables = { ...variables };
+
     rowStates.forEach(rowState => {
       const { variableName, variableValue } = rowState;
       if (variableName && variableValue) {
@@ -54,11 +67,11 @@ const AddVariable: React.FC<AddVariableProps> = () => {
       }
     });
 
-    // Update the output state with the new variables using the previous state callback
-    setOutputState(prevState => ({
-      ...prevState,
+    setOutputState(old => ({
+      ...old,
       variables: newVariables,
     }));
+    message.success('Variable added');
   };
 
   return (

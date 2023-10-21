@@ -89,6 +89,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
                 published={item.published}
                 output={item.prompt_output}
                 tags={item.tags}
+                variables={item.variables}
               />
             ))
           )}
