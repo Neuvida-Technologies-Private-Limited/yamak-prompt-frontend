@@ -12,7 +12,7 @@ const App: React.FC<TooltipProps> = ({ element, title, color, className }) => (
   <Tooltip
     title={title}
     color={color}
-    // overlayInnerStyle={{ color: 'black' }}
+    overlayInnerStyle={{ color: 'black' }}
     overlayClassName="font-poppins"
   >
     <span>{element}</span>
