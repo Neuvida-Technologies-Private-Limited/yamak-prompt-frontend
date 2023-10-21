@@ -15,6 +15,7 @@ import { Button, Modal, Tag, Text } from 'components/common';
 import ModalContent from './ModalContent';
 import { LibraryCardItem as CardItemProps } from 'types';
 import { ButtonVariants, Library, LibraryCard as Card } from 'utils/constants';
+import { ImportPromptModal } from 'components/helpers';
 
 const LibraryCard: React.FC<CardItemProps> = ({
   title,
@@ -31,8 +32,10 @@ const LibraryCard: React.FC<CardItemProps> = ({
   onDeletePrompt,
   onPromptInfo,
   onUpdatePrompt,
+  system_message,
 }) => {
   const [promptInfoModal, showPromptInfoModal] = useState<boolean>(false);
+  const [importPromptModal, showImportPromptModal] = useState<boolean>(false);
   const [deletePromptModal, showDeleteModal] = useState(false);
   const [isFavourite, setIsFavourite] = useState(favourite);
   const [isLiked, setisLiked] = useState<null | boolean>(function () {
@@ -52,6 +55,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
 
   function importPromptHandler(event: React.MouseEvent) {
     event.stopPropagation();
+    showImportPromptModal(prev => !prev);
   }
 
   function copyPromptHandler(event: React.MouseEvent) {
@@ -218,6 +222,17 @@ const LibraryCard: React.FC<CardItemProps> = ({
         okText="Yes"
         cancelText="No"
         closeIcon={false}
+      />
+      <ImportPromptModal
+        isOpen={importPromptModal}
+        cancelModalHandler={showImportPromptModal}
+        tags={tags}
+        promptTitle={title}
+        systemMessage={system_message}
+        userMessage={user_message}
+        promptID={uuid}
+        bookmarked={bookmarked}
+        sample_output={[]}
       />
     </>
   );

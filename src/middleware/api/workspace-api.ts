@@ -7,12 +7,22 @@ import {
   PublishPromptModal,
 } from './types';
 
-export const getWorkspaces = async (page: number) => {
+export const getWorkspaces = async (page?: number) => {
   try {
     const response = await axiosClientProtected.get(
       `${workspaceRoutes.GET_WORKSPACES_ROUTE}${page}`
     );
     return response.data;
+  } catch (error: any) {
+    return error;
+  }
+};
+export const GetAllWorkspaces = async () => {
+  try {
+    const response = await axiosClientProtected.get(
+      `${workspaceRoutes.GET_ALL_WORKSPACES_ROUTE}`
+    );
+    return response;
   } catch (error: any) {
     return error;
   }

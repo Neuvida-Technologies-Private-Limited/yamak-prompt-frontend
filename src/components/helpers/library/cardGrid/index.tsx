@@ -39,6 +39,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
             onDeletePrompt={onDeletePrompt}
             onPromptInfo={onPromptInfo}
             onUpdatePrompt={onUpdatePrompt}
+            system_message={item.system_message}
           />
         ))}
       </div>
