@@ -104,3 +104,6 @@ export type OptionItems = {
   value: any;
   label: any;
 };
+export type Variables = {
+  [variableName: string]: string;
+};

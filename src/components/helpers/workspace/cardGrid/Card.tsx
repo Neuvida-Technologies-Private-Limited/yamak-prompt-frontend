@@ -10,7 +10,6 @@ import {
   generateOutputState,
   publishPromptState,
   workspaceHistoryPaginationState,
-  variableUserInputState,
 } from 'middleware/state';
 import { DeleteModal, UpdateModal } from 'components/helpers';
 
@@ -40,16 +39,13 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
     workspaceHistoryPaginationState
   );
   const resetOutputState = useResetRecoilState(generateOutputState);
-  const resetVariableUserInputState = useResetRecoilState(
-    variableUserInputState
-  );
+
   const [showModal, setShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const handleLinkClick = () => {
     resetOutputState();
     resetPublishPromptState();
-    resetVariableUserInputState();
     resetWorkspacePaginationState();
   };
 

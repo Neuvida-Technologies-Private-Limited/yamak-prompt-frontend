@@ -13,7 +13,7 @@ import {
   Workspace,
 } from 'utils/constants';
 import { PublishPromptModal } from 'components/helpers';
-import { generateOutputState, variableUserInputState } from 'middleware/state';
+import { generateOutputState } from 'middleware/state';
 
 interface DraftProps {
   title: string;
@@ -42,7 +42,6 @@ const Drafts: React.FC<DraftProps> = ({
   const [isPublished, setIsPublished] = useState(published);
   const [showModal, setShowModal] = useState(false);
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
-  const [{ userInput }, setUserInput] = useRecoilState(variableUserInputState);
 
   const {} = outputState;
 
@@ -71,7 +70,6 @@ const Drafts: React.FC<DraftProps> = ({
       output: output,
       tags: formattedTags,
     }));
-    setUserInput({ userInput: userMessage });
   };
 
   useEffect(() => {
