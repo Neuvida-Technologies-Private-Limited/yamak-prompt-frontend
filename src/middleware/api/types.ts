@@ -47,6 +47,7 @@ export type GenerateOutputModal = {
     temperature: number;
     max_tokens: number;
   };
+  variables: {};
 };
 export type PublishPromptModal = {
   uuid: string;
