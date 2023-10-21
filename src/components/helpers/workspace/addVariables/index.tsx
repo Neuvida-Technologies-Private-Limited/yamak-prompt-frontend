@@ -73,7 +73,7 @@ const AddVariable: React.FC<AddVariableProps> = () => {
         />
         <Button
           size={ButtonSizes.SMALL}
-          name={'save'}
+          name={Workspace.Save}
           onClick={handleSaveVariables}
           variant={ButtonVariants.SECONDARY_LINK}
         />

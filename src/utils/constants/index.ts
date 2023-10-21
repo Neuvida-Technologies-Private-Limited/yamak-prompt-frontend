@@ -131,6 +131,7 @@ export enum Workspace {
   UnbookmarkedSuccess = 'Unbookmarked Successfully',
   Bookmark = 'Bookmark',
   Unbookmark = 'Unbookmark',
+  Save = 'Save',
 }
 
 export enum KeyManagement {
