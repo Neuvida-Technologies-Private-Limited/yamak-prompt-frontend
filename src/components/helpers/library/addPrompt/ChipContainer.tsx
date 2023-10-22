@@ -22,11 +22,12 @@ const ChipContainer = () => {
   const maxChipLength = 100;
 
   function inputChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setInput(event.target.value);
-
+    const inputValue = event.target.value;
+    setInput(inputValue);
     if (
-      event.target.value.at(-1) === ' ' &&
-      event.target.value.length <= maxChipLength + 1
+      inputValue.at(-1) === ' ' &&
+      inputValue.trim().length !== 0 &&
+      inputValue.length <= maxChipLength + 1
     ) {
       setChipData(prev => [...prev, { key: Date.now(), label: input }]);
       setInput('');
