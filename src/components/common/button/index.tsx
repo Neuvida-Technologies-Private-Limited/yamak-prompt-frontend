@@ -36,7 +36,7 @@ const button: React.FC<ButtonProps> = ({
   disabled,
 }) => {
   const rootClassName = classNames(
-    'flex items-center justify-center font-poppins text-xs md:text-sm ',
+    'flex items-center justify-center font-poppins text-xs md:text-sm',
     {
       'bg-primary text-white hover:!text-white border-none hover:bg-primary700 !py-5 !px-4 !rounded-xl':
         variant === 'primary',

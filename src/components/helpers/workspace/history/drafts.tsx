@@ -69,21 +69,25 @@ const Drafts: React.FC<DraftProps> = ({
 
   const handleHistory: React.MouseEventHandler = () => {
     const formattedTags = tags.map(tag => tag).join(', ');
+    if (Object.keys(variables).length > 0) {
+      const newStates = [];
 
-    const newStates = [];
-    for (const variableName in variables) {
-      if (Object.prototype.hasOwnProperty.call(variables, variableName)) {
-        const variableValue = variables[variableName];
-        newStates.push({ variableName, variableValue });
+      for (const variableName in variables) {
+        if (Object.prototype.hasOwnProperty.call(variables, variableName)) {
+          const variableValue = variables[variableName];
+          newStates.push({ variableName, variableValue });
+        }
+
+        // Update variableRows based on the number of newStates
+        setVariableRows([...Array(newStates.length).keys()]);
       }
 
-      // Update variableRows based on the number of newStates
-      setVariableRows([...Array(newStates.length).keys()]);
+      setRowStates(newStates);
+    } else {
+      const nullStates = [{ variableValue: '', variableName: '' }];
+      setVariableRows([]);
+      setRowStates(nullStates);
     }
-
-    setRowStates(newStates);
-
-    // setVariableRows([newStates.length]);
 
     setOutputState(old => ({
       ...old,
