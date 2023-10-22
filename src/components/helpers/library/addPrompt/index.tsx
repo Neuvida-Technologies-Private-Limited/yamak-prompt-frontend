@@ -4,7 +4,12 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 import { promptModalState } from 'middleware/state/library';
 import { message } from 'antd';
 
-import { Button, Input, Modal, TextArea } from 'components/common';
+import {
+  Button,
+  CharacterCounterInput,
+  Modal,
+  TextArea,
+} from 'components/common';
 import {
   Library,
   LibraryAddPrompt,
@@ -15,13 +20,6 @@ import {
 import ChipContainer from './ChipContainer';
 import { isInputValidated } from 'utils/validations';
 
-const inputsMaxLength = {
-  title: 100,
-  userMessage: 1000,
-  systemMessage: 1000,
-  sampleOutput: 1000,
-};
-
 const AddNewPrompt: React.FC<{
   onAddPrompt?: (prompt: string) => Promise<any>;
 }> = ({ onAddPrompt }) => {
@@ -31,12 +29,16 @@ const AddNewPrompt: React.FC<{
   const {
     title,
     titleError,
+    titleLimit,
     userMessage,
     userMessageError,
+    userMessageLimit,
     systemMessage,
     systemMessageError,
+    systemMessageLimit,
     promptOutput,
     promptOutputError,
+    promptOutputLimit,
     tags,
   } = state;
 
@@ -149,72 +151,72 @@ const AddNewPrompt: React.FC<{
             <div className="mt-5">
               <div className="mb-3">
                 <label
-                  htmlFor={Library.NewPromptTitle}
+                  htmlFor={Library.NEW_PROMPT_TITLE}
                   className="pl-2 font-poppins text-gray300"
                 >
-                  {Library.TitlePlaceholder}
+                  {Library.TITLE_PLACEHOLDER}
                 </label>
-                <Input
-                  id={Library.NewPromptTitle}
-                  name={Library.NewPromptTitle}
+                <CharacterCounterInput
+                  id={Library.NEW_PROMPT_TITLE}
+                  name={Library.NEW_PROMPT_TITLE}
                   value={title}
                   onChange={titleHandler}
                   variant={InputVariants.Filled}
                   error={titleError}
-                  maxLength={inputsMaxLength.title}
+                  maxLength={titleLimit}
                 />
               </div>
               <div className="mb-3">
                 <label
-                  htmlFor={Library.UserMessageTitle}
+                  htmlFor={Library.USER_MESSAGE_TITLE}
                   className="pl-2 font-poppins text-gray300"
                 >
-                  {Library.UserMessagePlaceholder}
+                  {Library.USER_MESSAGE_PLACEHOLDER}
                 </label>
-                <Input
-                  id={Library.UserMessageTitle}
-                  name={Library.UserMessageTitle}
+                <CharacterCounterInput
+                  id={Library.USER_MESSAGE_TITLE}
+                  name={Library.USER_MESSAGE_TITLE}
                   value={userMessage}
                   onChange={userMessageHandler}
                   variant={InputVariants.Filled}
                   error={userMessageError}
-                  maxLength={inputsMaxLength.userMessage}
+                  maxLength={userMessageLimit}
                 />
               </div>
               <div className="mb-3">
                 <label
-                  htmlFor={Library.SystemMessageTitle}
+                  htmlFor={Library.SYSTEM_MESSAGE_TITLE}
                   className="pl-2 font-poppins text-gray300"
                 >
-                  {Library.SystemMessagePlaceholder}
+                  {Library.SYSTEM_MESSAGE_PLACEHOLDER}
                 </label>
 
-                <Input
-                  id={Library.SystemMessageTitle}
-                  name={Library.SystemMessageTitle}
+                <CharacterCounterInput
+                  id={Library.SYSTEM_MESSAGE_TITLE}
+                  name={Library.SYSTEM_MESSAGE_TITLE}
                   value={systemMessage}
                   onChange={systemMessageHandler}
                   variant={InputVariants.Filled}
                   error={systemMessageError}
-                  maxLength={inputsMaxLength.systemMessage}
+                  maxLength={systemMessageLimit}
                 />
               </div>
               <div className="mb-3">
                 <label
-                  htmlFor={Library.WritePromptTitle}
+                  htmlFor={Library.WRITE_PROMPT_TITLE}
                   className="pl-2 font-poppins text-gray300"
                 >
-                  {Library.WritePromptPlaceholder}
+                  {Library.WRITE_PROMPT_PLACEHOLDER}
                 </label>
                 <TextArea
                   rows={6}
-                  id={Library.WritePromptTitle}
-                  name={Library.WritePromptTitle}
+                  id={Library.WRITE_PROMPT_TITLE}
+                  name={Library.WRITE_PROMPT_TITLE}
                   value={promptOutput}
                   variant={TextAreaVariants.FILLED}
                   onChange={event => sampleOutputHandler(event.target.value)}
                   error={promptOutputError}
-                  maxLength={inputsMaxLength.sampleOutput}
+                  maxLength={promptOutputLimit}
                 />
               </div>
               <ChipContainer />

@@ -11,7 +11,7 @@ const HeadingArea: React.FC<{
         <Heading level={2} children={Library.Heading} />
         <Text children={Library.SubHeading} variant={TextVariants.MEDIUM} />
       </div>
-      <AddNewPrompt onAddPrompt={onAddPrompt} />
+      <AddNewPrompt key={Date.now()} onAddPrompt={onAddPrompt} />
     </div>
   );
 };
