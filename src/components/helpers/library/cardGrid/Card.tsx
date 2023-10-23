@@ -132,7 +132,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
           <Button
             variant={ButtonVariants.DEFAULT}
             onClick={importPromptHandler}
-            name={Library.CardButtonName}
+            name={Library.CARD_BUTTON_NAME}
           />
         </div>
         <div className="flex flex-wrap">
@@ -209,7 +209,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
         cancelText=""
         cancelModalHandler={() => showPromptInfoModal(false)}
         sumbitHandler={() => {}}
-        okText={Library.CardButtonName}
+        okText={Library.CARD_BUTTON_NAME}
       >
         <ModalContent key={uuid} id={uuid} onPromptInfo={onPromptInfo} />
       </Modal>
