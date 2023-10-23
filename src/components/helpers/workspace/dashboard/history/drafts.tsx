@@ -17,6 +17,7 @@ import {
   generateOutputState,
   variablesRowState,
   variablesRowNumberState,
+  publishPromptState,
 } from 'middleware/state';
 import { Variables } from 'types';
 
@@ -51,6 +52,7 @@ const Drafts: React.FC<DraftProps> = ({
   const [, setOutputState] = useRecoilState(generateOutputState);
   const [, setRowStates] = useRecoilState(variablesRowState);
   const [, setVariableRows] = useRecoilState(variablesRowNumberState);
+  const [, setPublishState] = useRecoilState(publishPromptState);
 
   async function handleBookmark(event: React.MouseEvent) {
     event.stopPropagation();
@@ -97,6 +99,13 @@ const Drafts: React.FC<DraftProps> = ({
       output: output,
       tags: formattedTags,
       variables: variables,
+    }));
+    setPublishState(old => ({
+      ...old,
+      heading: title,
+      uuid: uuid,
+      userMessage: userMessage,
+      systemMessage: systemMessage,
     }));
   };
 
