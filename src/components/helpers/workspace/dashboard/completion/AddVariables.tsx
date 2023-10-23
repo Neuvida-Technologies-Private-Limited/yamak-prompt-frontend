@@ -27,8 +27,6 @@ const AddVariable: React.FC<AddVariableProps> = () => {
     variablesRowNumberState
   );
 
-  // const [variableRows, setVariableRows] = useState<number[]>([]);
-
   const initialRowState = { variableName: '', variableValue: '' };
 
   const { variables } = outputState;
@@ -57,21 +55,30 @@ const AddVariable: React.FC<AddVariableProps> = () => {
     setRowStates(newStates);
   };
   const handleSaveVariables = () => {
-    // Create a dictionary of variables from rowStates
     const newVariables = { ...variables };
+    let hasError = false;
 
     rowStates.forEach(rowState => {
       const { variableName, variableValue } = rowState;
+
       if (variableName && variableValue) {
         newVariables[variableName] = variableValue;
+      } else {
+        hasError = true;
       }
     });
 
-    setOutputState(old => ({
-      ...old,
-      variables: newVariables,
-    }));
-    message.success('Variable added');
+    if (hasError) {
+      message.error(
+        'Please provide both variable name and value for all variables.'
+      );
+    } else {
+      setOutputState(old => ({
+        ...old,
+        variables: newVariables,
+      }));
+      message.success('Variable(s) added');
+    }
   };
 
   return (
