@@ -66,7 +66,7 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
           variant={ButtonVariants.PRIMARY}
           size="small"
           name={'Submit'}
-          onClick={onSubmit}
+          htmlType="submit"
         />
       </form>
     </div>

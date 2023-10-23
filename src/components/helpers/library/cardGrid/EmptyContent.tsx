@@ -9,8 +9,8 @@ const EmptyLibrary: React.FC<{
     <div className="w-full flex flex-col items-center gap-4 py-20">
       <img src="/assets/images/library.svg" alt="No prompt found" />
       <div className="flex flex-col items-center px-10 text-center">
-        <Heading level={4}>{Library.EmptyLibraryHeading}</Heading>
-        <Text children={Library.EmptyLibraryText} />
+        <Heading level={4}>{Library.EMPTY_LIBRARY_HEADING}</Heading>
+        <Text children={Library.EMPTY_LIBRARY_TEXT} />
       </div>
       <AddNewPrompt key={Date.now()} onAddPrompt={onAddPrompt} />
     </div>
