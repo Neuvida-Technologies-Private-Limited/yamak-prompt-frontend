@@ -29,9 +29,12 @@ export { default as DeleteModal } from './workspace/dashboard/modals/delete';
 export { default as PublishPromptModal } from './workspace/dashboard/modals/publishPrompt';
 export { default as AddVariables } from './workspace/dashboard/completion/AddVariables';
 
-export { default as CreateKeyModal } from './keyManagement/CreateKeyModal';
-export { default as EmptyKeyManagement } from './keyManagement/EmptyContent';
-export { default as KeysGrid } from './keyManagement/KeysGrid';
-export { default as KeyItem } from './keyManagement/KeyItem';
-export { default as KeyHeader } from './keyManagement/Header';
+export { default as CreateKeyModal } from './keyManagement/header/CreateKeyModal';
+export { default as EmptyKeyManagement } from './keyManagement/itemsGrid/EmptyContent';
+export { default as KeysGrid } from './keyManagement/itemsGrid/KeysGrid';
+export { default as KeyItem } from './keyManagement/itemsGrid/KeyItem';
+export { default as KeyHeader } from './keyManagement/header';
+export { default as KeyHeadingArea } from './keyManagement/header/HeadingArea';
+export { default as KeySearchArea } from './keyManagement/header/SearchArea';
+
 export { default as GoogleAuth } from './login/googleAuth';

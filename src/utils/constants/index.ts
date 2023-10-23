@@ -157,6 +157,8 @@ export enum KeyManagement {
   VALIDATE_KEY = 'Validate Key',
   EMPTY_SCREEN_TEXT = 'Click on the "Add New Key" button to get started',
   SUCCESS = 'Key Deleted Successfully',
+  KEY_SEARCH_TITLE = 'key-management-search',
+  KEY_SEARCH_PLACEHOLDER = 'Search keys...',
 }
 
 export enum Library {

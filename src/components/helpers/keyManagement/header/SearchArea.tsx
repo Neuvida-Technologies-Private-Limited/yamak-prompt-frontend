@@ -1,8 +1,8 @@
 import { Button, Input } from 'components/common';
 import React, { useState } from 'react';
-import { Workspace, ButtonVariants, InputVariants } from 'utils/constants';
+import { KeyManagement, ButtonVariants, InputVariants } from 'utils/constants';
 
-const WorkspaceSearchArea = () => {
+const SearchArea = () => {
   const [input, setInput] = useState('');
 
   function formSubmitHandler(event: React.FormEvent) {
@@ -13,9 +13,9 @@ const WorkspaceSearchArea = () => {
     <div className="md:flex-row md:w-1/2 justify-between items-start p-6">
       <form onSubmit={formSubmitHandler} className="flex gap-2">
         <Input
-          id={Workspace.WORKSPACE_SEARCH_TITLE}
-          name={Workspace.WORKSPACE_SEARCH_TITLE}
-          placeholder={Workspace.WORKSPACE_SEARCH_PLACEHOLDER}
+          id={KeyManagement.KEY_SEARCH_TITLE}
+          name={KeyManagement.KEY_SEARCH_TITLE}
+          placeholder={KeyManagement.KEY_SEARCH_PLACEHOLDER}
           value={input}
           onChange={setInput}
           type="search"
@@ -31,4 +31,4 @@ const WorkspaceSearchArea = () => {
   );
 };
 
-export default WorkspaceSearchArea;
+export default SearchArea;
