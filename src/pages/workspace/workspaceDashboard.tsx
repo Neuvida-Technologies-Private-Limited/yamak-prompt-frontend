@@ -127,31 +127,35 @@ const WorkspaceDashboard = () => {
             />
           </Link>
         </div>
-        <div className="flex gap-2 md:justify-end sm:justify-center items-center">
-          <Button
-            variant={ButtonVariants.PRIMARY_LIGHT}
-            icon={<HiOutlineRefresh />}
-            name={Workspace.Reset}
-            onClick={handleReset}
-          />
-          <div>
+        {activeTab === '1' ? (
+          <div className="flex gap-2 md:justify-end sm:justify-center items-center">
             <Button
-              size={undefined}
-              variant={ButtonVariants.OUTLINED}
-              name={Workspace.PublishPrompt}
-              onClick={() => setShowModal(true)}
+              variant={ButtonVariants.PRIMARY_LIGHT}
+              icon={<HiOutlineRefresh />}
+              name={Workspace.Reset}
+              onClick={handleReset}
+            />
+            <div>
+              <Button
+                size={undefined}
+                variant={ButtonVariants.OUTLINED}
+                name={Workspace.PublishPrompt}
+                onClick={() => setShowModal(true)}
+              />
+            </div>
+            <PublishPromptModal
+              showModal={showModal}
+              setShowModal={setShowModal}
+              systemMessage={systemMessage}
+              userMessage={userMessage}
+              heading={heading}
+              uuid={uuid}
+              is_public={is_public}
             />
           </div>
-          <PublishPromptModal
-            showModal={showModal}
-            setShowModal={setShowModal}
-            systemMessage={systemMessage}
-            userMessage={userMessage}
-            heading={heading}
-            uuid={uuid}
-            is_public={is_public}
-          />
-        </div>
+        ) : (
+          ''
+        )}
       </div>
       <div className="max-h-full flex px-8 py-2 border-b-4 border-gray50 items-center justify-between">
         {/* Tab Switcher starts */}

@@ -103,13 +103,7 @@ const Chat = () => {
     getChatHistory(currentPage);
   }, [getChatHistory, currentPage]);
 
-  return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-3 h-full gap-x-4 sm:gap-y-4 py-4">
-      {/* {isDekstopView ? <WorkspaceHistory id={undefined} /> : null} */}
-      {/* <WorkspaceChatInputs /> */}
-      <WorkspaceChatOutput onSubmit={submitHandler} />
-    </div>
-  );
+  return <WorkspaceChatOutput onSubmit={submitHandler} />;
 };
 
 export default Chat;
