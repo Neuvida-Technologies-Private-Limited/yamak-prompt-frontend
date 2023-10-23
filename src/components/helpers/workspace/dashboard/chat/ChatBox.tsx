@@ -26,7 +26,7 @@ const ChatBox = () => {
   }, [chats.length]);
 
   return (
-    <div className="font-poppins flex flex-col w-full border rounded-lg h-[30rem] overflow-y-scroll shadow">
+    <div className="font-poppins flex flex-col w-full border rounded-lg h-full overflow-y-scroll shadow">
       {hasNext && (
         <Button
           variant={ButtonVariants.PRIMARY_LINK}
@@ -43,7 +43,7 @@ const ChatBox = () => {
         chats.map((chat, index) => (
           <div
             key={chat.uuid}
-            className={`flex flex-col gap-4 p-4 border-b text-gray700 ${
+            className={`flex flex-col gap-2 p-4 border-b text-gray700 ${
               index % 2 === 0 ? '' : 'bg-gray50'
             }`}
           >

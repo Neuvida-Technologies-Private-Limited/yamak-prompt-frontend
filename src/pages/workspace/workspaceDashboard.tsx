@@ -161,7 +161,7 @@ const WorkspaceDashboard = () => {
           <WorkspaceParameters />
         </div>
       </div>
-      <div className="max-h-full h-full overflow-y-scroll">
+      <div className="max-h-full h-full overflow-hidden">
         <div className=" px-4 h-full">
           {tabs.map(tab => (
             <>{activeTab === tab.id && <>{tab.content}</>}</>

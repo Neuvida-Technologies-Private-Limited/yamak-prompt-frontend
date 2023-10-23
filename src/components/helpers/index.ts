@@ -33,7 +33,7 @@ export { default as CreateKeyModal } from './keyManagement/header/CreateKeyModal
 export { default as EmptyKeyManagement } from './keyManagement/itemsGrid/EmptyContent';
 export { default as KeysGrid } from './keyManagement/itemsGrid/KeysGrid';
 export { default as KeyItem } from './keyManagement/itemsGrid/KeyItem';
-export { default as KeyHeader } from './keyManagement/header';
+export { default as KeyHeader } from './keyManagement/header/index';
 export { default as KeyHeadingArea } from './keyManagement/header/HeadingArea';
 export { default as KeySearchArea } from './keyManagement/header/SearchArea';
 

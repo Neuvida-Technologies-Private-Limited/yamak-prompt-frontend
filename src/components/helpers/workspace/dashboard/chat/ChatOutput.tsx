@@ -33,8 +33,8 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div className="flex flex-col col-span-3 justify-between">
-      <div className="flex flex-col">
+    <div className="flex flex-col h-full col-span-3 pt-4 pb-6 justify-between">
+      <div className="flex h-full overflow-hidden flex-col">
         <div className="flex pb-4">
           <Input
             id={Workspace.PromptTitle}
@@ -50,7 +50,7 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
       </div>
       <form onSubmit={onSubmit}>
         <div className="flex flex-col gap-2">
-          <label htmlFor="user" className="font-poppins font-semibold">
+          <label htmlFor="user" className="font-poppins font-semibold pt-2">
             {Workspace.User}
           </label>
           <Input
