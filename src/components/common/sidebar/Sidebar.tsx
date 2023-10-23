@@ -28,7 +28,7 @@ const generalItems: LinkItem[] = [
   },
   {
     key: Paths.Workspace,
-    label: SidebarConst.Workspace,
+    label: SidebarConst.Workspaces,
     icon: <FiLayout />,
   },
   {

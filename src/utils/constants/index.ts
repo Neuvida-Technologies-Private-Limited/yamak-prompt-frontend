@@ -39,7 +39,7 @@ export enum CardConst {
 export enum Paths {
   Home = '/home',
   KeyManagement = '/home/keyManagement',
-  Workspace = '/home/workspaceDashboard',
+  Workspace = '/home/workspaces',
   Deployment = '/home/deployment',
   TestCases = '/home/testCases',
   Profile = '/home/profile',
@@ -49,7 +49,7 @@ export enum Paths {
 export enum SidebarConst {
   General = 'General',
   Library = 'Library/Repository',
-  Workspace = 'Workspace',
+  Workspaces = 'Workspaces',
   KeyManagement = 'Key Management',
   Deployment = 'Deployment',
   TestCases = 'Test Cases',
