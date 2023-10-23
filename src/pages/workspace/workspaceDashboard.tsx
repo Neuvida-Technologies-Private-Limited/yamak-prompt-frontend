@@ -117,7 +117,6 @@ const WorkspaceDashboard: React.FC = () => {
         </div>
         <CreateWorkspaceModal
           btnName={Workspace.Create}
-          className="sm:hidden em:block"
           createWorkspace={createWorkspace}
         />
       </div>

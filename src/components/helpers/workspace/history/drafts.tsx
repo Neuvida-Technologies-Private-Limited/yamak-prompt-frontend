@@ -13,7 +13,12 @@ import {
   Workspace,
 } from 'utils/constants';
 import { PublishPromptModal } from 'components/helpers';
-import { generateOutputState, variableUserInputState } from 'middleware/state';
+import {
+  generateOutputState,
+  variablesRowState,
+  variablesRowNumberState,
+} from 'middleware/state';
+import { Variables } from 'types';
 
 interface DraftProps {
   title: string;
@@ -25,6 +30,7 @@ interface DraftProps {
   published: boolean;
   output: [];
   tags: [];
+  variables: Variables;
 }
 
 const Drafts: React.FC<DraftProps> = ({
@@ -37,14 +43,14 @@ const Drafts: React.FC<DraftProps> = ({
   published,
   output,
   tags,
+  variables,
 }) => {
   const [isBookmark, setIsBookmark] = useState(bookmarked);
   const [isPublished, setIsPublished] = useState(published);
   const [showModal, setShowModal] = useState(false);
-  const [outputState, setOutputState] = useRecoilState(generateOutputState);
-  const [{ userInput }, setUserInput] = useRecoilState(variableUserInputState);
-
-  const {} = outputState;
+  const [, setOutputState] = useRecoilState(generateOutputState);
+  const [, setRowStates] = useRecoilState(variablesRowState);
+  const [, setVariableRows] = useRecoilState(variablesRowNumberState);
 
   async function handleBookmark(event: React.MouseEvent) {
     event.stopPropagation();
@@ -63,6 +69,26 @@ const Drafts: React.FC<DraftProps> = ({
 
   const handleHistory: React.MouseEventHandler = () => {
     const formattedTags = tags.map(tag => tag).join(', ');
+    if (Object.keys(variables).length > 0) {
+      const newStates = [];
+
+      for (const variableName in variables) {
+        if (Object.prototype.hasOwnProperty.call(variables, variableName)) {
+          const variableValue = variables[variableName];
+          newStates.push({ variableName, variableValue });
+        }
+
+        // Update variableRows based on the number of newStates
+        setVariableRows([...Array(newStates.length).keys()]);
+      }
+
+      setRowStates(newStates);
+    } else {
+      const nullStates = [{ variableValue: '', variableName: '' }];
+      setVariableRows([]);
+      setRowStates(nullStates);
+    }
+
     setOutputState(old => ({
       ...old,
       system_message: systemMessage,
@@ -70,8 +96,8 @@ const Drafts: React.FC<DraftProps> = ({
       title: title,
       output: output,
       tags: formattedTags,
+      variables: variables,
     }));
-    setUserInput({ userInput: userMessage });
   };
 
   useEffect(() => {

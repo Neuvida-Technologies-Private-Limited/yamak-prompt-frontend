@@ -9,8 +9,9 @@ import { Workspace } from 'utils/constants';
 import {
   generateOutputState,
   publishPromptState,
+  variablesRowNumberState,
+  variablesRowState,
   workspaceHistoryPaginationState,
-  variableUserInputState,
 } from 'middleware/state';
 import { DeleteModal, UpdateModal } from 'components/helpers';
 
@@ -40,17 +41,20 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
     workspaceHistoryPaginationState
   );
   const resetOutputState = useResetRecoilState(generateOutputState);
-  const resetVariableUserInputState = useResetRecoilState(
-    variableUserInputState
+  const resetVariablesRowState = useResetRecoilState(variablesRowState);
+  const resetVariableRowNumberState = useResetRecoilState(
+    variablesRowNumberState
   );
+
   const [showModal, setShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const handleLinkClick = () => {
     resetOutputState();
     resetPublishPromptState();
-    resetVariableUserInputState();
     resetWorkspacePaginationState();
+    resetVariablesRowState();
+    resetVariableRowNumberState();
   };
 
   const handleDeleteWorkspace = async () => {

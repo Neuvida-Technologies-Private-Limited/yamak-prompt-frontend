@@ -48,6 +48,7 @@ const Completion: React.FC<CompletionProps> = ({}) => {
     prompt_type,
     tags,
     parameters: { temperature, max_tokens },
+    variables,
   } = outputState;
 
   const getHistory = useCallback(
@@ -95,6 +96,7 @@ const Completion: React.FC<CompletionProps> = ({}) => {
         temperature: temperature,
         max_tokens: max_tokens,
       },
+      variables: variables,
     };
 
     setOutputState(old => ({ ...old, isLoading: true }));

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { HiPlus } from 'react-icons/hi';
 
 import { Button, Input, Text } from 'components/common';
@@ -8,17 +9,29 @@ import {
   TextVariants,
   Workspace,
 } from 'utils/constants';
+import {
+  generateOutputState,
+  variablesRowNumberState,
+  variablesRowState,
+} from 'middleware/state';
+import { message } from 'antd';
 
 interface AddVariableProps {
-  onAddVariable: (variableName: string, variableValue: string) => void;
+  // onAddVariable: (variableName: string, variableValue: string) => void;
 }
 
-const AddVariable: React.FC<AddVariableProps> = ({ onAddVariable }) => {
-  const [variableRows, setVariableRows] = useState<number[]>([]);
-  const [rowStates, setRowStates] = useState<
-    { variableName: string; variableValue: string }[]
-  >([]);
+const AddVariable: React.FC<AddVariableProps> = () => {
+  const [outputState, setOutputState] = useRecoilState(generateOutputState);
+  const [rowStates, setRowStates] = useRecoilState(variablesRowState);
+  const [variableRows, setVariableRows] = useRecoilState(
+    variablesRowNumberState
+  );
+
+  // const [variableRows, setVariableRows] = useState<number[]>([]);
+
   const initialRowState = { variableName: '', variableValue: '' };
+
+  const { variables } = outputState;
 
   const handleAddRow = () => {
     const newRowId = variableRows.length;
@@ -28,43 +41,62 @@ const AddVariable: React.FC<AddVariableProps> = ({ onAddVariable }) => {
 
   const handleVariableNameChange = (value: string, rowId: number) => {
     const newStates = [...rowStates];
-    newStates[rowId].variableName = value;
+    newStates[rowId] = {
+      ...newStates[rowId],
+      variableName: value,
+    };
     setRowStates(newStates);
   };
 
   const handleVariableValueChange = (value: string, rowId: number) => {
     const newStates = [...rowStates];
-    newStates[rowId].variableValue = value;
+    newStates[rowId] = {
+      ...newStates[rowId],
+      variableValue: value,
+    };
     setRowStates(newStates);
   };
+  const handleSaveVariables = () => {
+    // Create a dictionary of variables from rowStates
+    const newVariables = { ...variables };
 
-  function submitHandler(event: React.FormEvent, rowId: number) {
-    event.preventDefault();
+    rowStates.forEach(rowState => {
+      const { variableName, variableValue } = rowState;
+      if (variableName && variableValue) {
+        newVariables[variableName] = variableValue;
+      }
+    });
 
-    const { variableName, variableValue } = rowStates[rowId];
-    onAddVariable(variableName, variableValue);
-  }
+    setOutputState(old => ({
+      ...old,
+      variables: newVariables,
+    }));
+    message.success('Variable added');
+  };
 
   return (
     <div className="w-full h-full py-2">
-      <Button
-        size={ButtonSizes.SMALL}
-        name={Workspace.AddVariable}
-        icon={<HiPlus />}
-        onClick={handleAddRow}
-        variant={ButtonVariants.OUTLINED}
-      />
+      <div className="w-full justify-between flex">
+        <Button
+          size={ButtonSizes.SMALL}
+          name={Workspace.AddVariable}
+          icon={<HiPlus />}
+          onClick={handleAddRow}
+          variant={ButtonVariants.OUTLINED}
+        />
+        <Button
+          size={ButtonSizes.SMALL}
+          name={Workspace.Save}
+          onClick={handleSaveVariables}
+          variant={ButtonVariants.SECONDARY_LINK}
+        />
+      </div>
       <div className="mt-2 h-full overflow-y-scroll">
         {variableRows.length === 0 ? (
           <Text variant={TextVariants.SMALL} children={Workspace.NoVariables} />
         ) : (
           variableRows.map(rowId => (
-            <form
-              key={rowId}
-              onKeyDown={e => {
-                if (e.key === 'Enter') submitHandler(e, rowId);
-              }}
-            >
+            <form key={rowId}>
               <div className="flex bg-primary50 border-b-2 border-white w-full">
                 <Input
                   id={`variableName-${rowId}`}

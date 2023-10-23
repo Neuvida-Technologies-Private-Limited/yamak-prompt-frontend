@@ -86,6 +86,7 @@ export type WorkspaceHistoryType = {
   published: boolean;
   prompt_output: [];
   tags: [];
+  variables: {};
 };
 
 export type WorkspaceChatOutputs = {
@@ -103,4 +104,7 @@ export type WorkspaceChatOutputs = {
 export type OptionItems = {
   value: any;
   label: any;
+};
+export type Variables = {
+  [variableName: string]: string;
 };

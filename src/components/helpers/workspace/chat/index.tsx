@@ -47,6 +47,7 @@ const Chat = () => {
           temperature: parameters.temperature,
           max_tokens: parameters.max_tokens,
         },
+        variables: {},
       };
 
       if (!title || !user_message) {

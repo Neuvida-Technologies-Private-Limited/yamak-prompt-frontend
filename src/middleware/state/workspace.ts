@@ -1,4 +1,6 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
+import { Variables } from 'types';
+
 import {
   OptionItems,
   WorkspaceChatOutputs,
@@ -80,6 +82,7 @@ export const generateOutputState = atom({
     },
     output: [],
     uuid: '',
+    variables: {} as Variables,
   },
 });
 
@@ -105,6 +108,7 @@ export const generateChatOutputState = atom({
     },
     output: [],
     uuid: '',
+    variables: {} as Variables,
   },
 });
 
@@ -152,9 +156,14 @@ export const workspaceHistoryPaginationState = atom({
     totalPages: 0,
   },
 });
-export const variableUserInputState = atom({
-  key: 'variableUserInput-state',
-  default: {
-    userInput: '',
-  },
+export const variablesRowState = atom<
+  { variableName: string; variableValue: string }[]
+>({
+  key: 'variableRow-State',
+  default: [],
+});
+
+export const variablesRowNumberState = atom<number[]>({
+  key: 'variablesRowNumberState',
+  default: [],
 });
