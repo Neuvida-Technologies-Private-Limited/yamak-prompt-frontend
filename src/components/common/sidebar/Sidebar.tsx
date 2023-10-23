@@ -84,7 +84,7 @@ const Index: React.FC = () => {
     navigate('/');
   };
   const handleFeedback = () => {
-    window.location.href = 'https://forms.gle/BMLEm7QYyngN3yXdA';
+    window.open('https://forms.gle/BMLEm7QYyngN3yXdA', '_blank');
   };
   useEffect(() => {
     setPathName(location.pathname);
