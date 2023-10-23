@@ -24,8 +24,7 @@ const Text: React.FC<Props> = ({
         {
           'lg:leading-[27px] text-18px lg:text-20px':
             variant === TextVariants.LARGE,
-          'text-sm md:text-base lg:w-3/4 font-normal':
-            variant === TextVariants.MEDIUM,
+          'text-sm md:text-base font-normal': variant === TextVariants.MEDIUM,
           'text-xs lg:leading-[1.85em]': variant === TextVariants.SMALL,
         },
         className
