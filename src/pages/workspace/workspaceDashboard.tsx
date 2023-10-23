@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { HiOutlineRefresh, HiPlus, HiOutlineChatAlt2 } from 'react-icons/hi';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { useRecoilState, useResetRecoilState } from 'recoil';
@@ -29,15 +29,15 @@ import { Button, Tabs } from 'components/common';
 const tabs = [
   {
     id: '1',
-    tabTitle: Workspace.Chat,
-    content: <WorkspaceChat />,
-    icon: <HiOutlineChatAlt2 />,
-  },
-  {
-    id: '2',
     tabTitle: Workspace.Completion,
     content: <WorkspaceCompletion />,
     icon: <BsCheck2Circle />,
+  },
+  {
+    id: '2',
+    tabTitle: Workspace.Chat,
+    content: <WorkspaceChat />,
+    icon: <HiOutlineChatAlt2 />,
   },
 ];
 
@@ -68,8 +68,6 @@ const WorkspaceDashboard = () => {
     // setCurrentTab(tabId);
     setWorkspaceData(old => ({ ...old, activeTab: tabId }));
   };
-
-  const handleClick = () => {};
 
   const handleReset = () => {
     resetOutputState();
@@ -121,12 +119,13 @@ const WorkspaceDashboard = () => {
           <h1 className="sm:text-xl md:text-2xl font-poppins font-semibold pr-3">
             {title}
           </h1>
-          <Button
-            variant={ButtonVariants.PRIMARY}
-            icon={<HiPlus />}
-            onClick={handleClick}
-            className="!px-5"
-          />
+          <Link to={'/home/workspaces'}>
+            <Button
+              variant={ButtonVariants.PRIMARY}
+              icon={<HiPlus />}
+              className="!px-5"
+            />
+          </Link>
         </div>
         <div className="flex gap-2 md:justify-end sm:justify-center items-center">
           <Button
