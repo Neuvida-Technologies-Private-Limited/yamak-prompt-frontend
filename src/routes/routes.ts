@@ -19,8 +19,8 @@ export const routes: Route[] = [
     element: Library,
   },
   {
-    path: '/home/workspaceDashboard',
-    element: WorkspaceDashboard,
+    path: '/home/workspaces',
+    element: Workspaces,
   },
   {
     path: '/home/keyManagement',
@@ -32,6 +32,6 @@ export const routes: Route[] = [
   },
   {
     path: '/home/workspace/:id',
-    element: Workspaces,
+    element: WorkspaceDashboard,
   },
 ];

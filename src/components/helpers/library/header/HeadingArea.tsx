@@ -7,11 +7,11 @@ const HeadingArea: React.FC<{
 }> = ({ onAddPrompt }) => {
   return (
     <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between gap-4 border-b-2 border-gray50 py-6 px-6">
-      <div>
+      <div className="flex flex-col">
         <Heading level={2} children={Library.Heading} />
         <Text children={Library.SubHeading} variant={TextVariants.MEDIUM} />
       </div>
-      <AddNewPrompt onAddPrompt={onAddPrompt} />
+      <AddNewPrompt key={Date.now()} onAddPrompt={onAddPrompt} />
     </div>
   );
 };

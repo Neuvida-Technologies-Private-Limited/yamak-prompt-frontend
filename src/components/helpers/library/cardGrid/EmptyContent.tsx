@@ -12,7 +12,7 @@ const EmptyLibrary: React.FC<{
         <Heading level={4}>{Library.EmptyLibraryHeading}</Heading>
         <Text children={Library.EmptyLibraryText} />
       </div>
-      <AddNewPrompt onAddPrompt={onAddPrompt} />
+      <AddNewPrompt key={Date.now()} onAddPrompt={onAddPrompt} />
     </div>
   );
 };

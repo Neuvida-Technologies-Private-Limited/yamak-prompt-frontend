@@ -31,7 +31,8 @@ const Chat = () => {
     parameters,
   } = chatOutputState;
 
-  async function submitHandler() {
+  async function submitHandler(event: React.FormEvent) {
+    event.preventDefault();
     try {
       const chatOutParams = {
         workspace: id,
@@ -49,7 +50,10 @@ const Chat = () => {
         variables: {},
       };
 
-      if (!title || !user_message) return;
+      if (!title || !user_message) {
+        message.error('Title or user message is empty');
+        return;
+      }
 
       setChatOutputs(old => ({ ...old, isLoading: true }));
 

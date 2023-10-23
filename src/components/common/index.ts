@@ -1,6 +1,7 @@
 export { default as Button } from './button';
 export { default as Dropdown } from './dropdown';
 export { default as Heading } from './heading';
+export { default as CharacterCounterInput } from './input/CharacterCounterInput';
 export { default as Input } from './input/input';
 export { default as StyledInput } from './input/styledInput';
 export { default as Pagination } from './pagination';

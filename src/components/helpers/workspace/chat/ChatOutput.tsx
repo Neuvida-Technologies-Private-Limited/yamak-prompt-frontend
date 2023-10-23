@@ -6,7 +6,7 @@ import { Workspace, InputVariants, ButtonVariants } from 'utils/constants';
 import ChatBox from './ChatBox';
 
 interface ChatOutputProps {
-  onSubmit: () => Promise<void>;
+  onSubmit: (event: React.FormEvent) => Promise<void>;
 }
 
 const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
@@ -48,9 +48,9 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
         </div>
         <ChatBox />
       </div>
-      <div>
+      <form onSubmit={onSubmit}>
         <div className="flex flex-col gap-2">
-          <label htmlFor="user" className="font-semibold">
+          <label htmlFor="user" className="font-poppins font-semibold">
             {Workspace.User}
           </label>
           <Input
@@ -62,23 +62,13 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
             value={user_message}
           />
         </div>
-        <div className="flex md:justify-between items-center sm:flex-wrap md:flex-nowrap sm:gap-2 sm:justify-center">
-          <div className="flex items-center gap-4">
-            <Button
-              variant={ButtonVariants.PRIMARY}
-              size="small"
-              onClick={onSubmit}
-              name={'Submit'}
-            />
-            <Button
-              variant={ButtonVariants.PRIMARY_LIGHT}
-              size="small"
-              onClick={() => {}}
-              name={'Bookmark'}
-            />
-          </div>
-        </div>
-      </div>
+        <Button
+          variant={ButtonVariants.PRIMARY}
+          size="small"
+          name={'Submit'}
+          onClick={onSubmit}
+        />
+      </form>
     </div>
   );
 };

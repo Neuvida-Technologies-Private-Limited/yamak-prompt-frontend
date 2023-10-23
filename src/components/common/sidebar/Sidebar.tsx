@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from 'react';
+
 import { useLocation, useNavigate } from 'react-router-dom';
-import {
-  FiKey,
-  FiLayout,
-  FiSend,
-  FiLogOut,
-  FiHeadphones,
-} from 'react-icons/fi';
-import { GoStack } from 'react-icons/go';
-import { MdOutlineSubject } from 'react-icons/md';
-import { BsHddStack } from 'react-icons/bs';
-import { AiOutlineUser } from 'react-icons/ai';
 import { Layout, Menu } from 'antd';
-//constants
+import { FiKey, FiLayout, FiSend, FiLogOut } from 'react-icons/fi';
+import { GoStack } from 'react-icons/go';
+import { BsHddStack } from 'react-icons/bs';
+import { MdOutlineSubject } from 'react-icons/md';
+import { AiOutlineUser } from 'react-icons/ai';
+
 import { Paths, SidebarConst, TOKENS } from 'utils/constants';
 import { SetStorage } from 'middleware/cache';
-import { useRecoilState } from 'recoil';
-import { currentUserState } from 'middleware/state';
 
 interface LinkItem {
   label: React.ReactNode;
@@ -27,65 +20,66 @@ interface LinkItem {
 
 const { Sider } = Layout;
 
+const generalItems: LinkItem[] = [
+  {
+    key: Paths.Home,
+    label: SidebarConst.Library,
+    icon: <GoStack />,
+  },
+  {
+    key: Paths.Workspace,
+    label: SidebarConst.Workspaces,
+    icon: <FiLayout />,
+  },
+  {
+    key: Paths.KeyManagement,
+    label: SidebarConst.KeyManagement,
+    icon: <FiKey />,
+  },
+  {
+    key: Paths.Deployment,
+    label: SidebarConst.Deployment,
+    icon: <FiSend />,
+    disabled: true,
+  },
+  {
+    key: Paths.TestCases,
+    label: SidebarConst.TestCases,
+    icon: <BsHddStack />,
+    disabled: true,
+  },
+];
+
+const supportItems: LinkItem[] = [
+  {
+    key: Paths.Feedback,
+    label: SidebarConst.Feedback,
+    icon: <MdOutlineSubject />,
+  },
+  {
+    key: Paths.Profile,
+    label: 'User',
+    icon: <AiOutlineUser />,
+    disabled: true,
+  },
+];
+
 const Index: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [pathName, setPathName] = useState(location.pathname);
   const [collapsed, setCollapsed] = useState(false);
-  const [currentUser, setCurrentUserState] = useRecoilState(currentUserState);
 
-  const { email, first_name, last_name } = currentUser;
-
-  const items: LinkItem[] = [
-    {
-      key: Paths.Home,
-      label: SidebarConst.Library,
-      icon: <GoStack />,
-    },
-    {
-      key: Paths.Workspace,
-      label: SidebarConst.Workspace,
-      icon: <FiLayout />,
-    },
-    {
-      key: Paths.KeyManagement,
-      label: SidebarConst.KeyManagement,
-      icon: <FiKey />,
-    },
-    {
-      key: Paths.Deployment,
-      label: SidebarConst.Deployment,
-      icon: <FiSend />,
-      disabled: true,
-    },
-    {
-      key: Paths.TestCases,
-      label: SidebarConst.TestCases,
-      icon: <BsHddStack />,
-      disabled: true,
-    },
-    {
-      key: Paths.Feedback,
-      label: SidebarConst.Feedback,
-      icon: <MdOutlineSubject />,
-    },
-    {
-      key: Paths.Profile,
-      label: `${first_name + ' ' + last_name}`,
-      icon: <AiOutlineUser />,
-      disabled: true,
-    },
-  ];
-
-  const handleLogout = () => {
-    // Remove the access token from local storage
+  function handleLogout() {
     SetStorage(TOKENS.ACCESS_TOKEN, '');
     SetStorage(TOKENS.REFRESH_TOKEN, '');
     navigate('/');
-  };
-  const handleFeedback = () => {
+  }
+
+  function handleFeedback() {
     window.open('https://forms.gle/BMLEm7QYyngN3yXdA', '_blank');
-  };
+  }
+
   useEffect(() => {
     setPathName(location.pathname);
   }, [location.pathname]);
@@ -107,47 +101,39 @@ const Index: React.FC = () => {
           <img src="/assets/logo/logo.svg" alt="logo" />
         </div>
       )}
-      <span
-        className={
-          !collapsed
-            ? 'flex font-poppins pl-5 pt-4 font-bold text-gray600'
-            : 'flex font-poppins pl-2 pt-4 font-bold text-gray600'
-        }
-      >
-        {SidebarConst.General}
-      </span>
+
       <Menu
         defaultSelectedKeys={[pathName]}
         selectedKeys={[pathName]}
         mode="inline"
         onClick={item => {
-          if (item.key === Paths.Feedback) {
-            handleFeedback();
-          } else {
-            navigate(item.key);
-          }
+          item.key === Paths.Feedback ? handleFeedback() : navigate(item.key);
         }}
         className="font-raleway text-xs"
       >
-        {items.slice(0, 5).map(item => (
+        <span className={'flex font-poppins pl-4 py-2 font-bold text-gray600'}>
+          {SidebarConst.General}
+        </span>
+
+        {/* general items */}
+        {generalItems.map(item => (
           <Menu.Item key={item.key} icon={item.icon} disabled={item.disabled}>
             {item.label}
           </Menu.Item>
         ))}
-        <span
-          className={
-            !collapsed
-              ? 'flex font-poppins pl-5 py-4 font-bold text-gray600'
-              : 'flex font-poppins pl-2 py-4 font-bold text-gray600'
-          }
-        >
+
+        <span className={'flex font-poppins pl-4 py-2 font-bold text-gray600'}>
           {SidebarConst.Support}
         </span>
-        {items.slice(5, 8).map(item => (
+
+        {/* support items */}
+        {supportItems.map(item => (
           <Menu.Item key={item.key} icon={item.icon} disabled={item.disabled}>
             {item.label}
           </Menu.Item>
         ))}
+
+        {/* logout button */}
         <Menu.Item key="/" icon={<FiLogOut />} onClick={handleLogout}>
           {SidebarConst.Logout}
         </Menu.Item>
