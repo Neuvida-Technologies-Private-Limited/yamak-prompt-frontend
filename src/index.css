@@ -105,7 +105,6 @@
   align-items: center !important;
   justify-content: space-between;
 }
-
 .ant-modal .ant-modal-footer .ant-btn + .ant-btn {
   background-color: var(--primary-color) !important;
   font-family: 'Poppins', serif;
@@ -148,6 +147,9 @@
 }
 .ant-dropdown .ant-dropdown-menu {
   font-family: 'Poppins';
+}
+.ant-message .ant-message-top {
+  font-family: 'Poppins', sans-serif !important;
 }
 
 /* Pagination */

@@ -28,6 +28,7 @@ interface CompletionProps {}
 
 const Completion: React.FC<CompletionProps> = ({}) => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
+  const [{ model_key }] = useRecoilState(workspaceInfoState);
   const [, setPublishState] = useRecoilState(publishPromptState);
   const [{ id }] = useRecoilState(workspaceInfoState);
   const [{ history }, setWorkspaceHistoryState] = useRecoilState(
@@ -80,6 +81,11 @@ const Completion: React.FC<CompletionProps> = ({}) => {
 
     if (system_message === '' || user_message === '' || title === '') {
       message.error('Field/Fields Empty');
+      return;
+    }
+
+    if (model_key === null) {
+      message.warning('Key is absent, please add a key!');
       return;
     }
 
