@@ -46,7 +46,7 @@ export const workspaceInfoState = atom({
     last_modified: '',
     timestamp: '',
     user_uuid: '',
-    activeTab: '2',
+    activeTab: '1',
   },
 });
 

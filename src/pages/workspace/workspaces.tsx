@@ -54,7 +54,7 @@ const Workspaces: React.FC = () => {
           totalPages: Math.ceil(res.count / ITEMS_PER_PAGE),
         }));
       } catch (error: any) {
-        console.log(error);
+        message.error(error);
       }
     },
     [setState, setPaginationState]

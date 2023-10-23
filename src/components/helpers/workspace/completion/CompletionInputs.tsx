@@ -40,6 +40,7 @@ const CompletionInputs: React.FC<CompletionInputsProps> = () => {
       placeholder: 'You are helpful assistance',
       onChange: handleSystemMessageChange,
       value: system_message,
+      maxLength: 100,
     },
     {
       id: '2',
@@ -48,6 +49,7 @@ const CompletionInputs: React.FC<CompletionInputsProps> = () => {
         'Classify the following {{text 1}} into one of the following: Positive sentiment Negative sentiment Neutral sentiment Text: """ {{ text 2}} """',
       onChange: handleUserMessageChange,
       value: user_message,
+      maxLength: 100,
     },
   ];
 
@@ -64,10 +66,10 @@ const CompletionInputs: React.FC<CompletionInputsProps> = () => {
             name={item.placeholder}
             rows={4}
             placeholder={item.placeholder}
-            maxLength={0}
             variant={TextAreaVariants.DEFAULT}
             value={item.value}
             onChange={item.onChange}
+            maxLength={item.maxLength}
           />
         </div>
       ))}

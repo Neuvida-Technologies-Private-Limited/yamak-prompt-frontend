@@ -29,15 +29,15 @@ import { Button, Tabs } from 'components/common';
 const tabs = [
   {
     id: '1',
-    tabTitle: Workspace.Chat,
-    content: <WorkspaceChat />,
-    icon: <HiOutlineChatAlt2 />,
-  },
-  {
-    id: '2',
     tabTitle: Workspace.Completion,
     content: <WorkspaceCompletion />,
     icon: <BsCheck2Circle />,
+  },
+  {
+    id: '2',
+    tabTitle: Workspace.Chat,
+    content: <WorkspaceChat />,
+    icon: <HiOutlineChatAlt2 />,
   },
 ];
 
