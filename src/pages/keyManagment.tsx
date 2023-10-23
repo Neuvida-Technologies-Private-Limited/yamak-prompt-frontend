@@ -3,7 +3,12 @@ import React, { useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { message } from 'antd';
 
-import { KeyHeader, KeysGrid } from 'components/helpers';
+import {
+  KeyHeader as Header,
+  KeyHeadingArea as HeadingArea,
+  KeySearchArea as SearchArea,
+  KeysGrid as Grid,
+} from 'components/helpers';
 import { createKey, deleteKey, getKeyList } from 'middleware/api';
 import { keyManagementState, keyPaginationState } from 'middleware/state';
 import { CreateKeyModal } from 'middleware/api/types';
@@ -82,8 +87,11 @@ const KeyManagment: React.FC = () => {
 
   return (
     <div className="flex flex-col font-poppins">
-      <KeyHeader onCreateKey={createKeyHandler} />
-      <KeysGrid onDeleteKey={deleteKeyHandler} />
+      <Header>
+        <HeadingArea onCreateKey={createKeyHandler} />
+        <SearchArea />
+      </Header>
+      <Grid onDeleteKey={deleteKeyHandler} />
     </div>
   );
 };

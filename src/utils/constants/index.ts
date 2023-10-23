@@ -132,6 +132,8 @@ export enum Workspace {
   Bookmark = 'Bookmark',
   Unbookmark = 'Unbookmark',
   Save = 'Save',
+  WORKSPACE_SEARCH_TITLE = 'workspaces-search',
+  WORKSPACE_SEARCH_PLACEHOLDER = 'Search workspaces...',
 }
 
 export enum KeyManagement {
@@ -155,6 +157,8 @@ export enum KeyManagement {
   VALIDATE_KEY = 'Validate Key',
   EMPTY_SCREEN_TEXT = 'Click on the "Add New Key" button to get started',
   SUCCESS = 'Key Deleted Successfully',
+  KEY_SEARCH_TITLE = 'key-management-search',
+  KEY_SEARCH_PLACEHOLDER = 'Search keys...',
 }
 
 export enum Library {
@@ -175,15 +179,12 @@ export enum Library {
   SELECT_TAG_PLACEHOLDER = 'Select Tag',
   TAGS_TITLE = 'tags',
   TAGS_PLACEHOLDER = 'Enter tags (optional)',
-  SearchLibrary = 'Search prompts...',
-  NoSearchLibrary = 'No items to search...',
-  CardHeading = 'Human Written | 100% Unique | SEO Optimized Article',
-  CardSubHeading = 'SEO/Writing',
-  CardButtonName = 'Import Prompt',
-  CardDescription = 'Human Written | Plagiarism Free | SEO Optimized Long-Form Article with Proper Outline',
-  ImportPrompt = 'Import Prompt',
-  EmptyLibraryHeading = "Oops, it's a bit empty in here...",
-  EmptyLibraryText = 'Start by creating a new prompt.',
+  SEARCH_LIBRARY = 'Search prompts...',
+  NO_SEARCH_LIBRARY = 'No items to search...',
+  CARD_BUTTON_NAME = 'Import Prompt',
+  IMPORT_PROMPT = 'Import Prompt',
+  EMPTY_LIBRARY_HEADING = "Oops, it's a bit empty in here...",
+  EMPTY_LIBRARY_TEXT = 'Start by creating a new prompt.',
 }
 
 export enum LibraryAddPrompt {

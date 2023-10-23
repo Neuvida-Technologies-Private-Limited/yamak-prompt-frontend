@@ -4,9 +4,13 @@ import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import { message } from 'antd';
 
-import { CreateWorkspaceModal, WordspaceCardGrid } from 'components/helpers';
-import { ITEMS_PER_PAGE, Workspace } from 'utils/constants';
-import { Heading } from 'components/common';
+import {
+  WordspaceCardGrid as CardGrid,
+  WorkspaceHeader as Header,
+  WorkspaceHeadingArea as HeadingArea,
+  WorkspaceSearchArea as SearchArea,
+} from 'components/helpers';
+import { ITEMS_PER_PAGE } from 'utils/constants';
 import {
   getWorkspaces,
   CreateWorkspace,
@@ -107,20 +111,11 @@ const Workspaces: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen overflow-y-scroll">
-      <div className="flex sm:flex-col sm:justify-between sm:items-start md:flex-row gap-4 p-6 shadow">
-        <div className="flex flex-col font-poppins">
-          <Heading level={2} children={Workspace.Workspaces} />
-          <h4 className="text-sm md:text-base lg:w-3/4">
-            {Workspace.Subhead1}
-          </h4>
-          <h4 className="text-sm md:text-base">{Workspace.Subhead2}</h4>
-        </div>
-        <CreateWorkspaceModal
-          btnName={Workspace.Create}
-          createWorkspace={createWorkspace}
-        />
-      </div>
-      <WordspaceCardGrid
+      <Header>
+        <HeadingArea onCreateWorkspace={createWorkspace} />
+        <SearchArea />
+      </Header>
+      <CardGrid
         items={workspace_details}
         onDelete={deleteWorkspace}
         onUpdate={updateWorkspace}

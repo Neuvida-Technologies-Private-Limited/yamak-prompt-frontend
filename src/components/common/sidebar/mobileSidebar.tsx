@@ -7,11 +7,13 @@ import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { FiKey, FiLayout, FiSend, FiLogOut } from 'react-icons/fi';
 import { GoStack } from 'react-icons/go';
 import { MdOutlineSubject } from 'react-icons/md';
+import { BsHddStack } from 'react-icons/bs';
+import { useRecoilState } from 'recoil';
 
 import Button from '../button';
 import { SetStorage } from 'middleware/cache';
 import { Paths, SidebarConst, TOKENS } from 'utils/constants';
-import { BsHddStack } from 'react-icons/bs';
+import { currentUserState } from 'middleware/state';
 
 interface LinkItem {
   label: React.ReactNode;
@@ -20,54 +22,57 @@ interface LinkItem {
   disabled?: boolean;
 }
 
-const generalItems: LinkItem[] = [
-  {
-    key: Paths.Home,
-    label: SidebarConst.Library,
-    icon: <GoStack />,
-  },
-  {
-    key: Paths.Workspace,
-    label: SidebarConst.Workspaces,
-    icon: <FiLayout />,
-  },
-  {
-    key: Paths.KeyManagement,
-    label: SidebarConst.KeyManagement,
-    icon: <FiKey />,
-  },
-  {
-    key: Paths.Deployment,
-    label: SidebarConst.Deployment,
-    icon: <FiSend />,
-    disabled: true,
-  },
-  {
-    key: Paths.TestCases,
-    label: SidebarConst.TestCases,
-    icon: <BsHddStack />,
-    disabled: true,
-  },
-];
-
-const supportItems: LinkItem[] = [
-  {
-    key: Paths.Feedback,
-    label: SidebarConst.Feedback,
-    icon: <MdOutlineSubject />,
-  },
-  {
-    key: Paths.Profile,
-    label: 'User',
-    icon: <AiOutlineUser />,
-    disabled: true,
-  },
-];
-
 const App: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const [currentUser, setCurrentUserState] = useRecoilState(currentUserState);
+
+  const { email, first_name, last_name } = currentUser;
+
+  const generalItems: LinkItem[] = [
+    {
+      key: Paths.Home,
+      label: SidebarConst.Library,
+      icon: <GoStack />,
+    },
+    {
+      key: Paths.Workspace,
+      label: SidebarConst.Workspaces,
+      icon: <FiLayout />,
+    },
+    {
+      key: Paths.KeyManagement,
+      label: SidebarConst.KeyManagement,
+      icon: <FiKey />,
+    },
+    {
+      key: Paths.Deployment,
+      label: SidebarConst.Deployment,
+      icon: <FiSend />,
+      disabled: true,
+    },
+    {
+      key: Paths.TestCases,
+      label: SidebarConst.TestCases,
+      icon: <BsHddStack />,
+      disabled: true,
+    },
+  ];
+
+  const supportItems: LinkItem[] = [
+    {
+      key: Paths.Feedback,
+      label: SidebarConst.Feedback,
+      icon: <MdOutlineSubject />,
+    },
+    {
+      key: Paths.Profile,
+      label: `${first_name + ' ' + last_name}`,
+      icon: <AiOutlineUser />,
+      disabled: true,
+    },
+  ];
 
   function handleLogout() {
     SetStorage(TOKENS.ACCESS_TOKEN, '');
