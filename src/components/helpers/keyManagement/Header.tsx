@@ -10,7 +10,7 @@ interface KeyHeaderProps {
 
 const KeyHeader: React.FC<KeyHeaderProps> = ({ onCreateKey }) => {
   return (
-    <div className="flex sm:flex-col lg:flex-row justify-between items-start md:items-start mb-5 gap-3">
+    <div className="flex sm:flex-col md:flex-row justify-between items-start md:items-start gap-3 p-6 bg-white ">
       <div>
         <Heading level={2} children="Key management" />
         <Text children={KeyManagement.MESSAGE} variant={TextVariants.MEDIUM} />

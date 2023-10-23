@@ -20,9 +20,11 @@ const WorkspaceCardGrid: React.FC<WorkspaceCardGridProps> = ({
 }) => {
   return (
     <div>
-      {items.length > 0 ? (
+      {items.length === 0 ? (
+        <EmptyWorkspace createWorkspace={createWorkspace} />
+      ) : (
         <div className="flex flex-col">
-          <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray10 lg:grid-cols-3 gap-3">
+          <div className="grid md:grid-cols-1 em:grid-cols-2 p-6 h-full bg-gray50 lg:grid-cols-3 gap-3">
             {items.map((item: any, index: number) => (
               <WorkspaceCard
                 key={`workspace-card-item-${index}`}
@@ -39,8 +41,6 @@ const WorkspaceCardGrid: React.FC<WorkspaceCardGridProps> = ({
           </div>
           <Pagination type="workspace" />
         </div>
-      ) : (
-        <EmptyWorkspace createWorkspace={createWorkspace} />
       )}
     </div>
   );

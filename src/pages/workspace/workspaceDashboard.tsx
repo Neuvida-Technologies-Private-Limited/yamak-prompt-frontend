@@ -107,7 +107,7 @@ const WorkspaceDashboard: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen overflow-y-scroll">
-      <div className="flex sm:flex-col sm:justify-between sm:items-start md:flex-row gap-4 p-6">
+      <div className="flex sm:flex-col sm:justify-between sm:items-start md:flex-row gap-4 p-6 shadow">
         <div className="flex flex-col font-poppins">
           <Heading level={2} children={Workspace.Workspaces} />
           <h4 className="text-sm md:text-base lg:w-3/4">
