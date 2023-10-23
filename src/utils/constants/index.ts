@@ -134,7 +134,8 @@ export enum Workspace {
 }
 
 export enum KeyManagement {
-  MESSAGE = "We uses API keys from various LLM providers to make API calls on your behalf. To get started, you'll need to create an account with one or more providers and obtain an API key from each. Once entered here, they'll be securely encrypted and stored, but can be removed at anytime.",
+  MESSAGE = "Create an account with LLM providers, get API keys, and input them here. We'll encrypt and store them securely, but you can remove them anytime.",
+  EMPTY_SCREEN_MESSAGE = "Click 'Add Key' to create a unique API key for access to advanced machine learning functionalities on AI platforms.",
   ADD_KEY_BUTTON = 'Add Key',
   TITLE = 'Open AI Key',
   OK = 'Save Key',

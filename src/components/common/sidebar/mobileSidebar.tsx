@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Drawer, Menu, Space } from 'antd';
-// react icons
-import { AiOutlineMenuUnfold, AiOutlineUser } from 'react-icons/ai';
-import {
-  FiKey,
-  FiLayout,
-  FiSend,
-  FiLogOut,
-  FiHeadphones,
-} from 'react-icons/fi';
+import { AiOutlineUser } from 'react-icons/ai';
+import { HiOutlineMenuAlt1 } from 'react-icons/hi';
+import { FiKey, FiLayout, FiSend, FiLogOut } from 'react-icons/fi';
 import { GoStack } from 'react-icons/go';
 import { MdOutlineSubject } from 'react-icons/md';
-import { BsHddStack } from 'react-icons/bs';
-//components
+
 import Button from '../button';
-//constants
-import { Paths, SidebarConst, TOKENS } from 'utils/constants';
 import { SetStorage } from 'middleware/cache';
+import { Paths, SidebarConst, TOKENS } from 'utils/constants';
+import { BsHddStack } from 'react-icons/bs';
 
 interface LinkItem {
   label: React.ReactNode;
@@ -26,7 +20,7 @@ interface LinkItem {
   disabled?: boolean;
 }
 
-const items: LinkItem[] = [
+const generalItems: LinkItem[] = [
   {
     key: Paths.Home,
     label: SidebarConst.Library,
@@ -48,55 +42,57 @@ const items: LinkItem[] = [
     icon: <FiSend />,
     disabled: true,
   },
-  { key: Paths.Help, label: SidebarConst.Help, icon: <FiHeadphones /> },
+  {
+    key: Paths.TestCases,
+    label: SidebarConst.TestCases,
+    icon: <BsHddStack />,
+    disabled: true,
+  },
+];
+
+const supportItems: LinkItem[] = [
   {
     key: Paths.Feedback,
     label: SidebarConst.Feedback,
     icon: <MdOutlineSubject />,
   },
-  { key: Paths.Profile, label: SidebarConst.Profile, icon: <AiOutlineUser /> },
+  {
+    key: Paths.Profile,
+    label: 'User',
+    icon: <AiOutlineUser />,
+    disabled: true,
+  },
 ];
 
 const App: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
-  const handleLogout = () => {
-    // Remove the access token from local storage
+
+  function handleLogout() {
     SetStorage(TOKENS.ACCESS_TOKEN, '');
     SetStorage(TOKENS.REFRESH_TOKEN, '');
     navigate('/');
-  };
-  const handleFeedback = () => {
-    window.location.href = 'https://forms.gle/BMLEm7QYyngN3yXdA';
-  };
+  }
 
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
+  function handleFeedback() {
+    window.open('https://forms.gle/BMLEm7QYyngN3yXdA', '_blank');
+  }
 
   return (
     <>
       <Button
-        size={undefined}
         variant="default"
-        onClick={showDrawer}
-        icon={<AiOutlineMenuUnfold className="!w-6 !h-full text-black" />}
+        onClick={() => setOpen(true)}
+        icon={<HiOutlineMenuAlt1 className="!w-6 !h-full text-black" />}
       />
       <Drawer
         placement={'left'}
         width={300}
-        onClose={onClose}
+        onClose={() => setOpen(false)}
         open={open}
         extra={<Space></Space>}
       >
-        <span className="flex font-poppins pl-5 pt-4 font-bold text-gray600">
-          {SidebarConst.General}
-        </span>
         <Menu
           defaultSelectedKeys={[pathname]}
           mode="inline"
@@ -108,21 +104,30 @@ const App: React.FC = () => {
             }
             setOpen(false);
           }}
-          className="font-raleway text-xs"
+          className="font-raleway text-xs !border-none"
         >
-          {items.slice(0, 5).map(item => (
+          <span className="flex font-poppins pl-5 pt-4 font-bold text-gray600">
+            {SidebarConst.General}
+          </span>
+
+          {/* General items */}
+          {generalItems.map(item => (
             <Menu.Item key={item.key} icon={item.icon} disabled={item.disabled}>
               {item.label}
             </Menu.Item>
           ))}
+
           <span className="flex font-poppins pl-5 pt-4 font-bold text-gray600">
             {SidebarConst.Support}
           </span>
-          {items.slice(5, 9).map(item => (
+
+          {/* Support items */}
+          {supportItems.map(item => (
             <Menu.Item key={item.key} icon={item.icon} disabled={item.disabled}>
               {item.label}
             </Menu.Item>
           ))}
+
           <Menu.Item key="/" icon={<FiLogOut />} onClick={handleLogout}>
             {SidebarConst.Logout}
           </Menu.Item>
