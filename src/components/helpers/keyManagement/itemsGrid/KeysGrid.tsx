@@ -18,7 +18,7 @@ const KeysGrid: React.FC<KeysGridProps> = ({ onDeleteKey }) => {
     <EmptyKeyManagement />
   ) : (
     <>
-      <div className="flex flex-col gap-y-10 px-6 py-8 bg-gray50">
+      <div className="flex flex-col gap-y-10 px-6 py-8 ">
         {results.map((item, index) => (
           <KeyItem
             key={`key-management-input-${index}`}

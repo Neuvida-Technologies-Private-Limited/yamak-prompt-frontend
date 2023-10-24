@@ -41,7 +41,7 @@ const SearchArea: React.FC<{ onSearchPrompt: (input: string) => void }> = ({
   }, [library.activeTab]);
 
   return (
-    <div className="md:flex-row md:w-1/2 justify-between items-start px-6 pt-4 sm:pb-4 md:pb-2">
+    <div className="md:flex-row md:w-1/2 justify-between items-start p-6">
       <form onSubmit={formSubmitHandler} className="flex gap-2">
         <Input
           id={Library.SEARCH_LIBRARY}

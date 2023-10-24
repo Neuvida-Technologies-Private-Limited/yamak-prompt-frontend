@@ -200,6 +200,7 @@ const Parameters: React.FC = () => {
         cancelModalHandler={() => setShowModal(false)}
         okText={Workspace.AddPrompt}
         className="parameters em:!w-1/2 sm:!w-full"
+        footer={null}
       >
         <div className="flex flex-col">
           <form action="#" method="post">
@@ -207,7 +208,7 @@ const Parameters: React.FC = () => {
               {parametersInputs.map((items, index) => (
                 <div
                   key={`parameter-item-${index}`}
-                  className="flex sm:!flex-wrap items-center"
+                  className="flex sm:!flex-wrap items-center py-1"
                 >
                   <div className="em:w-1/3 sm:w-full flex items-center">
                     <label className="p-3">{items.label}</label>

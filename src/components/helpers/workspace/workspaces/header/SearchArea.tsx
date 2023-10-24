@@ -10,8 +10,11 @@ const WorkspaceSearchArea = () => {
   }
 
   return (
-    <div className="md:flex-row md:w-1/2 justify-between items-start p-6">
-      <form onSubmit={formSubmitHandler} className="flex gap-2">
+    <div className="p-6 border-b-2 border-gray50">
+      <form
+        onSubmit={formSubmitHandler}
+        className="flex md:flex-row md:w-1/2 justify-between items-start gap-2"
+      >
         <Input
           id={Workspace.WORKSPACE_SEARCH_TITLE}
           name={Workspace.WORKSPACE_SEARCH_TITLE}
