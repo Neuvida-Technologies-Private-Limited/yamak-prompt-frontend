@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { message } from 'antd';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -12,6 +12,8 @@ import {
 import {
   generateOutputState,
   publishPromptState,
+  variablesRowNumberState,
+  variablesRowState,
   workspaceHistoryPaginationState,
   workspaceHistoryState,
   workspaceInfoState,
@@ -19,6 +21,7 @@ import {
 import {
   GenerateOutput,
   GetWorkspaceHistory,
+  deletePrompt,
   getSearchWorkspaceHistory,
   updatePromptInfo,
 } from 'middleware/api';
@@ -37,6 +40,12 @@ const Completion: React.FC<CompletionProps> = ({}) => {
   const [{ currentPage, query }, setHistoryPagination] = useRecoilState(
     workspaceHistoryPaginationState
   );
+  const resetOutputState = useResetRecoilState(generateOutputState);
+  const resetPublishState = useResetRecoilState(publishPromptState);
+  const resetVariablesRowState = useResetRecoilState(variablesRowState);
+  const resetVariableRowNumberState = useResetRecoilState(
+    variablesRowNumberState
+  );
 
   const isDekstopView = window.innerWidth >= 768;
 
@@ -47,6 +56,7 @@ const Completion: React.FC<CompletionProps> = ({}) => {
     bookmarked,
     is_public,
     prompt_type,
+    uuid,
     tags,
     parameters: { temperature, max_tokens },
     variables,
@@ -115,6 +125,7 @@ const Completion: React.FC<CompletionProps> = ({}) => {
         var uuid = String(res.data.uuid);
         var UM = String(res.data.user_message);
         var SM = String(res.data.system_message);
+        var BM = res.data.bookmarked;
         await getHistory(currentPage);
       } else {
         toast.error('Error in generating Output');
@@ -126,7 +137,7 @@ const Completion: React.FC<CompletionProps> = ({}) => {
       ...old,
       output: msg,
       uuid: uuid,
-      bookmarked: bookmarked,
+      bookmarked: BM,
       isLoading: false,
     }));
 
@@ -178,6 +189,20 @@ const Completion: React.FC<CompletionProps> = ({}) => {
     }
   };
 
+  const deleteHistoryPrompt = async (id: string) => {
+    try {
+      await deletePrompt(id);
+      await getHistory(currentPage);
+      if (id === uuid) {
+        resetOutputState();
+        resetPublishState();
+        resetVariablesRowState();
+        resetVariableRowNumberState();
+      }
+      return;
+    } catch (error) {}
+  };
+
   useEffect(() => {
     async function getHistoryOnLoad() {
       try {
@@ -201,6 +226,7 @@ const Completion: React.FC<CompletionProps> = ({}) => {
             onUpdatePrompt={updatePromptHandler}
             getHistory={getHistory}
             currentPage={currentPage}
+            deleteHistory={deleteHistoryPrompt}
           />
         </div>
       ) : null}
@@ -213,6 +239,8 @@ const Completion: React.FC<CompletionProps> = ({}) => {
           generateOutput={generateOutput}
           onUpdatePrompt={updatePromptHandler}
           bookmarked={bookmarked}
+          getHistory={getHistory}
+          currentPage={currentPage}
         />
       </div>
       <ToastContainer autoClose={3000} />

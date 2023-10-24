@@ -13,6 +13,7 @@ interface CompletionHistoryProps {
   onHistorySearch: (input: string) => void;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
   getHistory: (currentPage: number) => Promise<void>;
+  deleteHistory: (uuid: string) => Promise<void>;
   currentPage: number;
 }
 
@@ -21,6 +22,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
   onUpdatePrompt,
   getHistory,
   currentPage,
+  deleteHistory,
 }) => {
   const workspaceHistory = useRecoilValue(workspaceHistoryState);
   const [, setSearchInput] = useRecoilState(workspaceHistoryPaginationState);
@@ -90,6 +92,9 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
                 output={item.prompt_output}
                 tags={item.tags}
                 variables={item.variables}
+                deleteHistory={deleteHistory}
+                getHistory={getHistory}
+                currentPage={currentPage}
               />
             ))
           )}

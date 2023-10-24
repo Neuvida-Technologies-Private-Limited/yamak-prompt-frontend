@@ -38,6 +38,11 @@ const PublishPrompt: React.FC<PublishPromptProps> = ({
     workspaceHistoryState
   );
 
+  async function handleCancel(event: React.MouseEvent) {
+    event.stopPropagation();
+    setShowModal(false);
+  }
+
   const handlePublishPrompt = async (uuid: string, is_public: boolean) => {
     const publishPromptParams = {
       uuid,
@@ -83,7 +88,7 @@ const PublishPrompt: React.FC<PublishPromptProps> = ({
         title={Workspace.PublishPrompt}
         centered={true}
         isOpen={showModal}
-        cancelModalHandler={() => setShowModal(false)}
+        cancelModalHandler={handleCancel}
         okText={Workspace.Publish}
         sumbitHandler={() => handlePublishPrompt(uuid, is_public)}
         className="keyManagement"
