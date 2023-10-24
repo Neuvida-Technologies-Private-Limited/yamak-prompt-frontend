@@ -27,7 +27,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
   const [optionsState] = useRecoilState(keyOptionsState);
   const [updatedData, setUpdatedData] = useState({
     title: heading,
-    key: modelKey,
+    model_key: modelKey,
   });
   const [updatedTitleError, setUpdatedTitleError] = useState('');
   const { options } = optionsState;
@@ -37,7 +37,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
     setUpdatedData({ ...updatedData, title: value });
   };
   const handleSelectChange = (model_key: string) => {
-    setUpdatedData({ ...updatedData, key: model_key });
+    setUpdatedData({ ...updatedData, model_key: model_key });
   };
 
   const handleUpdateWorkspace = async (updatedData: any, id: string) => {
@@ -82,7 +82,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
           </label>
           <Select
             options={options}
-            value={updatedData.key}
+            value={updatedData.model_key}
             onChange={handleSelectChange}
             className="filled w-full"
             size="large"
