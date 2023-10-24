@@ -11,6 +11,7 @@ export enum ButtonVariants {
   OUTLINED_LIGHT = 'outlined-light',
   PRIMARY_LINK = 'primary-link',
   SECONDARY_LINK = 'secondary-link',
+  WARNING = 'warning',
   DEFAULT = 'default',
 }
 export enum ButtonSizes {

@@ -55,7 +55,7 @@ const CompletionHistory: React.FC<CompletionHistoryProps> = ({
 
   return (
     <div className="flex flex-col w-full h-full overflow-y-hidden justify-between pb-2 pt-2">
-      <div className="-mb-2  pr-4">
+      <div className="pr-4">
         <div className="flex items-center font-poppins mb-2">
           <h1 className="font-semibold text-base">{Workspace.History}</h1>
         </div>

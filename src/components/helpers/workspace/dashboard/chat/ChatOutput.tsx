@@ -10,7 +10,7 @@ interface ChatOutputProps {
 }
 
 const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
-  const [{ user_message }, setChatOutputState] = useRecoilState(
+  const [{ user_message, tags }, setChatOutputState] = useRecoilState(
     generateChatOutputState
   );
 
@@ -44,7 +44,7 @@ const ChatOutput: React.FC<ChatOutputProps> = ({ onSubmit }) => {
             variant={InputVariants.Filled}
             className="!w-1/2 !mb-0"
           />
-          <Label onChange={handleLabelsChange} initialLabels={''} />
+          <Label onChange={handleLabelsChange} initialLabels={tags} />
         </div>
         <ChatBox />
       </div>
