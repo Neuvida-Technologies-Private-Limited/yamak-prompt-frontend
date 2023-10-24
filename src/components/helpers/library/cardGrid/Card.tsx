@@ -125,8 +125,11 @@ const LibraryCard: React.FC<CardItemProps> = ({
         className="flex flex-col bg-white p-4 rounded-2xl shadow cursor-pointer h-auto transition-all duration-300 hover:shadow-md hover:-translate-y-1"
         onClick={promptInfoHandler}
       >
-        <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between gap-4 items-center mb-4">
-          <h2 className="text-black font-bold text-md cursor-pointer">
+        <div className="flex sm:flex-col md:flex-row sm:items-start md:justify-between overflow-hidden gap-4 items-center mb-4">
+          <h2
+            className="text-black font-bold text-md md:truncate"
+            title={title}
+          >
             {title}
           </h2>
           <Button

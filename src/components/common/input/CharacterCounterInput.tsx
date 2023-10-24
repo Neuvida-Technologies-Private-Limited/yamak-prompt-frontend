@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 type Variant = 'filled' | 'outlined' | 'default';
@@ -11,7 +11,7 @@ interface InputProps {
   required?: boolean;
   className?: string;
   onChange: (value: string) => void;
-  value?: string | number;
+  value: string;
   error?: string;
   variant: Variant;
   disabled?: boolean;
@@ -51,6 +51,10 @@ const CharacterCounterInput: React.FC<InputProps> = ({
     },
     className
   );
+
+  useEffect(() => {
+    setText(value);
+  }, [value]);
 
   return (
     <>

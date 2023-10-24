@@ -157,7 +157,6 @@ const AddNewPrompt: React.FC<{
                   {Library.TITLE_PLACEHOLDER}
                 </label>
                 <CharacterCounterInput
-                  key={'1'}
                   id={Library.NEW_PROMPT_TITLE}
                   name={Library.NEW_PROMPT_TITLE}
                   value={title}
@@ -175,7 +174,6 @@ const AddNewPrompt: React.FC<{
                   {Library.USER_MESSAGE_PLACEHOLDER}
                 </label>
                 <CharacterCounterInput
-                  key={'2'}
                   id={Library.USER_MESSAGE_TITLE}
                   name={Library.USER_MESSAGE_TITLE}
                   value={userMessage}
@@ -194,7 +192,6 @@ const AddNewPrompt: React.FC<{
                 </label>
 
                 <CharacterCounterInput
-                  key={'3'}
                   id={Library.SYSTEM_MESSAGE_TITLE}
                   name={Library.SYSTEM_MESSAGE_TITLE}
                   value={systemMessage}

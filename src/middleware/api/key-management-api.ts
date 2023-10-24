@@ -32,6 +32,18 @@ export const getKeyList = async (page: number) => {
     throw new Error(err.error);
   }
 };
+
+export const getSearchKeys = async (page: number, input: string) => {
+  try {
+    const response = await axiosClientProtected.get(
+      `${keyManagementRoutes.KEY_LIST_ROUTE}${page}&q=${input}`
+    );
+    return response;
+  } catch (err: any) {
+    throw new Error(err.error);
+  }
+};
+
 export const deleteKey = async (uuid: string) => {
   try {
     await axiosClientProtected.delete(

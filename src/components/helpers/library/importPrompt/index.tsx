@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { toast } from 'react-toastify';
 import { useRecoilState, useResetRecoilState } from 'recoil';
@@ -116,8 +116,8 @@ const ImportPrompt: React.FC<ImportPromptProps> = ({
       }
     };
 
-    getAllWorkspaces();
-  }, [setWorkspaceState, setOptionsState, GetAllWorkspaces]);
+    if (isOpen) getAllWorkspaces();
+  }, [setWorkspaceState, setOptionsState, isOpen]);
 
   return (
     <Modal

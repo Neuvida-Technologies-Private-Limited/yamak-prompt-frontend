@@ -1,13 +1,31 @@
 import { Button, Input } from 'components/common';
-import React, { useState } from 'react';
+import { keyPaginationState } from 'middleware/state';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { KeyManagement, ButtonVariants, InputVariants } from 'utils/constants';
 
-const SearchArea = () => {
+interface SearchAreaProps {
+  onSearchKey: (input: string) => void;
+}
+
+const SearchArea: React.FC<SearchAreaProps> = ({ onSearchKey }) => {
   const [input, setInput] = useState('');
+  const [, setPagination] = useRecoilState(keyPaginationState);
 
   function formSubmitHandler(event: React.FormEvent) {
     event.preventDefault();
+
+    if (input.length === 0) return;
+
+    setPagination(old => ({ ...old, query: input, currentPage: 1 }));
+    onSearchKey(input);
   }
+
+  useEffect(() => {
+    if (input === '') {
+      setPagination(old => ({ ...old, query: '' }));
+    }
+  }, [setPagination, input]);
 
   return (
     <div className=" p-6 border-b-2 border-gray50">
