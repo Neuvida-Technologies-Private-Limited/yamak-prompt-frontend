@@ -294,3 +294,9 @@ export const KeyDetails = [
 ];
 
 export const ITEMS_PER_PAGE = 10;
+
+export const ItemsPerPageOptions = [
+  { label: '5', value: '5' },
+  { label: '10', value: '10' },
+  { label: '15', value: '15' },
+];

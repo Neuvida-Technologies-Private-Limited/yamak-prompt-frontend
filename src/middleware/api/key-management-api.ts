@@ -22,10 +22,10 @@ export const createKey = async (model: CreateKeyModal) => {
     throw new Error(err.error);
   }
 };
-export const getKeyList = async (page: number) => {
+export const getKeyList = async (page: number, itemsPerPage: number) => {
   try {
     const response = await axiosClientProtected.get(
-      `${keyManagementRoutes.KEY_LIST_ROUTE}${page}`
+      `${keyManagementRoutes.KEY_LIST_ROUTE}${page}&page_size=${itemsPerPage}`
     );
     return response.data;
   } catch (err: any) {
@@ -33,10 +33,14 @@ export const getKeyList = async (page: number) => {
   }
 };
 
-export const getSearchKeys = async (page: number, input: string) => {
+export const getSearchKeys = async (
+  page: number,
+  input: string,
+  itemsPerPage: number
+) => {
   try {
     const response = await axiosClientProtected.get(
-      `${keyManagementRoutes.KEY_LIST_ROUTE}${page}&q=${input}`
+      `${keyManagementRoutes.KEY_LIST_ROUTE}${page}&q=${input}&page_size=${itemsPerPage}`
     );
     return response;
   } catch (err: any) {

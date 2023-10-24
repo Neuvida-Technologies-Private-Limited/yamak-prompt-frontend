@@ -23,9 +23,7 @@ const SearchArea: React.FC<{ onSearchPrompt: (input: string) => void }> = ({
 
   function formSubmitHandler(event: React.FormEvent) {
     event.preventDefault();
-
     if (input.length === 0) return;
-
     setPagination(old => ({ ...old, query: input, currentPage: 1 }));
     onSearchPrompt(input);
   }
@@ -41,8 +39,11 @@ const SearchArea: React.FC<{ onSearchPrompt: (input: string) => void }> = ({
   }, [library.activeTab]);
 
   return (
-    <div className="md:flex-row md:w-1/2 justify-between items-start p-6">
-      <form onSubmit={formSubmitHandler} className="flex gap-2">
+    <div className="p-6 border-b-2 border-gray50">
+      <form
+        onSubmit={formSubmitHandler}
+        className="flex md:flex-row md:w-1/2 justify-between items-start  gap-2 "
+      >
         <Input
           id={Library.SEARCH_LIBRARY}
           name={Library.SEARCH_LIBRARY}

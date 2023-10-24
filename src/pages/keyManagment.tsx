@@ -35,13 +35,13 @@ const KeyManagment: React.FC = () => {
   const getKeys = useCallback(
     async function (currentPage: number) {
       try {
-        const res = await getKeyList(currentPage);
+        const res = await getKeyList(currentPage, pagination.itemsPerPage);
         setPaginationState(old => ({
           ...old,
           count: res.count,
           hasNext: res.next,
           hasPrevious: res.previous,
-          totalPages: Math.ceil(res.count / old.itemsPerPage),
+          totalPages: Math.ceil(res.count / pagination.itemsPerPage),
         }));
         setState(old => ({
           ...old,
@@ -51,7 +51,7 @@ const KeyManagment: React.FC = () => {
         message.error(err.message);
       }
     },
-    [setState, setPaginationState]
+    [setState, setPaginationState, pagination.itemsPerPage]
   );
 
   async function deleteKeyHandler(uuid: string) {
@@ -89,7 +89,11 @@ const KeyManagment: React.FC = () => {
   const searchKeyHandler = useCallback(
     async function (input: string) {
       try {
-        const res = await getSearchKeys(pagination.currentPage, input);
+        const res = await getSearchKeys(
+          pagination.currentPage,
+          input,
+          pagination.itemsPerPage
+        );
 
         setPaginationState(old => ({
           ...old,
@@ -102,7 +106,12 @@ const KeyManagment: React.FC = () => {
         setState(old => ({ ...old, items: res.data.results }));
       } catch (err: any) {}
     },
-    [setPaginationState, setState, pagination.currentPage]
+    [
+      setPaginationState,
+      setState,
+      pagination.currentPage,
+      pagination.itemsPerPage,
+    ]
   );
 
   useEffect(() => {

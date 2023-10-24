@@ -84,7 +84,10 @@ const App: React.FC<CreateWorkspaceProps> = ({
   useEffect(() => {
     const getKeys = async () => {
       try {
-        const res = await getKeyList(pagination.currentPage);
+        const res = await getKeyList(
+          pagination.currentPage,
+          pagination.itemsPerPage
+        );
 
         setKeyState(old => ({
           ...old,
@@ -108,7 +111,12 @@ const App: React.FC<CreateWorkspaceProps> = ({
     };
 
     getKeys();
-  }, [pagination.currentPage, setKeyState, setOptionsState]);
+  }, [
+    pagination.currentPage,
+    pagination.itemsPerPage,
+    setKeyState,
+    setOptionsState,
+  ]);
 
   return (
     <div className={className}>
