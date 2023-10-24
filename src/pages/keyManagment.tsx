@@ -77,8 +77,6 @@ const KeyManagment: React.FC = () => {
         return res;
       }
 
-      // setPaginationState(old => ({ ...old, query: '' }));
-
       await getKeys(pagination.currentPage);
       return res;
     } catch (error) {

@@ -16,6 +16,7 @@ import {
   CreateWorkspace,
   DeleteWorkspace,
   UpdateWorkspace,
+  getSearchWorkspaces,
 } from 'middleware/api';
 import {
   createWorkspaceState,
@@ -29,7 +30,7 @@ const Workspaces: React.FC = () => {
   const [pagination, setPaginationState] = useRecoilState(
     workspacePaginationState
   );
-  const { workspace_details } = state;
+  const { items } = state;
   const { title, model_key } = createState;
 
   const getAllWorkspaces = useCallback(
@@ -48,7 +49,7 @@ const Workspaces: React.FC = () => {
         );
         setState(old => ({
           ...old,
-          workspace_details: formattedWorkspaces,
+          items: formattedWorkspaces,
         }));
         setPaginationState(old => ({
           ...old,
@@ -105,37 +106,59 @@ const Workspaces: React.FC = () => {
     } catch (error) {}
   };
 
-  // const searchWorkspaceHandler = useCallback(
-  //   async function (input: string) {
-  //     try {
-  //       const res = await getSearchWorkspaces(pagination.currentPage, input);
-
-  //       setState(old => ({ ...old, items: res.data.results }));
-
-  //       setPaginationState(old => ({
-  //         ...old,
-  //         count: res.data.count,
-  //         hasNext: res.data.next,
-  //         hasPrevious: res.data.previous,
-  //         totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
-  //       }));
-  //     } catch (err: any) {}
-  //   },
-  //   [setPaginationState, setState, pagination.currentPage]
-  // );
+  const searchWorkspaceHandler = useCallback(
+    async function (input: string) {
+      try {
+        const res = await getSearchWorkspaces(pagination.currentPage, input);
+        const formattedWorkspaces = res.data.results.map(
+          (item: {
+            last_modified: moment.MomentInput;
+            timestamp: moment.MomentInput;
+          }) => ({
+            ...item,
+            last_modified: moment(item.last_modified).format('h:mm A'),
+            timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
+          })
+        );
+        setState(old => ({ ...old, items: formattedWorkspaces }));
+        setPaginationState(old => ({
+          ...old,
+          count: res.data.count,
+          hasNext: res.data.next,
+          hasPrevious: res.data.previous,
+          totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
+        }));
+      } catch (err: any) {}
+    },
+    [setPaginationState, setState, pagination.currentPage]
+  );
 
   useEffect(() => {
-    getAllWorkspaces(pagination.currentPage);
-  }, [getAllWorkspaces, pagination.currentPage]);
+    async function getDataOnLoad() {
+      try {
+        if (pagination.query.length === 0) {
+          getAllWorkspaces(pagination.currentPage);
+        } else {
+          searchWorkspaceHandler(pagination.query);
+        }
+      } catch (err) {}
+    }
+    getDataOnLoad();
+  }, [
+    getAllWorkspaces,
+    searchWorkspaceHandler,
+    pagination.query,
+    pagination.currentPage,
+  ]);
 
   return (
     <div className="flex flex-col h-screen overflow-y-scroll">
       <Header>
         <HeadingArea onCreateWorkspace={createWorkspace} />
-        <SearchArea />
+        <SearchArea onSearchWorkspace={searchWorkspaceHandler} />
       </Header>
       <CardGrid
-        items={workspace_details}
+        items={items}
         onDelete={deleteWorkspace}
         onUpdate={updateWorkspace}
         createWorkspace={createWorkspace}
