@@ -12,6 +12,7 @@ import {
 import { createKey, deleteKey, getKeyList } from 'middleware/api';
 import { keyManagementState, keyPaginationState } from 'middleware/state';
 import { CreateKeyModal } from 'middleware/api/types';
+import { ITEMS_PER_PAGE } from 'utils/constants';
 
 const KeyManagment: React.FC = () => {
   const [, setState] = useRecoilState(keyManagementState);
@@ -80,6 +81,32 @@ const KeyManagment: React.FC = () => {
       return false;
     }
   }
+
+  // const searchKeyHandler = useCallback(
+  //   async function (input: string) {
+  //     try {
+  //       const res = await getSearchKeys(
+  //         pagination.currentPage,
+  //         input
+  //       );
+
+  //       setState(old => ({ ...old, items: res.data.results }))
+
+  //       setPaginationState(old => ({
+  //         ...old,
+  //         count: res.data.count,
+  //         hasNext: res.data.next,
+  //         hasPrevious: res.data.previous,
+  //         totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
+  //       }));
+  //     } catch (err: any) {}
+  //   },
+  //   [
+  //     setPaginationState,
+  //     setState,
+  //     pagination.currentPage,
+  //   ]
+  // );
 
   useEffect(() => {
     getKeys(pagination.currentPage);

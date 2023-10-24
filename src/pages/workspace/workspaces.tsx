@@ -105,6 +105,25 @@ const Workspaces: React.FC = () => {
     } catch (error) {}
   };
 
+  // const searchWorkspaceHandler = useCallback(
+  //   async function (input: string) {
+  //     try {
+  //       const res = await getSearchWorkspaces(pagination.currentPage, input);
+
+  //       setState(old => ({ ...old, items: res.data.results }));
+
+  //       setPaginationState(old => ({
+  //         ...old,
+  //         count: res.data.count,
+  //         hasNext: res.data.next,
+  //         hasPrevious: res.data.previous,
+  //         totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
+  //       }));
+  //     } catch (err: any) {}
+  //   },
+  //   [setPaginationState, setState, pagination.currentPage]
+  // );
+
   useEffect(() => {
     getAllWorkspaces(pagination.currentPage);
   }, [getAllWorkspaces, pagination.currentPage]);
