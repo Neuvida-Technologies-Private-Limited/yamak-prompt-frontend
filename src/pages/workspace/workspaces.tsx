@@ -10,7 +10,6 @@ import {
   WorkspaceHeadingArea as HeadingArea,
   WorkspaceSearchArea as SearchArea,
 } from 'components/helpers';
-import { ITEMS_PER_PAGE } from 'utils/constants';
 import {
   getWorkspaces,
   CreateWorkspace,
@@ -36,7 +35,7 @@ const Workspaces: React.FC = () => {
   const getAllWorkspaces = useCallback(
     async function (currentPage: number) {
       try {
-        const res = await getWorkspaces(currentPage);
+        const res = await getWorkspaces(currentPage, pagination.itemsPerPage);
         const formattedWorkspaces = res.results.map(
           (item: {
             last_modified: moment.MomentInput;
@@ -56,13 +55,13 @@ const Workspaces: React.FC = () => {
           count: res.count,
           hasNext: res.next,
           hasPrevious: res.previous,
-          totalPages: Math.ceil(res.count / ITEMS_PER_PAGE),
+          totalPages: Math.ceil(res.count / pagination.itemsPerPage),
         }));
       } catch (error: any) {
         message.error(error);
       }
     },
-    [setState, setPaginationState]
+    [setState, setPaginationState, pagination.itemsPerPage]
   );
 
   const createWorkspace = async () => {
@@ -109,7 +108,11 @@ const Workspaces: React.FC = () => {
   const searchWorkspaceHandler = useCallback(
     async function (input: string) {
       try {
-        const res = await getSearchWorkspaces(pagination.currentPage, input);
+        const res = await getSearchWorkspaces(
+          pagination.currentPage,
+          input,
+          pagination.itemsPerPage
+        );
         const formattedWorkspaces = res.data.results.map(
           (item: {
             last_modified: moment.MomentInput;
@@ -126,11 +129,16 @@ const Workspaces: React.FC = () => {
           count: res.data.count,
           hasNext: res.data.next,
           hasPrevious: res.data.previous,
-          totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
+          totalPages: Math.ceil(res.data.count / pagination.itemsPerPage),
         }));
       } catch (err: any) {}
     },
-    [setPaginationState, setState, pagination.currentPage]
+    [
+      setPaginationState,
+      setState,
+      pagination.currentPage,
+      pagination.itemsPerPage,
+    ]
   );
 
   useEffect(() => {

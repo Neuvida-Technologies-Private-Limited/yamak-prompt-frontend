@@ -7,10 +7,10 @@ import {
   PublishPromptModal,
 } from './types';
 
-export const getWorkspaces = async (page?: number) => {
+export const getWorkspaces = async (page: number, itemsPerPage: number) => {
   try {
     const response = await axiosClientProtected.get(
-      `${workspaceRoutes.GET_WORKSPACES_ROUTE}${page}`
+      `${workspaceRoutes.GET_WORKSPACES_ROUTE}${page}&page_size=${itemsPerPage}`
     );
     return response.data;
   } catch (error: any) {
@@ -29,10 +29,14 @@ export const GetAllWorkspaces = async () => {
   }
 };
 
-export const getSearchWorkspaces = async (page: number, input: string) => {
+export const getSearchWorkspaces = async (
+  page: number,
+  input: string,
+  itemsPerPage: number
+) => {
   try {
     const response = await axiosClientProtected.get(
-      `${workspaceRoutes.GET_WORKSPACES_ROUTE}${page}&q=${input}`
+      `${workspaceRoutes.GET_WORKSPACES_ROUTE}${page}&q=${input}&page_size=${itemsPerPage}`
     );
     return response;
   } catch (err: any) {

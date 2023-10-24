@@ -43,10 +43,10 @@ const SearchArea: React.FC<SearchAreaProps> = ({ onSearchKey }) => {
   }, [setPagination, input]);
 
   return (
-    <div className="flex justify-between items-center p-6 border-b-2 border-gray50">
+    <div className="flex sm:flex-col md:flex-row md:justify-between md:items-center sm:items-end p-6 border-b-2 border-gray50 gap-4">
       <form
         onSubmit={formSubmitHandler}
-        className="flex md:flex-row md:w-1/2 justify-between items-start gap-2"
+        className="flex md:flex-row md:w-1/2 sm:w-full justify-between items-start gap-2"
       >
         <Input
           id={KeyManagement.KEY_SEARCH_TITLE}
