@@ -4,8 +4,9 @@ import { message } from 'antd';
 import { MdOutlineBookmark, MdOutlineBookmarkBorder } from 'react-icons/md';
 import { useRecoilState } from 'recoil';
 import { RiUploadCloudFill, RiUploadCloudLine } from 'react-icons/ri';
+import { FiTrash2 } from 'react-icons/fi';
 
-import { Button, Heading, Tooltip, Text } from 'components/common';
+import { Button, Heading, Tooltip, Text, Modal } from 'components/common';
 import {
   ButtonSizes,
   ButtonVariants,
@@ -24,6 +25,8 @@ import { Variables } from 'types';
 interface DraftProps {
   title: string;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
+  deleteHistory: (uuid: string) => Promise<void>;
+  getHistory: (currentPage: number) => Promise<void>;
   systemMessage: string;
   userMessage: string;
   uuid: string;
@@ -32,11 +35,14 @@ interface DraftProps {
   output: [];
   tags: [];
   variables: Variables;
+  currentPage: number;
 }
 
 const Drafts: React.FC<DraftProps> = ({
   title,
   onUpdatePrompt,
+  deleteHistory,
+  getHistory,
   uuid,
   bookmarked,
   systemMessage,
@@ -45,10 +51,12 @@ const Drafts: React.FC<DraftProps> = ({
   output,
   tags,
   variables,
+  currentPage,
 }) => {
   const [isBookmark, setIsBookmark] = useState(bookmarked);
   const [isPublished, setIsPublished] = useState(published);
   const [showModal, setShowModal] = useState(false);
+  const [deletePromptModal, showDeleteModal] = useState(false);
   const [, setOutputState] = useRecoilState(generateOutputState);
   const [, setRowStates] = useRecoilState(variablesRowState);
   const [, setVariableRows] = useRecoilState(variablesRowNumberState);
@@ -67,6 +75,31 @@ const Drafts: React.FC<DraftProps> = ({
     message.success(
       isBookmark ? Workspace.UnbookmarkedSuccess : Workspace.BookmarkedSuccess
     );
+    await getHistory(currentPage);
+  }
+  async function handlePublishPrompt(event: React.MouseEvent) {
+    event.stopPropagation();
+    setShowModal(true);
+  }
+  async function handleCancel(event: React.MouseEvent) {
+    event.stopPropagation();
+
+    showDeleteModal(false);
+  }
+  async function handleDeleteModal(event: React.MouseEvent) {
+    event.stopPropagation();
+    showDeleteModal(true);
+  }
+  async function handleDelete(event: React.MouseEvent) {
+    event.stopPropagation();
+
+    try {
+      await deleteHistory(uuid);
+      showDeleteModal(false);
+      message.success('Prompt deleted successfully!');
+    } catch (error) {
+      message.error('Error in deleting prompt');
+    }
   }
 
   const handleHistory: React.MouseEventHandler = () => {
@@ -99,6 +132,8 @@ const Drafts: React.FC<DraftProps> = ({
       output: output,
       tags: formattedTags,
       variables: variables,
+      uuid: uuid,
+      bookmarked: bookmarked,
     }));
     setPublishState(old => ({
       ...old,
@@ -118,9 +153,12 @@ const Drafts: React.FC<DraftProps> = ({
   }, [published]);
 
   return (
-    <div className="flex flex-col justify-between h-fit w-full py-3 border-b mb-2 p-2 transition hover:shadow">
+    <div
+      className=" cursor-pointer flex flex-col justify-between h-fit w-full py-3 border-b mb-2 p-2 transition hover:shadow"
+      onClick={handleHistory}
+    >
       <div className="w-full flex flex-row">
-        <div className="cursor-pointer w-full" onClick={handleHistory}>
+        <div className="cursor-pointer w-full">
           <Heading level={5} children={title} />
         </div>
         <div className="flex items-center gap-2">
@@ -150,7 +188,7 @@ const Drafts: React.FC<DraftProps> = ({
                   isPublished ? <RiUploadCloudFill /> : <RiUploadCloudLine />
                 }
                 size={ButtonSizes.SMALL}
-                onClick={() => setShowModal(true)}
+                onClick={handlePublishPrompt}
                 disabled={isPublished ? true : false}
               />
             }
@@ -159,11 +197,18 @@ const Drafts: React.FC<DraftProps> = ({
           />
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-full flex justify-between">
         <Text
           variant={TextVariants.SMALL}
           children={published ? Workspace.Published : ''}
           className="!text-secondary400"
+        />
+        <Button
+          variant={ButtonVariants.OUTLINED_LIGHT}
+          // icon={<FiTrash2 />}
+          size={ButtonSizes.SMALL}
+          name={'Delete'}
+          onClick={handleDeleteModal}
         />
       </div>
       <PublishPromptModal
@@ -174,6 +219,16 @@ const Drafts: React.FC<DraftProps> = ({
         userMessage={userMessage}
         uuid={uuid}
         heading={title}
+      />
+      <Modal
+        title={'Are you sure you want to delete this prompt?'}
+        centered={true}
+        isOpen={deletePromptModal}
+        cancelModalHandler={handleCancel}
+        sumbitHandler={handleDelete}
+        okText="Yes"
+        cancelText="No"
+        closeIcon={false}
       />
     </div>
   );

@@ -6,6 +6,7 @@ import { Button, Input, Text } from 'components/common';
 import {
   ButtonSizes,
   ButtonVariants,
+  InputVariants,
   TextVariants,
   Workspace,
 } from 'utils/constants';
@@ -55,8 +56,14 @@ const AddVariable: React.FC<AddVariableProps> = () => {
     setRowStates(newStates);
   };
   const handleSaveVariables = () => {
+    debugger;
     const newVariables = { ...variables };
     let hasError = false;
+
+    if (rowStates.length === 0) {
+      message.warning('No variables added');
+      return;
+    }
 
     rowStates.forEach(rowState => {
       const { variableName, variableValue } = rowState;
@@ -110,7 +117,7 @@ const AddVariable: React.FC<AddVariableProps> = () => {
                   name={`variableName-${rowId}`}
                   placeholder={'Enter Variable'}
                   onChange={value => handleVariableNameChange(value, rowId)}
-                  variant={'default'}
+                  variant={InputVariants.Default}
                   value={rowStates[rowId].variableName}
                 />
                 <Input
@@ -118,7 +125,7 @@ const AddVariable: React.FC<AddVariableProps> = () => {
                   name={`variableValue-${rowId}`}
                   placeholder={'Enter Value'}
                   onChange={value => handleVariableValueChange(value, rowId)}
-                  variant={'default'}
+                  variant={InputVariants.Default}
                   value={rowStates[rowId].variableValue}
                 />
               </div>

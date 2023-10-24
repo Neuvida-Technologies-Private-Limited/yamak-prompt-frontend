@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { message } from 'antd';
 import Typewriter from 'typewriter-effect';
@@ -15,13 +15,17 @@ import { generateOutputState } from 'middleware/state';
 interface OutputSectionProps {
   generateOutput: (event: { preventDefault: () => void }) => Promise<void>;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
+  getHistory: (currentPage: number) => Promise<void>;
+  currentPage: number;
   bookmarked: boolean;
 }
 
 const OutputSection: React.FC<OutputSectionProps> = ({
   generateOutput,
   onUpdatePrompt,
+  getHistory,
   bookmarked,
+  currentPage,
 }) => {
   const [outputState, setOutputState] = useRecoilState(generateOutputState);
   const [isBookmark, setIsBookmark] = useState(bookmarked);
@@ -43,6 +47,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({
 
   async function handleBookmark(event: React.MouseEvent) {
     event.stopPropagation();
+
     setIsBookmark(prev => !prev);
     const updateObj = {
       bookmarked: !isBookmark,
@@ -54,7 +59,12 @@ const OutputSection: React.FC<OutputSectionProps> = ({
     message.success(
       isBookmark ? Workspace.UnbookmarkedSuccess : Workspace.BookmarkedSuccess
     );
+    await getHistory(currentPage);
   }
+
+  useEffect(() => {
+    setIsBookmark(bookmarked);
+  }, [bookmarked]);
 
   return (
     <div className="flex flex-col max-h-full h-full">
