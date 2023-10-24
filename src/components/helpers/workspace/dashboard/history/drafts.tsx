@@ -154,18 +154,17 @@ const Drafts: React.FC<DraftProps> = ({
 
   return (
     <div
-      className=" cursor-pointer flex flex-col justify-between h-fit w-full py-3 border-b mb-2 p-2 transition hover:shadow"
+      className=" cursor-pointer flex flex-col justify-between h-fit w-full py-2 border-b mb-2  transition hover:shadow"
       onClick={handleHistory}
     >
-      <div className="w-full flex flex-row">
-        <div className="cursor-pointer w-full">
-          <Heading level={5} children={title} />
-        </div>
+      <div className="w-full flex flex-row justify-between items-center px-2">
+        <Heading level={5} children={title} />
         <div className="flex items-center gap-2">
           <Tooltip
             element={
               <Button
                 variant={ButtonVariants.SECONDARY}
+                className="!w-8 !h-8"
                 icon={
                   isBookmark ? (
                     <MdOutlineBookmark />
@@ -183,7 +182,8 @@ const Drafts: React.FC<DraftProps> = ({
           <Tooltip
             element={
               <Button
-                variant={ButtonVariants.OUTLINED_LIGHT}
+                variant={ButtonVariants.DEFAULT}
+                className="!w-8 !h-8"
                 icon={
                   isPublished ? <RiUploadCloudFill /> : <RiUploadCloudLine />
                 }
@@ -197,18 +197,17 @@ const Drafts: React.FC<DraftProps> = ({
           />
         </div>
       </div>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between items-center pr-2">
+        <Button
+          variant={ButtonVariants.WARNING}
+          size={ButtonSizes.SMALL}
+          name={'Delete'}
+          onClick={handleDeleteModal}
+        />
         <Text
           variant={TextVariants.SMALL}
           children={published ? Workspace.Published : ''}
           className="!text-secondary400"
-        />
-        <Button
-          variant={ButtonVariants.OUTLINED_LIGHT}
-          // icon={<FiTrash2 />}
-          size={ButtonSizes.SMALL}
-          name={'Delete'}
-          onClick={handleDeleteModal}
         />
       </div>
       <PublishPromptModal

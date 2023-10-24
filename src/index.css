@@ -35,7 +35,8 @@
   --gray-100: #dddddd;
   --gray-50: #f3f3f3;
   --white: #ffffff;
-  --error-color: #ff5050;
+  --error-color: #ff4242;
+  --error-light-color: #ffbcbc81;
 }
 
 @layer components {

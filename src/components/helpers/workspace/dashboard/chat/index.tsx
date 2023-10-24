@@ -71,7 +71,13 @@ const Chat = () => {
         isLoading: false,
         chats: [...old.chats, res.data],
       }));
-      setChatOutputState(old => ({ ...old, user_message: '' }));
+      const formattedTags = res.data.tags.map((tag: any) => tag).join(', ');
+
+      setChatOutputState(old => ({
+        ...old,
+        user_message: '',
+        tags: formattedTags,
+      }));
     } catch (err) {}
   }
 
@@ -93,6 +99,13 @@ const Chat = () => {
           hasNext: res.data.next,
           hasPrevious: res.data.previous,
           totalPages: Math.ceil(res.data.count / ITEMS_PER_PAGE),
+        }));
+        const tagsArray = res.data.results.map((result: any) => result.tags);
+        const allTags = tagsArray.flat().join(', ');
+
+        setChatOutputState(old => ({
+          ...old,
+          tags: allTags,
         }));
       } catch (error: any) {}
     },
