@@ -11,15 +11,14 @@ interface KeysGridProps {
 }
 
 const KeysGrid: React.FC<KeysGridProps> = ({ onDeleteKey }) => {
-  const [keyState] = useRecoilState(keyManagementState);
-  const { results } = keyState;
+  const [{ items }] = useRecoilState(keyManagementState);
 
-  return results.length === 0 ? (
+  return items.length === 0 ? (
     <EmptyKeyManagement />
   ) : (
     <>
-      <div className="flex flex-col gap-y-10 px-6 py-8 bg-gray50">
-        {results.map((item, index) => (
+      <div className="flex flex-col gap-y-10 px-6 py-8 ">
+        {items.map((item, index) => (
           <KeyItem
             key={`key-management-input-${index}`}
             uuid={item.uuid}

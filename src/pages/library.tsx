@@ -18,7 +18,7 @@ import {
   getAllFavouritePrompts,
   getAllPrompts,
   getPromptInfo,
-  getSearchPromptInfo,
+  getSearchPrompts,
   updatePromptInfo,
 } from 'middleware/api/library-api';
 import {
@@ -106,7 +106,7 @@ const Library = () => {
         if (items.length === 0 && activeTab === '1') return;
         if (filteredItems.length === 0 && activeTab === '2') return;
 
-        const res = await getSearchPromptInfo(
+        const res = await getSearchPrompts(
           pagination.currentPage,
           input,
           activeTab === '2'

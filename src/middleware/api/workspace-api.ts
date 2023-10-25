@@ -7,16 +7,17 @@ import {
   PublishPromptModal,
 } from './types';
 
-export const getWorkspaces = async (page?: number) => {
+export const getWorkspaces = async (page: number, itemsPerPage: number) => {
   try {
     const response = await axiosClientProtected.get(
-      `${workspaceRoutes.GET_WORKSPACES_ROUTE}${page}`
+      `${workspaceRoutes.GET_WORKSPACES_ROUTE}${page}&page_size=${itemsPerPage}`
     );
     return response.data;
   } catch (error: any) {
     return error;
   }
 };
+
 export const GetAllWorkspaces = async () => {
   try {
     const response = await axiosClientProtected.get(
@@ -27,6 +28,22 @@ export const GetAllWorkspaces = async () => {
     return error;
   }
 };
+
+export const getSearchWorkspaces = async (
+  page: number,
+  input: string,
+  itemsPerPage: number
+) => {
+  try {
+    const response = await axiosClientProtected.get(
+      `${workspaceRoutes.GET_WORKSPACES_ROUTE}${page}&q=${input}&page_size=${itemsPerPage}`
+    );
+    return response;
+  } catch (err: any) {
+    throw new Error(err.error);
+  }
+};
+
 export const CreateWorkspace = async (model: CreateWorkspaceModal) => {
   try {
     const response = await axiosClientProtected.post(
@@ -38,6 +55,7 @@ export const CreateWorkspace = async (model: CreateWorkspaceModal) => {
     return error;
   }
 };
+
 export const getWorkspace = async (id: string | undefined) => {
   try {
     const res = await axiosClientProtected.get(
@@ -49,6 +67,7 @@ export const getWorkspace = async (id: string | undefined) => {
     return error;
   }
 };
+
 export const DeleteWorkspace = async (id: string) => {
   await axiosClientProtected
     .delete(`${workspaceRoutes.DELETE_WORKSPACE_ROUTE}${id}/`)
@@ -57,6 +76,7 @@ export const DeleteWorkspace = async (id: string) => {
       return Promise.reject(error);
     });
 };
+
 export const GenerateOutput = async (modal: GenerateOutputModal) => {
   try {
     const response = await axiosClientProtected.post(
@@ -68,6 +88,7 @@ export const GenerateOutput = async (modal: GenerateOutputModal) => {
     return error;
   }
 };
+
 export const GetWorkspaceHistory = async (
   id: string | undefined,
   page: number,
@@ -82,6 +103,7 @@ export const GetWorkspaceHistory = async (
     return error;
   }
 };
+
 export const UpdateWorkspace = async (update: any, id: string) => {
   try {
     const response = await axiosClientProtected.patch(
@@ -93,6 +115,7 @@ export const UpdateWorkspace = async (update: any, id: string) => {
     return Promise.reject(err);
   }
 };
+
 export const PublishPromptWorkspace = async (modal: PublishPromptModal) => {
   try {
     const response = await axiosClientProtected.post(
@@ -104,6 +127,7 @@ export const PublishPromptWorkspace = async (modal: PublishPromptModal) => {
     return error;
   }
 };
+
 export const getSearchWorkspaceHistory = async (
   id: string,
   page: number,

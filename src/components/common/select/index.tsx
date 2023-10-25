@@ -20,8 +20,6 @@ interface SelectProps {
   error?: string;
 }
 
-const handleChange = (value: string) => {};
-
 const select: React.FC<SelectProps> = ({
   options,
   className,
