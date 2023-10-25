@@ -49,7 +49,7 @@ export const getPromptInfo = async (id: string) => {
   }
 };
 
-export const getSearchPromptInfo = async (
+export const getSearchPrompts = async (
   page: number = 1,
   input: string,
   favourite?: boolean,

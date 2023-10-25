@@ -208,9 +208,9 @@ export enum LibraryCard {
 }
 
 export enum ModalContent {
-  NoUserMessage = 'No user message',
-  NoSystemMessage = 'No system message',
-  NoSampleOutput = 'No sample output',
+  NO_USER_MESSAGE = 'No user message',
+  NO_SYSTEM_MESSAGE = 'No system message',
+  NO_PROMPT_OUTPUT = 'No sample output',
 }
 
 export enum Label {
@@ -295,3 +295,9 @@ export const KeyDetails = [
 ];
 
 export const ITEMS_PER_PAGE = 10;
+
+export const ItemsPerPageOptions = [
+  { label: '5', value: '5' },
+  { label: '10', value: '10' },
+  { label: '15', value: '15' },
+];

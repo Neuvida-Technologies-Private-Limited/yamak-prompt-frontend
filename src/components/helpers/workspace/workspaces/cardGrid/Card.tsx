@@ -85,45 +85,45 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
   ];
 
   return (
-    <div className="font-poppins p-4 bg-white rounded-lg flex flex-col justify-between gap-2 hover:shadow-md transition-all duration-300 ease-in-out">
-      <div className="flex justify-between items-start h-full py-2">
-        <div className="flex items-center gap-1 h-full">
-          <div className="w-1.5 bg-secondary rounded-xl h-12" />
-          <div className="flex flex-col h-full px-2">
-            <Link to={`/home/workspace/${id}`} onClick={handleLinkClick}>
-              <h1 className="font-bold text-base md:text-lg text-black hover:text-primary">
+    <Link to={`/home/workspace/${id}`} onClick={handleLinkClick}>
+      <div className="font-poppins p-4 bg-white rounded-lg flex flex-col justify-between gap-4 hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-in-out">
+        <div className="flex justify-between items-start h-full py-2">
+          <div className="flex items-center gap-1 h-full">
+            <div className="w-1.5 bg-secondary rounded-xl h-12" />
+            <div className="flex flex-col h-full px-2">
+              <h1 className="font-bold text-base md:text-lg text-black">
                 {heading}
               </h1>
-            </Link>
-            <h3 className="text-gray500 font-light">{createdOn}</h3>
+              <h3 className="text-gray500 font-light">{createdOn}</h3>
+            </div>
+          </div>
+          <Dropdown items={items}>
+            <BsThreeDots size={24} />
+          </Dropdown>
+        </div>
+        <div className="flex flex-col text-xs text-gray900 font-light">
+          <div className="flex justify-between sm:flex-col md:flex-row">
+            <p className="pl-1">{createdBy}</p>
+            <p className="">
+              <b>{Workspace.LastEdited}</b> {last_edited}
+            </p>
           </div>
         </div>
-        <Dropdown items={items}>
-          <BsThreeDots size={24} />
-        </Dropdown>
+        <DeleteModal
+          showModal={showModal}
+          onDelete={handleDeleteWorkspace}
+          setShowModal={setShowModal}
+        />
+        <UpdateModal
+          showModal={showUpdateModal}
+          setShowModal={setShowUpdateModal}
+          heading={heading}
+          modelKey={model_key}
+          updateWorkspace={onUpdate}
+          id={id}
+        />
       </div>
-      <div className="flex flex-col text-xs text-gray900 font-light">
-        <div className="flex justify-between sm:flex-col md:flex-row">
-          <p className="pl-1">{createdBy}</p>
-          <p className="">
-            <b>{Workspace.LastEdited}</b> {last_edited}
-          </p>
-        </div>
-      </div>
-      <DeleteModal
-        showModal={showModal}
-        onDelete={handleDeleteWorkspace}
-        setShowModal={setShowModal}
-      />
-      <UpdateModal
-        showModal={showUpdateModal}
-        setShowModal={setShowUpdateModal}
-        heading={heading}
-        modelKey={model_key}
-        updateWorkspace={onUpdate}
-        id={id}
-      />
-    </div>
+    </Link>
   );
 };
 

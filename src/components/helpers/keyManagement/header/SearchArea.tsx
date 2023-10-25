@@ -1,17 +1,53 @@
-import { Button, Input } from 'components/common';
-import React, { useState } from 'react';
-import { KeyManagement, ButtonVariants, InputVariants } from 'utils/constants';
+import React, { useEffect, useState } from 'react';
 
-const SearchArea = () => {
+import { useRecoilState } from 'recoil';
+
+import { Button, Input, Select } from 'components/common';
+import { keyPaginationState } from 'middleware/state';
+import {
+  KeyManagement,
+  ButtonVariants,
+  InputVariants,
+  ItemsPerPageOptions,
+} from 'utils/constants';
+
+interface SearchAreaProps {
+  onSearchKey: (input: string) => void;
+}
+
+const SearchArea: React.FC<SearchAreaProps> = ({ onSearchKey }) => {
   const [input, setInput] = useState('');
+  const [{ itemsPerPage }, setPagination] = useRecoilState(keyPaginationState);
 
   function formSubmitHandler(event: React.FormEvent) {
     event.preventDefault();
+
+    if (input.length === 0) return;
+
+    setPagination(old => ({ ...old, query: input, currentPage: 1 }));
+    onSearchKey(input);
   }
 
+  function itemsPerPageChangeHandler(value: string) {
+    setPagination(old => ({
+      ...old,
+      currentPage: 1,
+      itemsPerPage: Number(value),
+    }));
+  }
+
+  useEffect(() => {
+    if (input === '') {
+      setPagination(old => ({ ...old, query: '' }));
+    }
+  }, [setPagination, input]);
+
   return (
-    <div className="md:flex-row md:w-1/2 justify-between items-start p-6">
-      <form onSubmit={formSubmitHandler} className="flex gap-2">
+    <div className="flex sm:flex-col md:flex-row md:justify-between md:items-center sm:items-end p-6 border-b-2 border-gray50 gap-4">
+      <form
+        onSubmit={formSubmitHandler}
+        className="flex md:flex-row md:w-1/2 sm:w-full justify-between items-start gap-2"
+      >
         <Input
           id={KeyManagement.KEY_SEARCH_TITLE}
           name={KeyManagement.KEY_SEARCH_TITLE}
@@ -27,6 +63,15 @@ const SearchArea = () => {
           htmlType="submit"
         />
       </form>
+
+      <div className="flex items-center gap-2">
+        <label className="text-gray900">Items</label>
+        <Select
+          onChange={itemsPerPageChangeHandler}
+          value={String(itemsPerPage)}
+          options={ItemsPerPageOptions}
+        />
+      </div>
     </div>
   );
 };

@@ -46,24 +46,24 @@ const ModalContent: React.FC<ContentProps> = ({ id, onPromptInfo }) => {
       </div>
       <div className="mt-2 mb-4">
         <Text variant={TextVariants.MEDIUM}>
-          {modalContent.data.user_message || ModalConst.NoUserMessage}
+          {modalContent.data.user_message || ModalConst.NO_USER_MESSAGE}
         </Text>
       </div>
       <Heading level={5}>Prompt</Heading>
       <div className="flex flex-col gap-2 bg-gray50 rounded-md p-4 mb-6">
         <p className="font-bold">System: </p>
         <Text variant={TextVariants.SMALL}>
-          {modalContent.data.system_message || ModalConst.NoSystemMessage}
+          {modalContent.data.system_message || ModalConst.NO_SYSTEM_MESSAGE}
         </Text>
         <p className="font-bold">User: </p>
         <Text variant={TextVariants.SMALL}>
-          {modalContent.data.user_message || ModalConst.NoUserMessage}
+          {modalContent.data.user_message || ModalConst.NO_USER_MESSAGE}
         </Text>
       </div>
       <div className="mb-8">
         <Heading level={5}>Sample Answer</Heading>
         <Text variant={TextVariants.SMALL} className="text-secondary">
-          {modalContent.data.sample_output || ModalConst.NoSampleOutput}
+          {modalContent.data.sample_output || ModalConst.NO_PROMPT_OUTPUT}
         </Text>
       </div>
     </>

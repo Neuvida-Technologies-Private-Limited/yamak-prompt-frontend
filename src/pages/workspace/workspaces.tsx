@@ -10,12 +10,12 @@ import {
   WorkspaceHeadingArea as HeadingArea,
   WorkspaceSearchArea as SearchArea,
 } from 'components/helpers';
-import { ITEMS_PER_PAGE } from 'utils/constants';
 import {
   getWorkspaces,
   CreateWorkspace,
   DeleteWorkspace,
   UpdateWorkspace,
+  getSearchWorkspaces,
 } from 'middleware/api';
 import {
   createWorkspaceState,
@@ -29,13 +29,13 @@ const Workspaces: React.FC = () => {
   const [pagination, setPaginationState] = useRecoilState(
     workspacePaginationState
   );
-  const { workspace_details } = state;
+  const { items } = state;
   const { title, model_key } = createState;
 
   const getAllWorkspaces = useCallback(
     async function (currentPage: number) {
       try {
-        const res = await getWorkspaces(currentPage);
+        const res = await getWorkspaces(currentPage, pagination.itemsPerPage);
         const formattedWorkspaces = res.results.map(
           (item: {
             last_modified: moment.MomentInput;
@@ -48,20 +48,20 @@ const Workspaces: React.FC = () => {
         );
         setState(old => ({
           ...old,
-          workspace_details: formattedWorkspaces,
+          items: formattedWorkspaces,
         }));
         setPaginationState(old => ({
           ...old,
           count: res.count,
           hasNext: res.next,
           hasPrevious: res.previous,
-          totalPages: Math.ceil(res.count / ITEMS_PER_PAGE),
+          totalPages: Math.ceil(res.count / pagination.itemsPerPage),
         }));
       } catch (error: any) {
         message.error(error);
       }
     },
-    [setState, setPaginationState]
+    [setState, setPaginationState, pagination.itemsPerPage]
   );
 
   const createWorkspace = async () => {
@@ -105,18 +105,68 @@ const Workspaces: React.FC = () => {
     } catch (error) {}
   };
 
+  const searchWorkspaceHandler = useCallback(
+    async function (input: string) {
+      try {
+        const res = await getSearchWorkspaces(
+          pagination.currentPage,
+          input,
+          pagination.itemsPerPage
+        );
+        const formattedWorkspaces = res.data.results.map(
+          (item: {
+            last_modified: moment.MomentInput;
+            timestamp: moment.MomentInput;
+          }) => ({
+            ...item,
+            last_modified: moment(item.last_modified).format('h:mm A'),
+            timestamp: moment(item.timestamp).format('Do MMMM YYYY'),
+          })
+        );
+        setState(old => ({ ...old, items: formattedWorkspaces }));
+        setPaginationState(old => ({
+          ...old,
+          count: res.data.count,
+          hasNext: res.data.next,
+          hasPrevious: res.data.previous,
+          totalPages: Math.ceil(res.data.count / pagination.itemsPerPage),
+        }));
+      } catch (err: any) {}
+    },
+    [
+      setPaginationState,
+      setState,
+      pagination.currentPage,
+      pagination.itemsPerPage,
+    ]
+  );
+
   useEffect(() => {
-    getAllWorkspaces(pagination.currentPage);
-  }, [getAllWorkspaces, pagination.currentPage]);
+    async function getDataOnLoad() {
+      try {
+        if (pagination.query.length === 0) {
+          getAllWorkspaces(pagination.currentPage);
+        } else {
+          searchWorkspaceHandler(pagination.query);
+        }
+      } catch (err) {}
+    }
+    getDataOnLoad();
+  }, [
+    getAllWorkspaces,
+    searchWorkspaceHandler,
+    pagination.query,
+    pagination.currentPage,
+  ]);
 
   return (
     <div className="flex flex-col h-screen overflow-y-scroll">
       <Header>
         <HeadingArea onCreateWorkspace={createWorkspace} />
-        <SearchArea />
+        <SearchArea onSearchWorkspace={searchWorkspaceHandler} />
       </Header>
       <CardGrid
-        items={workspace_details}
+        items={items}
         onDelete={deleteWorkspace}
         onUpdate={updateWorkspace}
         createWorkspace={createWorkspace}

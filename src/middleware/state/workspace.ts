@@ -19,7 +19,7 @@ export const keyOptionsState = atom({
 export const workspaceState = atom({
   key: 'workspace-state',
   default: {
-    workspace_details: [] as WorkspaceDetailsType[],
+    items: [] as WorkspaceDetailsType[],
   },
 });
 

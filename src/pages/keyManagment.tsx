@@ -9,7 +9,12 @@ import {
   KeySearchArea as SearchArea,
   KeysGrid as Grid,
 } from 'components/helpers';
-import { createKey, deleteKey, getKeyList } from 'middleware/api';
+import {
+  createKey,
+  deleteKey,
+  getKeyList,
+  getSearchKeys,
+} from 'middleware/api';
 import { keyManagementState, keyPaginationState } from 'middleware/state';
 import { CreateKeyModal } from 'middleware/api/types';
 
@@ -30,23 +35,23 @@ const KeyManagment: React.FC = () => {
   const getKeys = useCallback(
     async function (currentPage: number) {
       try {
-        const res = await getKeyList(currentPage);
+        const res = await getKeyList(currentPage, pagination.itemsPerPage);
         setPaginationState(old => ({
           ...old,
           count: res.count,
           hasNext: res.next,
           hasPrevious: res.previous,
-          totalPages: Math.ceil(pagination.count / pagination.itemsPerPage),
+          totalPages: Math.ceil(res.count / pagination.itemsPerPage),
         }));
         setState(old => ({
           ...old,
-          results: res.results,
+          items: res.results,
         }));
       } catch (err: any) {
         message.error(err.message);
       }
     },
-    [setState, setPaginationState, pagination.count, pagination.itemsPerPage]
+    [setState, setPaginationState, pagination.itemsPerPage]
   );
 
   async function deleteKeyHandler(uuid: string) {
@@ -81,15 +86,52 @@ const KeyManagment: React.FC = () => {
     }
   }
 
+  const searchKeyHandler = useCallback(
+    async function (input: string) {
+      try {
+        const res = await getSearchKeys(
+          pagination.currentPage,
+          input,
+          pagination.itemsPerPage
+        );
+
+        setPaginationState(old => ({
+          ...old,
+          count: res.data.count,
+          hasNext: res.data.next,
+          hasPrevious: res.data.previous,
+          totalPages: Math.ceil(res.data.count / old.itemsPerPage),
+        }));
+
+        setState(old => ({ ...old, items: res.data.results }));
+      } catch (err: any) {}
+    },
+    [
+      setPaginationState,
+      setState,
+      pagination.currentPage,
+      pagination.itemsPerPage,
+    ]
+  );
+
   useEffect(() => {
-    getKeys(pagination.currentPage);
-  }, [getKeys, pagination.currentPage]);
+    async function getDataOnLoad() {
+      try {
+        if (pagination.query.length === 0) {
+          getKeys(pagination.currentPage);
+        } else {
+          searchKeyHandler(pagination.query);
+        }
+      } catch (err) {}
+    }
+    getDataOnLoad();
+  }, [getKeys, pagination.currentPage, searchKeyHandler, pagination.query]);
 
   return (
     <div className="flex flex-col font-poppins">
       <Header>
         <HeadingArea onCreateKey={createKeyHandler} />
-        <SearchArea />
+        <SearchArea onSearchKey={searchKeyHandler} />
       </Header>
       <Grid onDeleteKey={deleteKeyHandler} />
     </div>
