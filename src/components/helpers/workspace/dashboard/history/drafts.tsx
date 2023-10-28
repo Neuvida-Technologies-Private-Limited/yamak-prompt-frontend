@@ -103,6 +103,7 @@ const Drafts: React.FC<DraftProps> = ({
   }
 
   const handleHistory: React.MouseEventHandler = () => {
+    debugger;
     const formattedTags = tags.map(tag => tag).join(', ');
     if (Object.keys(variables).length > 0) {
       const newStates = [];
@@ -119,9 +120,8 @@ const Drafts: React.FC<DraftProps> = ({
 
       setRowStates(newStates);
     } else {
-      const nullStates = [{ variableValue: '', variableName: '' }];
       setVariableRows([]);
-      setRowStates(nullStates);
+      setRowStates([]);
     }
 
     setOutputState(old => ({

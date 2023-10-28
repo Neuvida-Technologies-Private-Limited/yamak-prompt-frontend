@@ -63,17 +63,17 @@ const AddVariable: React.FC<AddVariableProps> = () => {
     if (rowStates.length === 0) {
       message.warning('No variables added');
       return;
+    } else {
+      rowStates.forEach(rowState => {
+        const { variableName, variableValue } = rowState;
+
+        if (variableName && variableValue) {
+          newVariables[variableName] = variableValue;
+        } else {
+          hasError = true;
+        }
+      });
     }
-
-    rowStates.forEach(rowState => {
-      const { variableName, variableValue } = rowState;
-
-      if (variableName && variableValue) {
-        newVariables[variableName] = variableValue;
-      } else {
-        hasError = true;
-      }
-    });
 
     if (hasError) {
       message.error(
