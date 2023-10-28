@@ -103,7 +103,6 @@ const Drafts: React.FC<DraftProps> = ({
   }
 
   const handleHistory: React.MouseEventHandler = () => {
-    debugger;
     const formattedTags = tags.map(tag => tag).join(', ');
     if (Object.keys(variables).length > 0) {
       const newStates = [];

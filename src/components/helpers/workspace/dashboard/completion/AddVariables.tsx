@@ -56,7 +56,6 @@ const AddVariable: React.FC<AddVariableProps> = () => {
     setRowStates(newStates);
   };
   const handleSaveVariables = () => {
-    debugger;
     const newVariables = { ...variables };
     let hasError = false;
 
