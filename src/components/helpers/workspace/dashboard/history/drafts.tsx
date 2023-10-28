@@ -119,9 +119,8 @@ const Drafts: React.FC<DraftProps> = ({
 
       setRowStates(newStates);
     } else {
-      const nullStates = [{ variableValue: '', variableName: '' }];
       setVariableRows([]);
-      setRowStates(nullStates);
+      setRowStates([]);
     }
 
     setOutputState(old => ({

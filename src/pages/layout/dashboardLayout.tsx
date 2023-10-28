@@ -33,7 +33,7 @@ const DashboardLayout: React.FC = () => {
       <MobileNavbar />
       <Layout hasSider>
         <DesktopSidebar />
-        <Content className="bg-white !max-h-screen">
+        <Content className="bg-white !max-h-screen  overflow-y-scroll">
           <Outlet />
         </Content>
       </Layout>

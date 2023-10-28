@@ -160,7 +160,7 @@ const Workspaces: React.FC = () => {
   ]);
 
   return (
-    <div className="flex flex-col h-screen overflow-y-scroll">
+    <div className="flex flex-col h-screen">
       <Header>
         <HeadingArea onCreateWorkspace={createWorkspace} />
         <SearchArea onSearchWorkspace={searchWorkspaceHandler} />

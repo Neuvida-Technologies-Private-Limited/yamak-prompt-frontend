@@ -43,7 +43,13 @@ const PublishPrompt: React.FC<PublishPromptProps> = ({
     setShowModal(false);
   }
 
-  const handlePublishPrompt = async (uuid: string, is_public: boolean) => {
+  const handlePublishPrompt = async (
+    event: React.MouseEvent,
+    uuid: string,
+    is_public: boolean
+  ) => {
+    event.stopPropagation();
+
     const publishPromptParams = {
       uuid,
       is_public,
@@ -90,7 +96,7 @@ const PublishPrompt: React.FC<PublishPromptProps> = ({
         isOpen={showModal}
         cancelModalHandler={handleCancel}
         okText={Workspace.Publish}
-        sumbitHandler={() => handlePublishPrompt(uuid, is_public)}
+        sumbitHandler={e => handlePublishPrompt(e, uuid, is_public)}
         className="keyManagement"
       >
         <>
