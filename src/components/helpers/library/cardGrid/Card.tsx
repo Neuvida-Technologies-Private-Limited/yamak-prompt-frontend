@@ -33,6 +33,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
   onPromptInfo,
   onUpdatePrompt,
   system_message,
+  variables,
 }) => {
   const [promptInfoModal, showPromptInfoModal] = useState<boolean>(false);
   const [importPromptModal, showImportPromptModal] = useState<boolean>(false);
@@ -236,6 +237,7 @@ const LibraryCard: React.FC<CardItemProps> = ({
         promptID={uuid}
         bookmarked={bookmarked}
         sample_output={[]}
+        variables={variables}
       />
     </>
   );

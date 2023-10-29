@@ -9,11 +9,14 @@ import {
   workspaceState,
   importPromptState,
   generateOutputState,
+  variablesRowState,
+  variablesRowNumberState,
 } from 'middleware/state';
 import { ButtonVariants, Paths, TextVariants } from 'utils/constants';
 import { GetAllWorkspaces } from 'middleware/api';
 import { Link, useNavigate } from 'react-router-dom';
 import { isWorkspaceIDValidated } from 'utils/validations';
+import { Variables } from 'types';
 
 interface ImportPromptProps {
   isOpen: boolean;
@@ -25,6 +28,7 @@ interface ImportPromptProps {
   promptID: string;
   bookmarked: boolean;
   sample_output: [];
+  variables: Variables;
 }
 
 const ImportPrompt: React.FC<ImportPromptProps> = ({
@@ -37,6 +41,7 @@ const ImportPrompt: React.FC<ImportPromptProps> = ({
   promptID,
   bookmarked,
   sample_output,
+  variables,
 }) => {
   const navigate = useNavigate();
 
@@ -44,6 +49,8 @@ const ImportPrompt: React.FC<ImportPromptProps> = ({
   const [, setOutputState] = useRecoilState(generateOutputState);
   const [importState, setImportState] = useRecoilState(importPromptState);
   const [, setWorkspaceState] = useRecoilState(workspaceState);
+  const [, setRowStates] = useRecoilState(variablesRowState);
+  const [, setVariableRows] = useRecoilState(variablesRowNumberState);
 
   const resetImportPromptState = useResetRecoilState(importPromptState);
 
@@ -66,6 +73,26 @@ const ImportPrompt: React.FC<ImportPromptProps> = ({
       return;
     }
     const formattedTags = tags.map(tag => tag).join(', ');
+
+    if (Object.keys(variables).length > 0) {
+      const newStates = [];
+
+      for (const variableName in variables) {
+        if (Object.prototype.hasOwnProperty.call(variables, variableName)) {
+          const variableValue = variables[variableName];
+          newStates.push({ variableName, variableValue });
+        }
+
+        // Update variableRows based on the number of newStates
+        setVariableRows([...Array(newStates.length).keys()]);
+      }
+
+      setRowStates(newStates);
+    } else {
+      setVariableRows([]);
+      setRowStates([]);
+    }
+
     setOutputState(old => ({
       ...old,
       title: promptTitle,

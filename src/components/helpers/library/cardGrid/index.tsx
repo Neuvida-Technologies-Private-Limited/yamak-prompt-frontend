@@ -40,6 +40,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
             onPromptInfo={onPromptInfo}
             onUpdatePrompt={onUpdatePrompt}
             system_message={item.system_message}
+            variables={item.variables}
           />
         ))}
       </div>

@@ -14,6 +14,7 @@ export type LibraryCardItem = {
   onDeletePrompt: (id: string) => Promise<any>;
   onPromptInfo: (id: string) => Promise<any>;
   onUpdatePrompt: (update: any, id: string) => Promise<any>;
+  variables: Variables;
 };
 
 export type LibraryGetPromptInfoModal = {
